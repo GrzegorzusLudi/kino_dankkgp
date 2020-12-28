@@ -198,32 +198,85 @@ function detectWebGL(){
     var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
     return gl && gl instanceof WebGLRenderingContext
 }
-function init(){
+function postOnChat(message){
+    let chatField = document.getElementById("chatfield")
+    const xhr = new XMLHttpRequest()
     
+    xhr.addEventListener("load", e => {
+        if (xhr.status === 200) {
+            chatField.value = ""
+        }
+    });
+
+    xhr.addEventListener("error", e => {
+        alert("Niestety nie udało się nawiązać połączenia")
+    });
+
+    xhr.open("POST", "/post", true)
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.send(JSON.stringify({message:message}))
+    
+}
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ }
+const CHAT_UPDATE = 1000
+function getChat(scrollDown){
+    let chat = document.getElementById("chat")
+    let chatContents = document.getElementById("chatcontents")
+    
+    const xhr = new XMLHttpRequest()
+    
+    xhr.addEventListener("load", e => {
+        if (xhr.status === 200) {
+            var messages = JSON.parse(xhr.responseText).messages
+            chatContents.innerHTML = ""
+            var date = new Date()
+            for(var i in messages){
+                var message = messages[i]
+                chatContents.innerHTML += '<div class="smalltext">' + message.date + '</div>' +
+                                '<div class="biggertext">' + escapeHtml(message.message) + '</div>'
+            }
+            if(scrollDown || chat.scrollTop + chat.clientHeight >= chat.scrollHeight - chatContents.lastChild.getBoundingClientRect().height-20)
+                chat.scrollTop = chat.scrollHeight - chat.clientHeight
+            
+        }
+        setTimeout(getChat, CHAT_UPDATE)
+    });
+
+    xhr.addEventListener("error", e => {
+        setTimeout(getChat, CHAT_UPDATE)
+    });
+
+    xhr.open("GET", "/chat", true)
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.send()
+}
+function init(){
     let stageDiv = document.getElementById("stage")
      let playerPanelElement = document.getElementById("player")
      let playerPanel = new PlayerPanel(playerPanelElement,stageDiv)
 
      let movlist = new Controller(playerPanel);
     
-     /* tutaj niby okna, ale lepsze jakieś zaimportowane jsem :o */
-    /*let importWindow = new ImportDialogWindow({
-        button: "button-import", 
-        element: "layer-import",
-        file: "layer-import-file",
-        datatype: "layer-import-datatype",
-        addlayer: "dialog-window-add",
-        layerpanel: layerpanel,
-        canvas: canvas,
-    })
-    let newLayerWindow = new AddLayerDialogWindow({
-        button: "button-add-layer", 
-        element: "layer-add",
-        canvas: canvas,
-        layertype: "layer-add-datatype",
-        
-    })*/
-    
+     let chatField = document.getElementById("chatfield")
+     chatField.addEventListener("keypress",function(e){
+         if(e.key == "Enter" && !e.shiftKey && !e.ctrlKey){
+             postOnChat(chatField.value)
+             e.preventDefault()
+         }
+     })
+     document.getElementById("sendbutton").addEventListener("click",function(e){
+         postOnChat(chatField.value)
+     })
+     
+     getChat(true)
+
     playerPanel.actualizeBounds()
 }
 addEventListener("load",init);
