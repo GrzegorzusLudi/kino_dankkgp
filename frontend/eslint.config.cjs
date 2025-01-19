@@ -3,7 +3,6 @@
 const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
-// const json = require('@eslint/json');
 const eslintPluginJsonc = require('eslint-plugin-jsonc');
 const simpleImportSort = require('eslint-plugin-simple-import-sort');
 const jsoncParser = require('jsonc-eslint-parser');
