@@ -11,7 +11,7 @@ div.toolbar.classic-light {
   height: 48px;
   width: 100%;
   border-bottom: 1px solid $color1;
-  background-color: hsla(161, 77%, 83%, 1);
+  background-color: $light-primary;
   background-image: radial-gradient(
       circle at 7% 81%,
       $color1 16%,
@@ -22,5 +22,5 @@ div.toolbar.classic-light {
     radial-gradient(circle at 11% 29%, $color4 8%, transparent 74%),
     radial-gradient(circle at 90% 50%, $color5 2%, transparent 85%);
   background-blend-mode: normal, normal, normal, normal, normal;
-  box-shadow: 0 4px 10px -2px rgb(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px -2px rgb(0, 0, 0, 0.3);
 }

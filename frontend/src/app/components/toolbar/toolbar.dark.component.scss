@@ -1,17 +1,17 @@
 @import '../../styles/shared.scss';
 
 $color1: $dark-primary-lighter;
-$color2: darken($dark-primary-lighter, 3%);
-$color3: darken($dark-primary-lighter, 5%);
-$color4: lighten($dark-primary-lighter, 2%);
-$color5: darken($dark-primary-lighter, 6%);
+$color2: darken($dark-primary-lighter, 1%);
+$color3: darken($dark-primary-lighter, 2%);
+$color4: darken($dark-primary-lighter, 0.2%);
+$color5: darken($dark-primary-lighter, 1%);
 
 div.toolbar.classic-dark {
   box-sizing: border-box;
   height: 48px;
   width: 100%;
   border-bottom: 1px solid $color1;
-  background-color: hsla(161, 77%, 83%, 1);
+  background-color: $color1;
   background-image: radial-gradient(
       circle at 7% 81%,
       $color1 16%,
@@ -22,5 +22,5 @@ div.toolbar.classic-dark {
     radial-gradient(circle at 11% 29%, $color4 8%, transparent 74%),
     radial-gradient(circle at 90% 50%, $color5 2%, transparent 85%);
   background-blend-mode: normal, normal, normal, normal, normal;
-  box-shadow: 0 4px 10px -2px rgb(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px -2px rgb(0, 0, 0, 0.4);
 }
