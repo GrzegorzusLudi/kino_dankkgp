@@ -9,11 +9,12 @@ button.button.classic-dark {
   );
   border: none;
   color: white;
-  padding: 8px 16px;
+  margin: 0;
+  padding: 6.5px 14px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: $font-size;
   border: 1px solid $dark-primary;
   box-shadow: none;
   border-radius: 2px;
