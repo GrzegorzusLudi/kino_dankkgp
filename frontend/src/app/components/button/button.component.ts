@@ -17,8 +17,6 @@ import { ThemeService } from '../../services/theme/theme.service';
   ],
 })
 export class ButtonComponent implements OnInit {
-  protected readonly Theme = Theme;
-
   protected theme!: Observable<Theme>;
   protected clicked = false;
 
