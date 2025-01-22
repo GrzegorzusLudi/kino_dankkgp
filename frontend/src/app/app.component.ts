@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
+import { BackgroundComponent } from "./components/background/background.component";
 import { ButtonComponent } from './components/button/button.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [ButtonComponent, ToolbarComponent],
+  imports: [BackgroundComponent, ButtonComponent, ToolbarComponent, BackgroundComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
