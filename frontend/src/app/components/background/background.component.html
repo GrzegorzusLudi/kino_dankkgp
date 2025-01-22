@@ -1,1 +1,5 @@
-<p>background works!</p>
+<ng-container *ngIf="theme | async as theme">
+  <div [ngClass]="theme">
+    <ng-content></ng-content>
+  </div>
+</ng-container>

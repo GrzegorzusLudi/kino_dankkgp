@@ -1,0 +1,9 @@
+@import '../../styles/shared.scss';
+
+div.classic-dark {
+  background-color: lighten($dark-primary-lighter, 1%);
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
