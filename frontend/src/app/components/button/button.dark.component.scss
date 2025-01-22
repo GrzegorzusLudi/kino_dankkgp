@@ -1,0 +1,41 @@
+$primary: rgb(0, 85, 141);
+$primary-darker: rgb(0, 10, 17);
+
+button.button.classic-dark {
+  box-sizing: border-box;
+  background: linear-gradient(
+    180deg,
+    $primary 0%,
+    $primary-darker 100%
+  );
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: 1px solid darken(#007acc, 5px);
+  box-shadow: none;
+  border-radius: 2px;
+}
+
+button.button.classic-dark:hover {
+  background: linear-gradient(
+    180deg,
+    lighten($primary, 10%) 0%,
+    lighten($primary-darker, 10%) 100%
+  );
+}
+
+button.button.classic-dark.clicked {
+  background: linear-gradient(
+    180deg,
+    $primary-darker 0%,
+    $primary 100%
+  );
+}
+
+button.button.classic-dark:focus {
+  box-shadow: 0px 0px 2px 2px lighten($primary-darker, 35%);
+}
