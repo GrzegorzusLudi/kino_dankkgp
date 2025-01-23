@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-switch',
@@ -6,4 +6,10 @@ import { Component } from '@angular/core';
   templateUrl: './switch.component.html',
   styleUrl: './switch.component.scss',
 })
-export class SwitchComponent {}
+export class SwitchComponent { // TODO Rename to toggle?
+  @Output() switch = new EventEmitter<boolean>();
+
+  emit(event: Event): void {
+    this.switch.next((event.target as HTMLInputElement)['checked']);
+  }
+}
