@@ -1,9 +1,7 @@
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 
-import { Theme } from '../../models/theme.enum';
-import { ThemeService } from '../../services/theme/theme.service';
+import { ThemedDirective } from '../../directives/themed/themed.directive';
 
 @Component({
   selector: 'app-button',
@@ -16,13 +14,6 @@ import { ThemeService } from '../../services/theme/theme.service';
     './button.aero-dark.component.scss',
   ],
 })
-export class ButtonComponent implements OnInit {
-  protected theme!: Observable<Theme>;
+export class ButtonComponent extends ThemedDirective {
   protected clicked = false;
-
-  constructor(private readonly themeService: ThemeService) {}
-
-  ngOnInit(): void {
-    this.theme = this.themeService.getTheme();
-  }
 }

@@ -1,14 +1,13 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 
 import { BackgroundComponent } from './components/background/background.component';
 import { ButtonComponent } from './components/button/button.component';
 import { SwitchComponent } from './components/switch/switch.component';
 import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ThemedDirective } from './directives/themed/themed.directive';
 import { Theme } from './models/theme.enum';
-import { ThemeService } from './services/theme/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -25,16 +24,8 @@ import { ThemeService } from './services/theme/theme.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends ThemedDirective {
   title = 'Kino DANKKGP';
-
-  protected theme!: Observable<Theme>;
-
-  constructor(private readonly themeService: ThemeService) {}
-
-  ngOnInit(): void {
-    this.theme = this.themeService.getTheme();
-  }
 
   switchMode(currentTheme: Theme, checked: boolean): void {
     if (currentTheme === Theme.FlatLight || currentTheme === Theme.FlatDark) {

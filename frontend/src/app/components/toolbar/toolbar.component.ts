@@ -1,9 +1,7 @@
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 
-import { Theme } from '../../models/theme.enum';
-import { ThemeService } from '../../services/theme/theme.service';
+import { ThemedDirective } from '../../directives/themed/themed.directive';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,12 +14,4 @@ import { ThemeService } from '../../services/theme/theme.service';
     './toolbar.aero-dark.component.scss',
   ],
 })
-export class ToolbarComponent implements OnInit {
-  protected theme!: Observable<Theme>;
-
-  constructor(private readonly themeService: ThemeService) {}
-
-  ngOnInit(): void {
-    this.theme = this.themeService.getTheme();
-  }
-}
+export class ToolbarComponent extends ThemedDirective {}
