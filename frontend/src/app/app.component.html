@@ -1,4 +1,8 @@
 <app-background>
-  <app-toolbar></app-toolbar>
+  <app-toolbar>
+    <ng-container *ngIf="theme | async as theme">
+      <app-switch (switch)="switchMode(theme, $event)"></app-switch>
+    </ng-container>
+  </app-toolbar>
   <app-button>This is test</app-button>
 </app-background>
