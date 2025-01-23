@@ -7,7 +7,7 @@ import { Theme } from '../../models/theme.enum';
   providedIn: 'root',
 })
 export class ThemeService {
-  private readonly theme = new BehaviorSubject<Theme>(Theme.FlatLight);
+  private readonly theme = new BehaviorSubject<Theme>(Theme.FlatDark);
 
   getTheme() {
     return this.theme.asObservable();
