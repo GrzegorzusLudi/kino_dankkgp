@@ -1,9 +1,27 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Theme } from '../../models/theme.enum';
+import { ThemeService } from '../../services/theme/theme.service';
 
 @Component({
   selector: 'app-title',
-  imports: [],
+  imports: [NgClass, NgIf, AsyncPipe],
   templateUrl: './title.component.html',
-  styleUrl: './title.component.scss',
+  styleUrls: [
+    './title.light.component.scss',
+    './title.dark.component.scss',
+    './title.aero-light.component.scss',
+    './title.aero-dark.component.scss',
+  ],
 })
-export class TitleComponent {}
+export class TitleComponent implements OnInit {
+  protected theme!: Observable<Theme>;
+
+  constructor(private readonly themeService: ThemeService) {}
+
+  ngOnInit(): void {
+    this.theme = this.themeService.getTheme();
+  }
+}

@@ -1,0 +1,9 @@
+@import '../../styles/shared.scss';
+
+h1.#{$flat-light-theme-class-name} {
+  font-size: $title-font-size;
+  line-height: $title-font-size;
+  color: $light-primary-a0;
+  margin: 0;
+  padding: 0;
+}
