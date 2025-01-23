@@ -2,11 +2,7 @@
 
 button.button.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
-  background: linear-gradient(
-    180deg,
-    $light-primary 0%,
-    $light-primary-darker 100%
-  );
+  background: $light-primary;
   border: none;
   color: white;
   margin: 0;
@@ -21,19 +17,11 @@ button.button.#{$flat-light-theme-class-name} {
 }
 
 button.button.#{$flat-light-theme-class-name}:hover {
-  background: linear-gradient(
-    180deg,
-    lighten($light-primary, 10%) 0%,
-    lighten($light-primary-darker, 10%) 100%
-  );
+  background: lighten($light-primary, 10%);
 }
 
 button.button.#{$flat-light-theme-class-name}.clicked {
-  background: linear-gradient(
-    180deg,
-    $light-primary-darker 0%,
-    $light-primary 100%
-  );
+  background: $light-primary-darker;
 }
 
 button.button.#{$flat-light-theme-class-name}:focus {
