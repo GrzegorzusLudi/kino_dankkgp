@@ -1,6 +1,6 @@
 @import '../../styles/shared.scss';
 
-div.classic-light {
+div.#{$flat-light-theme-class-name} {
   background-color: rgba(230, 230, 230, 1);
   width: 100%;
   height: 100vh;

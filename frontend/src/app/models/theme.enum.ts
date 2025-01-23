@@ -1,6 +1,6 @@
 export enum Theme {
-  ClassicLight = 'classic-light',
-  ClassicDark = 'classic-dark',
+  FlatLight = 'flat-light',
+  FlatDark = 'flat-dark',
   AeroLight = 'aero-light',
   AeroDark = 'aero-dark',
 }

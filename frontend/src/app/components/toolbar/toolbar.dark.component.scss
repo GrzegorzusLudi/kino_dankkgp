@@ -6,7 +6,7 @@ $color3: darken($dark-primary-lighter, 2%);
 $color4: darken($dark-primary-lighter, 0.2%);
 $color5: darken($dark-primary-lighter, 1%);
 
-div.toolbar.classic-dark {
+div.toolbar.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
   height: 48px;
   width: 100%;

@@ -1,6 +1,6 @@
 @import "../../styles/shared.scss";
 
-button.button.classic-dark {
+button.button.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
   background: linear-gradient(
     180deg,
@@ -20,7 +20,7 @@ button.button.classic-dark {
   border-radius: 2px;
 }
 
-button.button.classic-dark:hover {
+button.button.#{$flat-dark-theme-class-name}:hover {
   background: linear-gradient(
     180deg,
     lighten($dark-primary, 10%) 0%,
@@ -28,7 +28,7 @@ button.button.classic-dark:hover {
   );
 }
 
-button.button.classic-dark.clicked {
+button.button.#{$flat-dark-theme-class-name}.clicked {
   background: linear-gradient(
     180deg,
     $dark-primary-darker 0%,
@@ -36,6 +36,6 @@ button.button.classic-dark.clicked {
   );
 }
 
-button.button.classic-dark:focus {
+button.button.#{$flat-dark-theme-class-name}:focus {
   box-shadow: 0px 0px 2px 2px lighten($dark-primary-darker, 35%);
 }
