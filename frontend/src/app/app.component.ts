@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { BackgroundComponent } from './components/background/background.component';
 import { ButtonComponent } from './components/button/button.component';
 import { SwitchComponent } from './components/switch/switch.component';
+import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { Theme } from './models/theme.enum';
 import { ThemeService } from './services/theme/theme.service';
@@ -19,12 +20,13 @@ import { ThemeService } from './services/theme/theme.service';
     SwitchComponent,
     NgIf,
     AsyncPipe,
+    TitleComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  title = 'kino-dankkgp-frontend';
+  title = 'Kino DANKKGP';
 
   protected theme!: Observable<Theme>;
 
