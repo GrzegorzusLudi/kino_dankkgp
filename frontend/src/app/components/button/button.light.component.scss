@@ -1,8 +1,8 @@
-@import "../../styles/shared.scss";
+@import '../../styles/shared.scss';
 
 button.button.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
-  background: $light-primary;
+  background: $light-primary-a50;
   border: none;
   color: white;
   margin: 0;
@@ -11,19 +11,19 @@ button.button.#{$flat-light-theme-class-name} {
   text-decoration: none;
   display: inline-block;
   font-size: $font-size;
-  border: 1px solid $light-primary;
+  border: 1px solid $light-primary-a50;
   box-shadow: none;
   border-radius: 4px;
 }
 
 button.button.#{$flat-light-theme-class-name}:hover {
-  background: lighten($light-primary, 10%);
+  background: $light-primary-a40;
 }
 
 button.button.#{$flat-light-theme-class-name}.clicked {
-  background: $light-primary-darker;
+  background: $light-primary-a60;
 }
 
 button.button.#{$flat-light-theme-class-name}:focus {
-  box-shadow: 0px 0px 2px 2px lighten($light-primary, 35%);
+  box-shadow: 0px 0px 2px 2px $light-primary-a30;
 }

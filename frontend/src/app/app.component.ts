@@ -35,13 +35,8 @@ export class AppComponent implements OnInit {
   }
 
   switchMode(currentTheme: Theme, checked: boolean): void {
-    if (
-      currentTheme === Theme.FlatLight ||
-      currentTheme === Theme.FlatDark
-    ) {
-      this.themeService.changeTheme(
-        checked ? Theme.FlatLight : Theme.FlatDark,
-      );
+    if (currentTheme === Theme.FlatLight || currentTheme === Theme.FlatDark) {
+      this.themeService.changeTheme(checked ? Theme.FlatLight : Theme.FlatDark);
     } else {
       this.themeService.changeTheme(checked ? Theme.AeroLight : Theme.AeroDark);
     }

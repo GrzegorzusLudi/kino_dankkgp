@@ -13,7 +13,11 @@ async function format() {
     packageJson.devDependencies['sort-package-json'];
   const directory = normalize(`${__filename}/../../`);
 
-  const files = `${[...config.format.jsons, ...config.format.sources]
+  const files = `${[
+    ...config.format.jsons,
+    ...config.format.styles,
+    ...config.format.sources,
+  ]
     .map((pattern) => `"${normalize(directory + '/' + pattern)}"`)
     .join(' ')}`.trimEnd();
 

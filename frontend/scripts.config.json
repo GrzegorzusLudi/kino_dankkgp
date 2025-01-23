@@ -13,6 +13,7 @@
       ".vscode/*.json"
     ],
     "patterns": [".gitignore"],
+    "styles": ["src/**/*.scss"],
     "sources": ["*.{ts,js,mjs,cjs}", "src/**/*.ts", "scripts/**/*.js"]
   },
   "lint": {

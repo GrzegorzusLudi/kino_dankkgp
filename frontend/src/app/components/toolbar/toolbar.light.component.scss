@@ -1,17 +1,17 @@
 @import '../../styles/shared.scss';
 
-$color1: $light-primary-lighter;
-$color2: darken($light-primary-lighter, 3%);
-$color3: darken($light-primary-lighter, 5%);
-$color4: lighten($light-primary-lighter, 2%);
-$color5: darken($light-primary-lighter, 6%);
+$color1: $light-primary-a30;
+$color2: darken($color1, 3%);
+$color3: darken($color1, 5%);
+$color4: lighten($color1, 2%);
+$color5: darken($color1, 6%);
 
 div.toolbar.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
   height: 48px;
   width: 100%;
   border-bottom: 1px solid $color1;
-  background-color: $light-primary;
+  background-color: $color1;
   background-image: radial-gradient(
       circle at 7% 81%,
       $color1 16%,

@@ -41,12 +41,17 @@ $height: 28px;
 }
 
 input:checked + .slider {
-  background-color: $light-primary;
-  background: $light-primary;
+  background-color: $light-primary-a50;
+  background: $light-primary-a50;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px $light-primary;
+  box-shadow: 0 0 1px $light-primary-a30;
+}
+
+input:checked:hover + .slider {
+  background-color: $light-primary-a40;
+  background: $light-primary-a40;
 }
 
 input:checked + .slider:before {

@@ -6,7 +6,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   templateUrl: './switch.component.html',
   styleUrl: './switch.component.scss',
 })
-export class SwitchComponent { // TODO Rename to toggle?
+export class SwitchComponent {
+  // TODO Rename to toggle?
   @Output() switch = new EventEmitter<boolean>();
 
   emit(event: Event): void {
