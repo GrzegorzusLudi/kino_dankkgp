@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8" />
+        <style>
+            .bordereddiv {border:1px solid black;width:300px;overflow-y:scroll}
+        </style>
+        <script src="/static/socket.io.min.js"></script>
+        <script>
+            var tag,done = false
+            function statePropertyChange(property,value){
+                switch(property){
+                    case 'users':
+                        var userlist = document.getElementById('userlist')
+                        userlist.innerHTML = Object.values(value).map(a => a['nick']).join('<br/>')
+                    break
+                }
+            }
+            function stateChange(state){
+                for(var key in state){
+                    statePropertyChange(key,state[key])
+                }
+            }
+            function init(){
+                const socket = io();
+                socket.on('message', ev => {
+                    console.log(ev.data)
+                    //document.getElementById('content').innerHTML = ev.data
+                    //if(ev.data != 'Connected')
+                    //    player.cueVideoById((new URL(ev.data)).searchParams.get('v'))
+                });
+                socket.on('statechange', ev => {
+                    stateChange(ev.data)
+                });
+                const form = document.getElementById('chat-send-message-input-form')
+                form.addEventListener('submit',function(e){
+                    e.preventDefault()
+                    var inputValue = document.getElementById('chat-send-message-input').value
+                    socket.emit("chat-message",{data:inputValue})
+                })
+                const form_nick = document.getElementById('chat-set-nick-input-form')
+                form_nick.addEventListener('submit',function(e){
+                    console.log(e)
+                    e.preventDefault()
+                    var inputValue = document.getElementById('chat-set-nick-input').value
+                    socket.emit("set-nick",{data:inputValue})
+                })
+            }
+
+        </script>
+    </head>
+    <body>
+        Users:
+        <div id="userlist" class="bordereddiv" style="height:150px">
+
+        </div>
+        <div id="chat" class="bordereddiv" style="height:400px">
+
+        </div>
+        <form id="chat-send-message-input-form">    
+            <input id="chat-send-message-input" autofocus /><input type="submit" value="SEND" />
+        </form>
+        <form id="chat-set-nick-input-form">
+            <input id="chat-set-nick-input" /><input type="submit" value="SET NICK" />
+        </form>
+        <script>init();</script>
+    </body>
+</html>

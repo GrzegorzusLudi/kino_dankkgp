@@ -1,5 +1,12 @@
+HOW TO INSTALL:
+
+
+pip install Flask
+
+pip install flask-socketio
+
+
 HOW TO RUN:
 
-node server/index.js
+flask --app server run
 
-Works on localhost:3000
