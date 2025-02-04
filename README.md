@@ -1,5 +1,10 @@
 HOW TO INSTALL:
 
+go to the main project folder
+
+cd server
+python3 -m venv .venv
+. .venv/bin/activate
 
 pip install Flask
 
