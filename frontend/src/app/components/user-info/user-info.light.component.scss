@@ -1,0 +1,18 @@
+@import '../../styles/shared.scss';
+
+:host {
+  display: flex;
+  align-items: center;
+}
+
+div.#{$flat-light-theme-class-name} {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: $light-text-color;
+
+  fa-icon {
+    color: $light-text-color;
+    margin-right: 8px;
+  }
+}
