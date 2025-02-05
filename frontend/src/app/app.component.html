@@ -2,7 +2,11 @@
   <app-toolbar>
     <ng-container *ngIf="theme | async as theme">
       <app-title>{{ title }}</app-title>
-      <app-mode-toggle></app-mode-toggle>
+      <div class="group">
+        <app-mode-toggle></app-mode-toggle>
+        <app-vertical-separator></app-vertical-separator>
+        <app-user-info username="Jan Iksiński"></app-user-info>
+      </div>
     </ng-container>
   </app-toolbar>
   <app-button>This is test</app-button>
