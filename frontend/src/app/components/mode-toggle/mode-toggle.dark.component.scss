@@ -1,0 +1,12 @@
+@import '../../styles/shared.scss';
+
+.mode-toggle.#{$flat-dark-theme-class-name} {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  fa-icon {
+    margin: 0 8px;
+    color: $dark-text-color;
+  }
+}

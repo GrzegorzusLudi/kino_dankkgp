@@ -2,7 +2,7 @@
   <app-toolbar>
     <ng-container *ngIf="theme | async as theme">
       <app-title>{{ title }}</app-title>
-      <app-switch (switch)="switchMode(theme, $event)"></app-switch>
+      <app-mode-toggle></app-mode-toggle>
     </ng-container>
   </app-toolbar>
   <app-button>This is test</app-button>

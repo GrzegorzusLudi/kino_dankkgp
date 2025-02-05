@@ -1,1 +1,7 @@
-<p>mode-toggle works!</p>
+<ng-container *ngIf="theme | async as theme">
+  <div class="mode-toggle" [ngClass]="theme">
+    <fa-icon [icon]="faMoon"></fa-icon>
+    <app-switch (switch)="switchMode(theme, $event)"></app-switch>
+    <fa-icon [icon]="faSun"></fa-icon>
+  </div>
+</ng-container>

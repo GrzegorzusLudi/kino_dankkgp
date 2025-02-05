@@ -3,11 +3,10 @@ import { Component } from '@angular/core';
 
 import { BackgroundComponent } from './components/background/background.component';
 import { ButtonComponent } from './components/button/button.component';
-import { SwitchComponent } from './components/switch/switch.component';
+import { ModeToggleComponent } from './components/mode-toggle/mode-toggle.component';
 import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ThemedDirective } from './directives/themed/themed.directive';
-import { Theme } from './models/theme.enum';
 
 @Component({
   selector: 'app-root',
@@ -16,22 +15,14 @@ import { Theme } from './models/theme.enum';
     ButtonComponent,
     ToolbarComponent,
     BackgroundComponent,
-    SwitchComponent,
     NgIf,
     AsyncPipe,
     TitleComponent,
+    ModeToggleComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent extends ThemedDirective {
   title = 'Kino DANKKGP';
-
-  switchMode(currentTheme: Theme, checked: boolean): void {
-    if (currentTheme === Theme.FlatLight || currentTheme === Theme.FlatDark) {
-      this.themeService.changeTheme(checked ? Theme.FlatLight : Theme.FlatDark);
-    } else {
-      this.themeService.changeTheme(checked ? Theme.AeroLight : Theme.AeroDark);
-    }
-  }
 }
