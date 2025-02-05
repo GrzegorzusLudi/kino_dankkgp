@@ -1,12 +1,24 @@
 @import '../../styles/shared.scss';
 
+:host {
+  display: flex;
+  align-items: center;
+}
+
 .mode-toggle.#{$flat-dark-theme-class-name} {
   display: flex;
   flex-direction: row;
   align-items: center;
 
   fa-icon {
-    margin: 0 8px;
     color: $dark-text-color;
+
+    &:first-of-type {
+      margin-right: 8px;
+    }
+
+    &:last-of-type {
+      margin-left: 8px;
+    }
   }
 }
