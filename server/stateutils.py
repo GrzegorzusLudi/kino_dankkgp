@@ -42,7 +42,7 @@ class Message:
     def toData(self):
         return {
             'nick':self.user.nick,
-            'message':self.message,9
+            'message':self.message,
         }
     
 class User:
