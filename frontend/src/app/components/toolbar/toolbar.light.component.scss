@@ -10,7 +10,7 @@ div.toolbar.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
   height: 48px;
   width: 100%;
-  border-bottom: 1px solid $color3;
+  border-bottom: 1px solid $light-border-color;
   background-color: $color1;
   background-image: radial-gradient(
       circle at 7% 81%,

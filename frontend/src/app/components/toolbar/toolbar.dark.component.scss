@@ -1,6 +1,6 @@
 @import '../../styles/shared.scss';
 
-$color1: $dark-primary-a30;
+$color1: $dark-primary-a40;
 $color2: darken($color1, 1%);
 $color3: darken($color1, 2%);
 $color4: darken($color1, 0.2%);
@@ -10,7 +10,7 @@ div.toolbar.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
   height: 48px;
   width: 100%;
-  border-bottom: 1px solid $color1;
+  border-bottom: 1px solid $dark-border-color;
   background-color: $color1;
   background-image: radial-gradient(
       circle at 7% 81%,
