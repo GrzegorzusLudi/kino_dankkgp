@@ -1,0 +1,35 @@
+@import '../../styles/shared.scss';
+
+$border-radius: 4px;
+
+.connected-users-info.#{$flat-dark-theme-class-name} {
+  box-sizing: border-box;
+  width: 224px;
+  height: 256px;
+  color: $dark-text-color;
+
+  .header {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 48px;
+    padding: 0 16px;
+    background-color: $dark-primary-a40;
+    border: 1px solid $dark-border-color;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background-color: $dark-primary-a30;
+    border-left: 1px solid $dark-border-color;
+    border-right: 1px solid $dark-border-color;
+    border-bottom: 1px solid $dark-border-color;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+}
