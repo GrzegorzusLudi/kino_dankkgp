@@ -1,0 +1,43 @@
+@import '../../styles/shared.scss';
+
+$border-radius: 4px;
+
+:host {
+  flex-grow: 1;
+}
+
+.chat.#{$flat-light-theme-class-name} {
+  box-sizing: border-box;
+  width: 320px;
+  height: 100%;
+  align-self: stretch;
+  color: $light-text-color;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 48px;
+    padding: 0 16px;
+    background-color: $light-primary-a10;
+    border: 1px solid $light-border-color;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    flex-grow: 1;
+    background-color: $light-primary-a0;
+    border-left: 1px solid $light-border-color;
+    border-right: 1px solid $light-border-color;
+    border-bottom: 1px solid $light-border-color;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+}

@@ -1,1 +1,14 @@
-<p>chat works!</p>
+<ng-container *ngIf="theme | async as theme">
+  <div class="chat" [ngClass]="theme">
+    <div class="header">
+      <span>Chat</span>
+    </div>
+    <div class="content">
+      <span *ngFor="let message of messages"
+        >[{{ message.date.getHours() }}:{{ message.date.getMinutes() }}:{{
+          message.date.getSeconds()
+        }}] {{ message.username }}: {{ message.text }}</span
+      >
+    </div>
+  </div>
+</ng-container>
