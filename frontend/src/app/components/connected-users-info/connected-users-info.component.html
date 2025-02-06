@@ -1,7 +1,7 @@
 <ng-container *ngIf="theme | async as theme">
   <div class="connected-users-info" [ngClass]="theme">
     <div class="header">
-      <span>Connected users: {{ usernames.length }}</span>
+      <span>Connected users ({{ usernames.length }})</span>
     </div>
     <div class="content">
       <span *ngFor="let username of usernames">{{ username }}</span>
