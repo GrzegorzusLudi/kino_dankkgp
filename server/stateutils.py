@@ -1,6 +1,6 @@
 import json
 import utils
-from datetime import datetime
+import datetime
 
 class AppState:
     def __init__(self):
@@ -8,6 +8,8 @@ class AppState:
 
         self.messages = []
         self.users = {}
+
+        self.MAX_MESSAGES = 200
 
     def getUser(self,sid):
         return self.users[sid]
@@ -19,12 +21,22 @@ class AppState:
 
         self.users[sid] = newuser
 
+    def removeUser(self,sid):
+        del self.users[sid]
+
     def removeUserBySid(self,sid):
         del self.users[sid]
 
+    def addMessage(self,sid,message):
+        user = self.getUser(sid)
+        newMessage = Message(user,message)
+
+        self.messages += [newMessage]
+        self.messages = self.messages[(-self.MAX_MESSAGES):]
+
     def stateObject(self):
         return {
-            'messages':self.messages,
+            'messages':[ message.toData() for message in self.messages ],
             'users':{ k:v.toData() for k,v in self.users.items() }
         }
 
@@ -37,12 +49,14 @@ class Message:
     def __init__(self,user,message):
         self.user = user
         self.message = message
-        self.date = datetime.today()
+        self.date = datetime.datetime.today()
 
     def toData(self):
         return {
             'nick':self.user.nick,
             'message':self.message,
+            'date':self.date.strftime('%Y-%m-%d'),
+            'time':self.date.strftime('%H:%M:%S'),
         }
     
 class User:
