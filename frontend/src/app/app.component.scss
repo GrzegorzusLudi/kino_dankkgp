@@ -3,3 +3,14 @@
   flex-direction: row;
   align-items: stretch;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  height: calc(100vh - 48px);
+}
+
+app-connected-users-info {
+  margin-bottom: 16px;
+}

@@ -9,7 +9,12 @@
       </div>
     </ng-container>
   </app-toolbar>
-  <app-button>This is test</app-button>
-  <app-button>This is test too</app-button>
-  <app-button>also this too</app-button>
+  <div class="content">
+    <app-connected-users-info
+      [usernames]="usernames"></app-connected-users-info>
+      <app-chat [messages]="messages"></app-chat>
+    <!-- <app-button>This is test</app-button>
+    <app-button>This is test too</app-button>
+    <app-button>also this too</app-button> -->
+  </div>
 </app-background>
