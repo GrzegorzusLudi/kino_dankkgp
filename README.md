@@ -1,5 +1,17 @@
+HOW TO INSTALL:
+
+go to the main project folder
+
+cd server
+python3 -m venv .venv
+. .venv/bin/activate
+
+pip install Flask
+
+pip install flask-socketio
+
+
 HOW TO RUN:
 
-node server/index.js
+flask --app server run
 
-Works on localhost:3000

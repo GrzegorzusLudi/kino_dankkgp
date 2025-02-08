@@ -1,0 +1,34 @@
+
+State:
+{
+userNumber: int,
+users: [User],
+chatMessages: [string],
+}
+
+User:
+{
+nick: string,
+active: bool
+}
+
+
+emit('login',{login:<twój login>})
+-{message:'ok',error:false}
+-{message:'login taken',error:true}
+
+emit('login-as-admin',{password:<twoje hasło zahaszowane>})
+-{message:'ok',error:false}
+-{message:'not logged in',error:true}
+-{message:'bad password',error:true}
+
+emit('ping',null)
+
+emit('chat-send-message',{message:<wiadomość>})
+-{message:'ok',error:false}
+-{message:'too many messages in a short time',error:true}
+
+
+
+
+

@@ -1,0 +1,4 @@
+#ignore files
+server/.venv
+server/__pycache__
+sercer/node_modules
