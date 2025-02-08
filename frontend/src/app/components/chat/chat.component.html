@@ -4,11 +4,19 @@
       <span>Chat</span>
     </div>
     <div class="content">
-      <span *ngFor="let message of messages"
-        >[{{ message.date.getHours() }}:{{ message.date.getMinutes() }}:{{
-          message.date.getSeconds()
-        }}] {{ message.username }}: {{ message.text }}</span
-      >
+      <div class="messages">
+        <span *ngFor="let message of messages"
+          >[{{ message.date.getHours() }}:{{ message.date.getMinutes() }}:{{
+            message.date.getSeconds()
+          }}] {{ message.username }}: {{ message.text }}</span
+        >
+      </div>
+      <form class="input">
+        <input
+          type="text"
+          class="form-control" />
+          <app-button>Send</app-button>
+      </form>
     </div>
   </div>
 </ng-container>
