@@ -43,7 +43,7 @@
             "browser": "src/main.ts",
             "index": "src/index.html",
             "inlineStyleLanguage": "scss",
-            "outputPath": "dist/kino-dankkgp-frontend",
+            "outputPath": "dist",
             "polyfills": ["zone.js"],
             "scripts": [],
             "styles": ["src/styles.scss"],
