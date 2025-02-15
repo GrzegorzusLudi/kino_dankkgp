@@ -1,4 +1,7 @@
-#ignore files
 server/.venv
 server/__pycache__
-sercer/node_modules
+server/node_modules
+server/templates/index.html
+server/static/*.css
+server/static/*.js
+server/static/favicon.ico
