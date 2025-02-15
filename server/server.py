@@ -10,8 +10,9 @@ import time
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
-app.static_folder = abspath(app.root_path + '/../ugly_frontend_for_testing/static')
-app.template_folder = abspath(app.root_path + '/../ugly_frontend_for_testing/templates')
+app.static_folder = abspath(app.root_path + '/static')
+app.template_folder = abspath(app.root_path + '/templates')
+
 print(dir(app))
 # Static file serving route
 @app.route('/static/<path:filename>')
