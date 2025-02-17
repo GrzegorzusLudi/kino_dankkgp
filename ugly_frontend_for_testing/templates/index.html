@@ -4,13 +4,86 @@
         <meta charset="utf8" />
         <style>
             .bordereddiv {border:1px solid black;width:300px;overflow-y:scroll}
-            .all {display: flex;}
+            .bordereddivmorewidth {border:1px solid black;overflow-y:scroll;width:500px}
+            .all {display: flex}
             .leftpanel {display: inline-block;}
-            .rightpanel {display: block;margin-left: 10px;}
+            .rightpanel {display: inline-block;margin-left: 10px}
         </style>
         <script src="/static/socket.io.min.js"></script>
         <script>
             var tag,done = false
+            
+            function init(){
+                const socket = io();
+                socket.on('message', ev => {
+                    console.log(ev.data)
+                    //document.getElementById('content').innerHTML = ev.data
+                    //if(ev.data != 'Connected')
+                    //    player.cueVideoById((new URL(ev.data)).searchParams.get('v'))
+                });
+                socket.on('statechange', ev => {
+                    stateChange(ev.data)
+                });
+                socket.on('error', ev => {
+                    alert(ev.data)
+                })
+                prepareChat(socket)
+                preparePlayer(socket)
+            }
+            function prepareChat(socket){
+                const form_nick = document.getElementById('chat-set-nick-input-form')
+                form_nick.addEventListener('submit',function(e){
+                    console.log(e)
+                    e.preventDefault()
+                    var inputValue = document.getElementById('chat-set-nick-input').value
+                    socket.emit("set-nick",{data:inputValue})
+                })
+                const form = document.getElementById('chat-send-message-input-form')
+                form.addEventListener('submit',function(e){
+                    e.preventDefault()
+                    var inputValue = document.getElementById('chat-send-message-input').value
+                    socket.emit("chat-message",{data:inputValue})
+                    document.getElementById('chat-send-message-input').value = ''
+                })
+            }
+            function preparePlayer(socket){
+                tag = document.createElement('script');
+
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                done = false;
+                //player.playVideo()
+
+                const form_player = document.getElementById('queue-add-video-input-form')
+                form_player.addEventListener('submit',function(e){
+                    e.preventDefault()
+                    var inputValue = document.getElementById('queue-add-video-input').value
+                    socket.emit("queue-add-video",{data:inputValue})
+                    document.getElementById('queue-add-video-input').value = ""
+                })
+            }
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('player', {
+                    height: '360',
+                    width: '640',
+                    videoId: '',
+                    events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                    }
+                });
+            }
+            function onPlayerReady(event) {
+                event.target.playVideo();
+            }
+            function onPlayerStateChange(event) {
+                if (event.data == YT.PlayerState.PLAYING && !done) {
+                    //setTimeout(stopVideo, 6000);
+                    done = true;
+                }
+            }
             function statePropertyChange(property,value){
                 switch(property){
                     case 'users':
@@ -27,32 +100,6 @@
                 for(var key in state){
                     statePropertyChange(key,state[key])
                 }
-            }
-            function init(){
-                const socket = io();
-                socket.on('message', ev => {
-                    console.log(ev.data)
-                    //document.getElementById('content').innerHTML = ev.data
-                    //if(ev.data != 'Connected')
-                    //    player.cueVideoById((new URL(ev.data)).searchParams.get('v'))
-                });
-                socket.on('statechange', ev => {
-                    stateChange(ev.data)
-                });
-                const form_nick = document.getElementById('chat-set-nick-input-form')
-                form_nick.addEventListener('submit',function(e){
-                    console.log(e)
-                    e.preventDefault()
-                    var inputValue = document.getElementById('chat-set-nick-input').value
-                    socket.emit("set-nick",{data:inputValue})
-                })
-                const form = document.getElementById('chat-send-message-input-form')
-                form.addEventListener('submit',function(e){
-                    e.preventDefault()
-                    var inputValue = document.getElementById('chat-send-message-input').value
-                    socket.emit("chat-message",{data:inputValue})
-                    document.getElementById('chat-send-message-input').value = ''
-                })
             }
 
         </script>
@@ -75,8 +122,13 @@
                 </form>
             </div>
             <div class="rightpanel">
-                ababa
                 <div id="player"></div>
+                <form id="queue-add-video-input-form">
+                    Video URL:<input id="queue-add-video-input" /><input type="submit" value="ADD VIDEO TO QUEUE" />
+                </form>
+                <div id="queue" class="bordereddivmorewidth">
+                    kolejka tu
+                </div>
             </div>
         </div>
         <script>init();</script>

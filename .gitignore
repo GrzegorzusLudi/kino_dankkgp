@@ -5,3 +5,4 @@ server/templates/index.html
 server/static/*.css
 server/static/*.js
 server/static/favicon.ico
+frontend2
