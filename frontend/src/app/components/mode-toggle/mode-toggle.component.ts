@@ -9,13 +9,13 @@ import { SwitchComponent } from './switch/switch.component';
 
 @Component({
   selector: 'app-mode-toggle',
-  imports: [SwitchComponent, NgIf, AsyncPipe, FontAwesomeModule, NgClass],
+  imports: [AsyncPipe, FontAwesomeModule, NgClass, NgIf, SwitchComponent],
   templateUrl: './mode-toggle.component.html',
   styleUrls: [
-    './mode-toggle.light.component.scss',
-    './mode-toggle.dark.component.scss',
-    './mode-toggle.aero-light.component.scss',
     './mode-toggle.aero-dark.component.scss',
+    './mode-toggle.aero-light.component.scss',
+    './mode-toggle.dark.component.scss',
+    './mode-toggle.light.component.scss',
   ],
 })
 export class ModeToggleComponent extends ThemedDirective {

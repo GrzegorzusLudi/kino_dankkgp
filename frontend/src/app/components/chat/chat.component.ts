@@ -7,11 +7,11 @@ import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-chat',
-  imports: [NgClass, NgIf, AsyncPipe, NgFor, ButtonComponent],
+  imports: [AsyncPipe, ButtonComponent, NgClass, NgFor, NgIf],
   templateUrl: './chat.component.html',
   styleUrls: [
-    './chat.aero-light.component.scss',
     './chat.aero-dark.component.scss',
+    './chat.aero-light.component.scss',
     './chat.dark.component.scss',
     './chat.light.component.scss',
   ],
