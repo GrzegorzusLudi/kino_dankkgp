@@ -2,7 +2,6 @@
 
 const { normalize } = require('node:path');
 const { exec } = require('node:child_process');
-const { sortPatternsFile } = require('./sort-patterns-file');
 const { print } = require('./print');
 const packageJson = require('./../package.json');
 const config = require('./../scripts.config.json');
@@ -26,10 +25,6 @@ async function format() {
   const command = `${sortPackageJsonCommand} && ${prettierCommand}`;
 
   exec(command, (error, stdout, stderr) => print(error, stdout, stderr));
-
-  config.format.patterns.forEach((pattern) =>
-    sortPatternsFile(normalize(`${directory}/${pattern}`)),
-  );
 }
 
 format();
