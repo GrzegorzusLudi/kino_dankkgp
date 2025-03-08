@@ -2,9 +2,9 @@
 
 $border-radius: 4px;
 
-.connected-users-info.#{$flat-light-theme-class-name} {
+.video-container.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
-  width: 320px;
+  width: 100%;
   color: $light-text-color;
   box-shadow: 0 4px 10px -2px rgba($light-primary-a80, 0.2); // TODO Variable
 

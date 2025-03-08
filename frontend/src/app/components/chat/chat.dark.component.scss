@@ -20,7 +20,7 @@ $border-radius: 4px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 48px;
+    height: $header-height;
     padding: 0 16px;
     background-color: $dark-primary-a40;
     border: 1px solid $dark-border-color;

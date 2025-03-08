@@ -21,7 +21,7 @@ $border-radius: 4px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 48px;
+    height: $header-height;
     padding: 0 16px;
     background-color: $light-primary-a10;
     border: 1px solid $light-border-color;

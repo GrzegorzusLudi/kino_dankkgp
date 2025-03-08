@@ -8,7 +8,7 @@ $color5: darken($color1, 6%);
 
 div.toolbar.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
-  height: 48px;
+  height: $toolbar-height;
   width: 100%;
   border-bottom: 1px solid $light-border-color;
   background-color: $color1;

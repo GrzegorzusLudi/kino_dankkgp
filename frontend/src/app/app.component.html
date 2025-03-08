@@ -10,11 +10,13 @@
     </ng-container>
   </app-toolbar>
   <div class="content">
-    <app-connected-users-info
-      [usernames]="usernames"></app-connected-users-info>
+    <div class="main">
+      <app-video-container [title]="video.title"></app-video-container>
+    </div>
+    <div class="right">
+      <app-connected-users-info
+        [usernames]="usernames"></app-connected-users-info>
       <app-chat [messages]="messages"></app-chat>
-    <!-- <app-button>This is test</app-button>
-    <app-button>This is test too</app-button>
-    <app-button>also this too</app-button> -->
+    </div>
   </div>
 </app-background>
