@@ -5,7 +5,7 @@ import { ThemedDirective } from '../../directives/themed/themed.directive';
 
 @Component({
   selector: 'app-video-actions',
-  imports: [NgIf, NgClass, AsyncPipe],
+  imports: [AsyncPipe, NgClass, NgIf],
   templateUrl: './video-actions.component.html',
   styleUrls: [
     './video-actions.aero-dark.component.scss',
