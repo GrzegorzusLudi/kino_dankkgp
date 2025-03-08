@@ -1,0 +1,18 @@
+@import '../../styles/shared.scss';
+
+$border-radius: 4px;
+
+.header.#{$flat-dark-theme-class-name} {
+  width: 100%;
+  height: $header-height;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: $dark-text-color;
+  padding: 0 16px;
+  background-color: $dark-primary-a40;
+  border: 1px solid $dark-border-color;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+}

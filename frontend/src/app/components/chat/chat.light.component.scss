@@ -16,19 +16,6 @@ $border-radius: 4px;
   flex-direction: column;
   box-shadow: 0 4px 10px -2px rgba($light-primary-a80, 0.2); // TODO Variable
 
-  .header {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: $header-height;
-    padding: 0 16px;
-    background-color: $light-primary-a10;
-    border: 1px solid $light-border-color;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
-  }
-
   .content {
     display: flex;
     flex-direction: column;

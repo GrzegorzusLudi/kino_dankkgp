@@ -4,10 +4,11 @@ import { Component, Input } from '@angular/core';
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { Message } from '../../models/message.interface';
 import { ButtonComponent } from '../button/button.component';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-chat',
-  imports: [AsyncPipe, ButtonComponent, NgClass, NgFor, NgIf],
+  imports: [AsyncPipe, ButtonComponent, HeaderComponent, NgClass, NgFor, NgIf],
   templateUrl: './chat.component.html',
   styleUrls: [
     './chat.aero-dark.component.scss',

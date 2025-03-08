@@ -9,6 +9,7 @@ import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { VerticalSeparatorComponent } from './components/vertical-separator/vertical-separator.component';
+import { VideoActionsComponent } from './components/video-actions/video-actions.component';
 import { VideoContainerComponent } from './components/video-container/video-container.component';
 import { ThemedDirective } from './directives/themed/themed.directive';
 import { Message } from './models/message.interface';
@@ -27,6 +28,7 @@ import { Message } from './models/message.interface';
     ToolbarComponent,
     UserInfoComponent,
     VerticalSeparatorComponent,
+    VideoActionsComponent,
     VideoContainerComponent,
   ],
   templateUrl: './app.component.html',

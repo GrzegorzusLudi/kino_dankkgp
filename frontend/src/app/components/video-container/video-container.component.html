@@ -1,8 +1,6 @@
 <ng-container *ngIf="theme | async as theme">
   <div class="video-container" [ngClass]="theme">
-    <div class="header">
-      <span>{{ title }}</span>
-    </div>
+    <app-header>{{ title }}</app-header>
     <div class="content">
         <span>TODO Video Container Content</span>
     </div>

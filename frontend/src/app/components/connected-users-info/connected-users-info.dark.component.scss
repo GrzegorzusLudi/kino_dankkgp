@@ -7,19 +7,6 @@ $border-radius: 4px;
   width: 320px;
   color: $dark-text-color;
 
-  .header {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: $header-height;
-    padding: 0 16px;
-    background-color: $dark-primary-a40;
-    border: 1px solid $dark-border-color;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
-  }
-
   .content {
     box-sizing: border-box;
     display: flex;

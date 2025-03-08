@@ -1,8 +1,6 @@
 <ng-container *ngIf="theme | async as theme">
   <div class="chat" [ngClass]="theme">
-    <div class="header">
-      <span>Chat</span>
-    </div>
+    <app-header>Chat</app-header>
     <div class="content">
       <div class="messages">
         <span *ngFor="let message of messages"

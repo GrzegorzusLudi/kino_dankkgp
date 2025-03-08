@@ -2,10 +2,11 @@ import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-video-container',
-  imports: [AsyncPipe, NgClass, NgIf],
+  imports: [AsyncPipe, HeaderComponent, NgClass, NgIf],
   templateUrl: './video-container.component.html',
   styleUrls: [
     './video-container.aero-dark.component.scss',

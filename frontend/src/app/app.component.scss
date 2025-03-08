@@ -12,7 +12,8 @@
   height: calc(100vh - $toolbar-height);
 }
 
-.right, .main {
+.right,
+.main {
   display: flex;
   flex-direction: column;
   padding: 16px;
