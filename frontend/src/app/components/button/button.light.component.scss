@@ -14,7 +14,7 @@ button.button.#{$flat-light-theme-class-name} {
   border: 1px solid $light-primary-a50;
   box-shadow: none;
   border-radius: 4px;
-  color: $light-text-color;
+  color: lighten($light-text-color, 100%);
 }
 
 button.button.#{$flat-light-theme-class-name}:hover {
