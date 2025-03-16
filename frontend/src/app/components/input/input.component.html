@@ -1,1 +1,6 @@
-<p>input works!</p>
+<input
+  type="text"
+  [value]="value"
+  (change)="onChange($event)"
+  (blur)="onBlur()"
+  [disabled]="isDisabled" />
