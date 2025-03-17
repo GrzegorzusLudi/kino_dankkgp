@@ -55,6 +55,9 @@ def run_socketio_app(app):
 
     return (socketio,application_state)
 
+def update_application_state():
+    application_state.update()
+
 last_state = ''
 def notify_about_state_change(socket,getall=False):
     rendered_state = application_state.getrenderedstate(getall)

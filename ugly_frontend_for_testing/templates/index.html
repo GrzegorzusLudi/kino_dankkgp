@@ -1,136 +1,249 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf8" />
-        <style>
-            .bordereddiv {border:1px solid black;width:300px;overflow-y:scroll}
-            .bordereddivmorewidth {border:1px solid black;overflow-y:scroll;width:500px}
-            .all {display: flex}
-            .leftpanel {display: inline-block;}
-            .rightpanel {display: inline-block;margin-left: 10px}
-        </style>
-        <script src="/static/socket.io.min.js"></script>
-        <script>
-            var tag,done = false
-            
-            function init(){
-                const socket = io();
-                socket.on('message', ev => {
-                    console.log(ev.data)
-                    //document.getElementById('content').innerHTML = ev.data
-                    //if(ev.data != 'Connected')
-                    //    player.cueVideoById((new URL(ev.data)).searchParams.get('v'))
-                });
-                socket.on('statechange', ev => {
-                    stateChange(ev.data)
-                });
-                socket.on('error', ev => {
-                    alert(ev.data)
-                })
-                prepareChat(socket)
-                preparePlayer(socket)
-            }
-            function prepareChat(socket){
-                const form_nick = document.getElementById('chat-set-nick-input-form')
-                form_nick.addEventListener('submit',function(e){
-                    console.log(e)
-                    e.preventDefault()
-                    var inputValue = document.getElementById('chat-set-nick-input').value
-                    socket.emit("set-nick",{data:inputValue})
-                })
-                const form = document.getElementById('chat-send-message-input-form')
-                form.addEventListener('submit',function(e){
-                    e.preventDefault()
-                    var inputValue = document.getElementById('chat-send-message-input').value
-                    socket.emit("chat-message",{data:inputValue})
-                    document.getElementById('chat-send-message-input').value = ''
-                })
-            }
-            function preparePlayer(socket){
-                tag = document.createElement('script');
 
-                tag.src = "https://www.youtube.com/iframe_api";
-                var firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+<head>
+    <meta charset="utf8" />
+    <style>
+        .bordereddiv {
+            border: 1px solid black;
+            width: 300px;
+            overflow-y: scroll
+        }
 
-                done = false;
-                //player.playVideo()
+        .bordereddivmorewidth {
+            border: 1px solid black;
+            overflow-y: scroll;
+            width: 500px
+        }
 
-                const form_player = document.getElementById('queue-add-video-input-form')
-                form_player.addEventListener('submit',function(e){
-                    e.preventDefault()
-                    var inputValue = document.getElementById('queue-add-video-input').value
-                    socket.emit("queue-add-video",{data:inputValue})
-                    document.getElementById('queue-add-video-input').value = ""
-                })
-            }
-            function onYouTubeIframeAPIReady() {
-                player = new YT.Player('player', {
-                    height: '360',
-                    width: '640',
-                    videoId: '',
-                    events: {
+        .all {
+            display: flex
+        }
+
+        .leftpanel {
+            display: inline-block;
+        }
+
+        .rightpanel {
+            display: inline-block;
+            margin-left: 10px
+        }
+    </style>
+    <script src="/static/socket.io.min.js"></script>
+    <script>
+        var tag, done = false
+
+        function init() {
+            const socket = io();
+            socket.on('message', ev => {
+                console.log(ev.data)
+                //document.getElementById('content').innerHTML = ev.data
+                //if(ev.data != 'Connected')
+                //    player.cueVideoById((new URL(ev.data)).searchParams.get('v'))
+            });
+            socket.on('statechange', ev => {
+                stateChange(ev.data)
+            });
+            socket.on('error', ev => {
+                alert(ev.data)
+            })
+            prepareChat(socket)
+            preparePlayer(socket)
+        }
+        function prepareChat(socket) {
+            const form_nick = document.getElementById('chat-set-nick-input-form')
+            form_nick.addEventListener('submit', function (e) {
+                console.log(e)
+                e.preventDefault()
+                var inputValue = document.getElementById('chat-set-nick-input').value
+                socket.emit("set-nick", { data: inputValue })
+            })
+            const form = document.getElementById('chat-send-message-input-form')
+            form.addEventListener('submit', function (e) {
+                e.preventDefault()
+                var inputValue = document.getElementById('chat-send-message-input').value
+                socket.emit("chat-message", { data: inputValue })
+                document.getElementById('chat-send-message-input').value = ''
+            })
+        }
+        function preparePlayer(socket) {
+            tag = document.createElement('script');
+
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            done = false;
+            //player.playVideo()
+
+            const form_player = document.getElementById('queue-add-video-input-form')
+            form_player.addEventListener('submit', function (e) {
+                e.preventDefault()
+                var inputValue = document.getElementById('queue-add-video-input').value
+                socket.emit("queue-add-video", { data: inputValue })
+                document.getElementById('queue-add-video-input').value = ""
+            })
+        }
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '360',
+                width: '640',
+                videoId: '',
+                events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING && !done) {
+                //setTimeout(stopVideo, 6000);
+                done = true;
+            }
+        }
+        function statePropertyChange(property, value) {
+            switch (property) {
+                case 'users':
+                    var userlist = document.getElementById('userlist')
+                    userlist.innerHTML = Object.values(value).map(a => a['nick']).join('<br/>')
+                    break
+                case 'messages':
+                    var chat = document.getElementById('chat')
+                    chat.innerHTML = value.map(a => '(' + a['time'] + ') ' + a['nick'] + ': ' + a['message']).join('<br/>')
+                    break
+                case 'queue':
+                    self.updateQueue(value)
+                    break
+            }
+        }
+        /*
+    {
+        'queue': 
+            {
+            'videos': 
+                [
+                    {
+                        'url': 'https://www.youtube.com/watch?v=-r8QeJhlB4E', 
+                        'type': 'youtube', 
+                        'user': {'nick': 'anonim0', 'num': 0}, 
+                        'duration_in_seconds': 207
                     }
-                });
-            }
-            function onPlayerReady(event) {
-                event.target.playVideo();
-            }
-            function onPlayerStateChange(event) {
-                if (event.data == YT.PlayerState.PLAYING && !done) {
-                    //setTimeout(stopVideo, 6000);
-                    done = true;
+                ], 
+            'currentlyPlayedVideo': 
+                {
+                    'url': 'https://www.youtube.com/watch?v=-r8QeJhlB4E', 
+                    'type': 
+                    'youtube', 
+                    'user': {'nick': 'anonim0', 'num': 0}, 
+                    'duration_in_seconds': 207
+                }, 
+            'currentlyPlayedSecond': 6}}
+emitting event "statechange" to all [/]
+
+        */
+        function updateQueue(queueData) {
+            updatePlayer(queueData)
+            updateQueueElement(queueData)
+        }
+        function updatePlayer(queueData){
+            var videoData = player.getVideoData()
+            var currentlyPlayedVideo = videoData['video_id'] ?? undefined
+            
+            var currentlyPlayedOnServer = queueData.currentlyPlayedVideo?.videoId
+
+            console.log(currentlyPlayedVideo, currentlyPlayedOnServer)
+            if(currentlyPlayedOnServer != null){
+                if(currentlyPlayedVideo != currentlyPlayedOnServer){
+                    player.cueVideoById(currentlyPlayedOnServer,queueData.currentlyPlayedSecond)
                 }
-            }
-            function statePropertyChange(property,value){
-                switch(property){
-                    case 'users':
-                        var userlist = document.getElementById('userlist')
-                        userlist.innerHTML = Object.values(value).map(a => a['nick']).join('<br/>')
-                    break
-                    case 'messages':
-                        var chat = document.getElementById('chat')
-                        chat.innerHTML = value.map(a => '('+a['time']+') '+a['nick']+': '+a['message']).join('<br/>')
-                    break
+                if(player.getPlayerState != 1){
+                    player.playVideo()
                 }
-            }
-            function stateChange(state){
-                for(var key in state){
-                    statePropertyChange(key,state[key])
+                if(Math.abs(player.getCurrentTime() - queueData.currentlyPlayedSecond) > 4){
+                    player.seekTo(queueData.currentlyPlayedSecond)
                 }
             }
 
-        </script>
-    </head>
-    <body>
-        <div class="all">
-            <div class="leftpanel">
-                Users:
-                <div id="userlist" class="bordereddiv" style="height:150px">
+            //player.cueVideoById
+        }
+        function updateQueueElement(queueData) {
+            var queueElement = document.getElementById('queue')
 
-                </div>
-                <div id="chat" class="bordereddiv" style="height:400px">
+            queueElement.innerHTML = ''
 
-                </div>
-                <form id="chat-send-message-input-form">    
-                    <input id="chat-send-message-input" autofocus /><input type="submit" value="SEND" />
-                </form>
-                <form id="chat-set-nick-input-form">
-                    <input id="chat-set-nick-input" /><input type="submit" value="SET NICK" />
-                </form>
+            var videoData = queueData.videos
+
+            var table = document.createElement('table')
+            for (var i in videoData){
+                var videoDatum = videoData[i]
+
+                var tr = document.createElement('tr')
+                
+                var td_number = document.createElement('td')
+                td_number.innerHTML = (Number(i)+1) + '.'
+                var td_name = document.createElement('td')
+                td_name.innerHTML = videoDatum.title
+                var td_duration = document.createElement('td')
+                td_duration.innerHTML = secondsToMinuteFormat(videoDatum.duration_in_seconds)
+                
+                tr.appendChild(td_number)
+                tr.appendChild(td_name)
+                tr.appendChild(td_duration)
+                table.appendChild(tr)
+            }
+            queueElement.appendChild(table)
+        }
+        function secondsToMinuteFormat(number){
+            var number = Number(number)
+            var minutes = Math.floor(number/60)
+            var seconds = number - minutes * 60
+            if(minutes < 60){
+                return minutes+':'+seconds
+            }
+            var hours = Math.floor(minutes/60)
+            var minutes = minutes - hours * 60
+            return hours+':'+minutes+':'+seconds
+        }
+        function stateChange(state) {
+            for (var key in state) {
+                statePropertyChange(key, state[key])
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="all">
+        <div class="leftpanel">
+            Users:
+            <div id="userlist" class="bordereddiv" style="height:150px">
+
             </div>
-            <div class="rightpanel">
-                <div id="player"></div>
-                <form id="queue-add-video-input-form">
-                    Video URL:<input id="queue-add-video-input" /><input type="submit" value="ADD VIDEO TO QUEUE" />
-                </form>
-                <div id="queue" class="bordereddivmorewidth">
-                    kolejka tu
-                </div>
+            <div id="chat" class="bordereddiv" style="height:400px">
+
+            </div>
+            <form id="chat-send-message-input-form">
+                <input id="chat-send-message-input" autofocus /><input type="submit" value="SEND" />
+            </form>
+            <form id="chat-set-nick-input-form">
+                <input id="chat-set-nick-input" /><input type="submit" value="SET NICK" />
+            </form>
+        </div>
+        <div class="rightpanel">
+            <div id="player"></div>
+            <form id="queue-add-video-input-form">
+                Video URL:<input id="queue-add-video-input" /><input type="submit" value="ADD VIDEO TO QUEUE" />
+            </form>
+            <div id="queue" class="bordereddivmorewidth">
+                kolejka tu
             </div>
         </div>
-        <script>init();</script>
-    </body>
+    </div>
+    <script>init();</script>
+</body>
+
 </html>

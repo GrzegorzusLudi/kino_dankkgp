@@ -32,6 +32,7 @@ def timeout():
     i = 0
     while True:
         getall = (i % 10 == 0)
+        socketpaths.update_application_state()
         socketpaths.notify_about_state_change(socketio,getall)
 
         print(i)

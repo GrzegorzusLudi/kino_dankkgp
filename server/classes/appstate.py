@@ -80,4 +80,7 @@ class AppState:
         for key,value in state.items():
             statecode[key] = utils.jsonify(value)
         return statecode
+
+    def update(self):
+        self.queue.update()
         
