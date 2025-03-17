@@ -154,7 +154,6 @@ emitting event "statechange" to all [/]
             
             var currentlyPlayedOnServer = queueData.currentlyPlayedVideo?.videoId
 
-            console.log(currentlyPlayedVideo, currentlyPlayedOnServer)
             if(currentlyPlayedOnServer != null){
                 if(currentlyPlayedVideo != currentlyPlayedOnServer){
                     player.cueVideoById(currentlyPlayedOnServer,queueData.currentlyPlayedSecond)
@@ -164,6 +163,7 @@ emitting event "statechange" to all [/]
                 }
                 if(Math.abs(player.getCurrentTime() - queueData.currentlyPlayedSecond) > 4){
                     player.seekTo(queueData.currentlyPlayedSecond)
+                    player.playVideo()
                 }
             }
 
