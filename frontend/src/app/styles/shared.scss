@@ -15,7 +15,7 @@ $light-primary-a80: #1e455e;
 $light-primary-a90: #162530;
 $light-primary-a100: #000000;
 
-$dark-primary-a0: #cccccc;
+$dark-primary-a0: #eeeeee;
 $dark-primary-a10: #707070;
 $dark-primary-a20: #505050;
 $dark-primary-a30: #383838;
@@ -30,11 +30,13 @@ $dark-primary-a100: #010101;
 $font-size: 14px;
 $title-font-size: 24px;
 
-$dark-text-color: $dark-primary-a0;
-$light-text-color: $dark-primary-a80;
-
+$dark-text-color: #dddddd;
 $dark-border-color: $dark-primary-a40;
+$dark-input-border-color: $dark-primary-a60;
+
+$light-text-color: $dark-primary-a80;
 $light-border-color: $light-primary-a30;
+$light-input-border-color: #999999;
 
 $toolbar-height: 48px;
 $header-height: 48px;

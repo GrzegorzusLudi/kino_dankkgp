@@ -1,11 +1,19 @@
-import { Component, forwardRef } from '@angular/core';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { ThemedDirective } from '../../directives/themed/themed.directive';
 
 @Component({
   selector: 'app-input',
-  imports: [],
+  imports: [AsyncPipe, NgClass, NgIf],
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss'],
+  styleUrls: [
+    './input.dark.component.scss',
+    './input.light.component.scss',
+    './input.aero-dark.component.scss',
+    './input.aero-light.component.scss',
+  ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -14,17 +22,17 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
-export class InputComponent implements ControlValueAccessor {
-  value: string;
-  isDisabled: boolean;
+export class InputComponent
+  extends ThemedDirective
+  implements ControlValueAccessor
+{
+  @Input({ required: true }) label = '';
+
+  value = '';
+  isDisabled = false;
 
   changed?: (value: string) => void;
   touched?: () => void;
-
-  constructor() {
-    this.value = '';
-    this.isDisabled = false;
-  }
 
   onChange(event: Event): void {
     const value = (event['target'] as HTMLInputElement)['value'];
