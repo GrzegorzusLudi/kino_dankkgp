@@ -9,10 +9,10 @@ import { ThemedDirective } from '../../directives/themed/themed.directive';
   imports: [AsyncPipe, NgClass, NgIf],
   templateUrl: './input.component.html',
   styleUrls: [
-    './input.dark.component.scss',
-    './input.light.component.scss',
     './input.aero-dark.component.scss',
     './input.aero-light.component.scss',
+    './input.dark.component.scss',
+    './input.light.component.scss',
   ],
   providers: [
     {
