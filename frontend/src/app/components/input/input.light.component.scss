@@ -10,7 +10,7 @@ $border-radius: 4px;
     background-color: $light-primary-a0;
     color: $light-text-color;
     border-radius: $border-radius;
-    padding: 4px 6px;
+    padding: calc(0.5 * (36px - 1rem)) 6px;
   }
 
   input:focus {
