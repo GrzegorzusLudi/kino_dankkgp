@@ -2,7 +2,6 @@
 !.vscode/launch.json
 !.vscode/settings.json
 !.vscode/tasks.json
-dist
 .angular/cache
 .c9/
 .classpath
@@ -18,6 +17,7 @@ dist
 bazel-out
 connect.lock
 coverage
+dist
 libpeerconnection.log
 node_modules
 npm-debug.log
