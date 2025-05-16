@@ -7,12 +7,15 @@ from os.path import abspath
 import threading
 import time
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
-app.static_folder = abspath(app.root_path + '/static')
-app.template_folder = abspath(app.root_path + '/templates')
-
+app.static_folder = abspath(app.root_path + '/' + os.getenv('STATIC_FOLDER'))
+app.template_folder = abspath(app.root_path + '/' + os.getenv('TEMPLATES_FOLDER'))
 print(dir(app))
 # Static file serving route
 @app.route('/static/<path:filename>')
@@ -28,7 +31,9 @@ socketio,application_state = socketpaths.run_socketio_app(app)
 def timeout():
     i = 0
     while True:
-        socketpaths.notify_about_state_change(socketio)
+        getall = (i % 10 == 0)
+        socketpaths.update_application_state()
+        socketpaths.notify_about_state_change(socketio,getall)
 
         print(i)
         i+=1

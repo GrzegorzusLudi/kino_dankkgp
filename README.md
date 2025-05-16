@@ -10,6 +10,7 @@ pip install Flask
 
 pip install flask-socketio
 
+pip install python-dotenv
 
 HOW TO RUN:
 
