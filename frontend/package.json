@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node scripts/build",
     "chores": "npm run lint && npm run format",
-    "format": "ng-perfectionism && sort-patterns-file .gitignore && node scripts/format",
+    "format": "ng-perfectionism && prettier --write src/**/*.{ts,html,scss} && sort-patterns-file .gitignore -i **/node_modules/**",
     "lint": "node scripts/lint",
     "ng": "ng",
     "start": "ng serve",
@@ -34,7 +34,7 @@
     "@angular/cli": "^19.0.5",
     "@angular/compiler-cli": "^19.0.0",
     "@chris.araneo/ng-perfectionism": "0.0.10",
-    "@chris.araneo/sort-patterns-file": "0.0.4",
+    "@chris.araneo/sort-patterns-file": "^0.0.9",
     "@eslint/json": "^0.9.1",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "19.0.2",
