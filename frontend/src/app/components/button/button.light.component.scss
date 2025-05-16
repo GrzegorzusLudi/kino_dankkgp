@@ -2,11 +2,11 @@
 
 button.button.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
+  max-height: 36px;
   background: $light-primary-a50;
   border: none;
-  color: white;
   margin: 0;
-  padding: 7px 14px;
+  padding: 6.5px 14px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
