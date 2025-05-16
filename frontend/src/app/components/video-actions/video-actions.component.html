@@ -1,8 +1,7 @@
 <ng-container *ngIf="theme | async as theme">
-    <div class="video-actions" [ngClass]="theme">
-      <div class="content">
-          <span>TODO Video Actions Content</span>
-      </div>
+  <div class="video-actions" [ngClass]="theme">
+    <div class="content">
+      <app-input [label]="'Video URL'"></app-input>
     </div>
-  </ng-container>
-  
+  </div>
+</ng-container>
