@@ -1,8 +1,15 @@
 <ng-container *ngIf="theme | async as theme">
-  <div class="video-container" [ngClass]="theme">
+  <div #container class="video-container" [ngClass]="theme">
     <app-header>{{ title }}</app-header>
     <div class="content">
-      <span>TODO Video Container Content</span>
+      <ng-container *ngIf="videoId">
+        <youtube-player
+          [videoId]="videoId"
+          [width]="width"
+          [height]="height"
+          (ready)="savePlayer($event)"
+          (change)="onStateChange($event)"></youtube-player>
+      </ng-container>
     </div>
   </div>
 </ng-container>
