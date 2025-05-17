@@ -1,12 +1,13 @@
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import {
   Component,
-  ElementRef,
-  HostListener,
   Input,
-  ViewChild,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
 } from '@angular/core';
 import { YoutubePlayerComponent } from 'ngx-youtube-player';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { HeaderComponent } from '../header/header.component';
@@ -22,47 +23,49 @@ import { HeaderComponent } from '../header/header.component';
     './video-container.light.component.scss',
   ],
 })
-export class VideoContainerComponent extends ThemedDirective {
+export class VideoContainerComponent
+  extends ThemedDirective
+  implements OnChanges, OnDestroy
+{
   @Input() title = '';
   @Input() videoId = '';
-
-  @ViewChild('container') container?: ElementRef;
-
-  width = 0;
-  height = 0;
+  @Input() width = 0;
+  @Input() height = 0;
 
   private player?: YT.Player;
+  private dimensions = new BehaviorSubject(['0px', '0px']);
+  private subscription?: Subscription;
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    const PADDING = 34;
-    const RIGHT_CONTAINER_WIDTH = 344 + 24;
-    const width = (event.target as Window).innerWidth - RIGHT_CONTAINER_WIDTH - PADDING || 0;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['width'].currentValue || changes['height'].currentValue) {
+      this.dimensions.next([this.width + 'px', this.height + 'px']);
+    }
+  }
 
-    this.handleResize(width);
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   savePlayer(player: YT.Player) {
     this.player = player;
 
-    const PADDING = 34;
-    this.handleResize(this.container?.nativeElement?.clientWidth - PADDING || 0);
+    this.subscription = this.dimensions.asObservable().subscribe(() => {
+      this.updateIframeDimensions();
+    });
   }
 
   onStateChange(event: unknown) {
     console.log('player state', event);
   }
 
-  private handleResize(width: number) {
-    if (!this.player) {
-      return;
+  private updateIframeDimensions(): void {
+    const iframe = this.player?.getIframe();
+
+    if (!iframe) {
+      throw new Error('Video iframe is undefined');
     }
 
-    this.width = width;
-    this.height = width * (9 / 16);
-
-    const iframe = this.player.getIframe();
-    iframe.width = this.width + 'px';
-    iframe.height = this.height + 'px';
+    iframe.width = this.dimensions.getValue()[0];
+    iframe.height = this.dimensions.getValue()[1];
   }
 }

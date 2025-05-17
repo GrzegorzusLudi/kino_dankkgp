@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, HostListener } from '@angular/core';
 
 import { BackgroundComponent } from './components/background/background.component';
 import { ChatComponent } from './components/chat/chat.component';
@@ -34,7 +34,7 @@ import { Message } from './models/message.interface';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent extends ThemedDirective {
+export class AppComponent extends ThemedDirective implements AfterViewInit {
   title = 'Kino DANKKGP';
   usernames = [
     'Adam',
@@ -58,4 +58,30 @@ export class AppComponent extends ThemedDirective {
   video = {
     title: 'Test video title',
   };
+  videoWidth = 0;
+  videoHeight = 0;
+
+  private readonly widthOffset = 402;
+  private readonly heightOffset = 234;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    const width = ((event.target as Window).innerWidth || 0) - this.widthOffset;
+    const height =
+      ((event.target as Window).innerHeight || 0) - this.heightOffset;
+
+    this.resizeVideoContainer(width < 0 ? 0 : width, height < 0 ? 0 : height);
+  }
+
+  ngAfterViewInit(): void {
+      const width = ((window as Window).innerWidth || 0) - this.widthOffset;
+      const height = ((window as Window).innerHeight || 0) - this.heightOffset;
+
+      this.resizeVideoContainer(width < 0 ? 0 : width, height < 0 ? 0 : height);
+  }
+
+  private resizeVideoContainer(width: number, height: number): void {
+    this.videoWidth = Math.floor(width);
+    this.videoHeight = Math.floor(height);
+  }
 }
