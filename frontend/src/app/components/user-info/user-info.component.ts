@@ -4,6 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
+import { ThemeService } from '../../services/theme/theme.service';
 
 @Component({
   selector: 'app-user-info',
@@ -20,4 +21,8 @@ export class UserInfoComponent extends ThemedDirective {
   @Input() username = '';
 
   faUser = faUser;
+
+    constructor(protected override readonly themeService: ThemeService) {
+      super(themeService);
+    }
 }

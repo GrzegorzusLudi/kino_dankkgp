@@ -2,6 +2,7 @@ import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
+import { ThemeService } from '../../services/theme/theme.service';
 import { InputComponent } from '../input/input.component';
 
 @Component({
@@ -15,4 +16,8 @@ import { InputComponent } from '../input/input.component';
     './video-actions.light.component.scss',
   ],
 })
-export class VideoActionsComponent extends ThemedDirective {}
+export class VideoActionsComponent extends ThemedDirective {
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
+}

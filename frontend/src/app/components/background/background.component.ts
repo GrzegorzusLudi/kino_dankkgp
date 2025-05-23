@@ -2,6 +2,7 @@ import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
+import { ThemeService } from '../../services/theme/theme.service';
 
 @Component({
   selector: 'app-background',
@@ -14,4 +15,8 @@ import { ThemedDirective } from '../../directives/themed/themed.directive';
     './background.light.component.scss',
   ],
 })
-export class BackgroundComponent extends ThemedDirective {}
+export class BackgroundComponent extends ThemedDirective {
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
+}

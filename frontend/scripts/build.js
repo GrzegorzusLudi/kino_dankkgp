@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-
 const { execSync } = require('node:child_process');
 const { existsSync, mkdirSync } = require('node:fs');
 const { normalize } = require('node:path');

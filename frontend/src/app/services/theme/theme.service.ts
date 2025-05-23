@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Theme } from '../../models/theme.enum';
 
@@ -9,7 +9,7 @@ import { Theme } from '../../models/theme.enum';
 export class ThemeService {
   private readonly theme = new BehaviorSubject<Theme>(Theme.FlatDark);
 
-  getTheme() {
+  getTheme(): Observable<Theme> {
     return this.theme.asObservable();
   }
 

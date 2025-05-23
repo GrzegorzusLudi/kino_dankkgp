@@ -2,6 +2,7 @@ import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
+import { ThemeService } from '../../services/theme/theme.service';
 
 @Component({
   selector: 'app-title',
@@ -14,4 +15,8 @@ import { ThemedDirective } from '../../directives/themed/themed.directive';
     './title.light.component.scss',
   ],
 })
-export class TitleComponent extends ThemedDirective {}
+export class TitleComponent extends ThemedDirective {
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
+}

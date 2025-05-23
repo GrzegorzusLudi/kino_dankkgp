@@ -5,6 +5,7 @@ import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { Theme } from '../../models/theme.enum';
+import { ThemeService } from '../../services/theme/theme.service';
 import { SwitchComponent } from './switch/switch.component';
 
 @Component({
@@ -21,6 +22,10 @@ import { SwitchComponent } from './switch/switch.component';
 export class ModeToggleComponent extends ThemedDirective {
   faSun = faSun;
   faMoon = faMoon;
+
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
 
   switchMode(currentTheme: Theme, checked: boolean): void {
     if (currentTheme === Theme.FlatLight || currentTheme === Theme.FlatDark) {

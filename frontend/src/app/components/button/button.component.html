@@ -1,11 +1,11 @@
 <ng-container *ngIf="theme | async as theme">
   <button
-    [ngClass]="theme"
-    [class.clicked]="clicked"
     type="button"
     class="button"
+    [ngClass]="theme"
+    [class.clicked]="clicked"
     (click)="clicked = true"
     (blur)="clicked = false">
-    <ng-content></ng-content>
+    <ng-content />
   </button>
 </ng-container>

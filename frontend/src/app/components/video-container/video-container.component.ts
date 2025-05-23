@@ -6,11 +6,17 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
+import { get, isNull } from 'lodash';
 import { YoutubePlayerComponent } from 'ngx-youtube-player';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
+import { ThemeService } from '../../services/theme/theme.service';
 import { HeaderComponent } from '../header/header.component';
+import {
+  DEFAULT_VIDEO_HEIGHT,
+  DEFAULT_VIDEO_WIDTH,
+} from './video-container.consts';
 
 @Component({
   selector: 'app-video-container',
@@ -29,16 +35,26 @@ export class VideoContainerComponent
 {
   @Input() title = '';
   @Input() videoId = '';
-  @Input() width = 0;
-  @Input() height = 0;
+  @Input() width = DEFAULT_VIDEO_WIDTH;
+  @Input() height = DEFAULT_VIDEO_HEIGHT;
 
   private player?: YT.Player;
-  private dimensions = new BehaviorSubject(['0px', '0px']);
+  private readonly dimensions = new BehaviorSubject([
+    `${DEFAULT_VIDEO_WIDTH}px`,
+    `${DEFAULT_VIDEO_HEIGHT}px`,
+  ]);
   private subscription?: Subscription;
 
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['width'].currentValue || changes['height'].currentValue) {
-      this.dimensions.next([this.width + 'px', this.height + 'px']);
+    const currentWidth = get(changes, 'width.currentValue', null);
+    const currentHeight = get(changes, 'width.currentValue', null);
+
+    if (!isNull(currentWidth) || !isNull(currentHeight)) {
+      this.dimensions.next([`${this.width}px`, `${this.height}px`]);
     }
   }
 
@@ -46,16 +62,12 @@ export class VideoContainerComponent
     this.subscription?.unsubscribe();
   }
 
-  savePlayer(player: YT.Player) {
+  savePlayer(player: Readonly<YT.Player>): void {
     this.player = player;
 
     this.subscription = this.dimensions.asObservable().subscribe(() => {
       this.updateIframeDimensions();
     });
-  }
-
-  onStateChange(event: unknown) {
-    console.log('player state', event);
   }
 
   private updateIframeDimensions(): void {
@@ -65,7 +77,8 @@ export class VideoContainerComponent
       throw new Error('Video iframe is undefined');
     }
 
-    iframe.width = this.dimensions.getValue()[0];
-    iframe.height = this.dimensions.getValue()[1];
+    const [width, height] = this.dimensions.getValue();
+    iframe.width = width;
+    iframe.height = height;
   }
 }

@@ -8,7 +8,7 @@ import { ThemeService } from '../../services/theme/theme.service';
 export class ThemedDirective {
   protected readonly theme: Observable<Theme>;
 
-  constructor(protected readonly themeService: ThemeService) {
+  constructor(protected readonly themeService: Readonly<ThemeService>) {
     this.theme = this.themeService.getTheme();
   }
 }

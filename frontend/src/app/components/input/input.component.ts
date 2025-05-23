@@ -1,8 +1,10 @@
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { get } from 'lodash';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
+import { ThemeService } from '../../services/theme/theme.service';
 
 @Component({
   selector: 'app-input',
@@ -34,11 +36,13 @@ export class InputComponent
   changed?: (value: string) => void;
   touched?: () => void;
 
-  onChange(event: Event): void {
-    const value = (event['target'] as HTMLInputElement)['value'];
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
 
+  onChange(event: Readonly<Event>): void {
     if (this.changed) {
-      this.changed(value || '');
+      this.changed(get(event, 'target.value', ''));
     }
   }
 

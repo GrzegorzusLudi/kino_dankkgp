@@ -4,8 +4,8 @@
       type="text"
       [placeholder]="label"
       [value]="value"
+      [disabled]="isDisabled"
       (change)="onChange($event)"
-      (blur)="onBlur()"
-      [disabled]="isDisabled" />
+      (blur)="onBlur()" />
   </div>
 </ng-container>

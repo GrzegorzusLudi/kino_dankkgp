@@ -1,7 +1,9 @@
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { get } from 'lodash';
 
 import { ThemedDirective } from '../../../directives/themed/themed.directive';
+import { ThemeService } from '../../../services/theme/theme.service';
 
 @Component({
   selector: 'app-switch',
@@ -16,9 +18,13 @@ import { ThemedDirective } from '../../../directives/themed/themed.directive';
 })
 export class SwitchComponent extends ThemedDirective {
   // TODO Rename to toggle?
-  @Output() switch = new EventEmitter<boolean>();
+  @Output() readonly switch = new EventEmitter<boolean>();
+
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
 
   emit(event: Event): void {
-    this.switch.next((event.target as HTMLInputElement)['checked']);
+    this.switch.next(Boolean(get(event, 'target.checked')));
   }
 }

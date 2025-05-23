@@ -3,14 +3,17 @@
     <app-header>Chat</app-header>
     <div class="content">
       <div class="messages">
-        <span *ngFor="let message of messages"
-          >[{{ message.date.getHours() }}:{{ message.date.getMinutes() }}:{{
-            message.date.getSeconds()
-          }}] {{ message.username }}: {{ message.text }}</span
+        <span
+          *ngFor="
+            let message of messages;
+            let index = index;
+            trackBy: trackByFn
+          "
+          >{{ timestamps[index] }}</span
         >
       </div>
       <form class="input">
-        <app-input [label]="'Message'"></app-input>
+        <app-input label="Message" />
         <app-button>Send</app-button>
       </form>
     </div>

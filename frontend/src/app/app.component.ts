@@ -1,6 +1,13 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { AfterViewInit, Component, HostListener } from '@angular/core';
 
+import {
+  HEIGHT_OFFSET,
+  INITIAL_VIDEO_HEIGHT,
+  INITIAL_VIDEO_WIDTH,
+  MINIMUM_VIDEO_HEIGHT,
+  WIDTH_OFFSET,
+} from './app.consts';
 import { BackgroundComponent } from './components/background/background.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { ConnectedUsersInfoComponent } from './components/connected-users-info/connected-users-info.component';
@@ -12,13 +19,19 @@ import { VerticalSeparatorComponent } from './components/vertical-separator/vert
 import { VideoActionsComponent } from './components/video-actions/video-actions.component';
 import { VideoContainerComponent } from './components/video-container/video-container.component';
 import { ThemedDirective } from './directives/themed/themed.directive';
+import { getOrZero } from './functions/get-or-zero.function';
 import { Message } from './models/message.interface';
+import { ThemeService } from './services/theme/theme.service';
+
+interface Dimensions {
+  width: number;
+  height: number;
+}
 
 @Component({
   selector: 'app-root',
   imports: [
     AsyncPipe,
-    BackgroundComponent,
     BackgroundComponent,
     ChatComponent,
     ConnectedUsersInfoComponent,
@@ -58,30 +71,39 @@ export class AppComponent extends ThemedDirective implements AfterViewInit {
   video = {
     title: 'Test video title',
   };
-  videoWidth = 0;
-  videoHeight = 0;
+  videoWidth = INITIAL_VIDEO_WIDTH;
+  videoHeight = INITIAL_VIDEO_HEIGHT;
 
-  private readonly widthOffset = 402;
-  private readonly heightOffset = 234;
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    const width = ((event.target as Window).innerWidth || 0) - this.widthOffset;
-    const height =
-      ((event.target as Window).innerHeight || 0) - this.heightOffset;
-
-    this.resizeVideoContainer(width < 0 ? 0 : width, height < 0 ? 0 : height);
+  onResize(event: Event): void {
+    this.resizeVideoContainer(this.getDimensionsWithOffset(event.target));
   }
 
   ngAfterViewInit(): void {
-      const width = ((window as Window).innerWidth || 0) - this.widthOffset;
-      const height = ((window as Window).innerHeight || 0) - this.heightOffset;
-
-      this.resizeVideoContainer(width < 0 ? 0 : width, height < 0 ? 0 : height);
+    this.resizeVideoContainer(this.getDimensionsWithOffset(window));
   }
 
-  private resizeVideoContainer(width: number, height: number): void {
-    this.videoWidth = Math.floor(width);
-    this.videoHeight = Math.floor(height);
+  private getDimensionsWithOffset(
+    target: Window | EventTarget | null,
+  ): Dimensions {
+    return {
+      width: getOrZero(target, 'innerWidth') - WIDTH_OFFSET,
+      height: getOrZero(target, 'innerHeight') - HEIGHT_OFFSET,
+    };
+  }
+
+  private resizeVideoContainer(dimensions: Dimensions): void {
+    this.videoWidth = Math.min(
+      MINIMUM_VIDEO_HEIGHT,
+      Math.floor(dimensions.width),
+    );
+    this.videoHeight = Math.min(
+      MINIMUM_VIDEO_HEIGHT,
+      Math.floor(dimensions.height),
+    );
   }
 }
