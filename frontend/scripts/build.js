@@ -1,13 +1,26 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 
 const { execSync } = require('node:child_process');
-const { print } = require('./print');
 const { existsSync, mkdirSync } = require('node:fs');
 const { normalize } = require('node:path');
 const { default: copy } = require('cpy');
 const { deleteAsync } = require('del');
 const { replaceInFile } = require('replace-in-file');
 const { cwd } = require('node:process');
+
+function print(error, stdout, stderr, printStdErr) {
+  if (error) {
+    console.error(`exec error: ${error}`);
+  }
+
+  if (stdout.length && stdout.trim().length) {
+    console.log(stdout);
+  }
+
+  if (printStdErr && stderr) {
+    console.error(stderr);
+  }
+}
 
 async function build() {
   console.log('Executing ng build');
