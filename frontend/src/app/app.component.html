@@ -11,12 +11,15 @@
   </app-toolbar>
   <div class="content">
     <div class="main">
-      <app-video-container videoId="dQw4w9WgXcQ" [title]="video.title" [width]="videoWidth" [height]="videoHeight" />
+      <app-video-container
+        videoId="dQw4w9WgXcQ"
+        [title]="video.title"
+        [width]="videoWidth"
+        [height]="videoHeight" />
       <app-video-actions />
     </div>
     <div class="right">
-      <app-connected-users-info
-        [usernames]="usernames" />
+      <app-connected-users-info [usernames]="usernames" />
       <app-chat [messages]="messages" />
     </div>
   </div>

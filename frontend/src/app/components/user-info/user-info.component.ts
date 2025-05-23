@@ -22,7 +22,7 @@ export class UserInfoComponent extends ThemedDirective {
 
   faUser = faUser;
 
-    constructor(protected override readonly themeService: ThemeService) {
-      super(themeService);
-    }
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
 }

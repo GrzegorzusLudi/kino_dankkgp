@@ -16,7 +16,7 @@ import { ThemeService } from '../../services/theme/theme.service';
   ],
 })
 export class ToolbarComponent extends ThemedDirective {
-    constructor(protected override readonly themeService: ThemeService) {
-      super(themeService);
-    }
+  constructor(protected override readonly themeService: ThemeService) {
+    super(themeService);
+  }
 }
