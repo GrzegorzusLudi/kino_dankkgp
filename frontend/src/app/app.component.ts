@@ -97,11 +97,11 @@ export class AppComponent extends ThemedDirective implements AfterViewInit {
   }
 
   private resizeVideoContainer(dimensions: Dimensions): void {
-    this.videoWidth = Math.min(
+    this.videoWidth = Math.max(
       MINIMUM_VIDEO_HEIGHT,
       Math.floor(dimensions.width),
     );
-    this.videoHeight = Math.min(
+    this.videoHeight = Math.max(
       MINIMUM_VIDEO_HEIGHT,
       Math.floor(dimensions.height),
     );
