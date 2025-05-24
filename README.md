@@ -28,6 +28,7 @@ pip install flask-socketio
 pip install python-dotenv
 pip install google-api-python-client
 flask --app server run
+
 ```
 
 ### Windows
@@ -43,6 +44,7 @@ pip install flask-socketio
 pip install python-dotenv
 pip install google-api-python-client
 flask --app server run
+
 ```
 
 # Frontend
