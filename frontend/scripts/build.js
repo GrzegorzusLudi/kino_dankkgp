@@ -1,3 +1,7 @@
+/* eslint-disable unicorn/prefer-top-level-await */
+/* eslint-disable unicorn/prefer-module */
+/* eslint-disable unicorn/import-style */
+
 const { execSync } = require('node:child_process');
 const { existsSync, mkdirSync } = require('node:fs');
 const { normalize } = require('node:path');
@@ -11,7 +15,7 @@ function print(error, stdout, stderr, printStdErr) {
     console.error(`exec error: ${error}`);
   }
 
-  if (stdout.length && stdout.trim().length) {
+  if (stdout.length > 0 && stdout.trim().length > 0) {
     console.log(stdout);
   }
 

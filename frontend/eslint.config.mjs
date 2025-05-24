@@ -13,7 +13,7 @@ const jsons = [
   '.vscode/*.json',
 ];
 
-const sources = ['eslint.config.mjs', '*.{ts,js,mjs,cjs}', 'src/**/*.ts', 'scripts/**/*.js'];
+const sources = ['src/**/*.ts'];
 
 const htmls = ['src/**/*.html'];
 
