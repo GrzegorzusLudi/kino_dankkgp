@@ -15,8 +15,8 @@
         "owner": "typescript",
         "pattern": "$tsc"
       },
-      "type": "npm",
-      "script": "start"
+      "script": "start",
+      "type": "npm"
     },
     {
       "isBackground": true,

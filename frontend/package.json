@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node scripts/build",
     "chores": "npm run lint && npm run format",
-    "format": "ng-perfectionism && prettier --write src/**/*.{ts,html,scss} && sort-patterns-file .gitignore -i **/node_modules/**",
+    "format": "sort-package-json && ng-perfectionism && prettier --w **/*.json src/**/*.{ts,html,scss} && sort-patterns-file .gitignore -i node_modules",
     "lint": "eslint . --fix",
     "ng": "ng",
     "start": "ng serve",
@@ -35,7 +35,7 @@
     "@angular-devkit/build-angular": "^19.0.5",
     "@angular/cli": "^19.0.5",
     "@angular/compiler-cli": "^19.0.0",
-    "@chris.araneo/eslint-config": "0.0.34",
+    "@chris.araneo/eslint-config": "0.0.35",
     "@chris.araneo/ng-perfectionism": "0.0.10",
     "@chris.araneo/sort-patterns-file": "^0.0.9",
     "@eslint/json": "^0.9.1",
@@ -57,7 +57,7 @@
     "mv": "^2.1.1",
     "prettier": "^3.4.2",
     "replace-in-file": "^8.3.0",
-    "sort-package-json": "^2.14.0",
+    "sort-package-json": "^2.15.1",
     "typescript": "~5.6.2",
     "typescript-eslint": "8.18.0"
   }

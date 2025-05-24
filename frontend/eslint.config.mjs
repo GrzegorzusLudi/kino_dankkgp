@@ -1,30 +1,29 @@
 import createConfig from '@chris.araneo/eslint-config';
 
 const jsons = [
-  'tsconfig.json',
-  'tsconfig.app.json',
-  'tsconfig.spec.json',
-  'package.json',
-  '.prettierrc.json',
-  'scripts.config.json',
-  'angular.json',
-  'src/**/*.json',
-  'public/**/*.json',
   '.vscode/*.json',
+  'public/**/*.json',
+  'scripts/**/*.json',
+  'src/**/*.json',
+  '.prettierrc.json',
+  'angular.json',
+  'tsconfig.app.json',
+  'tsconfig.json',
+  'tsconfig.spec.json',
 ];
 
 const sources = ['src/**/*.ts'];
 
 const htmls = ['src/**/*.html'];
 
-const ignoredFiles = [
+const ignored = [
+  '.angular/',
+  '.stryker-tmp/',
+  'dist/',
   'node_modules/',
   'reports/',
-  'dist/',
-  '.stryker-tmp/',
-  '.angular',
   'package.json',
   'package-lock.json',
 ];
 
-export default createConfig(jsons, sources, htmls, ignoredFiles);
+export default createConfig(jsons, sources, htmls, ignored);
