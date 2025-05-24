@@ -1,2 +1,3 @@
-export const DEFAULT_VIDEO_WIDTH = 0;
-export const DEFAULT_VIDEO_HEIGHT = 0;
+export const DEFAULT_VIDEO_WIDTH = 320;
+export const DEFAULT_VIDEO_HEIGHT = 180;
+export const DIMENSIONS_CHANGE_DEBOUNCE_TIME = 25;
