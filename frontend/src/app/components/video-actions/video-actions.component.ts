@@ -3,11 +3,13 @@ import { Component } from '@angular/core';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
+import { ButtonComponent } from '../button/button.component';
 import { InputComponent } from '../input/input.component';
+import { VerticalSeparatorComponent } from "../vertical-separator/vertical-separator.component";
 
 @Component({
   selector: 'app-video-actions',
-  imports: [AsyncPipe, InputComponent, NgClass, NgIf],
+  imports: [AsyncPipe, ButtonComponent, InputComponent, NgClass, NgIf, VerticalSeparatorComponent],
   templateUrl: './video-actions.component.html',
   styleUrls: [
     './video-actions.aero-dark.component.scss',
