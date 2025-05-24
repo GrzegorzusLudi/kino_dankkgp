@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node scripts/build",
     "chores": "npm run lint && npm run format",
-    "format": "sort-package-json && ng-perfectionism && prettier --w **/*.json src/**/*.{ts,html,scss} && sort-patterns-file .gitignore -i node_modules",
+    "format": "sort-package-json && ng-perfectionism && prettier --w **/*.json src/**/*.{ts,html,scss} && sort-patterns-file .gitignore .prettierignore -i node_modules",
     "lint": "eslint . --fix",
     "ng": "ng",
     "start": "ng serve",
