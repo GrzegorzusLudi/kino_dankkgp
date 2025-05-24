@@ -37,25 +37,17 @@ $border-radius: 4px;
   }
 
   .input {
+    box-sizing: border-box;
     padding: 16px;
-    background-color: $dark-primary-a40;
+    background-color: transparent;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid $dark-border-color;
 
-    input {
-      max-height: 36px;
-      margin-right: 8px;
-      border-color: $dark-primary-a50;
-      background-color: $dark-primary-a10;
-      color: $dark-text-color;
-
-      &:hover {
-        background: $dark-primary-a10;
-      }
-
-      &:focus {
-        box-shadow: 0px 0px 0.5px 2px $dark-primary-a30;
-      }
+    app-input {
+      width: 100% !important;
+      margin-right: 16px;
     }
   }
 }

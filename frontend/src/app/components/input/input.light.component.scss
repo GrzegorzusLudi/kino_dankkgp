@@ -6,6 +6,7 @@ $border-radius: 4px;
   input {
     box-sizing: border-box;
     max-height: 36px;
+    width: 100%;
     border: 1px solid $light-input-border-color;
     background-color: $light-primary-a0;
     color: $light-text-color;
