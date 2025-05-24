@@ -1,14 +1,7 @@
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  SimpleChanges,
-} from '@angular/core';
-import { get, isNull } from 'lodash';
+import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { YoutubePlayerComponent } from 'ngx-youtube-player';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
@@ -16,6 +9,7 @@ import { HeaderComponent } from '../header/header.component';
 import {
   DEFAULT_VIDEO_HEIGHT,
   DEFAULT_VIDEO_WIDTH,
+  DIMENSIONS_CHANGE_DEBOUNCE_TIME,
 } from './video-container.consts';
 
 @Component({
@@ -49,13 +43,8 @@ export class VideoContainerComponent
     super(themeService);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const currentWidth = get(changes, 'width.currentValue', null);
-    const currentHeight = get(changes, 'width.currentValue', null);
-
-    if (!isNull(currentWidth) || !isNull(currentHeight)) {
-      this.dimensions.next([`${this.width}px`, `${this.height}px`]);
-    }
+  ngOnChanges(): void {
+    this.dimensions.next([`${this.width}px`, `${this.height}px`]);
   }
 
   ngOnDestroy(): void {
@@ -65,9 +54,12 @@ export class VideoContainerComponent
   savePlayer(player: Readonly<YT.Player>): void {
     this.player = player;
 
-    this.subscription = this.dimensions.asObservable().subscribe(() => {
-      this.updateIframeDimensions();
-    });
+    this.subscription = this.dimensions
+      .asObservable()
+      .pipe(debounceTime(DIMENSIONS_CHANGE_DEBOUNCE_TIME))
+      .subscribe(() => {
+        this.updateIframeDimensions();
+      });
   }
 
   private updateIframeDimensions(): void {
