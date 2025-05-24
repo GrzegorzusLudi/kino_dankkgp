@@ -26,4 +26,5 @@ activate.bat
 cd ../../
 pip install Flask
 pip install flask-socketio
+pip install google-api-python-client
 ```
