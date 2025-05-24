@@ -15,6 +15,7 @@ button.button.#{$flat-dark-theme-class-name} {
   box-shadow: none;
   border-radius: 4px;
   color: $dark-text-color;
+  width: 100%;
 }
 
 button.button.#{$flat-dark-theme-class-name}:hover {
