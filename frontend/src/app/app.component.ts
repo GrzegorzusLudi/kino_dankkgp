@@ -20,13 +20,9 @@ import { VideoActionsComponent } from './components/video-actions/video-actions.
 import { VideoContainerComponent } from './components/video-container/video-container.component';
 import { ThemedDirective } from './directives/themed/themed.directive';
 import { getOrZero } from './functions/get-or-zero.function';
+import { Dimensions } from './models/dimensions.interface';
 import { Message } from './models/message.interface';
 import { ThemeService } from './services/theme/theme.service';
-
-interface Dimensions {
-  width: number;
-  height: number;
-}
 
 @Component({
   selector: 'app-root',
@@ -69,10 +65,11 @@ export class AppComponent extends ThemedDirective implements AfterViewInit {
     },
   ];
   video = {
+    id: 'dQw4w9WgXcQ',
     title: 'Test video title',
+    width: INITIAL_VIDEO_WIDTH,
+    height: INITIAL_VIDEO_HEIGHT,
   };
-  videoWidth = INITIAL_VIDEO_WIDTH;
-  videoHeight = INITIAL_VIDEO_HEIGHT;
 
   constructor(protected override readonly themeService: ThemeService) {
     super(themeService);
@@ -97,11 +94,11 @@ export class AppComponent extends ThemedDirective implements AfterViewInit {
   }
 
   private resizeVideoContainer(dimensions: Dimensions): void {
-    this.videoWidth = Math.max(
+    this.video.width = Math.max(
       MINIMUM_VIDEO_HEIGHT,
       Math.floor(dimensions.width),
     );
-    this.videoHeight = Math.max(
+    this.video.height = Math.max(
       MINIMUM_VIDEO_HEIGHT,
       Math.floor(dimensions.height),
     );

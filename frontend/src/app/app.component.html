@@ -12,10 +12,10 @@
   <div class="content">
     <div class="main">
       <app-video-container
-        videoId="dQw4w9WgXcQ"
+        [videoId]="video.id"
         [title]="video.title"
-        [width]="videoWidth"
-        [height]="videoHeight" />
+        [width]="video.width"
+        [height]="video.height" />
       <app-video-actions />
     </div>
     <div class="right">
