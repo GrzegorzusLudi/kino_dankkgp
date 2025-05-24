@@ -2,20 +2,20 @@
 
 button.button.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
-  max-height: 36px;
-  background: $light-primary-a50;
+  background: $light-primary-a60;
   border: none;
+  color: white;
   margin: 0;
-  padding: 6.5px 14px;
+  padding: 7px 14px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: $font-size;
-  border: 1px solid $light-primary-a50;
+  border: 1px solid $light-primary-a60;
   box-shadow: none;
   border-radius: 4px;
-  color: lighten($light-text-color, 100%);
   width: 100%;
+  max-height: 36px;
 }
 
 button.button.#{$flat-light-theme-class-name}:hover {

@@ -14,8 +14,8 @@ button.button.#{$flat-dark-theme-class-name} {
   border: 1px solid $dark-primary-a50;
   box-shadow: none;
   border-radius: 4px;
-  color: $dark-text-color;
   width: 100%;
+  max-height: 36px;
 }
 
 button.button.#{$flat-dark-theme-class-name}:hover {
