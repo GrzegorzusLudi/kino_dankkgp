@@ -21,12 +21,12 @@ import { InputComponent } from '../input/input.component';
   imports: [
     AsyncPipe,
     ButtonComponent,
+    FormsModule,
     HeaderComponent,
     InputComponent,
     NgClass,
     NgFor,
     NgIf,
-    FormsModule,
   ],
   templateUrl: './chat.component.html',
   styleUrls: [
