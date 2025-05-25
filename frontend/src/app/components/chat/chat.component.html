@@ -14,7 +14,7 @@
         >
       </div>
       <form class="input">
-        <app-input label="Message" [(ngModel)]="message" />
+        <app-input label="Message" [formControl]="message" />
         <app-button (click)="sendMessage()">Send</app-button>
       </form>
     </div>

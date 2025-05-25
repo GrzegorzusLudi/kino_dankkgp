@@ -6,7 +6,7 @@ import {
   IterableDiffer,
   IterableDiffers,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { Message } from '../../models/message.interface';
@@ -27,6 +27,7 @@ import { InputComponent } from '../input/input.component';
     NgClass,
     NgFor,
     NgIf,
+    ReactiveFormsModule,
   ],
   templateUrl: './chat.component.html',
   styleUrls: [
@@ -40,7 +41,7 @@ export class ChatComponent extends ThemedDirective implements DoCheck {
   @Input() messages: Message[] = [];
 
   protected timestamps: string[] = [];
-  protected message = '';
+  protected message = new FormControl<string>('');
 
   private readonly differ: IterableDiffer<Message>;
 
@@ -69,7 +70,8 @@ export class ChatComponent extends ThemedDirective implements DoCheck {
   }
 
   sendMessage(): void {
-    this.apiService.sendMessage(this.message);
-    this.message = '';
+    this.apiService.sendMessage(this.message.value ?? '');
+    this.message.setValue('');
+    this.message.updateValueAndValidity();
   }
 }
