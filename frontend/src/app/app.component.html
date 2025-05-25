@@ -20,7 +20,7 @@
     </div>
     <div class="right">
       <app-connected-users-info [usernames]="usernames" />
-      <app-chat [messages]="messages" />
+      <app-chat [messages]="(messages | async) || []" />
     </div>
   </div>
 </app-background>

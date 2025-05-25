@@ -1,5 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { AfterViewInit, Component, HostListener } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import {
   HEIGHT_OFFSET,
@@ -22,6 +23,7 @@ import { ThemedDirective } from './directives/themed/themed.directive';
 import { getOrZero } from './functions/get-or-zero.function';
 import { Dimensions } from './models/dimensions.interface';
 import { Message } from './models/message.interface';
+import { ApiService } from './services/api/api.service';
 import { ThemeService } from './services/theme/theme.service';
 
 @Component({
@@ -57,13 +59,7 @@ export class AppComponent extends ThemedDirective implements AfterViewInit {
     'Grzesiek',
     'Kazik',
   ];
-  messages: Message[] = [
-    {
-      date: new Date(),
-      username: 'Adam',
-      text: 'Hello World',
-    },
-  ];
+  messages: Observable<Message[]>;
   video = {
     id: 'dQw4w9WgXcQ',
     title: 'Test video title',
@@ -71,8 +67,12 @@ export class AppComponent extends ThemedDirective implements AfterViewInit {
     height: INITIAL_VIDEO_HEIGHT,
   };
 
-  constructor(protected override readonly themeService: ThemeService) {
+  constructor(
+    protected override readonly themeService: ThemeService,
+    private readonly apiService: ApiService,
+  ) {
     super(themeService);
+    this.messages = this.apiService.messages;
   }
 
   @HostListener('window:resize', ['$event'])
