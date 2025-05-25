@@ -1,7 +1,14 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { Component, forwardRef, Input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { get } from 'lodash';
+import { get, isObject } from 'lodash';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
@@ -30,11 +37,23 @@ export class InputComponent
 {
   @Input({ required: true }) label = '';
 
-  value = '';
+  @ViewChild('input') input?: ElementRef;
+
   isDisabled = false;
 
   changed?: (value: string) => void;
   touched?: () => void;
+
+  get value(): string | null {
+    return this._value;
+  }
+
+  set value(value: string | null) {
+    this._value = isObject(value) ? JSON.stringify(value) : `${value}`;
+    this.updateNativeInputValue();
+  }
+
+  private _value: string | null = '';
 
   constructor(protected override readonly themeService: ThemeService) {
     super(themeService);
@@ -42,7 +61,8 @@ export class InputComponent
 
   onChange(event: Readonly<Event>): void {
     if (this.changed) {
-      this.changed(get(event, 'target.value', ''));
+      const value = get(event, 'target.value', '');
+      this.changed(value);
     }
   }
 
@@ -52,8 +72,9 @@ export class InputComponent
     }
   }
 
-  writeValue(value: string): void {
+  writeValue(value: string | null): void {
     this.value = value;
+    this.updateNativeInputValue();
   }
 
   registerOnChange(fn: () => void): void {
@@ -66,5 +87,12 @@ export class InputComponent
 
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
+  }
+
+  private updateNativeInputValue(): void {
+    if (this.input) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      this.input.nativeElement.value = this.value;
+    }
   }
 }

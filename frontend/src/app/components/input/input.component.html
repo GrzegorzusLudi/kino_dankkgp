@@ -1,9 +1,9 @@
 <ng-container *ngIf="theme | async as theme">
   <div class="input" [ngClass]="theme">
     <input
+      #input
       type="text"
       [placeholder]="label"
-      [value]="value"
       [disabled]="isDisabled"
       (change)="onChange($event)"
       (blur)="onBlur()" />
