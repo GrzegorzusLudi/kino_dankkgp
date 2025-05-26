@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import {
   Component,
