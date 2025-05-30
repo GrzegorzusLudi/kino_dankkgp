@@ -3,6 +3,7 @@ import { isArray } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 
+import { environment } from '../../../environments/environment';
 import { getOrThrow } from '../../functions/get-or-throw.function';
 import { Action } from '../../models/action.enum';
 import { Event } from '../../models/event.enum';
@@ -17,7 +18,7 @@ export class ApiService {
   private readonly socket: Socket;
 
   constructor() {
-    this.socket = io();
+    this.socket = io(environment.api.url);
 
     this.socket.on(Event.Message, (event: { data?: string }) => {
       this.handleMessageEvent(event);
