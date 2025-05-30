@@ -1,5 +1,8 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { AfterViewInit, Component, HostListener } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import {
+  MatDialog,
+} from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import {
@@ -25,6 +28,7 @@ import { Dimensions } from './models/dimensions.interface';
 import { Message } from './models/message.interface';
 import { ApiService } from './services/api/api.service';
 import { ThemeService } from './services/theme/theme.service';
+import { UsernameDialogComponent } from './username-dialog/username-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -45,7 +49,7 @@ import { ThemeService } from './services/theme/theme.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent extends ThemedDirective implements AfterViewInit {
+export class AppComponent extends ThemedDirective implements OnInit, AfterViewInit {
   title = 'Kino DANKKGP';
   usernames = [
     'Adam',
@@ -66,13 +70,19 @@ export class AppComponent extends ThemedDirective implements AfterViewInit {
     width: INITIAL_VIDEO_WIDTH,
     height: INITIAL_VIDEO_HEIGHT,
   };
+  username = '';
 
   constructor(
     protected override readonly themeService: ThemeService,
     private readonly apiService: ApiService,
+    public dialog: MatDialog
   ) {
     super(themeService);
     this.messages = this.apiService.messages;
+  }
+
+  ngOnInit(): void {
+    this.openDialog('200ms', '300ms');
   }
 
   @HostListener('window:resize', ['$event'])
@@ -102,5 +112,13 @@ export class AppComponent extends ThemedDirective implements AfterViewInit {
       MINIMUM_VIDEO_HEIGHT,
       Math.floor(dimensions.height),
     );
+  }
+
+  private openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(UsernameDialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
   }
 }
