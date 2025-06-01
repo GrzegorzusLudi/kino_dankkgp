@@ -5,7 +5,9 @@
       <div class="group">
         <app-mode-toggle />
         <app-vertical-separator />
-        <app-user-info [username]="username" />
+        <app-user-info
+          *ngIf="username | async as username"
+          [username]="username" />
       </div>
     </ng-container>
   </app-toolbar>

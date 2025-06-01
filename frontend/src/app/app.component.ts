@@ -1,8 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
-import {
-  MatDialog,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import {
@@ -20,6 +18,12 @@ import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { UsernameDialogComponent } from './components/username-dialog/username-dialog.component';
+import {
+  USERNAME_DIALOG_ENTER_ANIMATION_DURATION,
+  USERNAME_DIALOG_EXIT_ANIMATION_DURATION,
+  USERNAME_DIALOG_HEIGHT,
+  USERNAME_DIALOG_WIDTH,
+} from './components/username-dialog/username-dialog.consts';
 import { VerticalSeparatorComponent } from './components/vertical-separator/vertical-separator.component';
 import { VideoActionsComponent } from './components/video-actions/video-actions.component';
 import { VideoContainerComponent } from './components/video-container/video-container.component';
@@ -49,7 +53,10 @@ import { ThemeService } from './services/theme/theme.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent extends ThemedDirective implements OnInit, AfterViewInit {
+export class AppComponent
+  extends ThemedDirective
+  implements OnInit, AfterViewInit
+{
   title = 'Kino DANKKGP';
   usernames = [
     'Adam',
@@ -64,25 +71,26 @@ export class AppComponent extends ThemedDirective implements OnInit, AfterViewIn
     'Kazik',
   ];
   messages: Observable<Message[]>;
+  username: Observable<string>;
   video = {
     id: 'dQw4w9WgXcQ',
     title: 'Test video title',
     width: INITIAL_VIDEO_WIDTH,
     height: INITIAL_VIDEO_HEIGHT,
   };
-  username = '';
 
   constructor(
     protected override readonly themeService: ThemeService,
     private readonly apiService: ApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
     super(themeService);
     this.messages = this.apiService.messages;
+    this.username = this.apiService.username;
   }
 
   ngOnInit(): void {
-    this.openDialog('200ms', '300ms');
+    this.openUsernameDialog();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -114,11 +122,12 @@ export class AppComponent extends ThemedDirective implements OnInit, AfterViewIn
     );
   }
 
-  private openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  private openUsernameDialog(): void {
     this.dialog.open(UsernameDialogComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
+      width: USERNAME_DIALOG_WIDTH,
+      height: USERNAME_DIALOG_HEIGHT,
+      enterAnimationDuration: USERNAME_DIALOG_ENTER_ANIMATION_DURATION,
+      exitAnimationDuration: USERNAME_DIALOG_EXIT_ANIMATION_DURATION,
     });
   }
 }

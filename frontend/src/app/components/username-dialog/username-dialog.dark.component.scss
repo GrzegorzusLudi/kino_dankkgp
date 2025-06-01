@@ -1,0 +1,31 @@
+@import '../../styles/shared.scss';
+
+.username-dialog.#{$flat-dark-theme-class-name} {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: $dark-primary-a10;
+  border-radius: 4px;
+
+  .content {
+    padding: 16px;
+    height: 64px;
+  }
+
+  .input {
+    box-sizing: border-box;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    app-input {
+      width: 100% !important;
+      margin-right: 16px;
+    }
+
+    app-button {
+      width: 192px;
+    }
+  }
+}

@@ -1,1 +1,9 @@
-<p>username-dialog works!</p>
+<div *ngIf="theme | async as _theme" class="username-dialog" [ngClass]="_theme">
+  <app-header>Set username</app-header>
+  <div class="content">
+    <form class="input">
+      <app-input label="Username" [formControl]="username" />
+      <app-button (click)="setUsername()">Set username</app-button>
+    </form>
+  </div>
+</div>
