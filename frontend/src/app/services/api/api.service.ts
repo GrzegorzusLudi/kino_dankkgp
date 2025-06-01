@@ -15,6 +15,7 @@ import { StateChangeData } from '../../models/state-change-data.interface';
 })
 export class ApiService {
   private readonly messagesSubject = new BehaviorSubject<Message[]>([]);
+  private readonly usernameSubject = new BehaviorSubject<string>('');
   private readonly socket: Socket;
 
   constructor() {
@@ -37,8 +38,14 @@ export class ApiService {
     return this.messagesSubject.asObservable();
   }
 
+  get username(): Observable<string> {
+    return this.usernameSubject.asObservable();
+  }
+
   setUsername(username: string): void {
-    this.socket.emit(Action.SetUsername, { data: username });
+    this.socket.emit(Action.SetUsername, { data: username }, () => {
+      this.usernameSubject.next(username);
+    });
   }
 
   sendMessage(message: string): void {
