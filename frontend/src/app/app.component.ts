@@ -19,6 +19,7 @@ import { ModeToggleComponent } from './components/mode-toggle/mode-toggle.compon
 import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
+import { UsernameDialogComponent } from './components/username-dialog/username-dialog.component';
 import { VerticalSeparatorComponent } from './components/vertical-separator/vertical-separator.component';
 import { VideoActionsComponent } from './components/video-actions/video-actions.component';
 import { VideoContainerComponent } from './components/video-container/video-container.component';
@@ -28,7 +29,6 @@ import { Dimensions } from './models/dimensions.interface';
 import { Message } from './models/message.interface';
 import { ApiService } from './services/api/api.service';
 import { ThemeService } from './services/theme/theme.service';
-import { UsernameDialogComponent } from './username-dialog/username-dialog.component';
 
 @Component({
   selector: 'app-root',
