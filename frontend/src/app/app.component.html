@@ -5,9 +5,7 @@
       <div class="group">
         <app-mode-toggle />
         <app-vertical-separator />
-        <app-user-info
-          *ngIf="username | async as username"
-          [username]="username" />
+        <app-user-info [username]="(username | async) || ''" />
       </div>
     </ng-container>
   </app-toolbar>
@@ -21,7 +19,7 @@
       <app-video-actions />
     </div>
     <div class="right">
-      <app-connected-users-info [usernames]="usernames" />
+      <app-connected-users-info [usernames]="(usernames | async) || []" />
       <app-chat [messages]="(messages | async) || []" />
     </div>
   </div>

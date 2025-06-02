@@ -58,18 +58,7 @@ export class AppComponent
   implements OnInit, AfterViewInit
 {
   title = 'Kino DANKKGP';
-  usernames = [
-    'Adam',
-    'Celina',
-    'John',
-    'Bertha',
-    'Robert',
-    'Anna',
-    'Łukasz',
-    'Przemek',
-    'Grzesiek',
-    'Kazik',
-  ];
+  usernames: Observable<string[]>;
   messages: Observable<Message[]>;
   username: Observable<string>;
   video = {
@@ -87,6 +76,7 @@ export class AppComponent
     super(themeService);
     this.messages = this.apiService.messages;
     this.username = this.apiService.username;
+    this.usernames = this.apiService.usernames;
   }
 
   ngOnInit(): void {
