@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { isArray } from 'lodash';
+import { isArray, isObject } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 
@@ -16,6 +16,7 @@ import { StateChangeData } from '../../models/state-change-data.interface';
 export class ApiService {
   private readonly messagesSubject = new BehaviorSubject<Message[]>([]);
   private readonly usernameSubject = new BehaviorSubject<string>('');
+  private readonly usernamesSubject = new BehaviorSubject<string[]>([]);
   private readonly socket: Socket;
 
   constructor() {
@@ -40,6 +41,10 @@ export class ApiService {
 
   get username(): Observable<string> {
     return this.usernameSubject.asObservable();
+  }
+
+  get usernames(): Observable<string[]> {
+    return this.usernamesSubject.asObservable();
   }
 
   setUsername(username: string): void {
@@ -79,8 +84,16 @@ export class ApiService {
           ),
         })),
       );
-    } else {
-      this.messagesSubject.next([]);
+    }
+
+    const usernames = event.data?.users;
+
+    if (isObject(usernames)) {
+      this.usernamesSubject.next(
+        Object.values(usernames)
+          .map((value) => value.nick ?? '')
+          .filter(Boolean),
+      );
     }
   }
 }
