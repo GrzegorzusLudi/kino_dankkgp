@@ -42,6 +42,7 @@ export class UsernameDialogComponent extends ThemedDirective {
   }
 
   setUsername(): void {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (this.username.value) {
       this.apiService.setUsername(this.username.value);
       this.dialogRef.close();
