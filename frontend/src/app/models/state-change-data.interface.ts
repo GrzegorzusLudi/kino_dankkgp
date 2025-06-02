@@ -1,8 +1,15 @@
 export interface StateChangeData {
-  messages: {
+  messages?: {
     nick?: string;
     message?: string;
     date?: string;
     time?: string;
   }[];
+  users?: Record<
+    string,
+    {
+      nick?: string;
+      num?: number;
+    }
+  >;
 }
