@@ -1,33 +1,15 @@
-/* eslint-disable unicorn/prefer-top-level-await */
-/* eslint-disable unicorn/prefer-module */
-/* eslint-disable unicorn/import-style */
-
-const { execSync } = require('node:child_process');
-const { existsSync, mkdirSync } = require('node:fs');
-const { normalize } = require('node:path');
-const { default: copy } = require('cpy');
-const { deleteAsync } = require('del');
-const { replaceInFile } = require('replace-in-file');
-const { cwd } = require('node:process');
-
-function print(error, stdout, stderr, printStdErr) {
-  if (error) {
-    console.error(`exec error: ${error}`);
-  }
-
-  if (stdout.length > 0 && stdout.trim().length > 0) {
-    console.log(stdout);
-  }
-
-  if (printStdErr && stderr) {
-    console.error(stderr);
-  }
-}
+import { execSync } from 'node:child_process';
+import { existsSync, mkdirSync } from 'node:fs';
+import { normalize } from 'node:path';
+import { default as copy } from 'cpy';
+import { deleteAsync } from 'del';
+import { replaceInFile } from 'replace-in-file';
+import { cwd } from 'node:process';
 
 async function build() {
   console.log('Executing ng build');
 
-  execSync(`ng build`, (error, stdout, stderr) => print(error, stdout, stderr));
+  execSync(`ng build`);
 
   const FRONTEND_DIST_PATH = normalize(cwd() + '/dist/browser');
   const FRONTEND_STATIC_PATH = normalize(cwd() + '/dist/browser/static');
@@ -75,9 +57,11 @@ async function build() {
 
   await copy(STATIC_FILES, BACKEND_STATIC_PATH);
 
-  console.log(`Delete static files in ${FRONTEND_DIST_PATH}`);
+  console.log(`Deleting static files in ${FRONTEND_DIST_PATH}`);
 
   await deleteAsync(STATIC_FILES);
+
+  console.log('Done!')
 }
 
 build();
