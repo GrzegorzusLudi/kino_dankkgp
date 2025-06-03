@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { isArray, isObject } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { io, Socket } from 'socket.io-client';
+import { Socket } from 'socket.io-client';
 
-import { environment } from '../../../environments/environment';
+import { SOCKET } from '../../app.config';
 import { getOrThrow } from '../../functions/get-or-throw.function';
 import { Action } from '../../models/action.enum';
 import { Event } from '../../models/event.enum';
@@ -17,11 +17,8 @@ export class ApiService {
   private readonly messagesSubject = new BehaviorSubject<Message[]>([]);
   private readonly usernameSubject = new BehaviorSubject<string>('');
   private readonly usernamesSubject = new BehaviorSubject<string[]>([]);
-  private readonly socket: Socket;
 
-  constructor() {
-    this.socket = io(environment.api.url);
-
+  constructor(@Inject(SOCKET) private readonly socket: Socket) {
     this.socket.on(Event.Message, (event: { data?: string }) => {
       this.handleMessageEvent(event);
     });
