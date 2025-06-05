@@ -1,14 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-destructuring */
-/* eslint-disable max-lines-per-function */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-function-type */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-magic-numbers */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
 import { TestBed } from '@angular/core/testing';
 
 import { SOCKET } from '../../app.config';
@@ -99,7 +88,9 @@ describe('ApiService', () => {
       stateChangeHandler = calls.find(
         (events: Event[]) => events[0] === Event.StateChange,
       )![1];
-      errorHandler = calls.find((events: Event[]) => events[0] === Event.Error)![1];
+      errorHandler = calls.find(
+        (events: Event[]) => events[0] === Event.Error,
+      )![1];
     });
 
     it('should parse messages and usernames from StateChange and update subjects', () => {
