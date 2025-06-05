@@ -12,7 +12,9 @@ const jsons = [
   'tsconfig.spec.json',
 ];
 
-const sources = ['src/**/*.ts'];
+const sources = ['^src\/.*(?<!\.spec)\.ts$'];
+
+const tests = ['^.*\.spec\.ts$'];
 
 const htmls = ['src/**/*.html'];
 
@@ -26,4 +28,4 @@ const ignored = [
   'package-lock.json',
 ];
 
-export default createConfig(jsons, sources, htmls, ignored);
+export default createConfig(jsons, sources, tests, htmls, ignored);
