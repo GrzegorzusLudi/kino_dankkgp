@@ -14,8 +14,8 @@ TEMPLATES_FOLDER="/templates"
 
 ## Running server
 
-Remember that before running server you should build UI first. Look at Frontend section to know how to do that.
-After successfully running server you should be able to access it at You should be able to access server at http://127.0.0.1:5000/
+Remember that before running server you should build UI first. Look at Frontend section to learn how to do that.
+After successfully running server you should be able to access app at http://127.0.0.1:5000/
 
 ### Linux
 
@@ -43,6 +43,16 @@ pip install Flask
 pip install flask-socketio
 pip install python-dotenv
 pip install google-api-python-client
+flask --app server run
+
+```
+
+```
+cd server
+python3 -m venv .venv
+cd .venv/Scripts
+activate.bat
+cd ../../
 flask --app server run
 
 ```
