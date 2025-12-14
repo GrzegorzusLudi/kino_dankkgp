@@ -46,7 +46,7 @@ export class VideoActionsComponent extends ThemedDirective implements OnInit {
     const videoId = this.extractYouTubeVideoId(url);
 
     if (videoId) {
-      this.apiService.addVideoToQueue(videoId);
+      this.apiService.addVideoToQueue(`https://www.youtube.com/watch?v=${videoId}`);
       this.form.get('url')?.setValue('');
     } else {
       alert('Invalid YouTube URL'); // TODO toast
