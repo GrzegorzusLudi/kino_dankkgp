@@ -71,6 +71,6 @@ export class VideoContainerComponent
 
     const [width, height] = this.dimensions.getValue();
     iframe.width = width;
-    iframe.height = height;
+    iframe.height = height + 4;
   }
 }
