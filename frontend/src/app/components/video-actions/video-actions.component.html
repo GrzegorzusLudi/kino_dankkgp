@@ -1,8 +1,8 @@
 <ng-container *ngIf="theme | async as theme">
   <div class="video-actions" [ngClass]="theme">
-    <div class="content">
-      <app-input label="Video URL" />
-      <app-button class="margin-left">Add to queue</app-button>
+    <div class="content" [formGroup]="form">
+      <app-input formControlName="url" label="Video URL" />
+      <app-button class="margin-left" (click)="addVideoToQueue()">Add to queue</app-button>
       <app-vertical-separator />
       <app-button>Desynchronize</app-button>
       <app-button class="margin-left">Vote to skip</app-button>
