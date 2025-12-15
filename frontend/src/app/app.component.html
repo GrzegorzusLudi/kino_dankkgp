@@ -12,10 +12,11 @@
   <div class="content">
     <div class="main">
       <app-video-container
-        [videoId]="video.id"
+        *ngIf="video | async as video"
+        [videoId]="video.videoId"
         [title]="video.title"
-        [width]="video.width"
-        [height]="video.height" />
+        [width]="width"
+        [height]="height" />
       <app-video-actions />
     </div>
     <div class="right">

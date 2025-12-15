@@ -1,7 +1,7 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import {
   HEIGHT_OFFSET,
@@ -33,6 +33,8 @@ import { Dimensions } from './models/dimensions.interface';
 import { Message } from './models/message.interface';
 import { ApiService } from './services/api/api.service';
 import { ThemeService } from './services/theme/theme.service';
+import { Queue } from './models/queue.interface';
+import { Video } from './models/video.interface';
 
 @Component({
   selector: 'app-root',
@@ -61,12 +63,11 @@ export class AppComponent
   usernames: Observable<string[]>;
   messages: Observable<Message[]>;
   username: Observable<string>;
-  video = {
-    id: 'dQw4w9WgXcQ',
-    title: 'Test video title',
-    width: INITIAL_VIDEO_WIDTH,
-    height: INITIAL_VIDEO_HEIGHT,
-  };
+  queue: Observable<Queue | null>;
+  video: Observable<Video | null>;
+
+  protected width: number = INITIAL_VIDEO_WIDTH;
+  protected height: number = INITIAL_VIDEO_HEIGHT;
 
   constructor(
     protected override readonly themeService: ThemeService,
@@ -77,6 +78,12 @@ export class AppComponent
     this.messages = this.apiService.messages;
     this.username = this.apiService.username;
     this.usernames = this.apiService.usernames;
+    this.queue = this.apiService.queue;
+    this.video = this.apiService.queue.pipe(
+      map((queue) => {
+        return queue?.currentlyPlayedVideo || null;
+      }),
+    );
   }
 
   ngOnInit(): void {
@@ -102,14 +109,8 @@ export class AppComponent
   }
 
   private resizeVideoContainer(dimensions: Dimensions): void {
-    this.video.width = Math.max(
-      MINIMUM_VIDEO_HEIGHT,
-      Math.floor(dimensions.width),
-    );
-    this.video.height = Math.max(
-      MINIMUM_VIDEO_HEIGHT,
-      Math.floor(dimensions.height),
-    );
+    this.width = Math.max(MINIMUM_VIDEO_HEIGHT, Math.floor(dimensions.width));
+    this.height = Math.max(MINIMUM_VIDEO_HEIGHT, Math.floor(dimensions.height));
   }
 
   private openUsernameDialog(): void {
