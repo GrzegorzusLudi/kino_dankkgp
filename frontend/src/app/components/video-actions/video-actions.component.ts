@@ -6,7 +6,12 @@ import { ThemeService } from '../../services/theme/theme.service';
 import { ButtonComponent } from '../button/button.component';
 import { InputComponent } from '../input/input.component';
 import { VerticalSeparatorComponent } from '../vertical-separator/vertical-separator.component';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ApiService } from '../../services/api/api.service';
 
 @Component({
@@ -14,12 +19,12 @@ import { ApiService } from '../../services/api/api.service';
   imports: [
     AsyncPipe,
     ButtonComponent,
+    FormsModule,
     InputComponent,
     NgClass,
     NgIf,
-    VerticalSeparatorComponent,
     ReactiveFormsModule,
-    FormsModule,
+    VerticalSeparatorComponent,
   ],
   templateUrl: './video-actions.component.html',
   styleUrls: [
@@ -32,7 +37,10 @@ import { ApiService } from '../../services/api/api.service';
 export class VideoActionsComponent extends ThemedDirective implements OnInit {
   protected form!: FormGroup;
 
-  constructor(protected override readonly themeService: ThemeService, private readonly apiService: ApiService) {
+  constructor(
+    protected override readonly themeService: ThemeService,
+    private readonly apiService: ApiService,
+  ) {
     super(themeService);
   }
 
@@ -46,7 +54,9 @@ export class VideoActionsComponent extends ThemedDirective implements OnInit {
     const videoId = this.extractYouTubeVideoId(url);
 
     if (videoId) {
-      this.apiService.addVideoToQueue(`https://www.youtube.com/watch?v=${videoId}`);
+      this.apiService.addVideoToQueue(
+        `https://www.youtube.com/watch?v=${videoId}`,
+      );
       this.form.get('url')?.setValue('');
     } else {
       alert('Invalid YouTube URL'); // TODO toast
