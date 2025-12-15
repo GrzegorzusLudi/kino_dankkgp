@@ -1,3 +1,6 @@
+import { Queue } from "./queue.interface";
+import { User } from "./user.interface";
+
 export interface StateChangeData {
   messages?: {
     nick?: string;
@@ -7,9 +10,7 @@ export interface StateChangeData {
   }[];
   users?: Record<
     string,
-    {
-      nick?: string;
-      num?: number;
-    }
+    User
   >;
+  queue?: Queue;
 }
