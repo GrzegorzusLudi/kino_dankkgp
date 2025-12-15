@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { isArray, isObject } from 'lodash';
+import { get, isArray, isObject } from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Socket } from 'socket.io-client';
 
@@ -9,6 +9,8 @@ import { Action } from '../../models/action.enum';
 import { Event } from '../../models/event.enum';
 import { Message } from '../../models/message.interface';
 import { StateChangeData } from '../../models/state-change-data.interface';
+import { Queue } from '../../models/queue.interface';
+import { Video } from '../../models/video.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +19,7 @@ export class ApiService {
   private readonly messagesSubject = new BehaviorSubject<Message[]>([]);
   private readonly usernameSubject = new BehaviorSubject<string>('');
   private readonly usernamesSubject = new BehaviorSubject<string[]>([]);
+  private readonly queueSubject = new BehaviorSubject<Queue | null>(null);
 
   constructor(@Inject(SOCKET) private readonly socket: Socket) {
     this.socket.on(Event.Message, (event: { data?: string }) => {
@@ -42,6 +45,10 @@ export class ApiService {
 
   get usernames(): Observable<string[]> {
     return this.usernamesSubject.asObservable();
+  }
+
+  get queue(): Observable<Queue | null> {
+    return this.queueSubject.asObservable();
   }
 
   setUsername(username: string): void {
@@ -91,6 +98,30 @@ export class ApiService {
           .map((value) => value.nick ?? '')
           .filter(Boolean),
       );
+    }
+
+    const queue = event.data?.queue;
+
+    if (isObject(queue)) {
+      const videos: Video[] = isArray(queue.videos)
+        ? get(queue, 'videos').map((item) => ({
+            url: getOrThrow(item, 'url'),
+            videoId: getOrThrow(item, 'videoId'),
+            title: getOrThrow(item, 'title'),
+            type: getOrThrow(item, 'type'),
+            user: {
+              nick: getOrThrow(item.user, 'nick'),
+              num: getOrThrow(item.user, 'num'),
+            },
+            duration_in_seconds: getOrThrow(item, 'duration_in_seconds'),
+          }))
+        : [];
+
+      this.queueSubject.next({
+        videos,
+        currentlyPlayedVideo: get(queue, 'currentlyPlayedVideo', null),
+        currentlyPlayedSecond: get(queue, 'currentlyPlayedSecond', 0),
+      });
     }
   }
 }
