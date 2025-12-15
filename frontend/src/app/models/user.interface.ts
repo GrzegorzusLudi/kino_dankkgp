@@ -1,4 +1,4 @@
 export interface User {
-    nick?: string;
-    num?: number;
+  nick?: string;
+  num?: number;
 }

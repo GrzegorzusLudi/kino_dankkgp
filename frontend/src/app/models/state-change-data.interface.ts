@@ -1,5 +1,5 @@
-import { Queue } from "./queue.interface";
-import { User } from "./user.interface";
+import { Queue } from './queue.interface';
+import { User } from './user.interface';
 
 export interface StateChangeData {
   messages?: {
@@ -8,9 +8,6 @@ export interface StateChangeData {
     date?: string;
     time?: string;
   }[];
-  users?: Record<
-    string,
-    User
-  >;
+  users?: Record<string, User>;
   queue?: Queue;
 }
