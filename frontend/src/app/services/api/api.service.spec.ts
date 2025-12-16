@@ -55,35 +55,35 @@ describe('ApiService', () => {
   });
 
   describe('observables', () => {
-    it('should provide messages observable', (done) => {
+    it('should emit empty array as initial messages value', (done) => {
       subscription = service.messages.pipe(take(1)).subscribe((messages) => {
         expect(messages).toEqual([]);
         done();
       });
     });
 
-    it('should provide username observable', (done) => {
+    it('should emit empty string as initial username value', (done) => {
       subscription = service.username.pipe(take(1)).subscribe((username) => {
         expect(username).toBe('');
         done();
       });
     });
 
-    it('should provide usernames observable', (done) => {
+    it('should emit empty array as initial usernames value', (done) => {
       subscription = service.usernames.pipe(take(1)).subscribe((usernames) => {
         expect(usernames).toEqual([]);
         done();
       });
     });
 
-    it('should provide queue observable', (done) => {
+    it('should emit null as initial queue value', (done) => {
       subscription = service.queue.pipe(take(1)).subscribe((queue) => {
         expect(queue).toBeNull();
         done();
       });
     });
 
-    it('should provide error observable', (done) => {
+    it('should emit null as initial error value', (done) => {
       subscription = service.error.pipe(take(1)).subscribe((error) => {
         expect(error).toBeNull();
         done();
