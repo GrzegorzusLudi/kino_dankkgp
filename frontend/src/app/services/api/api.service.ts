@@ -20,19 +20,34 @@ export class ApiService {
   private readonly usernameSubject = new BehaviorSubject<string>('');
   private readonly usernamesSubject = new BehaviorSubject<string[]>([]);
   private readonly queueSubject = new BehaviorSubject<Queue | null>(null);
+  private readonly errorSubject = new BehaviorSubject<string | null>(null);
 
   constructor(@Inject(SOCKET) private readonly socket: Socket) {
     this.socket.on(Event.Message, (event: { data?: string }) => {
-      this.handleMessageEvent(event);
+      try {
+        this.handleMessageEvent(event);
+      } catch (error: unknown) {
+        console.error(error);
+        this.errorSubject.next(
+          `Failed to process message event: ${String(error)}`,
+        );
+      }
+    });
+
+    this.socket.on(Event.StateChange, (event: { data?: StateChangeData }) => {
+      try {
+        this.handleStateChangeEvent(event);
+      } catch (error: unknown) {
+        console.error(error);
+        this.errorSubject.next(
+          `Failed to process state change: ${String(error)}`,
+        );
+      }
     });
 
     this.socket.on(Event.Error, (event: { data?: string }) => {
       this.handleErrorEvent(event);
     });
-
-    this.socket.on(Event.StateChange, (event: { data?: StateChangeData }) =>
-      this.handleStateChangeEvent(event),
-    );
   }
 
   get messages(): Observable<Message[]> {
@@ -49,6 +64,10 @@ export class ApiService {
 
   get queue(): Observable<Queue | null> {
     return this.queueSubject.asObservable();
+  }
+
+  get error(): Observable<string | null> {
+    return this.errorSubject.asObservable();
   }
 
   setUsername(username: string): void {
@@ -69,10 +88,6 @@ export class ApiService {
     // TODO Display toast
     // eslint-disable-next-line no-console
     console.log('Message', event);
-  }
-
-  private handleErrorEvent(event: { data?: string }): void {
-    throw new Error(`Socket error: ${event.data}`);
   }
 
   private handleStateChangeEvent(event: { data?: StateChangeData }): void {
@@ -123,5 +138,9 @@ export class ApiService {
         currentlyPlayedSecond: get(queue, 'currentlyPlayedSecond', 0),
       });
     }
+  }
+
+  private handleErrorEvent(event: { data?: string }): void {
+    this.errorSubject.next(event.data ?? 'Unknown error');
   }
 }
