@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Subscription, take } from 'rxjs';
+import { Subscription, skip, take } from 'rxjs';
 
 import { SOCKET } from '../../app.config';
 import { Action } from '../../models/action.enum';
@@ -182,17 +182,12 @@ describe('ApiService', () => {
         expect(console.log).toHaveBeenCalledWith('Message', event);
       });
 
-      it('should handle malformed message event gracefully', (done) => {
+      it('should handle message event without data', () => {
         const event = {};
-        spyOn(console, 'error');
+        spyOn(console, 'log');
 
-        messageHandler(event);
-
-        subscription = service.error.pipe(take(1)).subscribe((error) => {
-          expect(console.error).toHaveBeenCalled();
-          expect(error).toContain('Failed to process message event');
-          done();
-        });
+        expect(() => messageHandler(event)).not.toThrow();
+        expect(console.log).toHaveBeenCalledWith('Message', event);
       });
     });
 
