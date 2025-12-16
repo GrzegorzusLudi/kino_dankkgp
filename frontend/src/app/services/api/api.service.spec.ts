@@ -32,21 +32,21 @@ describe('ApiService', () => {
   });
 
   describe('initialization', () => {
-    it('should register Message event listener', () => {
+    it('should register listener for Message event', () => {
       expect(mockSocket.on).toHaveBeenCalledWith(
         Event.Message,
         jasmine.any(Function),
       );
     });
 
-    it('should register StateChange event listener', () => {
+    it('should register listener for StateChange event', () => {
       expect(mockSocket.on).toHaveBeenCalledWith(
         Event.StateChange,
         jasmine.any(Function),
       );
     });
 
-    it('should register Error event listener', () => {
+    it('should register listener for Error event', () => {
       expect(mockSocket.on).toHaveBeenCalledWith(
         Event.Error,
         jasmine.any(Function),
