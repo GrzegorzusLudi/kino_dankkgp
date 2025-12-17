@@ -1,1 +1,35 @@
 @import '../../styles/shared.scss';
+
+.toast.#{$flat-light-theme-class-name} {
+  box-sizing: border-box;
+  background: $light-success-a10;
+  border: 1px solid $light-success-a70;
+  margin: 0;
+  padding: 8px;
+  display: flex;
+  box-shadow: 0 4px 10px 0px rgb(0, 0, 0, 0.4);
+  border-radius: 4px;
+  width: 256px;
+  border-left-width: 6px;
+
+  .icon {
+    font-size: $font-size;
+    color: $light-success-a70;
+    margin-right: 8px;
+    line-height: 21px;
+  }
+
+  .header,
+  .message {
+    font-size: $font-size;
+    color: $light-success-a70;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+
+  .header {
+    font-weight: 600;
+    line-height: 21px;
+  }
+}
