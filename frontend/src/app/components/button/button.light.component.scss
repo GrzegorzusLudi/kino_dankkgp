@@ -1,21 +1,26 @@
 @import '../../styles/shared.scss';
 
+$height: 32px;
+
 button.button.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
   background: $light-primary-a60;
   border: none;
   color: white;
   margin: 0;
-  padding: 7px 14px;
+  padding: 0 10px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: $font-size;
+  line-height: $line-height;
   border: 1px solid $light-primary-a60;
   box-shadow: none;
   border-radius: 4px;
   width: 100%;
-  max-height: 36px;
+  height: $height;
 }
 
 button.button.#{$flat-light-theme-class-name}:hover {

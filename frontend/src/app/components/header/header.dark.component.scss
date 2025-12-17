@@ -13,7 +13,7 @@ $border-radius: 4px;
   line-height: $line-height;
   font-weight: 600;
   color: $dark-text-color;
-  padding: 0 8px;
+  padding: 0 $padding;
   background-color: $dark-primary-a40;
   border: 1px solid $dark-border-color;
   border-top-left-radius: $border-radius;

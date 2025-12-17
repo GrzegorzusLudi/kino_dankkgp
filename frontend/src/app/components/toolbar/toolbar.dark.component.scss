@@ -27,6 +27,6 @@ div.toolbar.#{$flat-dark-theme-class-name} {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: $padding;
+  padding-right: $padding;
 }

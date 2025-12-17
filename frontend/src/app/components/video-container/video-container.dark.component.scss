@@ -11,7 +11,7 @@ $border-radius: 4px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 8px 8px 2px 8px;
+    padding: $padding $padding 2px $padding;
     max-height: 100%;
     background-color: $dark-primary-a30;
     border-left: 1px solid $dark-border-color;

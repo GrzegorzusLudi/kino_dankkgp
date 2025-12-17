@@ -1,5 +1,6 @@
 @import '../../styles/shared.scss';
 
+$input-height: 32px;
 $border-radius: 4px;
 
 .input.#{$flat-dark-theme-class-name} {
@@ -7,16 +8,18 @@ $border-radius: 4px;
     box-sizing: border-box;
     max-height: 36px;
     width: 100%;
+    font-size: $font-size;
+    line-height: $line-height;
     border: 1px solid $dark-input-border-color;
     background-color: $dark-primary-a0;
     color: $light-text-color;
     border-radius: $border-radius;
-    padding: calc(0.5 * (36px - 1rem)) 6px;
+    padding: calc(0.5 * ($input-height - $line-height - 2px)) 6px;
   }
 
   input:focus {
     border: 1px solid $dark-input-border-color;
-    box-shadow: 0px 0px 0.5px 2px $dark-primary-a30;
+    box-shadow: 0px 0px 0.5px 2px $dark-primary-a20;
   }
 
   input:hover {

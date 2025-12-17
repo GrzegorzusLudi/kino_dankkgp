@@ -12,7 +12,7 @@ $border-radius: 4px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    padding: 16px;
+    padding: $padding;
     max-height: 256px - 64px;
     background-color: $light-primary-a0;
     border-left: 1px solid $light-border-color;
@@ -31,7 +31,7 @@ $border-radius: 4px;
     }
 
     .margin-left {
-      margin-left: 16px;
+      margin-left: $padding;
     }
   }
 }

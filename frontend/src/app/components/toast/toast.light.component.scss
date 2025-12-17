@@ -5,7 +5,7 @@
   background: $light-success-a10;
   border: 1px solid $light-success-a70;
   margin: 0;
-  padding: 8px;
+  padding: $padding;
   display: flex;
   box-shadow: 0 4px 10px 0px rgb(0, 0, 0, 0.4);
   border-radius: 4px;
@@ -15,7 +15,7 @@
   .icon {
     font-size: $font-size;
     color: $light-success-a70;
-    margin-right: 8px;
+    margin-right: $padding;
     line-height: $line-height;
   }
 

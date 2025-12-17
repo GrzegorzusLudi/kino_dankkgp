@@ -33,13 +33,13 @@ $border-radius: 4px;
   .messages {
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    padding: $padding;
     flex-grow: 1;
   }
 
   .input {
     box-sizing: border-box;
-    padding: 16px;
+    padding: $padding;
     background-color: transparent;
     display: flex;
     flex-direction: row;
@@ -48,7 +48,7 @@ $border-radius: 4px;
 
     app-input {
       width: 100% !important;
-      margin-right: 16px;
+      margin-right: $padding;
     }
 
     app-button {
