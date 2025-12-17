@@ -16,12 +16,13 @@
     font-size: $font-size;
     color: $light-success-a70;
     margin-right: 8px;
-    line-height: 21px;
+    line-height: $line-height;
   }
 
   .header,
   .message {
     font-size: $font-size;
+    line-height: $line-height;
     color: $light-success-a70;
     margin: 0;
     padding: 0;
@@ -30,6 +31,6 @@
 
   .header {
     font-weight: 600;
-    line-height: 21px;
+    line-height: $line-height;
   }
 }

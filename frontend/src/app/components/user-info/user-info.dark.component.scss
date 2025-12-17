@@ -9,10 +9,11 @@ div.#{$flat-dark-theme-class-name} {
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: $font-size;
+  line-height: $line-height;
   color: $dark-text-color;
 
   fa-icon {
-    color: $dark-text-color;
     margin-right: 8px;
   }
 }

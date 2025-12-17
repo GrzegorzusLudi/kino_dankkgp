@@ -40,7 +40,9 @@ $dark-primary-a90: #060606;
 $dark-primary-a100: #010101;
 
 $font-size: 14px;
-$title-font-size: 24px;
+$line-height: 21px;
+$title-font-size: 20px;
+$title-line-height: 28px;
 
 $dark-text-color: #dddddd;
 $dark-border-color: $dark-primary-a40;
@@ -50,5 +52,5 @@ $light-text-color: $dark-primary-a80;
 $light-border-color: $light-primary-a30;
 $light-input-border-color: #999999;
 
-$toolbar-height: 48px;
-$header-height: 48px;
+$toolbar-height: 36px;
+$header-height: 32px;

@@ -1,7 +1,7 @@
 @import '../../../styles/shared.scss';
 
-$width: 52px;
-$height: 28px;
+$width: 38px;
+$height: $line-height;
 
 div.#{$flat-light-theme-class-name} {
   .switch {

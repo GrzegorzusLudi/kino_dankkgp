@@ -9,6 +9,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: $font-size;
+  line-height: $line-height;
 
   fa-icon {
     color: $dark-text-color;
