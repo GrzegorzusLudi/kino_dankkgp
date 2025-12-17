@@ -1,5 +1,5 @@
 <ng-container *ngIf="theme | async as theme">
-  <div class="toast">
+  <div class="toast" [ngClass]="theme">
     <app-header>{{ title }}</app-header>
     <div class="content">
       {{ message }}

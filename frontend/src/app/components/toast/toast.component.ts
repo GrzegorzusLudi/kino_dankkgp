@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-toast',
-  imports: [AsyncPipe, HeaderComponent, NgIf],
+  imports: [AsyncPipe, HeaderComponent, NgClass, NgIf],
   templateUrl: './toast.component.html',
   styleUrls: [
     './toast.aero-dark.component.scss',
