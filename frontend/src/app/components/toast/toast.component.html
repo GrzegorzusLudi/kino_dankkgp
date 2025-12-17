@@ -1,8 +1,13 @@
 <ng-container *ngIf="theme | async as theme">
   <div class="toast" [ngClass]="theme">
-    <app-header>{{ title }}</app-header>
+    <div class="icon">
+      <fa-icon [icon]="faCircleCheck" />
+    </div>
     <div class="content">
-      {{ message }}
+      <div class="header">{{ title }}</div>
+      <div class="message">
+        {{ message }}
+      </div>
     </div>
   </div>
 </ng-container>

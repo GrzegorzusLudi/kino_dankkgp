@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-toast',
-  imports: [AsyncPipe, HeaderComponent, NgClass, NgIf],
+  imports: [AsyncPipe, FontAwesomeModule, NgClass, NgIf],
   templateUrl: './toast.component.html',
   styleUrls: [
     './toast.aero-dark.component.scss',
@@ -18,6 +19,8 @@ import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 export class ToastComponent extends ThemedDirective {
   @Input() title: string = '';
   @Input() message: string = '';
+
+  faCircleCheck = faCircleCheck;
 
   constructor(protected override readonly themeService: ThemeService) {
     super(themeService);
