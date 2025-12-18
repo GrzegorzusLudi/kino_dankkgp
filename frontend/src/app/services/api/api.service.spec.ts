@@ -76,16 +76,16 @@ describe('ApiService', () => {
       });
     });
 
-    it('should emit null as initial queue value', (done) => {
+    it('should emit undefined as initial queue value', (done) => {
       subscription = service.queue.pipe(take(1)).subscribe((queue) => {
-        expect(queue).toBeNull();
+        expect(queue).toBeUndefined();
         done();
       });
     });
 
-    it('should emit null as initial error value', (done) => {
+    it('should emit undefined as initial error value', (done) => {
       subscription = service.error.pipe(take(1)).subscribe((error) => {
-        expect(error).toBeNull();
+        expect(error).toBeUndefined();
         done();
       });
     });
@@ -302,14 +302,14 @@ describe('ApiService', () => {
 
         subscription = service.queue
           .pipe(take(1))
-          .subscribe((queue: Queue | null) => {
-            expect(queue).not.toBeNull();
+          .subscribe((queue: Queue | undefined) => {
+            expect(queue).not.toBeUndefined();
             expect(queue!.videos.length).toBe(2);
             expect(queue!.videos[0].videoId).toBe('vid1');
             expect(queue!.videos[0].title).toBe('Video 1');
             expect(queue!.videos[0].user.nick).toBe('user1');
             expect(queue!.videos[1].videoId).toBe('vid2');
-            expect(queue!.currentlyPlayedVideo).toBeNull();
+            expect(queue!.currentlyPlayedVideo).toBeUndefined();
             expect(queue!.currentlyPlayedSecond).toBe(45);
             done();
           });
@@ -320,7 +320,7 @@ describe('ApiService', () => {
           data: {
             queue: {
               videos: [],
-              currentlyPlayedVideo: null,
+              currentlyPlayedVideo: undefined,
               currentlyPlayedSecond: 0,
             },
           },
@@ -330,10 +330,10 @@ describe('ApiService', () => {
 
         subscription = service.queue
           .pipe(take(1))
-          .subscribe((queue: Queue | null) => {
-            expect(queue).not.toBeNull();
+          .subscribe((queue: Queue | undefined) => {
+            expect(queue).not.toBeUndefined();
             expect(queue!.videos).toEqual([]);
-            expect(queue!.currentlyPlayedVideo).toBeNull();
+            expect(queue!.currentlyPlayedVideo).toBeUndefined();
             expect(queue!.currentlyPlayedSecond).toBe(0);
             done();
           });

@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf, NgStyle } from '@angular/common';
 import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { YoutubePlayerComponent } from 'ngx-youtube-player';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ import {
 
 @Component({
   selector: 'app-video-container',
-  imports: [AsyncPipe, HeaderComponent, NgClass, NgIf, YoutubePlayerComponent],
+  imports: [AsyncPipe, HeaderComponent, NgClass, NgIf, YoutubePlayerComponent, NgStyle],
   templateUrl: './video-container.component.html',
   styleUrls: [
     './video-container.aero-dark.component.scss',
@@ -27,8 +27,8 @@ export class VideoContainerComponent
   extends ThemedDirective
   implements OnChanges, OnDestroy
 {
-  @Input() title = '';
-  @Input() videoId = '';
+  @Input() title?: string;
+  @Input() videoId?: string;
   @Input() width = DEFAULT_VIDEO_WIDTH;
   @Input() height = DEFAULT_VIDEO_HEIGHT;
 

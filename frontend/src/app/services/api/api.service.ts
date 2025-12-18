@@ -19,8 +19,8 @@ export class ApiService {
   private readonly messagesSubject = new BehaviorSubject<Message[]>([]);
   private readonly usernameSubject = new BehaviorSubject<string>('');
   private readonly usernamesSubject = new BehaviorSubject<string[]>([]);
-  private readonly queueSubject = new BehaviorSubject<Queue | null>(null);
-  private readonly errorSubject = new BehaviorSubject<string | null>(null);
+  private readonly queueSubject = new BehaviorSubject<Queue | undefined>(undefined);
+  private readonly errorSubject = new BehaviorSubject<string | undefined>(undefined);
 
   constructor(@Inject(SOCKET) private readonly socket: Socket) {
     this.socket.on(Event.Message, (event: { data?: string }) => {
@@ -62,11 +62,11 @@ export class ApiService {
     return this.usernamesSubject.asObservable();
   }
 
-  get queue(): Observable<Queue | null> {
+  get queue(): Observable<Queue | undefined> {
     return this.queueSubject.asObservable();
   }
 
-  get error(): Observable<string | null> {
+  get error(): Observable<string | undefined> {
     return this.errorSubject.asObservable();
   }
 
@@ -134,7 +134,7 @@ export class ApiService {
 
       this.queueSubject.next({
         videos,
-        currentlyPlayedVideo: get(queue, 'currentlyPlayedVideo', null),
+        currentlyPlayedVideo: get(queue, 'currentlyPlayedVideo') || undefined,
         currentlyPlayedSecond: get(queue, 'currentlyPlayedSecond', 0),
       });
     }

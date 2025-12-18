@@ -11,12 +11,7 @@
   </app-toolbar>
   <div class="content">
     <div class="main">
-      <app-video-container
-        *ngIf="video | async as video"
-        [videoId]="video.videoId"
-        [title]="video.title"
-        [width]="width"
-        [height]="height" />
+      <app-video-container [videoId]="video()?.videoId" [title]="video()?.title" [width]="width" [height]="height" />
       <app-video-actions />
     </div>
     <div class="right">
@@ -24,4 +19,11 @@
       <app-chat [messages]="(messages | async) || []" />
     </div>
   </div>
+  <div class="toast-container">
+    <app-toast [title]="'Test'" [message]="'This is a test message.'" />
+  </div>
 </app-background>
+
+<ng-template #empty>
+  <div>No video in the queue yet.</div>
+</ng-template>
