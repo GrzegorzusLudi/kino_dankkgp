@@ -52,6 +52,9 @@ $light-text-color: $dark-primary-a80;
 $light-border-color: $light-primary-a30;
 $light-input-border-color: #999999;
 
+$light-box-shadow: 0 4px 10px -2px rgba($light-primary-a80, 0.1);
+$dark-box-shadow: 0 4px 10px -2px rgb(0, 0, 0, 0.75);
+
 $padding: 8px;
 
 $toolbar-height: 36px;
