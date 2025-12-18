@@ -22,7 +22,7 @@ div.toolbar.#{$flat-light-theme-class-name} {
     radial-gradient(circle at 11% 29%, $color4 8%, transparent 74%),
     radial-gradient(circle at 90% 50%, $color5 2%, transparent 85%);
   background-blend-mode: normal, normal, normal, normal, normal;
-  box-shadow: 0 4px 10px -2px rgba($light-primary-a80, 0.2);
+  box-shadow: $light-box-shadow;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

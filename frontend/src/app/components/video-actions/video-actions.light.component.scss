@@ -6,7 +6,7 @@ $border-radius: 4px;
   box-sizing: border-box;
   width: 100%;
   color: $light-text-color;
-  box-shadow: 0 4px 10px -2px rgba($light-primary-a80, 0.2); // TODO Variable
+  box-shadow: $light-box-shadow;
 
   & > .content {
     box-sizing: border-box;
