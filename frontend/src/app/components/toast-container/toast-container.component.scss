@@ -1,0 +1,12 @@
+@import '../../styles/shared.scss';
+
+.toast-container {
+  position: absolute;
+  bottom: $padding;
+  right: $padding;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  gap: $padding;
+}

@@ -1,1 +1,9 @@
-<p>toast-container works!</p>
+<div class="toast-container">
+  @for (toast of toasts | async; track toast.id) {
+    <app-toast
+      [title]="toast.title"
+      [message]="toast.message"
+      [variant]="toast.variant"
+      (close)="removeToast(toast.id)" />
+  }
+</div>
