@@ -1,74 +1,122 @@
 @import '../../styles/shared.scss';
 
 .toast.#{$flat-light-theme-class-name} {
-  box-sizing: border-box;
-  margin: 0;
-  padding: $padding;
   display: flex;
-  box-shadow: $light-box-shadow;
-  border-radius: 4px;
+  flex-direction: column;
+  align-items: stretch;
+  border: none;
+  background-color: transparent;
   width: 256px;
-  border-left-width: 6px;
+  box-shadow: $light-box-shadow;
 
-  .icon {
-    font-size: $font-size;
-    margin-right: $padding;
-    line-height: $line-height;
-  }
-
-  .header,
-  .message {
-    font-size: $font-size;
-    line-height: $line-height;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-  }
-
-  .header {
-    font-weight: 600;
-    line-height: $line-height;
-  }
-
-  &.info {
-    background: $light-primary-a10;
-    border: 1px solid $light-primary-a70;
+  .main {
+    position: relative;
+    display: flex;
+    padding: $padding;
 
     .icon {
-      color: $light-primary-a70;
+      font-size: $font-size;
+      margin-right: $padding;
+      line-height: $line-height;
     }
 
     .header,
     .message {
-      color: $light-primary-a70;
+      font-size: $font-size;
+      line-height: $line-height;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+    }
+
+    .header {
+      font-weight: 600;
+      line-height: $line-height;
+    }
+
+    &.info {
+      background: $light-primary-a10;
+      border: 1px solid $light-primary-a70;
+      border-bottom: none;
+
+      .icon {
+        color: $light-primary-a70;
+      }
+
+      .header,
+      .message {
+        color: $light-primary-a70;
+      }
+    }
+
+    &.success {
+      background: $light-success-a10;
+      border: 1px solid $light-success-a70;
+      border-bottom: none;
+
+      .icon {
+        color: $light-success-a70;
+      }
+
+      .header,
+      .message {
+        color: $light-success-a70;
+      }
+    }
+
+    &.danger {
+      background: $light-danger-a10;
+      border: 1px solid $light-danger-a70;
+      border-bottom: none;
+
+      .icon {
+        color: $light-danger-a70;
+      }
+
+      .header,
+      .message {
+        color: $light-danger-a70;
+      }
     }
   }
 
-  &.success {
-    background: $light-success-a10;
-    border: 1px solid $light-success-a70;
+  .timeout-progress {
+    height: 3px;
 
-    .icon {
-      color: $light-success-a70;
+    &.info {
+      background-color: $light-primary-a10;
+      border: 1px solid $light-primary-a70;
+      border-top: none;
+
+      .bar {
+        height: 3px;
+        transition: width linear;
+        background-color: $light-primary-a70;
+      }
     }
 
-    .header,
-    .message {
-      color: $light-success-a70;
-    }
-  }
+    &.success {
+      background-color: $light-success-a10;
+      border: 1px solid $light-success-a70;
+      border-top: none;
 
-  &.danger {
-    background: $light-danger-a10;
-    border: 1px solid $light-danger-a70;
-
-    .icon {
-      color: $light-danger-a70;
+      .bar {
+        height: 3px;
+        transition: width linear;
+        background-color: $light-success-a70;
+      }
     }
 
-    .header,
-    .message {
-      color: $light-danger-a70;
+    &.danger {
+      background-color: $light-danger-a10;
+      border: 1px solid $light-danger-a70;
+      border-top: none;
+
+      .bar {
+        height: 3px;
+        transition: width linear;
+        background-color: $light-danger-a70;
+      }
     }
   }
 }
