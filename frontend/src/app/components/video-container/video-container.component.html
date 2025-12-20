@@ -3,9 +3,15 @@
     <app-header>{{ title }}</app-header>
     <div class="content">
       @if (videoId) {
-      <youtube-player [videoId]="videoId" [width]="width" [height]="height" (ready)="savePlayer($event)" />
+        <youtube-player
+          [videoId]="videoId"
+          [width]="width"
+          [height]="height"
+          (ready)="savePlayer($event)" />
       } @else {
-      <div class="no-video"><span class="italic">There’s no video to play yet.</span></div>
+        <div class="no-video">
+          <span class="italic">There’s no video to play yet.</span>
+        </div>
       }
       <!-- TODO: (change)="onStateChange($event)" -->
     </div>

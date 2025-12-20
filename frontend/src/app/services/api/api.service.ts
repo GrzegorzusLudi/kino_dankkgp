@@ -19,8 +19,12 @@ export class ApiService {
   private readonly messagesSubject = new BehaviorSubject<Message[]>([]);
   private readonly usernameSubject = new BehaviorSubject<string>('');
   private readonly usernamesSubject = new BehaviorSubject<string[]>([]);
-  private readonly queueSubject = new BehaviorSubject<Queue | undefined>(undefined);
-  private readonly errorSubject = new BehaviorSubject<string | undefined>(undefined);
+  private readonly queueSubject = new BehaviorSubject<Queue | undefined>(
+    undefined,
+  );
+  private readonly errorSubject = new BehaviorSubject<string | undefined>(
+    undefined,
+  );
 
   constructor(@Inject(SOCKET) private readonly socket: Socket) {
     this.socket.on(Event.Message, (event: { data?: string }) => {

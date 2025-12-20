@@ -14,7 +14,13 @@ import {
 
 @Component({
   selector: 'app-video-container',
-  imports: [AsyncPipe, HeaderComponent, NgClass, NgIf, YoutubePlayerComponent, NgStyle],
+  imports: [
+    AsyncPipe,
+    HeaderComponent,
+    NgClass,
+    NgIf,
+    YoutubePlayerComponent,
+  ],
   templateUrl: './video-container.component.html',
   styleUrls: [
     './video-container.aero-dark.component.scss',
