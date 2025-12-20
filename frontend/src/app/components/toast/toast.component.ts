@@ -3,7 +3,7 @@ import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faTriangleExclamation, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-toast',
@@ -19,8 +19,11 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 export class ToastComponent extends ThemedDirective {
   @Input() title: string = '';
   @Input() message: string = '';
+  @Input() variant: 'info' | 'success' | 'danger' = 'danger'
 
   faCircleCheck = faCircleCheck;
+  faTriangleExclamation = faTriangleExclamation;
+  faCircleInfo = faCircleInfo;
 
   constructor(protected override readonly themeService: ThemeService) {
     super(themeService);

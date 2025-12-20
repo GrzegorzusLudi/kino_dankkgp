@@ -1,7 +1,13 @@
 <ng-container *ngIf="theme | async as theme">
-  <div class="toast" [ngClass]="theme">
+  <div class="toast" [ngClass]="[theme, variant]">
     <div class="icon">
-      <fa-icon [icon]="faCircleCheck" />
+      @if (variant === 'success') {
+        <fa-icon [icon]="faCircleCheck" />
+      } @else if (variant === 'info') {
+        <fa-icon [icon]="faCircleInfo" />
+      } @else if (variant === 'danger') {
+        <fa-icon [icon]="faTriangleExclamation" />
+      }
     </div>
     <div class="content">
       <div class="header">{{ title }}</div>
