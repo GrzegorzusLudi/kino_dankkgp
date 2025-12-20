@@ -2,8 +2,6 @@
 
 .toast.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
-  background: $light-success-a10;
-  border: 1px solid $light-success-a70;
   margin: 0;
   padding: $padding;
   display: flex;
@@ -14,7 +12,6 @@
 
   .icon {
     font-size: $font-size;
-    color: $light-success-a70;
     margin-right: $padding;
     line-height: $line-height;
   }
@@ -23,7 +20,6 @@
   .message {
     font-size: $font-size;
     line-height: $line-height;
-    color: $light-success-a70;
     margin: 0;
     padding: 0;
     text-align: left;
@@ -32,5 +28,47 @@
   .header {
     font-weight: 600;
     line-height: $line-height;
+  }
+
+  &.info {
+    background: $light-primary-a10;
+    border: 1px solid $light-primary-a70;
+
+    .icon {
+      color: $light-primary-a70;
+    }
+
+    .header,
+    .message {
+      color: $light-primary-a70;
+    }
+  }
+
+  &.success {
+    background: $light-success-a10;
+    border: 1px solid $light-success-a70;
+
+    .icon {
+      color: $light-success-a70;
+    }
+
+    .header,
+    .message {
+      color: $light-success-a70;
+    }
+  }
+
+  &.danger {
+    background: $light-danger-a10;
+    border: 1px solid $light-danger-a70;
+
+    .icon {
+      color: $light-danger-a70;
+    }
+
+    .header,
+    .message {
+      color: $light-danger-a70;
+    }
   }
 }
