@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastComponent } from '../toast/toast.component';
 import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
 import { Toast } from '../../models/toast.interface';
-import { ApiService } from '../../services/api/api.service';
 import { AsyncPipe } from '@angular/common';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-toast-container',
@@ -15,23 +15,10 @@ export class ToastContainerComponent implements OnInit, OnDestroy {
   private toastsSubject = new BehaviorSubject<Toast[]>([]);
   private subscription = new Subscription();
 
-  constructor(private readonly apiService: ApiService) {}
+  constructor(private readonly toastService: ToastService) {}
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.apiService.toast
-        .pipe(
-          tap((toast) => {
-            if (toast) {
-              this.toastsSubject.next([
-                ...this.toastsSubject.getValue(),
-                toast,
-              ]);
-            }
-          }),
-        )
-        .subscribe(),
-    );
+    this.subscribeForToasts();
   }
 
   ngOnDestroy(): void {
@@ -45,6 +32,23 @@ export class ToastContainerComponent implements OnInit, OnDestroy {
   removeToast(id: string): void {
     this.toastsSubject.next(
       this.toastsSubject.getValue().filter((toast) => toast.id !== id),
+    );
+  }
+
+  private subscribeForToasts(): void {
+    this.subscription.add(
+      this.toastService.get
+        .pipe(
+          tap((toast) => {
+            if (toast) {
+              this.toastsSubject.next([
+                ...this.toastsSubject.getValue(),
+                toast,
+              ]);
+            }
+          }),
+        )
+        .subscribe(),
     );
   }
 }

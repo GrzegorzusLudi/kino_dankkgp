@@ -11,7 +11,7 @@ import { Message } from '../../models/message.interface';
 import { StateChangeData } from '../../models/state-change-data.interface';
 import { Queue } from '../../models/queue.interface';
 import { Video } from '../../models/video.interface';
-import { Toast } from '../../models/toast.interface';
+import { ToastService } from '../toast/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,17 +23,17 @@ export class ApiService {
   private readonly queueSubject = new BehaviorSubject<Queue | undefined>(
     undefined,
   );
-  private readonly toastSubject = new BehaviorSubject<Toast | undefined>(
-    undefined,
-  );
 
-  constructor(@Inject(SOCKET) private readonly socket: Socket) {
+  constructor(
+    @Inject(SOCKET) private readonly socket: Socket,
+    private readonly toastService: ToastService,
+  ) {
     this.socket.on(Event.Message, (event: { data?: string }) => {
       try {
         this.handleMessageEvent(event);
       } catch (error: unknown) {
         console.error(error);
-        this.toastSubject.next({
+        this.toastService.next({
           id: crypto.randomUUID(),
           title: 'Error',
           message: `Failed to process message event: ${String(error)}`,
@@ -47,7 +47,7 @@ export class ApiService {
         this.handleStateChangeEvent(event);
       } catch (error: unknown) {
         console.error(error);
-        this.toastSubject.next({
+        this.toastService.next({
           id: crypto.randomUUID(),
           title: 'Error',
           message: `Failed to process state change: ${String(error)}`,
@@ -58,7 +58,7 @@ export class ApiService {
 
     this.socket.on(Event.Error, (event: { data?: string }) => {
       console.error(event);
-      this.toastSubject.next({
+      this.toastService.next({
         id: crypto.randomUUID(),
         title: 'Error',
         message: `${String(event.data)}`,
@@ -83,10 +83,6 @@ export class ApiService {
     return this.queueSubject.asObservable();
   }
 
-  get toast(): Observable<Toast | undefined> {
-    return this.toastSubject.asObservable();
-  }
-
   setUsername(username: string): void {
     this.socket.emit(Action.SetUsername, { data: username }, () => {
       this.usernameSubject.next(username);
@@ -102,7 +98,7 @@ export class ApiService {
   }
 
   private handleMessageEvent(event: { data?: string }): void {
-    this.toastSubject.next({
+    this.toastService.next({
       id: crypto.randomUUID(),
       title: 'Success',
       message: event.data ?? '',
