@@ -42,6 +42,7 @@ import { ThemeService } from './services/theme/theme.service';
 import { Queue } from './models/queue.interface';
 import { Video } from './models/video.interface';
 import { ToastContainerComponent } from './components/toast-container/toast-container.component';
+import { QueueComponent } from './components/queue/queue.component';
 
 @Component({
   selector: 'app-root',
@@ -52,6 +53,7 @@ import { ToastContainerComponent } from './components/toast-container/toast-cont
     ConnectedUsersInfoComponent,
     ModeToggleComponent,
     NgIf,
+    QueueComponent,
     TitleComponent,
     ToastContainerComponent,
     ToolbarComponent,

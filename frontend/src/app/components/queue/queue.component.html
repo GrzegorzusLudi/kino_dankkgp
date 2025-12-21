@@ -1,3 +1,13 @@
 <ng-container *ngIf="theme | async as theme">
-  <span>Queue works</span>
+  <ng-container *ngIf="queue?.videos?.length">
+    <div class="queue" [ngClass]="theme">
+      <div *ngFor="let item of queue?.videos || []; trackBy: trackByFn">
+        <div>{{ item.title }}</div>
+        <div>{{ item.user.nick }}</div>
+        <div>{{ item.duration_in_seconds }}</div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </ng-container>
 </ng-container>

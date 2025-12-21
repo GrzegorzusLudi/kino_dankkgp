@@ -17,6 +17,7 @@
         [width]="width"
         [height]="height" />
       <app-video-actions />
+      <app-queue [queue]="(queue | async) || undefined" />
     </div>
     <div class="right">
       <app-connected-users-info [usernames]="(usernames | async) || []" />

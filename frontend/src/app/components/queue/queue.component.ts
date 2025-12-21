@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { NgIf, NgClass, NgForOf, AsyncPipe } from '@angular/common';
+import { Video } from '../../models/video.interface';
+import { Queue } from '../../models/queue.interface';
 
 @Component({
   selector: 'app-queue',
-  imports: [AsyncPipe, NgIf],
+  imports: [AsyncPipe, NgClass, NgForOf, NgIf],
   templateUrl: './queue.component.html',
   styleUrls: [
     './queue.aero-dark.component.scss',
@@ -15,7 +17,13 @@ import { AsyncPipe, NgIf } from '@angular/common';
   ],
 })
 export class QueueComponent extends ThemedDirective {
+  @Input() queue?: Queue;
+
   constructor(protected override readonly themeService: ThemeService) {
     super(themeService);
+  }
+
+  trackByFn(index: number, item: Video) {
+    return index + item.videoId;
   }
 }
