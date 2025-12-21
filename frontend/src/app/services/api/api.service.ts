@@ -11,6 +11,7 @@ import { Message } from '../../models/message.interface';
 import { StateChangeData } from '../../models/state-change-data.interface';
 import { Queue } from '../../models/queue.interface';
 import { Video } from '../../models/video.interface';
+import { Toast } from '../../models/toast.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class ApiService {
   private readonly queueSubject = new BehaviorSubject<Queue | undefined>(
     undefined,
   );
-  private readonly errorSubject = new BehaviorSubject<string | undefined>(
+  private readonly toastSubject = new BehaviorSubject<Toast | undefined>(
     undefined,
   );
 
@@ -32,9 +33,12 @@ export class ApiService {
         this.handleMessageEvent(event);
       } catch (error: unknown) {
         console.error(error);
-        this.errorSubject.next(
-          `Failed to process message event: ${String(error)}`,
-        );
+        this.toastSubject.next({
+          id: crypto.randomUUID(),
+          title: 'Error',
+          message: `Failed to process message event: ${String(error)}`,
+          variant: 'danger',
+        });
       }
     });
 
@@ -43,14 +47,23 @@ export class ApiService {
         this.handleStateChangeEvent(event);
       } catch (error: unknown) {
         console.error(error);
-        this.errorSubject.next(
-          `Failed to process state change: ${String(error)}`,
-        );
+        this.toastSubject.next({
+          id: crypto.randomUUID(),
+          title: 'Error',
+          message: `Failed to process state change: ${String(error)}`,
+          variant: 'danger',
+        });
       }
     });
 
     this.socket.on(Event.Error, (event: { data?: string }) => {
-      this.handleErrorEvent(event);
+      console.error(event);
+      this.toastSubject.next({
+        id: crypto.randomUUID(),
+        title: 'Error',
+        message: `${String(event.data)}`,
+        variant: 'danger',
+      });
     });
   }
 
@@ -70,8 +83,8 @@ export class ApiService {
     return this.queueSubject.asObservable();
   }
 
-  get error(): Observable<string | undefined> {
-    return this.errorSubject.asObservable();
+  get toast(): Observable<Toast | undefined> {
+    return this.toastSubject.asObservable();
   }
 
   setUsername(username: string): void {
@@ -89,9 +102,12 @@ export class ApiService {
   }
 
   private handleMessageEvent(event: { data?: string }): void {
-    // TODO Display toast
-    // eslint-disable-next-line no-console
-    console.log('Message', event);
+    this.toastSubject.next({
+      id: crypto.randomUUID(),
+      title: 'Success',
+      message: event.data ?? '',
+      variant: 'success',
+    });
   }
 
   private handleStateChangeEvent(event: { data?: StateChangeData }): void {
@@ -142,9 +158,5 @@ export class ApiService {
         currentlyPlayedSecond: get(queue, 'currentlyPlayedSecond', 0),
       });
     }
-  }
-
-  private handleErrorEvent(event: { data?: string }): void {
-    this.errorSubject.next(event.data ?? 'Unknown error');
   }
 }

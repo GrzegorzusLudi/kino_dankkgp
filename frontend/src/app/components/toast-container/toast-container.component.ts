@@ -19,18 +19,13 @@ export class ToastContainerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription.add(
-      this.apiService.error
+      this.apiService.toast
         .pipe(
-          tap((error) => {
-            if (error) {
+          tap((toast) => {
+            if (toast) {
               this.toastsSubject.next([
                 ...this.toastsSubject.getValue(),
-                {
-                  id: crypto.randomUUID(),
-                  title: 'Error',
-                  message: error,
-                  variant: 'danger',
-                },
+                toast,
               ]);
             }
           }),
