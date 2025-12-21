@@ -1,5 +1,11 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { AfterViewInit, Component, HostListener, OnInit, Signal, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map, Observable } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -35,7 +41,7 @@ import { ApiService } from './services/api/api.service';
 import { ThemeService } from './services/theme/theme.service';
 import { Queue } from './models/queue.interface';
 import { Video } from './models/video.interface';
-import { ToastComponent } from './components/toast/toast.component';
+import { ToastContainerComponent } from './components/toast-container/toast-container.component';
 
 @Component({
   selector: 'app-root',
@@ -47,7 +53,7 @@ import { ToastComponent } from './components/toast/toast.component';
     ModeToggleComponent,
     NgIf,
     TitleComponent,
-    ToastComponent,
+    ToastContainerComponent,
     ToolbarComponent,
     UserInfoComponent,
     VerticalSeparatorComponent,
@@ -59,7 +65,8 @@ import { ToastComponent } from './components/toast/toast.component';
 })
 export class AppComponent
   extends ThemedDirective
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit
+{
   title = 'Kino DANKKGP';
   usernames: Observable<string[]>;
   messages: Observable<Message[]>;
@@ -80,11 +87,13 @@ export class AppComponent
     this.username = this.apiService.username;
     this.usernames = this.apiService.usernames;
     this.queue = this.apiService.queue;
-    this.video = toSignal(this.apiService.queue.pipe(
-      map((queue) => {
-        return queue?.currentlyPlayedVideo;
-      }),
-    ));
+    this.video = toSignal(
+      this.apiService.queue.pipe(
+        map((queue) => {
+          return queue?.currentlyPlayedVideo;
+        }),
+      ),
+    );
   }
 
   ngOnInit(): void {

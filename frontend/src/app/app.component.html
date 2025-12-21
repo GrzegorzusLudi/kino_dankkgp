@@ -11,7 +11,11 @@
   </app-toolbar>
   <div class="content">
     <div class="main">
-      <app-video-container [videoId]="video()?.videoId" [title]="video()?.title" [width]="width" [height]="height" />
+      <app-video-container
+        [videoId]="video()?.videoId"
+        [title]="video()?.title"
+        [width]="width"
+        [height]="height" />
       <app-video-actions />
     </div>
     <div class="right">
@@ -19,9 +23,7 @@
       <app-chat [messages]="(messages | async) || []" />
     </div>
   </div>
-  <div class="toast-container">
-    <app-toast [title]="'Test'" [message]="'This is a test message.'" />
-  </div>
+  <app-toast-container />
 </app-background>
 
 <ng-template #empty>
