@@ -1,1 +1,11 @@
-<p>round-button works!</p>
+<ng-container *ngIf="theme | async as theme">
+  <button
+    type="button"
+    class="round-button"
+    [ngClass]="theme"
+    [class.clicked]="clicked"
+    (click)="clicked = true"
+    (blur)="clicked = false">
+    <ng-content />
+  </button>
+</ng-container>
