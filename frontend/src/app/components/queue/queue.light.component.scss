@@ -9,14 +9,12 @@ $border-radius: 4px;
   box-shadow: $light-box-shadow;
   display: flex;
   flex-direction: column;
-  background-color: $light-primary-a10;
+  background-color: $light-primary-a0;
   border-left: 1px solid $light-border-color;
   border-right: 1px solid $light-border-color;
   border-bottom: 1px solid $light-border-color;
   border-bottom-left-radius: $border-radius;
   border-bottom-right-radius: $border-radius;
-  font-size: $font-size;
-  line-height: $line-height;
   margin-bottom: $padding;
 
   > div {
@@ -24,7 +22,7 @@ $border-radius: 4px;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: $light-primary-a10;
+    background-color: $light-primary-a0;
     height: 48px;
     border-bottom: 1px solid $light-border-color;
 
@@ -33,6 +31,8 @@ $border-radius: 4px;
     }
 
     > div {
+      font-size: $font-size;
+      line-height: $line-height;
       width: 20%;
       padding-left: $padding;
       padding-right: $padding;
