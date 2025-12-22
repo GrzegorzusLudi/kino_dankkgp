@@ -13,7 +13,7 @@ div.#{$flat-dark-theme-class-name} {
   line-height: $line-height;
   color: $dark-text-color;
 
-  fa-icon {
+  app-round-button {
     margin-right: 8px;
   }
 }

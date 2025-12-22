@@ -5,10 +5,11 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
+import { RoundButtonComponent } from '../round-button/round-button.component';
 
 @Component({
   selector: 'app-user-info',
-  imports: [AsyncPipe, FontAwesomeModule, NgClass, NgIf],
+  imports: [AsyncPipe, FontAwesomeModule, NgClass, NgIf, RoundButtonComponent],
   templateUrl: './user-info.component.html',
   styleUrls: [
     './user-info.aero-dark.component.scss',

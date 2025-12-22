@@ -1,6 +1,6 @@
 <ng-container *ngIf="theme | async as theme">
   <div [ngClass]="theme">
-    <fa-icon [icon]="faUser" />
+    <app-round-button><fa-icon [icon]="faUser" /></app-round-button>
     <span>{{ username }}</span>
   </div>
 </ng-container>
