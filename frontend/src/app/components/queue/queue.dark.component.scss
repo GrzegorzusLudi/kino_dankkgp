@@ -1,6 +1,7 @@
 @import '../../styles/shared.scss';
 
 $border-radius: 4px;
+$row-height: 32px;
 
 .queue.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
@@ -23,7 +24,7 @@ $border-radius: 4px;
     justify-content: flex-start;
     align-items: center;
     background-color: $dark-primary-a30;
-    height: 48px;
+    height: $row-height;
     border-bottom: 1px solid $dark-border-color;
 
     &:last-child {
