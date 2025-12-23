@@ -31,6 +31,18 @@ async function build() {
 
   await copy(STATIC_FILES, FRONTEND_STATIC_PATH);
 
+  console.log(`Cleaning previous HTML files in ${BACKEND_HTML_PATH}`);
+
+  await deleteAsync([normalize(BACKEND_HTML_PATH + '/*.html')], { force: true });
+
+  console.log(`Cleaning previous static files in ${BACKEND_STATIC_PATH}`);
+
+  await deleteAsync([
+    normalize(BACKEND_STATIC_PATH + '/*.js'),
+    normalize(BACKEND_STATIC_PATH + '/*.css'),
+    normalize(BACKEND_STATIC_PATH + '/*.ico'),
+  ], { force: true });
+
   console.log(`Updating src and href attributes in ${HTML_FILES[0]}`);
 
   await replaceInFile({
