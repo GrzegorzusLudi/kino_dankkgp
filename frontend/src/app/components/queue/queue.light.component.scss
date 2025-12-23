@@ -1,7 +1,7 @@
 @import '../../styles/shared.scss';
 
 $border-radius: 4px;
-$row-height: 32px;
+$row-height: 36px;
 
 .queue.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
@@ -18,7 +18,7 @@ $row-height: 32px;
   border-bottom-right-radius: $border-radius;
   margin-bottom: $padding;
 
-  >div {
+  > div {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -31,7 +31,7 @@ $row-height: 32px;
       border-bottom-color: transparent;
     }
 
-    >div {
+    > div {
       font-size: $font-size;
       line-height: $line-height;
       width: 25%;
@@ -41,6 +41,17 @@ $row-height: 32px;
       &.title {
         width: 100%;
         max-width: 512px + $padding * 2;
+      }
+
+      &.actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+
+        app-round-button:not(:last-child) {
+          margin-right: $padding / 2;
+        }
       }
     }
 
