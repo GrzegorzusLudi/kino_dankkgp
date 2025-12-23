@@ -18,7 +18,7 @@ $row-height: 36px;
   border-bottom-right-radius: $border-radius;
   margin-bottom: $padding;
 
-  > div {
+  >div {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -31,7 +31,11 @@ $row-height: 36px;
       border-bottom-color: transparent;
     }
 
-    > div {
+    >div {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
       font-size: $font-size;
       line-height: $line-height;
       width: 25%;
@@ -43,11 +47,13 @@ $row-height: 36px;
         max-width: 512px + $padding * 2;
       }
 
-      &.actions {
-        display: flex;
-        flex-direction: row;
+      &.duration {
         justify-content: flex-end;
-        align-items: center;
+        text-align: right;
+      }
+
+      &.actions {
+        justify-content: flex-end;
 
         app-round-button:not(:last-child) {
           margin-right: $padding / 2;

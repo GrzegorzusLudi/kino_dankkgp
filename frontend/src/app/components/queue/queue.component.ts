@@ -4,10 +4,22 @@ import { ThemeService } from '../../services/theme/theme.service';
 import { NgIf, NgClass, NgForOf, AsyncPipe } from '@angular/common';
 import { Video } from '../../models/video.interface';
 import { Queue } from '../../models/queue.interface';
+import { RoundButtonComponent } from '../round-button/round-button.component';
+import { faTrash, faCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DurationPipe } from '../../pipes/duration/duration.pipe';
 
 @Component({
   selector: 'app-queue',
-  imports: [AsyncPipe, NgClass, NgForOf, NgIf],
+  imports: [
+    AsyncPipe,
+    DurationPipe,
+    FontAwesomeModule,
+    NgClass,
+    NgForOf,
+    NgIf,
+    RoundButtonComponent,
+  ],
   templateUrl: './queue.component.html',
   styleUrls: [
     './queue.aero-dark.component.scss',
@@ -19,11 +31,26 @@ import { Queue } from '../../models/queue.interface';
 export class QueueComponent extends ThemedDirective {
   @Input() queue?: Queue;
 
+  faTrash = faTrash;
+  faCircleUp = faCircleUp;
+
+  focusedIndex: number = -1;
+
   constructor(protected override readonly themeService: ThemeService) {
     super(themeService);
   }
 
   trackByFn(index: number, item: Video) {
     return index + item.videoId;
+  }
+
+  focus(index: number) {
+    this.focusedIndex = index;
+  }
+
+  blur(index: number) {
+    if (this.focusedIndex === index) {
+      this.focusedIndex = -1;
+    }
   }
 }
