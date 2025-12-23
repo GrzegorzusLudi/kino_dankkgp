@@ -5,7 +5,7 @@ import { NgIf, NgClass, NgForOf, AsyncPipe } from '@angular/common';
 import { Video } from '../../models/video.interface';
 import { Queue } from '../../models/queue.interface';
 import { RoundButtonComponent } from '../round-button/round-button.component';
-import { faTrash, faCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faCircleUp, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DurationPipe } from '../../pipes/duration/duration.pipe';
 
@@ -31,6 +31,7 @@ import { DurationPipe } from '../../pipes/duration/duration.pipe';
 export class QueueComponent extends ThemedDirective {
   @Input() queue?: Queue;
 
+  faPlay = faPlay;
   faTrash = faTrash;
   faCircleUp = faCircleUp;
 

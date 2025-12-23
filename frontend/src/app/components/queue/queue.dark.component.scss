@@ -18,7 +18,7 @@ $row-height: 36px;
   border-bottom-right-radius: $border-radius;
   margin-bottom: $padding;
 
-  >div {
+  > div {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -27,29 +27,42 @@ $row-height: 36px;
     height: $row-height;
     border-bottom: 1px solid $dark-border-color;
 
+    &.playing {
+      color: $dark-primary-a0 !important;
+    }
+
     &:last-child {
       border-bottom-color: transparent;
     }
 
-    >div {
+    > div {
       display: flex;
       flex-direction: row;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
       font-size: $font-size;
       line-height: $line-height;
-      width: 25%;
+      width: 100%;
+      max-width: 128px;
       padding-left: $padding;
       padding-right: $padding;
 
+      &.index {
+        max-width: 48px;
+      }
+
       &.title {
-        width: 100%;
-        max-width: 512px + $padding * 2;
+        max-width: 512px + $padding * 2 - 48px;
+      }
+
+      &.added-by {
+        max-width: 256px;
       }
 
       &.duration {
         justify-content: flex-end;
         text-align: right;
+        max-width: 128px;
       }
 
       &.actions {
