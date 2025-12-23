@@ -25,7 +25,8 @@ import {
 })
 export class VideoContainerComponent
   extends ThemedDirective
-  implements OnChanges, OnDestroy {
+  implements OnChanges, OnDestroy
+{
   @Input() title?: string;
   @Input() videoId?: string;
   @Input() second?: number;
@@ -74,7 +75,10 @@ export class VideoContainerComponent
     const currentRoundedSeconds = Math.round(this.player.getCurrentTime());
     const precision = 0.5;
 
-    if (currentRoundedSeconds <= seconds - precision || currentRoundedSeconds >= seconds + precision) {
+    if (
+      currentRoundedSeconds <= seconds - precision ||
+      currentRoundedSeconds >= seconds + precision
+    ) {
       this.player.seekTo(seconds, allowSeekAhead);
     }
   }

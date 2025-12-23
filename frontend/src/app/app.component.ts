@@ -97,7 +97,9 @@ export class AppComponent
         }),
       ),
     );
-    this.second = toSignal(this.apiService.queue.pipe(map((queue) => queue?.currentlyPlayedSecond)));
+    this.second = toSignal(
+      this.apiService.queue.pipe(map((queue) => queue?.currentlyPlayedSecond)),
+    );
   }
 
   ngOnInit(): void {
