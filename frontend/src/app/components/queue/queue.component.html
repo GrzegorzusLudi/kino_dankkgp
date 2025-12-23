@@ -2,21 +2,36 @@
 <ng-container *ngIf="theme | async as theme">
   <ng-container *ngIf="queue?.videos?.length">
     <div class="queue" [ngClass]="theme">
-      <div *ngFor="
+      <div
+        *ngFor="
           let item of queue?.videos || [];
           trackBy: trackByFn;
           let index = index
-        " [class.playing]="queue?.currentlyPlayedVideo?.videoId === item.videoId" (focus)="focus(index)"
-        (mouseover)="focus(index)" (mouseout)="blur(index)" (blur)="blur(index)">
+        "
+        [class.playing]="queue?.currentlyPlayedVideo?.videoId === item.videoId"
+        (focus)="focus(index)"
+        (mouseover)="focus(index)"
+        (mouseout)="blur(index)"
+        (blur)="blur(index)">
         <div class="index">
-          <ng-container *ngIf="queue?.currentlyPlayedVideo?.videoId !== item.videoId; else play">{{ index + 1 }}</ng-container>
+          <ng-container
+            *ngIf="
+              queue?.currentlyPlayedVideo?.videoId !== item.videoId;
+              else play
+            "
+            >{{ index + 1 }}</ng-container
+          >
           <ng-template #play><fa-icon [icon]="faPlay" /></ng-template>
         </div>
         <div class="title">{{ item.title }}</div>
         <div class="added-by">added by {{ item.user.nick }}</div>
         <div class="duration">
-          <ng-container *ngIf="queue?.currentlyPlayedVideo?.videoId === item.videoId">{{ queue?.currentlyPlayedSecond | duration }} / </ng-container>
-          {{ item.duration_in_seconds | duration }}</div>
+          <ng-container
+            *ngIf="queue?.currentlyPlayedVideo?.videoId === item.videoId"
+            >{{ queue?.currentlyPlayedSecond | duration }} /
+          </ng-container>
+          {{ item.duration_in_seconds | duration }}
+        </div>
         <div class="actions">
           <ng-container *ngIf="focusedIndex === index">
             <app-round-button><fa-icon [icon]="faCircleUp" /></app-round-button>
