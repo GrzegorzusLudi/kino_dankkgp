@@ -75,6 +75,7 @@ export class AppComponent
   username: Observable<string>;
   queue: Observable<Queue | undefined>;
   video: Signal<Video | undefined>;
+  second: Signal<number | undefined>;
 
   protected width: number = INITIAL_VIDEO_WIDTH;
   protected height: number = INITIAL_VIDEO_HEIGHT;
@@ -96,6 +97,7 @@ export class AppComponent
         }),
       ),
     );
+    this.second = toSignal(this.apiService.queue.pipe(map((queue) => queue?.currentlyPlayedSecond)));
   }
 
   ngOnInit(): void {
