@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf, NgStyle } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { YoutubePlayerComponent } from 'ngx-youtube-player';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
@@ -25,10 +25,10 @@ import {
 })
 export class VideoContainerComponent
   extends ThemedDirective
-  implements OnChanges, OnDestroy
-{
+  implements OnChanges, OnDestroy {
   @Input() title?: string;
   @Input() videoId?: string;
+  @Input() second?: number;
   @Input() width = DEFAULT_VIDEO_WIDTH;
   @Input() height = DEFAULT_VIDEO_HEIGHT;
 
@@ -45,6 +45,10 @@ export class VideoContainerComponent
 
   ngOnChanges(): void {
     this.dimensions.next([`${this.width}px`, `${this.height}px`]);
+
+    if (this.second !== undefined) {
+      this.seekTo(this.second);
+    }
   }
 
   ngOnDestroy(): void {
@@ -60,6 +64,19 @@ export class VideoContainerComponent
       .subscribe(() => {
         this.updateIframeDimensions();
       });
+  }
+
+  seekTo(seconds: number, allowSeekAhead = true): void {
+    if (!this.player) {
+      throw new Error('Player is not initialized');
+    }
+
+    const currentRoundedSeconds = Math.round(this.player.getCurrentTime());
+    const precision = 0.5;
+
+    if (currentRoundedSeconds <= seconds - precision || currentRoundedSeconds >= seconds + precision) {
+      this.player.seekTo(seconds, allowSeekAhead);
+    }
   }
 
   private updateIframeDimensions(): void {
