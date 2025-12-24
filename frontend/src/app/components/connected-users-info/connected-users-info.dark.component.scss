@@ -17,5 +17,10 @@
     border-bottom: 1px solid $dark-border-color;
     overflow-y: scroll;
     @include border-bottom-radius;
+
+    span {
+      font-size: $font-size;
+      line-height: $line-height;
+    }
   }
 }
