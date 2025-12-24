@@ -1,7 +1,5 @@
 @import '../../styles/shared.scss';
 
-$border-radius: 4px;
-
 :host {
   flex-grow: 1;
 }
@@ -27,8 +25,7 @@ $border-radius: 4px;
     border-right: 1px solid $light-border-color;
     border: 1px solid $light-border-color;
     border-top: none;
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
+    @include border-bottom-radius;
   }
 
   .messages {

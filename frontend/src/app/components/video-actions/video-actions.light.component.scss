@@ -1,7 +1,5 @@
 @import '../../styles/shared.scss';
 
-$border-radius: 4px;
-
 .video-actions.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
   width: 100%;
@@ -18,7 +16,6 @@ $border-radius: 4px;
     border-left: 1px solid $light-border-color;
     border-right: 1px solid $light-border-color;
     border-bottom: 1px solid $light-border-color;
-    border-radius: 0;
     overflow-y: scroll;
 
     app-input {
@@ -28,14 +25,6 @@ $border-radius: 4px;
 
     app-button {
       min-width: 128px;
-    }
-
-    .margin-left {
-      margin-left: $padding;
-    }
-
-    .margin-right {
-      margin-right: $padding;
     }
   }
 }

@@ -1,7 +1,5 @@
 @import '../../styles/shared.scss';
 
-$border-radius: 4px;
-
 .header.#{$flat-dark-theme-class-name} {
   width: 100%;
   height: $header-height;
@@ -16,6 +14,5 @@ $border-radius: 4px;
   padding: 0 $padding;
   background-color: $dark-primary-a40;
   border: 1px solid $dark-border-color;
-  border-top-left-radius: $border-radius;
-  border-top-right-radius: $border-radius;
+  @include border-top-radius;
 }

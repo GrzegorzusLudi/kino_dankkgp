@@ -1,6 +1,5 @@
 @import '../../styles/shared.scss';
 
-$border-radius: 4px;
 $row-height: 36px;
 
 .queue.#{$flat-light-theme-class-name} {
@@ -14,9 +13,8 @@ $row-height: 36px;
   border-left: 1px solid $light-border-color;
   border-right: 1px solid $light-border-color;
   border-bottom: 1px solid $light-border-color;
-  border-bottom-left-radius: $border-radius;
-  border-bottom-right-radius: $border-radius;
   margin-bottom: $padding;
+  @include border-bottom-radius;
 
   > div {
     display: flex;

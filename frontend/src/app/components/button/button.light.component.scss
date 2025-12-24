@@ -18,9 +18,9 @@ button.button.#{$flat-light-theme-class-name} {
   line-height: $line-height;
   border: 1px solid $light-primary-a60;
   box-shadow: none;
-  border-radius: 4px;
   width: 100%;
   height: $height;
+  @include border-radius;
 }
 
 button.button.#{$flat-light-theme-class-name}:hover {

@@ -19,9 +19,9 @@ button.round-button.#{$flat-light-theme-class-name} {
   line-height: $line-height;
   border: 1px solid transparent;
   box-shadow: none;
-  border-radius: $border-radius;
   width: $size;
   height: $size;
+  @include border-radius;
 }
 
 button.round-button.#{$flat-light-theme-class-name}:hover {
