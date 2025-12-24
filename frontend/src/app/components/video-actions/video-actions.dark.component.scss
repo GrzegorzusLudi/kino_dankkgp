@@ -26,4 +26,12 @@
       min-width: 128px;
     }
   }
+
+  .margin-left {
+    margin-left: $padding;
+  }
+
+  .margin-right {
+    margin-right: $padding;
+  }
 }

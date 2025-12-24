@@ -74,14 +74,6 @@ $padding: 8px;
 $toolbar-height: 36px;
 $header-height: 32px;
 
-.margin-right {
-  margin-right: $padding !important;
-}
-
-.margin-left {
-  margin-left: $padding !important;
-}
-
 @mixin border-radius {
   border-radius: 4px !important;
 }
