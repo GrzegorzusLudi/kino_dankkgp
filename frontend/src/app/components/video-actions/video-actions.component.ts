@@ -13,12 +13,19 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ApiService } from '../../services/api/api.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faRotate,
+  faForwardStep,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-video-actions',
   imports: [
     AsyncPipe,
     ButtonComponent,
+    FontAwesomeModule,
     FormsModule,
     InputComponent,
     NgClass,
@@ -36,6 +43,10 @@ import { ApiService } from '../../services/api/api.service';
 })
 export class VideoActionsComponent extends ThemedDirective implements OnInit {
   protected form!: FormGroup;
+
+  faPlus = faPlus;
+  faRotate = faRotate;
+  faForwardStep = faForwardStep;
 
   constructor(
     protected override readonly themeService: ThemeService,

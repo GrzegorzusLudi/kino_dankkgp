@@ -3,11 +3,11 @@
     <div class="content" [formGroup]="form">
       <app-input formControlName="url" label="Video URL" />
       <app-button class="margin-left" (click)="addVideoToQueue()"
-        >Add to queue</app-button
+        ><fa-icon class="margin-right" [icon]="faPlus" />Add to queue</app-button
       >
       <app-vertical-separator />
-      <app-button>Desynchronize</app-button>
-      <app-button class="margin-left">Vote to skip</app-button>
+      <app-button><fa-icon class="margin-right" [icon]="faRotate" />Desynchronize</app-button>
+      <app-button class="margin-left"><fa-icon class="margin-right" [icon]="faForwardStep" />Vote to skip</app-button>
     </div>
   </div>
 </ng-container>
