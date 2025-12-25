@@ -2,6 +2,7 @@
   @if (queue?.videos?.length) {
     @for (item of queue?.videos || []; track trackByFn($index, item)) {
       <div
+        class="item"
         [class.playing]="queue?.currentlyPlayedVideo?.videoId === item.videoId"
         (focus)="focus($index)"
         (mouseover)="focus($index)"
@@ -31,6 +32,8 @@
       </div>
     }
   } @else {
-    <div class="empty">Queue is empty.</div>
+    <div class="empty">
+      <span class="italic">Queue is empty.</span>
+    </div>
   }
 </div>

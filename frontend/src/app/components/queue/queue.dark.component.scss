@@ -16,7 +16,7 @@ $row-height: 36px;
   margin-bottom: $padding;
   @include border-bottom-radius;
 
-  > div {
+  .item {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -75,5 +75,15 @@ $row-height: 36px;
     &:hover {
       background-color: $dark-primary-a20;
     }
+  }
+
+  .empty {
+    font-size: $font-size;
+    line-height: $line-height;
+    padding: $padding;
+  }
+
+  .italic {
+    font-style: italic;
   }
 }
