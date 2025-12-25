@@ -2,8 +2,12 @@
 
 @import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-.mat-mdc-dialog-inner-container.mdc-dialog__container {
-  border-radius: 0;
+.mat-mdc-dialog-container,
+.mat-mdc-dialog-inner-container,
+.mat-mdc-dialog-surface,
+.cdk-overlay-pane {
   background-color: transparent !important;
   box-sizing: border-box !important;
+  border-radius: 0 !important;
+  border: none !important;
 }
