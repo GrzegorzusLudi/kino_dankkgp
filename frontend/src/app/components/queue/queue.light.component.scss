@@ -40,6 +40,7 @@ $row-height: 36px;
       align-items: center;
       font-size: $font-size;
       line-height: $line-height;
+      color: $light-text-color;
       width: 100%;
       max-width: 128px;
       padding-left: $padding;
@@ -64,7 +65,9 @@ $row-height: 36px;
       }
 
       &.actions {
+        flex-grow: 1;
         justify-content: flex-end;
+        max-width: none;
 
         app-round-button:not(:last-child) {
           margin-right: 0.5 * $padding;
@@ -80,6 +83,7 @@ $row-height: 36px;
   .empty {
     font-size: $font-size;
     line-height: $line-height;
+    color: $light-text-color;
     padding: $padding;
   }
 

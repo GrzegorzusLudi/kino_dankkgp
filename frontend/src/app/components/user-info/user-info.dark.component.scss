@@ -13,7 +13,7 @@
   line-height: $line-height;
   color: $dark-text-color;
 
-  app-round-button {
-    margin-right: 8px;
+  fa-icon {
+    margin-right: $padding;
   }
 }

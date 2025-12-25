@@ -9,9 +9,9 @@ $input-height: 32px;
     width: 100%;
     font-size: $font-size;
     line-height: $line-height;
+    color: $light-text-color;
     border: 1px solid $light-input-border-color;
     background-color: $light-primary-a0;
-    color: $light-text-color;
     padding: calc(0.5 * ($input-height - $line-height - 2px)) 6px;
     @include border-radius;
   }

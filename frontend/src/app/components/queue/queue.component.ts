@@ -4,14 +4,14 @@ import { ThemeService } from '../../services/theme/theme.service';
 import { NgClass } from '@angular/common';
 import { Video } from '../../models/video.interface';
 import { Queue } from '../../models/queue.interface';
-import { RoundButtonComponent } from '../round-button/round-button.component';
 import { faTrash, faCircleUp, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DurationPipe } from '../../pipes/duration/duration.pipe';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-queue',
-  imports: [DurationPipe, FontAwesomeModule, NgClass, RoundButtonComponent],
+  imports: [ButtonComponent, DurationPipe, FontAwesomeModule, NgClass],
   templateUrl: './queue.component.html',
   styleUrls: [
     './queue.aero-dark.component.scss',

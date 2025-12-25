@@ -5,13 +5,13 @@ $input-height: 32px;
 .input.#{$flat-dark-theme-class-name} {
   input {
     box-sizing: border-box;
-    max-height: 36px;
+    max-height: $input-height;
     width: 100%;
     font-size: $font-size;
     line-height: $line-height;
+    color: $light-text-color;
     border: 1px solid $dark-input-border-color;
     background-color: $dark-primary-a0;
-    color: $light-text-color;
     padding: calc(0.5 * ($input-height - $line-height - 2px)) 6px;
     @include border-radius;
   }

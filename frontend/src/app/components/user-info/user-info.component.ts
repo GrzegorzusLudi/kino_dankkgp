@@ -5,7 +5,6 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
-import { RoundButtonComponent } from '../round-button/round-button.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UsernameDialogComponent } from '../username-dialog/username-dialog.component';
 import {
@@ -14,10 +13,11 @@ import {
   USERNAME_DIALOG_HEIGHT,
   USERNAME_DIALOG_WIDTH,
 } from '../username-dialog/username-dialog.consts';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-user-info',
-  imports: [FontAwesomeModule, NgClass, RoundButtonComponent],
+  imports: [ButtonComponent, FontAwesomeModule, NgClass],
   templateUrl: './user-info.component.html',
   styleUrls: [
     './user-info.aero-dark.component.scss',

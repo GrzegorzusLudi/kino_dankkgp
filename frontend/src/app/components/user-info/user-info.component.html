@@ -1,6 +1,5 @@
 <div class="user-info" [ngClass]="theme()">
-  <app-round-button (click)="openUsernameDialog()"
-    ><fa-icon [icon]="faUser"
-  /></app-round-button>
-  <span>{{ username }}</span>
+  <app-button variant="ghost" height="small" (click)="openUsernameDialog()"
+    ><fa-icon [icon]="faUser" />{{ username || 'Guest' }}</app-button
+  >
 </div>
