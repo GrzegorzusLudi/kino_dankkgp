@@ -1,22 +1,16 @@
-<ng-container *ngIf="theme | async as theme">
-  <div class="chat" [ngClass]="theme">
-    <app-header>Chat</app-header>
-    <div class="content">
-      <div class="messages">
-        <span
-          *ngFor="
-            let message of messages;
-            let index = index;
-            trackBy: trackByFn
-          "
-          >[{{ timestamps[index] }}] {{ message.username }}:
-          {{ message.text }}</span
-        >
-      </div>
-      <form class="input">
-        <app-input label="Message" [formControl]="message" />
-        <app-button (click)="sendMessage()">Send</app-button>
-      </form>
+<div class="chat" [ngClass]="theme()">
+  <app-header>Chat</app-header>
+  <div class="content">
+    <div class="messages">
+      <span
+        *ngFor="let message of messages; let index = index; trackBy: trackByFn"
+        >[{{ timestamps[index] }}] {{ message.username }}:
+        {{ message.text }}</span
+      >
     </div>
+    <form class="input">
+      <app-input label="Message" [formControl]="message" />
+      <app-button (click)="sendMessage()">Send</app-button>
+    </form>
   </div>
-</ng-container>
+</div>

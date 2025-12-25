@@ -1,11 +1,9 @@
-<ng-container *ngIf="theme | async as theme">
-  <div class="input" [ngClass]="theme">
-    <input
-      #input
-      type="text"
-      [placeholder]="label"
-      [disabled]="isDisabled"
-      (change)="onChange($event)"
-      (blur)="onBlur()" />
-  </div>
-</ng-container>
+<div class="input" [ngClass]="theme()">
+  <input
+    #input
+    type="text"
+    [placeholder]="label"
+    [disabled]="isDisabled"
+    (change)="onChange($event)"
+    (blur)="onBlur()" />
+</div>

@@ -27,7 +27,11 @@ export class ModeToggleComponent extends ThemedDirective {
     super(themeService);
   }
 
-  switchMode(currentTheme: Theme, checked: boolean): void {
+  switchMode(currentTheme: Theme | undefined, checked: boolean): void {
+    if (!currentTheme) {
+      return;
+    }
+
     if (currentTheme === Theme.FlatLight || currentTheme === Theme.FlatDark) {
       this.themeService.changeTheme(checked ? Theme.FlatLight : Theme.FlatDark);
     } else {

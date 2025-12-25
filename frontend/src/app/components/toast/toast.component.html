@@ -1,37 +1,35 @@
 <!-- eslint-disable @angular-eslint/template/no-inline-styles -->
 
-<ng-container *ngIf="theme | async as theme">
-  <div
-    class="toast"
-    [ngClass]="theme"
-    (focus)="focus()"
-    (mouseover)="focus()"
-    (mouseout)="blur()"
-    (blur)="blur()">
-    <div class="main" [ngClass]="variant">
-      <div class="icon">
-        @if (variant === 'success') {
-          <fa-icon [icon]="faCircleCheck" />
-        } @else if (variant === 'info') {
-          <fa-icon [icon]="faCircleInfo" />
-        } @else if (variant === 'danger') {
-          <fa-icon [icon]="faTriangleExclamation" />
-        }
-      </div>
-      <div class="content">
-        <div class="header">{{ title }}</div>
-        <div class="message">
-          {{ message }}
-        </div>
-      </div>
+<div
+  class="toast"
+  [ngClass]="theme()"
+  (focus)="focus()"
+  (mouseover)="focus()"
+  (mouseout)="blur()"
+  (blur)="blur()">
+  <div class="main" [ngClass]="variant">
+    <div class="icon">
+      @if (variant === 'success') {
+        <fa-icon [icon]="faCircleCheck" />
+      } @else if (variant === 'info') {
+        <fa-icon [icon]="faCircleInfo" />
+      } @else if (variant === 'danger') {
+        <fa-icon [icon]="faTriangleExclamation" />
+      }
     </div>
-    <div class="timeout-progress" [ngClass]="variant">
-      <div
-        class="bar"
-        [ngStyle]="{
-          width: barWidth,
-          'transition-duration': transitionDuration,
-        }"></div>
+    <div class="content">
+      <div class="header">{{ title }}</div>
+      <div class="message">
+        {{ message }}
+      </div>
     </div>
   </div>
-</ng-container>
+  <div class="timeout-progress" [ngClass]="variant">
+    <div
+      class="bar"
+      [ngStyle]="{
+        width: barWidth,
+        'transition-duration': transitionDuration,
+      }"></div>
+  </div>
+</div>

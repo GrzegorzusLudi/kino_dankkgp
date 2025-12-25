@@ -1,8 +1,6 @@
-<ng-container *ngIf="theme | async as theme">
-  <div [ngClass]="theme">
-    <label class="switch">
-      <input type="checkbox" (change)="emit($event)" />
-      <span class="slider round"></span>
-    </label>
-  </div>
-</ng-container>
+<div [ngClass]="theme()">
+  <label class="switch">
+    <input type="checkbox" (change)="emit($event)" />
+    <span class="slider round"></span>
+  </label>
+</div>

@@ -1,13 +1,11 @@
 <app-background>
   <app-toolbar>
-    <ng-container *ngIf="theme | async as theme">
-      <app-title>{{ title }}</app-title>
-      <div class="group">
-        <app-mode-toggle />
-        <app-vertical-separator />
-        <app-user-info [username]="(username | async) || ''" />
-      </div>
-    </ng-container>
+    <app-title>{{ title }}</app-title>
+    <div class="group">
+      <app-mode-toggle />
+      <app-vertical-separator />
+      <app-user-info [username]="(username | async) || ''" />
+    </div>
   </app-toolbar>
   <div class="content">
     <div class="main">

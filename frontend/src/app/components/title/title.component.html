@@ -1,3 +1,1 @@
-<ng-container *ngIf="theme | async as theme">
-  <h1 [ngClass]="theme"><ng-content /></h1>
-</ng-container>
+<h1 [ngClass]="theme()"><ng-content /></h1>

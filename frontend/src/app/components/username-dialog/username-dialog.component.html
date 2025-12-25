@@ -1,4 +1,4 @@
-<div *ngIf="theme | async as _theme" class="username-dialog" [ngClass]="_theme">
+<div class="username-dialog" [ngClass]="theme()">
   <app-header>Set username</app-header>
   <div class="content">
     <form class="input">
