@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
@@ -6,7 +6,7 @@ import { ThemeService } from '../../services/theme/theme.service';
 
 @Component({
   selector: 'app-vertical-separator',
-  imports: [AsyncPipe, NgClass, NgIf],
+  imports: [NgClass],
   templateUrl: './vertical-separator.component.html',
   styleUrls: [
     './vertical-separator.aero-dark.component.scss',

@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -14,7 +14,7 @@ import { ThemeService } from '../../services/theme/theme.service';
 
 @Component({
   selector: 'app-input',
-  imports: [AsyncPipe, NgClass, NgIf],
+  imports: [NgClass],
   templateUrl: './input.component.html',
   styleUrls: [
     './input.aero-dark.component.scss',

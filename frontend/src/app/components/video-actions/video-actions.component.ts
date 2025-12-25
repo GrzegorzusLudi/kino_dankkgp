@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
@@ -23,13 +23,11 @@ import {
 @Component({
   selector: 'app-video-actions',
   imports: [
-    AsyncPipe,
     ButtonComponent,
     FontAwesomeModule,
     FormsModule,
     InputComponent,
     NgClass,
-    NgIf,
     ReactiveFormsModule,
     VerticalSeparatorComponent,
   ],

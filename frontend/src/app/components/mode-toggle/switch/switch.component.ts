@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { get } from 'lodash';
 
@@ -7,7 +7,7 @@ import { ThemeService } from '../../../services/theme/theme.service';
 
 @Component({
   selector: 'app-switch',
-  imports: [AsyncPipe, NgClass, NgIf],
+  imports: [NgClass],
   templateUrl: './switch.component.html',
   styleUrls: [
     './switch.aero-dark.component.scss',

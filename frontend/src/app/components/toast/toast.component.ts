@@ -9,28 +9,20 @@ import {
 } from '@angular/core';
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
-import { AsyncPipe, NgClass, NgIf, NgStyle } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faCircleCheck,
   faTriangleExclamation,
   faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  BehaviorSubject,
-  catchError,
-  EMPTY,
-  interval,
-  Subscription,
-  take,
-  timeout,
-} from 'rxjs';
+import { interval, Subscription, take } from 'rxjs';
 
 // TODO Remove timeouts, use observables
 
 @Component({
   selector: 'app-toast',
-  imports: [AsyncPipe, FontAwesomeModule, NgClass, NgIf, NgStyle],
+  imports: [FontAwesomeModule, NgClass, NgStyle],
   templateUrl: './toast.component.html',
   styleUrls: [
     './toast.aero-dark.component.scss',

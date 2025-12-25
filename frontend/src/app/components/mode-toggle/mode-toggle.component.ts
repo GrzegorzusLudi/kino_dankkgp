@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +10,7 @@ import { SwitchComponent } from './switch/switch.component';
 
 @Component({
   selector: 'app-mode-toggle',
-  imports: [AsyncPipe, FontAwesomeModule, NgClass, NgIf, SwitchComponent],
+  imports: [FontAwesomeModule, NgClass, SwitchComponent],
   templateUrl: './mode-toggle.component.html',
   styleUrls: [
     './mode-toggle.aero-dark.component.scss',
