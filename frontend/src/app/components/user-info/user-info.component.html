@@ -1,4 +1,6 @@
 <div class="user-info" [ngClass]="theme()">
-  <app-round-button><fa-icon [icon]="faUser" /></app-round-button>
+  <app-round-button (click)="openUsernameDialog()"
+    ><fa-icon [icon]="faUser"
+  /></app-round-button>
   <span>{{ username }}</span>
 </div>
