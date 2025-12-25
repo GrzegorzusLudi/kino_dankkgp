@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { YoutubePlayerComponent } from 'ngx-youtube-player';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ import {
 
 @Component({
   selector: 'app-video-container',
-  imports: [AsyncPipe, HeaderComponent, NgClass, NgIf, YoutubePlayerComponent],
+  imports: [HeaderComponent, NgClass, YoutubePlayerComponent],
   templateUrl: './video-container.component.html',
   styleUrls: [
     './video-container.aero-dark.component.scss',
