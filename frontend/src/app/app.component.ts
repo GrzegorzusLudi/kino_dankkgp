@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -52,7 +52,6 @@ import { QueueComponent } from './components/queue/queue.component';
     ChatComponent,
     ConnectedUsersInfoComponent,
     ModeToggleComponent,
-    NgIf,
     QueueComponent,
     TitleComponent,
     ToastContainerComponent,
