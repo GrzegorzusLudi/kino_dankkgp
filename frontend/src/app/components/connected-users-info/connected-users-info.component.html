@@ -1,8 +1,8 @@
 <div class="connected-users-info" [ngClass]="theme()">
   <app-header>Connected users ({{ usernames.length }})</app-header>
   <div class="content">
-    <span *ngFor="let username of usernames; trackBy: trackByFn">{{
-      username
-    }}</span>
+    @for (username of usernames; track trackByFn($index, username)) {
+      <span>{{ username }}</span>
+    }
   </div>
 </div>

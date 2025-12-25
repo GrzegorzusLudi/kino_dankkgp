@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -13,13 +13,11 @@ import { InputComponent } from '../input/input.component';
 @Component({
   selector: 'app-username-dialog',
   imports: [
-    AsyncPipe,
     ButtonComponent,
     FormsModule,
     HeaderComponent,
     InputComponent,
     NgClass,
-    NgIf,
     ReactiveFormsModule,
   ],
   templateUrl: './username-dialog.component.html',

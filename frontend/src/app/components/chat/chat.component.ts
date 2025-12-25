@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   DoCheck,
@@ -19,14 +19,11 @@ import { InputComponent } from '../input/input.component';
 @Component({
   selector: 'app-chat',
   imports: [
-    AsyncPipe,
     ButtonComponent,
     FormsModule,
     HeaderComponent,
     InputComponent,
     NgClass,
-    NgFor,
-    NgIf,
     ReactiveFormsModule,
   ],
   templateUrl: './chat.component.html',

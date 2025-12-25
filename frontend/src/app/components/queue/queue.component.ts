@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
-import { NgIf, NgClass, NgForOf, AsyncPipe } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Video } from '../../models/video.interface';
 import { Queue } from '../../models/queue.interface';
 import { RoundButtonComponent } from '../round-button/round-button.component';
@@ -11,15 +11,7 @@ import { DurationPipe } from '../../pipes/duration/duration.pipe';
 
 @Component({
   selector: 'app-queue',
-  imports: [
-    AsyncPipe,
-    DurationPipe,
-    FontAwesomeModule,
-    NgClass,
-    NgForOf,
-    NgIf,
-    RoundButtonComponent,
-  ],
+  imports: [DurationPipe, FontAwesomeModule, NgClass, RoundButtonComponent],
   templateUrl: './queue.component.html',
   styleUrls: [
     './queue.aero-dark.component.scss',
