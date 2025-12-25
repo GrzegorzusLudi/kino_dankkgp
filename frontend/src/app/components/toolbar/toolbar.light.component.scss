@@ -1,10 +1,11 @@
-@import '../../styles/shared.scss';
+@use '../../styles/shared.scss' as *;
+@use 'sass:color';
 
 $color1: $light-primary-a10;
-$color2: darken($color1, 3%);
-$color3: darken($color1, 5%);
-$color4: lighten($color1, 2%);
-$color5: darken($color1, 6%);
+$color2: color.adjust($color1, $lightness: -3%);
+$color3: color.adjust($color1, $lightness: -5%);
+$color4: color.adjust($color1, $lightness: 2%);
+$color5: color.adjust($color1, $lightness: -6%);
 
 div.toolbar.#{$flat-light-theme-class-name} {
   box-sizing: border-box;

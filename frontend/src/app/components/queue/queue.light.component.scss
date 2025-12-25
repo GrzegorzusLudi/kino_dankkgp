@@ -1,4 +1,4 @@
-@import '../../styles/shared.scss';
+@use '../../styles/shared.scss' as *;
 
 $row-height: 36px;
 
@@ -67,7 +67,7 @@ $row-height: 36px;
         justify-content: flex-end;
 
         app-round-button:not(:last-child) {
-          margin-right: $padding / 2;
+          margin-right: 0.5 * $padding;
         }
       }
     }

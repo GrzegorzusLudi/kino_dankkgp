@@ -1,9 +1,10 @@
-@import '../../styles/shared.scss';
+@use '../../styles/shared.scss' as *;
+@use 'sass:color';
 
 div.#{$flat-light-theme-class-name} {
   margin: 0 14px;
   width: 1px;
   height: 100%;
   align-self: stretch;
-  background-color: darken($dark-primary-a0, 20%);
+  background-color: color.adjust($dark-primary-a0, $lightness: -20%);
 }

@@ -1,4 +1,4 @@
-@import '../../styles/shared.scss';
+@use '../../styles/shared.scss' as *;
 
 div.#{$flat-light-theme-class-name} {
   background-color: $light-primary-a10;

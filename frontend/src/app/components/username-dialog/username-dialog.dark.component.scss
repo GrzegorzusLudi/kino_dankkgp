@@ -1,4 +1,4 @@
-@import '../../styles/shared.scss';
+@use '../../styles/shared.scss' as *;
 
 .username-dialog.#{$flat-dark-theme-class-name} {
   display: flex;
