@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { ThemeService } from '../../services/theme/theme.service';
@@ -16,6 +16,9 @@ import { ThemeService } from '../../services/theme/theme.service';
   ],
 })
 export class ButtonComponent extends ThemedDirective {
+  @Input() variant: 'primary' | 'ghost' = 'primary';
+  @Input() height: 'small' | 'medium' = 'medium';
+
   protected clicked = false;
 
   constructor(protected override readonly themeService: ThemeService) {
