@@ -28,4 +28,17 @@ const ignored = [
   'package-lock.json',
 ];
 
-export default createConfig(jsons, sources, tests, htmls, ignored);
+const config = createConfig(jsons, sources, tests, htmls, ignored);
+
+export default config.map(conf => {
+  if (conf.files?.some(file => file.includes('*.html'))) {
+    return {
+      ...conf,
+      rules: {
+        ...conf.rules,
+        '@angular-eslint/template/no-call-expression': 'off'
+      }
+    };
+  }
+  return conf;
+});
