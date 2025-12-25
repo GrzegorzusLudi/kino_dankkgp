@@ -3,11 +3,12 @@
 .username-dialog.#{$flat-dark-theme-class-name} {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  background-color: $dark-primary-a10;
+  background-color: $dark-primary-a40;
+  border: none;
   @include border-radius;
 
   .content {
+    background-color: $dark-primary-a10;
     padding: $padding;
     height: 64px;
   }

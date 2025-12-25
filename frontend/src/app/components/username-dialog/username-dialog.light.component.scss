@@ -1,1 +1,32 @@
-// TODO
+@import '../../styles/shared.scss';
+
+.username-dialog.#{$flat-light-theme-class-name} {
+  display: flex;
+  flex-direction: column;
+  background-color: $light-primary-a40;
+  border: none;
+  @include border-radius;
+
+  .content {
+    background-color: $light-primary-a0;
+    padding: $padding;
+    height: 64px;
+  }
+
+  .input {
+    box-sizing: border-box;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    app-input {
+      width: 100% !important;
+      margin-right: $padding;
+    }
+
+    app-button {
+      width: 192px;
+    }
+  }
+}
