@@ -1,41 +1,36 @@
-<ng-container *ngIf="queue?.videos?.length">
-  <div class="queue" [ngClass]="theme()">
-    <div
-      *ngFor="
-        let item of queue?.videos || [];
-        trackBy: trackByFn;
-        let index = index
-      "
-      [class.playing]="queue?.currentlyPlayedVideo?.videoId === item.videoId"
-      (focus)="focus(index)"
-      (mouseover)="focus(index)"
-      (mouseout)="blur(index)"
-      (blur)="blur(index)">
-      <div class="index">
-        <ng-container
-          *ngIf="
-            queue?.currentlyPlayedVideo?.videoId !== item.videoId;
-            else play
-          "
-          >{{ index + 1 }}</ng-container
-        >
-        <ng-template #play><fa-icon [icon]="faPlay" /></ng-template>
+<div class="queue" [ngClass]="theme()">
+  @if (queue?.videos?.length) {
+    @for (item of queue?.videos || []; track trackByFn($index, item)) {
+      <div
+        [class.playing]="queue?.currentlyPlayedVideo?.videoId === item.videoId"
+        (focus)="focus($index)"
+        (mouseover)="focus($index)"
+        (mouseout)="blur($index)"
+        (blur)="blur($index)">
+        <div class="index">
+          @if (queue?.currentlyPlayedVideo?.videoId !== item.videoId) {
+            {{ $index + 1 }}
+          } @else {
+            <fa-icon [icon]="faPlay" />
+          }
+        </div>
+        <div class="title">{{ item.title }}</div>
+        <div class="added-by">added by {{ item.user.nick }}</div>
+        <div class="duration">
+          @if (queue?.currentlyPlayedVideo?.videoId === item.videoId) {
+            {{ queue?.currentlyPlayedSecond | duration }} /
+          }
+          {{ item.duration_in_seconds | duration }}
+        </div>
+        <div class="actions">
+          @if (focusedIndex === $index) {
+            <app-round-button><fa-icon [icon]="faCircleUp" /></app-round-button>
+            <app-round-button><fa-icon [icon]="faTrash" /></app-round-button>
+          }
+        </div>
       </div>
-      <div class="title">{{ item.title }}</div>
-      <div class="added-by">added by {{ item.user.nick }}</div>
-      <div class="duration">
-        <ng-container
-          *ngIf="queue?.currentlyPlayedVideo?.videoId === item.videoId"
-          >{{ queue?.currentlyPlayedSecond | duration }} /
-        </ng-container>
-        {{ item.duration_in_seconds | duration }}
-      </div>
-      <div class="actions">
-        <ng-container *ngIf="focusedIndex === index">
-          <app-round-button><fa-icon [icon]="faCircleUp" /></app-round-button>
-          <app-round-button><fa-icon [icon]="faTrash" /></app-round-button>
-        </ng-container>
-      </div>
-    </div>
-  </div>
-</ng-container>
+    }
+  } @else {
+    <div class="empty">Queue is empty.</div>
+  }
+</div>
