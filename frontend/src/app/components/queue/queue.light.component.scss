@@ -5,16 +5,15 @@ $row-height: 36px;
 .queue.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
   width: 100%;
-  color: $light-text-color;
   box-shadow: $light-box-shadow;
   display: flex;
   flex-direction: column;
   background-color: $light-primary-a0;
   border-left: 1px solid $light-border-color;
   border-right: 1px solid $light-border-color;
-  border-bottom: 1px solid $light-border-color;
+  border-top: none;
+  border-bottom: none;
   margin-bottom: $padding;
-  @include border-bottom-radius;
 
   .item {
     display: flex;
@@ -27,10 +26,6 @@ $row-height: 36px;
 
     &.playing {
       color: $light-primary-a50 !important;
-    }
-
-    &:last-child {
-      border-bottom-color: transparent;
     }
 
     > div {
@@ -89,5 +84,9 @@ $row-height: 36px;
 
   .italic {
     font-style: italic;
+  }
+  
+  .margin-right {
+    margin-right: $padding;
   }
 }
