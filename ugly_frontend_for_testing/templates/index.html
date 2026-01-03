@@ -32,11 +32,13 @@
     <script src="/static/socket.io.min.js"></script>
     <script>
         var tag, done = false
+        let client_sid = null;
 
         function init() {
             const socket = io();
             socket.on('message', ev => {
                 console.log(ev.data)
+                client_sid = ev.sid
                 //document.getElementById('content').innerHTML = ev.data
                 //if(ev.data != 'Connected')
                 //    player.cueVideoById((new URL(ev.data)).searchParams.get('v'))
@@ -82,6 +84,14 @@
                 var inputValue = document.getElementById('queue-add-video-input').value
                 socket.emit("queue-add-video", { data: inputValue })
                 document.getElementById('queue-add-video-input').value = ""
+            })
+
+            const form_skip_current_video = document.getElementById('queue-skip-vote-current-video')
+            form_skip_current_video.addEventListener('submit', function (e) {
+                e.preventDefault()
+                var inputValue = document.getElementById('queue-skip-vote-current-video-value').value
+
+                socket.emit("queue-skip-current-video", { data: inputValue })
             })
         }
         function onYouTubeIframeAPIReady() {
@@ -146,6 +156,7 @@ emitting event "statechange" to all [/]
         */
         function updateQueue(queueData) {
             updatePlayer(queueData)
+            updateSkipElement(queueData)
             updateQueueElement(queueData)
         }
         function updatePlayer(queueData){
@@ -168,6 +179,26 @@ emitting event "statechange" to all [/]
             }
 
             //player.cueVideoById
+        }
+        function updateSkipElement(queueData){
+            if(queueData.currentlyPlayedVideo == null){
+                document.getElementById('queue-skip-vote-current-video-info').innerHTML = '';
+                document.getElementById('queue-skip-vote-current-video-button').disabled = true
+            } else {
+                var skip_voting = queueData.currentlyPlayedVideo.skip_voting;
+                var playerSkipping = skip_voting.users_voted.includes(client_sid);
+
+                document.getElementById('queue-skip-vote-current-video-info').innerHTML = '(' + skip_voting.users_voted.length + '/' + skip_voting.user_number_to_have_majority + ')';
+                document.getElementById('queue-skip-vote-current-video-button').disabled = false
+
+                if(playerSkipping){
+                    document.getElementById('queue-skip-vote-current-video-value').value = false
+                    document.getElementById('queue-skip-vote-current-video-button').value = 'CANCEL SKIP VOTE'
+                } else {
+                    document.getElementById('queue-skip-vote-current-video-value').value = true
+                    document.getElementById('queue-skip-vote-current-video-button').value = 'VOTE TO SKIP'
+                }
+            }
         }
         function updateQueueElement(queueData) {
             var queueElement = document.getElementById('queue')
@@ -236,7 +267,14 @@ emitting event "statechange" to all [/]
         <div class="rightpanel">
             <div id="player"></div>
             <form id="queue-add-video-input-form">
-                Video URL:<input id="queue-add-video-input" /><input type="submit" value="ADD VIDEO TO QUEUE" />
+                Video URL:
+                <input id="queue-add-video-input" />
+                <input type="submit" value="ADD VIDEO TO QUEUE" />
+            </form>
+            <form id="queue-skip-vote-current-video">
+                <input type="submit" id="queue-skip-vote-current-video-button" value="VOTE TO SKIP" />
+                <input type="hidden" id="queue-skip-vote-current-video-value" value="true"/>
+                <span id="queue-skip-vote-current-video-info"></span>
             </form>
             <div id="queue" class="bordereddivmorewidth">
                 kolejka tu

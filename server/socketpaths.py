@@ -16,7 +16,7 @@ def run_socketio_app(app):
     #connect events
     @socketio.on('connect')
     def user_connect():
-        emit('message', {'data': 'Connected'})
+        emit('message', {'data': 'Connected', 'sid': request.sid})
         application_state.addUser(request.sid)
 
 
@@ -42,6 +42,11 @@ def run_socketio_app(app):
     @socketio.on('queue-add-video')
     def queue_add_video(data):
         application_state.addVideo(request.sid,data['data'])
+
+    @socketio.on('queue-skip-current-video')
+    def skip_current_video(data):
+        skipBool = data['data'] == 'true'
+        application_state.skipCurrentVideo(request.sid,skipBool)
 
     #error handling
     @socketio.on_error()

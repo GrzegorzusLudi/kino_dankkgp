@@ -51,6 +51,10 @@ class AppState:
         user = self.getUser(sid)
         self.queue.addVideo(user,url)
 
+    def skipCurrentVideo(self,sid,skipBool):
+        user = self.getUser(sid)
+        self.queue.voteSkipCurrentVideo(user,skipBool)
+
     def stateObject(self):
         return {
             'messages':[ message.toData() for message in self.messages ],
@@ -82,5 +86,5 @@ class AppState:
         return statecode
 
     def update(self):
-        self.queue.update()
+        self.queue.update(self.users)
         
