@@ -16,7 +16,7 @@ const sources = ['^src\/.*(?<!\.spec)\.ts$'];
 
 const tests = ['^.*\.spec\.ts$'];
 
-const htmls = ['src/**/*.html'];
+const templates = ['src/**/*.html'];
 
 const ignored = [
   '.angular/',
@@ -28,7 +28,15 @@ const ignored = [
   'package-lock.json',
 ];
 
-const config = createConfig(jsons, sources, tests, htmls, ignored);
+const config = createConfig({
+  jsons,
+  sources,
+  tests,
+  templates,
+  ignored,
+  isAngularApp: true,
+  angularElementPrefix: 'app',
+});
 
 export default config.map(conf => {
   if (conf.files?.some(file => file.includes('*.html'))) {
