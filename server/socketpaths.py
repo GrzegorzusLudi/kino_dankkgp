@@ -65,8 +65,10 @@ def update_application_state():
 
 last_state = ''
 def notify_about_state_change(socket,getall=False):
-    rendered_state = application_state.getrenderedstate(getall)
-    print(rendered_state)
-    if len(rendered_state.values()) > 0:
-        socket.emit('statechange',{'data':rendered_state})
+    users = application_state.getAllUsers()
+    for sid in users:
+        rendered_state = application_state.getrenderedstate(getall,sid)
+
+        if len(rendered_state.values()) > 0:
+            socket.emit('statechange',{'data':rendered_state},to=sid)
         

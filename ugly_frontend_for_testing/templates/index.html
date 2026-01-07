@@ -186,9 +186,9 @@ emitting event "statechange" to all [/]
                 document.getElementById('queue-skip-vote-current-video-button').disabled = true
             } else {
                 var skip_voting = queueData.currentlyPlayedVideo.skip_voting;
-                var playerSkipping = skip_voting.users_voted.includes(client_sid);
+                var playerSkipping = skip_voting.you_voted;
 
-                document.getElementById('queue-skip-vote-current-video-info').innerHTML = '(' + skip_voting.users_voted.length + '/' + skip_voting.user_number_to_have_majority + ')';
+                document.getElementById('queue-skip-vote-current-video-info').innerHTML = '(' + skip_voting.user_number_voted + '/' + skip_voting.user_number_to_have_majority + ')';
                 document.getElementById('queue-skip-vote-current-video-button').disabled = false
 
                 if(playerSkipping){

@@ -20,13 +20,6 @@ class Queue:
         self.queue.append(video)
         if self.currentlyPlayedVideo == None:
             self.currentlyPlayedVideo = video
-        
-    def toData(self):
-        return { 
-            'videos': [ video.toData() for video in self.queue ],
-            'currentlyPlayedVideo': self.currentlyPlayedVideo.toData() if self.currentlyPlayedVideo != None else None,
-            'currentlyPlayedSecond': self.currentlyPlayedSecond
-            }
 
     def update(self,users):
         if self.currentlyPlayedVideo != None:
@@ -62,3 +55,10 @@ class Queue:
             self.currentlyPlayedVideo = None
         else:
             self.currentlyPlayedVideo = self.queue[0]
+
+    def toData(self,sid):
+        return { 
+            'videos': [ video.toData(sid) for video in self.queue ],
+            'currentlyPlayedVideo': self.currentlyPlayedVideo.toData(sid) if self.currentlyPlayedVideo != None else None,
+            'currentlyPlayedSecond': self.currentlyPlayedSecond
+            }

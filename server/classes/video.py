@@ -58,7 +58,7 @@ class Video:
     def canBeSkipped(self):
         return self.skipVoting.majority
 
-    def toData(self):
+    def toData(self,sid):
         return {
             'url': self.url,
             'videoId': self.videoId,
@@ -66,7 +66,7 @@ class Video:
             'type': self.type,
             'user': self.user.toData(),
             'duration_in_seconds':self.durationInSeconds,
-            'skip_voting': self.skipVoting.toData()
+            'skip_voting': self.skipVoting.toData(sid)
         }
     
 

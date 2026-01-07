@@ -35,8 +35,9 @@ class Voting:
         self.updateMajority()
 
         
-    def toData(self):
+    def toData(self,sid):
         return {
-            'users_voted': self.usersVoted,
+            'you_voted': sid in self.usersVoted,
+            'user_number_voted': len( self.usersVoted ),
             'user_number_to_have_majority': self.userNumberToHaveMajority
         }
