@@ -48,6 +48,20 @@ def run_socketio_app(app):
         skipBool = data['data'] == 'true'
         application_state.skipCurrentVideo(request.sid,skipBool)
 
+    @socketio.on('queue-move-up-video')
+    def move_video_up(data):
+        videoId = data['data']['id']
+        skipBool = data['data']['value']
+        
+        application_state.moveVideoUp(request.sid,videoId,skipBool)
+
+    @socketio.on('queue-skip-video')
+    def skip_video(data):
+        videoId = data['data']['id']
+        skipBool = data['data']['value']
+        
+        application_state.skipVideo(request.sid,videoId,skipBool)
+
     #error handling
     @socketio.on_error()
     def chat_error_handler(e):

@@ -34,6 +34,10 @@ class Voting:
 
         self.updateMajority()
 
+    def clear(self):
+        self.usersVoted = []
+        self.updateMajority()
+
         
     def toData(self,sid):
         return {

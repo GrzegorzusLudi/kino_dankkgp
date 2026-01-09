@@ -54,9 +54,17 @@ class AppState:
         user = self.getUser(sid)
         self.queue.addVideo(user,url)
 
-    def skipCurrentVideo(self,sid,skipBool):
+    def skipCurrentVideo(self,sid,voteBool):
         user = self.getUser(sid)
-        self.queue.voteSkipCurrentVideo(user,skipBool)
+        self.queue.voteSkipCurrentVideo(user,voteBool)
+
+    def moveVideoUp(self,sid,videoId,voteBool):
+        user = self.getUser(sid)
+        self.queue.voteMoveVideoUp(user,videoId,voteBool)
+
+    def skipVideo(self,sid,videoId,voteBool):
+        user = self.getUser(sid)
+        self.queue.voteSkipVideo(user,videoId,voteBool)
 
     def getrenderedstate(self,getall,sid):
         currentState = self.stateObject(sid)

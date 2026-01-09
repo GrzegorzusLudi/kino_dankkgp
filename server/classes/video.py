@@ -10,7 +10,8 @@ from urllib.parse import parse_qs
 
 
 class Video:
-    def __init__(self,url,user):
+    def __init__(self,id,url,user):
+        self.id = id
         self.validateVideo(url,user)
         self.url = url
         self.user = user
@@ -19,6 +20,7 @@ class Video:
         self.snippetData = api_data['snippet']
 
         self.skipVoting = Voting()
+        self.moveUpVoting = Voting()
 
     def validateVideo(self,url,user):
         if self.validateYoutube(url):
@@ -51,22 +53,38 @@ class Video:
 
     def refreshVoting(self,users):
         self.skipVoting.refreshVoting(users)
+        self.moveUpVoting.refreshVoting(users)
+
 
     def voteSkip(self,user,voteBool):
         self.skipVoting.updateUser(user,voteBool)
 
+    def voteMoveUp(self,user,voteBool):
+        self.moveUpVoting.updateUser(user,voteBool)
+
+
     def canBeSkipped(self):
         return self.skipVoting.majority
 
+    def canBeMovedUp(self):
+        return self.moveUpVoting.majority
+
+
+    def clearMoveUpVoting(self):
+        return self.moveUpVoting.clear()
+
+
     def toData(self,sid):
         return {
+            'id': self.id,
             'url': self.url,
             'videoId': self.videoId,
             'title': self.snippetData['title'],
             'type': self.type,
             'user': self.user.toData(),
             'duration_in_seconds':self.durationInSeconds,
-            'skip_voting': self.skipVoting.toData(sid)
+            'skip_voting': self.skipVoting.toData(sid),
+            'move_up_voting': self.moveUpVoting.toData(sid)
         }
     
 

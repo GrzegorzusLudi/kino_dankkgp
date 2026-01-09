@@ -14,9 +14,11 @@ class Queue:
         self.queue = []
         self.currentlyPlayedVideo = None
         self.currentlyPlayedSecond = 0
+        self.videoIdCounter = 0
 
     def addVideo(self,user,url):
-        video = Video(url,user)
+        video = Video(self.videoIdCounter,url,user)
+        self.videoIdCounter += 1
         self.queue.append(video)
         if self.currentlyPlayedVideo == None:
             self.currentlyPlayedVideo = video
@@ -40,21 +42,56 @@ class Queue:
         for video in self.queue:
             video.refreshVoting(users)
 
-    def voteSkipCurrentVideo(self,user,skipBool):
+    def voteSkipCurrentVideo(self,user,voteBool):
         if self.currentlyPlayedVideo != None:
-            self.currentlyPlayedVideo.voteSkip(user,skipBool)
+            self.currentlyPlayedVideo.voteSkip(user,voteBool)
 
             self.removeSkippedVideos()
 
-    def removeSkippedVideos(self):
-        if self.currentlyPlayedVideo.canBeSkipped():
-            self.currentlyPlayedSecond = 0
+    def voteMoveVideoUp(self,user,videoId,voteBool):
+        video = self.getVideoById(videoId)
+        if video != None:
+            video.voteMoveUp(user,voteBool)
 
+            if video.canBeMovedUp():
+                self.moveVideoUp(user,video)
+        
+    def voteSkipVideo(self,user,videoId,voteBool):
+        video = self.getVideoById(videoId)
+        if video != None:
+            video.voteSkip(user,voteBool)
+
+            if video.canBeSkipped():
+                self.removeSkippedVideos()
+
+
+    def moveVideoUp(self,user,video):        
+        self.queue = [video] + list(filter(lambda x: x.id != video.id, self.queue))
+        video.clearMoveUpVoting()
+
+        self.updateCurrentVideo()
+
+
+
+    def getVideoById(self,videoId):
+        videosFound = list(filter(lambda x: x.id == videoId, self.queue))
+
+        if len(videosFound) == 0:
+            return None
+        
+        return videosFound[0]
+
+    def removeSkippedVideos(self):
         self.queue = list(filter(lambda x: not x.canBeSkipped(), self.queue))
+        self.updateCurrentVideo()
+
+    def updateCurrentVideo(self):
         if len(self.queue) == 0:
             self.currentlyPlayedVideo = None
         else:
             self.currentlyPlayedVideo = self.queue[0]
+        self.currentlyPlayedSecond = 0
+
 
     def toData(self,sid):
         return { 
