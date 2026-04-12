@@ -34,7 +34,6 @@ export class ApiService {
       } catch (error: unknown) {
         console.error(error);
         this.toastService.next({
-          id: crypto.randomUUID(),
           title: 'Error',
           message: `Failed to process message event: ${String(error)}`,
           variant: 'danger',
@@ -48,7 +47,6 @@ export class ApiService {
       } catch (error: unknown) {
         console.error(error);
         this.toastService.next({
-          id: crypto.randomUUID(),
           title: 'Error',
           message: `Failed to process state change: ${String(error)}`,
           variant: 'danger',
@@ -59,7 +57,6 @@ export class ApiService {
     this.socket.on(Event.Error, (event: { data?: string }) => {
       console.error(event);
       this.toastService.next({
-        id: crypto.randomUUID(),
         title: 'Error',
         message: `${String(event.data)}`,
         variant: 'danger',
@@ -99,7 +96,6 @@ export class ApiService {
 
   private handleMessageEvent(event: { data?: string }): void {
     this.toastService.next({
-      id: crypto.randomUUID(),
       title: 'Success',
       message: event.data ?? '',
       variant: 'success',

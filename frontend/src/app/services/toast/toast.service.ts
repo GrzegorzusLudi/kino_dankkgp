@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Toast } from '../../models/toast.interface';
 
+interface ToastInput {
+  title: string;
+  message: string;
+  variant: 'info' | 'success' | 'danger';
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +18,10 @@ export class ToastService {
     return this.toastSubject.asObservable();
   }
 
-  next(toast: Toast): void {
-    this.toastSubject.next(toast);
+  next(input: ToastInput): void {
+    this.toastSubject.next({
+      ...input,
+      id: crypto.randomUUID(),
+    });
   }
 }

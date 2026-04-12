@@ -5,8 +5,9 @@ import {
   Input,
   IterableDiffer,
   IterableDiffers,
+  OnInit,
 } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { Message } from '../../models/message.interface';
@@ -15,6 +16,7 @@ import { ThemeService } from '../../services/theme/theme.service';
 import { ButtonComponent } from '../button/button.component';
 import { HeaderComponent } from '../header/header.component';
 import { InputComponent } from '../input/input.component';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-chat',
@@ -34,11 +36,12 @@ import { InputComponent } from '../input/input.component';
     './chat.light.component.scss',
   ],
 })
-export class ChatComponent extends ThemedDirective implements DoCheck {
+export class ChatComponent extends ThemedDirective implements OnInit, DoCheck {
+  @Input() username: string = '';
   @Input() messages: Message[] = [];
 
   protected timestamps: string[] = [];
-  protected message = new FormControl<string>('');
+  protected form!: FormGroup;
 
   private readonly differ: IterableDiffer<Message>;
 
@@ -46,9 +49,28 @@ export class ChatComponent extends ThemedDirective implements DoCheck {
     protected override readonly themeService: ThemeService,
     private readonly iterableDiffers: IterableDiffers,
     private readonly apiService: ApiService,
+    private readonly toastService: ToastService,
   ) {
     super(themeService);
     this.differ = this.iterableDiffers.find([]).create<Message>();
+  }
+
+  ngOnInit(): void {
+    let message: FormControl<string | null>;
+    let username: FormControl<string | null>;
+
+    if (this.username) {
+      message = new FormControl<string | null>('', { nonNullable: true, validators: [Validators.required] });
+      username = new FormControl<string | null>(this.username, { nonNullable: true, validators: [Validators.required] });
+    } else {
+      message = new FormControl<string | null>(null, { nonNullable: false });
+      username = new FormControl<string | null>('', { nonNullable: true, validators: [Validators.required] });
+    }
+
+    this.form = new FormGroup({
+      message,
+      username,
+    });
   }
 
   ngDoCheck(): void {
@@ -66,9 +88,35 @@ export class ChatComponent extends ThemedDirective implements DoCheck {
     return `${index}:${message.date.valueOf()}:${message.username}:${message.text}`;
   }
 
+  setUsername(): void {
+    if (this.form.invalid) {
+      this.toastService.next({
+        title: 'Invalid username',
+        message: 'Username cannot be empty.',
+        variant: 'danger',
+      });
+
+      return;
+    }
+
+    this.apiService.setUsername(this.form.get('username')?.value ?? '');
+    this.form.get('message')?.setValidators([Validators.required]);
+    this.form.updateValueAndValidity();
+  }
+
   sendMessage(): void {
-    this.apiService.sendMessage(this.message.value ?? '');
-    this.message.setValue('');
-    this.message.updateValueAndValidity();
+    if (this.form.invalid) {
+      this.toastService.next({
+        title: 'Invalid message',
+        message: 'Message cannot be empty.',
+        variant: 'danger',
+      });
+
+      return;
+    }
+
+    this.apiService.sendMessage(this.form.get('message')?.value ?? '');
+    this.form.get('message')?.setValue('');
+    this.form.updateValueAndValidity();
   }
 }
