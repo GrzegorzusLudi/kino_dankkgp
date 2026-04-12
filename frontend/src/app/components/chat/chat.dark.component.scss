@@ -56,6 +56,10 @@
 
     app-button {
       width: 64px;
+
+      &.large {
+        width: 96px;
+      }
     }
   }
 }
