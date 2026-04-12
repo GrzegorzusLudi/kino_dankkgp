@@ -95,6 +95,79 @@
         "styles": ["apps/browser/src/styles.scss"],
         "scripts": []
       }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsx scripts/build.ts"
+      },
+      "dependsOn": ["build"]
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "sort-package-json",
+          "ng-perfectionism",
+          "prettier --w **/*.json apps/**/*.{ts,html,scss}",
+          "sort-patterns-file .gitignore .prettierignore -i node_modules"
+        ],
+        "parallel": false
+      }
+    },
+    "chores": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx lint-fix browser",
+          "nx run browser:format"
+        ],
+        "parallel": false
+      }
+    },
+    "lint-fix": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/browser/src/**/*.ts",
+          "apps/browser/src/**/*.html"
+        ],
+        "fix": true
+      }
+    },
+    "watch": {
+      "executor": "@angular-devkit/build-angular:application",
+      "options": {
+        "outputPath": "dist/apps/browser",
+        "index": "apps/browser/src/index.html",
+        "browser": "apps/browser/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/browser/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/browser/public"
+          }
+        ],
+        "styles": ["apps/browser/src/styles.scss"],
+        "scripts": [],
+        "watch": true
+      },
+      "defaultConfiguration": "development",
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/browser/src/environments/environment.ts",
+              "with": "apps/browser/src/environments/environment.development.ts"
+            }
+          ]
+        }
+      }
     }
   }
 }
