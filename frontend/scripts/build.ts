@@ -7,12 +7,12 @@ import { replaceInFile } from 'replace-in-file';
 import { cwd } from 'node:process';
 
 async function build() {
-  console.log('Executing ng build');
+  console.log('Executing nx build browser');
 
-  execSync(`ng build`);
+  execSync(`npx nx build browser`);
 
-  const FRONTEND_DIST_PATH = normalize(cwd() + '/dist/browser');
-  const FRONTEND_STATIC_PATH = normalize(cwd() + '/dist/browser/static');
+  const FRONTEND_DIST_PATH = normalize(cwd() + '/dist/apps/browser/browser');
+  const FRONTEND_STATIC_PATH = normalize(cwd() + '/dist/apps/browser/browser/static');
   const BACKEND_HTML_PATH = normalize(cwd() + '/../server/templates');
   const BACKEND_STATIC_PATH = normalize(cwd() + '/../server/static');
 

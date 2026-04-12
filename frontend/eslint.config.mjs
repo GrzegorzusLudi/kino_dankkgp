@@ -2,21 +2,23 @@ import createConfig from '@chris.araneo/eslint-config';
 
 const jsons = [
   '.vscode/*.json',
-  'public/**/*.json',
+  'apps/browser/public/**/*.json',
   'scripts/**/*.json',
-  'src/**/*.json',
+  'apps/browser/src/**/*.json',
   '.prettierrc.json',
-  'angular.json',
-  'tsconfig.app.json',
+  'nx.json',
+  'tsconfig.base.json',
   'tsconfig.json',
-  'tsconfig.spec.json',
+  'apps/browser/tsconfig.json',
+  'apps/browser/tsconfig.app.json',
+  'apps/browser/tsconfig.spec.json',
 ];
 
-const sources = ['^src\/.*(?<!\.spec)\.ts$'];
+const sources = ['^apps\/browser\/src\/.*(?<!\.spec)\.ts$'];
 
 const tests = ['^.*\.spec\.ts$'];
 
-const templates = ['src/**/*.html'];
+const templates = ['apps/browser/src/**/*.html'];
 
 const ignored = [
   '.angular/',

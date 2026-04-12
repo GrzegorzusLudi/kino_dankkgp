@@ -1,6 +1,15 @@
 frontend/node_modules
 frontend/dist
 frontend/.angular
-server/__pycache__
+frontend/.nx
 server/.venv
 server/.env
+server/__pycache__
+server/*/__pycache__
+server/node_modules
+server/templates/index.html
+server/static/*.css
+server/static/*.js
+server/static/favicon.ico
+server/.env
+ugly_frontend_for_testing
