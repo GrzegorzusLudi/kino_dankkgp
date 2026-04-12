@@ -1,4 +1,4 @@
-import { ThemeService } from '../../services/theme/theme.service';
+import { ThemeService } from 'theme';
 import { ThemedDirective } from './themed.directive';
 
 describe('ThemedDirective', () => {

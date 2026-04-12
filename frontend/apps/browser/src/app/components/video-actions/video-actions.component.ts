@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { ThemeService } from '../../services/theme/theme.service';
+import { ThemeService } from 'theme';
 import { ButtonComponent } from '../button/button.component';
 import { InputComponent } from '../input/input.component';
 import { VerticalSeparatorComponent } from '../vertical-separator/vertical-separator.component';

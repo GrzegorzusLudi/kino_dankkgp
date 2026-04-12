@@ -4,7 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { ThemeService } from '../../services/theme/theme.service';
+import { ThemeService } from 'theme';
 import { MatDialog } from '@angular/material/dialog';
 import { UsernameDialogComponent } from '../username-dialog/username-dialog.component';
 import {

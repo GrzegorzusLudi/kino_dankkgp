@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { ThemeService } from '../../services/theme/theme.service';
+import { ThemeService } from 'theme';
 import { NgClass } from '@angular/common';
 import { Video } from '../../models/video.interface';
 import { Queue } from '../../models/queue.interface';

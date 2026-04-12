@@ -38,7 +38,7 @@ import { getOrZero } from './functions/get-or-zero.function';
 import { Dimensions } from './models/dimensions.interface';
 import { Message } from './models/message.interface';
 import { ApiService } from './services/api/api.service';
-import { ThemeService } from './services/theme/theme.service';
+import { ThemeService } from 'theme';
 import { Queue } from './models/queue.interface';
 import { Video } from './models/video.interface';
 import { ToastContainerComponent } from './components/toast-container/toast-container.component';

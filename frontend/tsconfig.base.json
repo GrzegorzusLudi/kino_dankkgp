@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -14,6 +15,9 @@
     "outDir": "./dist/out-tsc",
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022"
+    "target": "ES2022",
+    "paths": {
+      "theme": ["libs/theme/src/index.ts"]
+    }
   }
 }

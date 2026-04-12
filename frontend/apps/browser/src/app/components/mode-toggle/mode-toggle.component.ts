@@ -4,8 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { Theme } from '../../models/theme.enum';
-import { ThemeService } from '../../services/theme/theme.service';
+import { Theme, ThemeService } from 'theme';
 import { SwitchComponent } from './switch/switch.component';
 
 @Component({

@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { get } from 'lodash';
 
 import { ThemedDirective } from '../../../directives/themed/themed.directive';
-import { ThemeService } from '../../../services/theme/theme.service';
+import { ThemeService } from 'theme';
 
 @Component({
   selector: 'app-switch',

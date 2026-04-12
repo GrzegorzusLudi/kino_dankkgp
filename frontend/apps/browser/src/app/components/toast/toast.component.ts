@@ -8,7 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { ThemeService } from '../../services/theme/theme.service';
+import { ThemeService } from 'theme';
 import { NgClass, NgStyle } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {

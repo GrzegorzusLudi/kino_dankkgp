@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { Theme } from '../../models/theme.enum';
+import { Theme } from './theme.enum';
 
 @Injectable({
   providedIn: 'root',
