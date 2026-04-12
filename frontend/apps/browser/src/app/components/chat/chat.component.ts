@@ -7,7 +7,13 @@ import {
   IterableDiffers,
   OnInit,
 } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 import { ThemedDirective } from '../../directives/themed/themed.directive';
 import { Message } from '../../models/message.interface';
@@ -60,11 +66,20 @@ export class ChatComponent extends ThemedDirective implements OnInit, DoCheck {
     let username: FormControl<string | null>;
 
     if (this.username) {
-      message = new FormControl<string | null>('', { nonNullable: true, validators: [Validators.required] });
-      username = new FormControl<string | null>(this.username, { nonNullable: true, validators: [Validators.required] });
+      message = new FormControl<string | null>('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      });
+      username = new FormControl<string | null>(this.username, {
+        nonNullable: true,
+        validators: [Validators.required],
+      });
     } else {
       message = new FormControl<string | null>(null, { nonNullable: false });
-      username = new FormControl<string | null>('', { nonNullable: true, validators: [Validators.required] });
+      username = new FormControl<string | null>('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      });
     }
 
     this.form = new FormGroup({

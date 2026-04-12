@@ -3,11 +3,13 @@
   <div class="content">
     <div class="messages">
       @for (message of messages; track trackByFn($index, message)) {
-      <span>[{{ timestamps[$index] }}] {{ message.username }}:
-        {{ message.text }}</span>
+        <span
+          >[{{ timestamps[$index] }}] {{ message.username }}:
+          {{ message.text }}</span
+        >
       }
     </div>
-    <form  class="input" [formGroup]="form">
+    <form class="input" [formGroup]="form">
       @if (form.get('username')?.value) {
         <app-input label="Username" formControlName="username" />
         <app-button (click)="setUsername()">Set username</app-button>

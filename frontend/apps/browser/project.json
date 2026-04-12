@@ -118,10 +118,7 @@
     "chores": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx lint-fix browser",
-          "nx run browser:format"
-        ],
+        "commands": ["nx lint-fix browser", "nx run browser:format"],
         "parallel": false
       }
     },

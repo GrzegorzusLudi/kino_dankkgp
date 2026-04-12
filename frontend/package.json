@@ -2,7 +2,6 @@
   "name": "kino-dankkgp-frontend",
   "version": "0.0.1",
   "private": true,
-  "scripts": {},
   "dependencies": {
     "@angular/animations": "^19.0.0",
     "@angular/cdk": "^19.2.19",
