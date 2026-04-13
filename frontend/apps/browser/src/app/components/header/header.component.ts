@@ -1,8 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 
-import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { ThemeService } from 'theme';
+import { ThemedDirective, ThemeService } from 'theme';
 
 @Component({
   selector: 'app-header',

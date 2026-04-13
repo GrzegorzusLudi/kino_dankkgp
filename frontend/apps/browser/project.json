@@ -24,6 +24,9 @@
           }
         ],
         "styles": ["apps/browser/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/browser/src/app/styles"]
+        },
         "scripts": []
       },
       "configurations": {

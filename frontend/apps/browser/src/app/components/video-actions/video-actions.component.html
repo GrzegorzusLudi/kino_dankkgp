@@ -1,18 +1,18 @@
 <div class="video-actions" [ngClass]="theme()">
   <div class="content" [formGroup]="form">
     <app-input formControlName="url" label="Video URL" />
-    <app-button class="margin-left" (click)="addVideoToQueue()"
-      ><fa-icon class="margin-right" [icon]="faPlus" />Add to queue</app-button
+    <lib-button class="margin-left" (click)="addVideoToQueue()"
+      ><fa-icon class="margin-right" [icon]="faPlus" />Add to queue</lib-button
     >
     <app-vertical-separator />
-    <app-button
+    <lib-button
       ><fa-icon
         class="margin-right"
-        [icon]="faRotate" />Desynchronize</app-button
+        [icon]="faRotate" />Desynchronize</lib-button
     >
-    <app-button class="margin-left"
+    <lib-button class="margin-left"
       ><fa-icon class="margin-right" [icon]="faForwardStep" />Vote to
-      skip</app-button
+      skip</lib-button
     >
   </div>
 </div>

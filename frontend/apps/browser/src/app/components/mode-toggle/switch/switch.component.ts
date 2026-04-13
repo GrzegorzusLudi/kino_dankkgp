@@ -2,8 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { get } from 'lodash';
 
-import { ThemedDirective } from '../../../directives/themed/themed.directive';
-import { ThemeService } from 'theme';
+import { ThemedDirective, ThemeService } from 'theme';
 
 @Component({
   selector: 'app-switch',

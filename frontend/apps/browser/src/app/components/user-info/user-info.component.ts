@@ -3,8 +3,7 @@ import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { ThemeService } from 'theme';
+import { ThemedDirective, ThemeService } from 'theme';
 import { MatDialog } from '@angular/material/dialog';
 import { UsernameDialogComponent } from '../username-dialog/username-dialog.component';
 import {
@@ -13,7 +12,7 @@ import {
   USERNAME_DIALOG_HEIGHT,
   USERNAME_DIALOG_WIDTH,
 } from '../username-dialog/username-dialog.consts';
-import { ButtonComponent } from '../button/button.component';
+import { ButtonComponent } from 'button';
 
 @Component({
   selector: 'app-user-info',

@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
-import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { Theme, ThemeService } from 'theme';
+import { ThemedDirective, Theme, ThemeService } from 'theme';
 import { SwitchComponent } from './switch/switch.component';
 
 @Component({

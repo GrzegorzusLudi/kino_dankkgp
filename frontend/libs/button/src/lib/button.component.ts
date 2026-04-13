@@ -1,11 +1,10 @@
 import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
-import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { ThemeService } from 'theme';
+import { ThemedDirective, ThemeService } from 'theme';
 
 @Component({
-  selector: 'app-button',
+  selector: 'lib-button',
   imports: [NgClass],
   templateUrl: './button.component.html',
   styleUrls: [

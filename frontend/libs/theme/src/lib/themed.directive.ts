@@ -1,8 +1,8 @@
 import { Directive, Signal } from '@angular/core';
-import { Observable } from 'rxjs';
-
-import { Theme, ThemeService } from 'theme';
 import { toSignal } from '@angular/core/rxjs-interop';
+
+import { Theme } from './theme.enum';
+import { ThemeService } from './theme.service';
 
 @Directive()
 export class ThemedDirective {

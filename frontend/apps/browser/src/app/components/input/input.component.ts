@@ -9,8 +9,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { get, isObject } from 'lodash';
 
-import { ThemedDirective } from '../../directives/themed/themed.directive';
-import { ThemeService } from 'theme';
+import { ThemedDirective, ThemeService } from 'theme';
 
 @Component({
   selector: 'app-input',

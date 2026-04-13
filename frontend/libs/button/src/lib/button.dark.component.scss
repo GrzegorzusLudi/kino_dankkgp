@@ -1,9 +1,9 @@
-@use '../../styles/shared.scss' as *;
+@use 'shared' as *;
 
 $small-height: 24px;
 $medium-height: 32px;
 
-.button.#{$flat-light-theme-class-name} {
+.button.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
   border: none;
   margin: 0;
@@ -16,52 +16,52 @@ $medium-height: 32px;
   align-items: center;
   font-size: $font-size;
   line-height: $line-height;
-  color: $light-text-color;
+  color: $dark-text-color;
   box-shadow: none;
   width: 100%;
   @include border-radius;
 
   &.primary {
-    background: $light-primary-a60;
+    background: $dark-primary-a50;
     color: $dark-link-color;
-    border: 1px solid $light-primary-a60;
+    border: 1px solid $dark-primary-a50;
 
     &:hover {
-      background: $light-primary-a40;
+      background: $dark-primary-a40;
     }
 
     &.clicked {
-      background: $light-primary-a60;
+      background: $dark-primary-a60;
     }
 
     &:focus {
-      box-shadow: 0px 0px 0.5px 2px $light-primary-a30;
+      box-shadow: 0px 0px 0.5px 2px $dark-primary-a30;
     }
   }
 
   &.ghost {
     background: transparent;
-    color: $light-link-color;
+    color: $dark-link-color;
     border: 1px solid transparent;
 
     &:hover {
-      background: rgba($dark-link-color, 0.6);
+      background: rgba($dark-link-color, 0.35);
     }
 
     &.clicked {
-      background: rgba($dark-link-color, 0.75);
+      background: rgba($dark-link-color, 0.5);
     }
 
     &:focus {
-      box-shadow: 0px 0px 0.5px 2px rgba($dark-link-color, 0.5);
+      box-shadow: 0px 0px 0.5px 2px rgba($dark-link-color, 0.2);
     }
   }
 
   &.small {
-    height: $small-height !important;
+    height: $small-height;
   }
 
   &.medium {
-    height: $medium-height !important;
+    height: $medium-height;
   }
 }

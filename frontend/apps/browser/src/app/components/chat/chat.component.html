@@ -12,10 +12,10 @@
     <form class="input" [formGroup]="form">
       @if (form.get('username')?.value) {
         <app-input label="Username" formControlName="username" />
-        <app-button (click)="setUsername()">Set username</app-button>
+        <lib-button (click)="setUsername()">Set username</lib-button>
       } @else {
         <app-input label="Message" formControlName="message" />
-        <app-button (click)="sendMessage()">Send</app-button>
+        <lib-button (click)="sendMessage()">Send</lib-button>
       }
     </form>
   </div>

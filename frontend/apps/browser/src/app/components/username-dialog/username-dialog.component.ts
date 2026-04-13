@@ -3,10 +3,9 @@ import { Component } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { ThemedDirective } from '../../directives/themed/themed.directive';
+import { ThemedDirective, ThemeService } from 'theme';
 import { ApiService } from '../../services/api/api.service';
-import { ThemeService } from 'theme';
-import { ButtonComponent } from '../button/button.component';
+import { ButtonComponent } from 'button';
 import { HeaderComponent } from '../header/header.component';
 import { InputComponent } from '../input/input.component';
 
