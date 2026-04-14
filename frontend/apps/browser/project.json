@@ -75,13 +75,7 @@
       "executor": "@angular-devkit/build-angular:extract-i18n"
     },
     "lint": {
-      "executor": "@angular-eslint/builder:lint",
-      "options": {
-        "lintFilePatterns": [
-          "apps/browser/src/**/*.ts",
-          "apps/browser/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@angular-devkit/build-angular:karma",

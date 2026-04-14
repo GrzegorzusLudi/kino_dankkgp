@@ -10,7 +10,7 @@
     },
     "@nx/angular:library": {
       "linter": "eslint",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "vitest-analog"
     }
   },
   "namedInputs": {
@@ -21,12 +21,20 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/vite.config.[jt]s",
+      "!{projectRoot}/vite.config.mts",
+      "!{projectRoot}/vitest.config.[jt]s",
+      "!{projectRoot}/vitest.config.mts",
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/test-setup.[jt]s"
     ],
     "sharedGlobals": []
   },
   "targetDefaults": {
+    "@nx/vitest:test": {
+      "cache": true,
+      "inputs": ["default", "^production", "{workspaceRoot}/vitest.workspace.ts"]
+    },
     "@nx/jest:jest": {
       "cache": true,
       "configurations": {

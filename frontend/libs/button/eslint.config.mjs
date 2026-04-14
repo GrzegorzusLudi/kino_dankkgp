@@ -1,34 +1,15 @@
-import nx from '@nx/eslint-plugin';
-import baseConfig from '../../eslint.config.mjs';
+import { configBuilder } from '@chris.araneo/eslint-config';
 
-export default [
-  ...baseConfig,
-  ...nx.configs['flat/angular'],
-  ...nx.configs['flat/angular-template'],
-  {
-    files: ['**/*.ts'],
-    rules: {
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: 'lib',
-          style: 'camelCase',
-        },
-      ],
-      '@angular-eslint/component-selector': [
-        'error',
-        {
-          type: 'element',
-          prefix: 'lib',
-          style: 'kebab-case',
-        },
-      ],
-    },
-  },
-  {
-    files: ['**/*.html'],
-    // Override or add rules here
-    rules: {},
-  },
-];
+export default configBuilder()
+  .addAngularConfig({
+    prefix: 'lib',
+    sources: [/^(?!.*\.spec\.ts$).*\.ts$/.toString()],
+    tests: ['**/*.spec.ts'],
+    templates: ['**/*.html'],
+    jsons: ['**/*.json'],
+    ignored: ['eslint.config.mjs', 'vite.config.mts', 'src/test-setup.ts'],
+    tsconfigRootDir: import.meta.dirname,
+  })
+  .build();
+
+

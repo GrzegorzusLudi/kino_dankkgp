@@ -1,20 +1,39 @@
 {
-  "name": "button",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/button/src",
+  "name": "button",
   "prefix": "lib",
   "projectType": "library",
+  "sourceRoot": "libs/button/src",
   "tags": [],
   "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+    "chores": {
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "libs/button/jest.config.ts"
+        "commands": ["nx run button:lint:fix", "nx run button:format"],
+        "parallel": false
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prettier --write \"libs/button/\""
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "lint:fix": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "fix": true
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "options": {
+        "config": "libs/button/vite.config.mts"
+      }
     }
   }
 }
+

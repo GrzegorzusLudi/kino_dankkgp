@@ -1,20 +1,38 @@
 {
-  "name": "theme",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/theme/src",
+  "name": "theme",
   "prefix": "lib",
   "projectType": "library",
+  "sourceRoot": "libs/theme/src",
   "tags": [],
   "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+    "chores": {
+      "executor": "nx:run-commands",
       "options": {
-        "jestConfig": "libs/theme/jest.config.ts"
+        "commands": ["nx run theme:lint:fix", "nx run theme:format"],
+        "parallel": false
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prettier --write \"libs/theme/\""
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "lint:fix": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "fix": true
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "options": {
+        "config": "libs/theme/vite.config.mts"
+      }
     }
   }
 }
