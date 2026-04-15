@@ -35,4 +35,21 @@ export default configBuilder()
   .addJsonConfig({ jsons: JSONS })
   .addTypeScriptConfig({ sources: SOURCES, tsconfigRootDir: import.meta.dirname })
   .addIgnored({ ignored: IGNORED })
-  .build();
+  .build()
+  .map((config) => {
+    if (config.languageOptions?.parserOptions?.projectService === true) {
+      return {
+        ...config,
+        languageOptions: {
+          ...config.languageOptions,
+          parserOptions: {
+            ...config.languageOptions.parserOptions,
+            projectService: {
+              allowDefaultProject: SOURCES,
+            },
+          },
+        },
+      };
+    }
+    return config;
+  });
