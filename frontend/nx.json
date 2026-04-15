@@ -31,10 +31,6 @@
     "sharedGlobals": []
   },
   "targetDefaults": {
-    "@nx/vitest:test": {
-      "cache": true,
-      "inputs": ["default", "^production", "{workspaceRoot}/vitest.workspace.ts"]
-    },
     "@nx/jest:jest": {
       "cache": true,
       "configurations": {
@@ -47,6 +43,14 @@
       "options": {
         "passWithNoTests": true
       }
+    },
+    "@nx/vitest:test": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/vitest.workspace.ts"
+      ]
     },
     "build": {
       "cache": true,

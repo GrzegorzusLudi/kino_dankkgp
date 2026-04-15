@@ -13,12 +13,12 @@
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true,
     "outDir": "./dist/out-tsc",
+    "paths": {
+      "button": ["libs/button/src/index.ts"],
+      "theme": ["libs/theme/src/index.ts"]
+    },
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022",
-    "paths": {
-      "theme": ["libs/theme/src/index.ts"],
-      "button": ["libs/button/src/index.ts"]
-    }
+    "target": "ES2022"
   }
 }
