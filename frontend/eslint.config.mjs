@@ -8,6 +8,14 @@ const JSONS = [
   'tsconfig.json',
 ];
 
+const SOURCES = [
+  'scripts/build.ts',
+  'eslint.config.mjs',
+  'jest.config.ts',
+  'jest.preset.js',
+  'vitest.workspace.ts',
+]
+
 const IGNORED = [
   '.angular/',
   '.nx/cache/',
@@ -25,5 +33,6 @@ const IGNORED = [
 
 export default configBuilder()
   .addJsonConfig({ jsons: JSONS })
+  .addTypeScriptConfig({ sources: SOURCES, tsconfigRootDir: import.meta.dirname })
   .addIgnored({ ignored: IGNORED })
   .build();
