@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { ToastService } from './toast.service';
 
@@ -6,7 +7,7 @@ describe('ToastService', () => {
   let service: ToastService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection()] });
     service = TestBed.inject(ToastService);
   });
 

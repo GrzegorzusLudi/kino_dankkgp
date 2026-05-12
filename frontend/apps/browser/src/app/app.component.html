@@ -4,7 +4,7 @@
     <div class="group">
       <app-mode-toggle />
       <app-vertical-separator />
-      <app-user-info [username]="(username | async) || ''" />
+      <app-user-info [username]="username()" />
     </div>
   </app-toolbar>
   <div class="content">
@@ -16,11 +16,11 @@
         [width]="width"
         [height]="height" />
       <app-video-actions />
-      <app-queue [queue]="(queue | async) || undefined" />
+      <app-queue [queue]="queue()" />
     </div>
     <div class="right">
-      <app-connected-users-info [usernames]="(usernames | async) || []" />
-      <app-chat [messages]="(messages | async) || []" />
+      <app-connected-users-info [usernames]="usernames()" />
+      <app-chat [messages]="messages()" />
     </div>
   </div>
   <app-toast-container />

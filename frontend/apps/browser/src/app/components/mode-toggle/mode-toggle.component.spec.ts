@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { ModeToggleComponent } from './mode-toggle.component';
 
@@ -9,6 +10,7 @@ describe('ModeToggleComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ModeToggleComponent],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ModeToggleComponent);

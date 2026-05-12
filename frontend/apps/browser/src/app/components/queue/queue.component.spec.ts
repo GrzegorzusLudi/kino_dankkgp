@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { QueueComponent } from './queue.component';
 
@@ -9,6 +10,7 @@ describe('QueueComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [QueueComponent],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(QueueComponent);

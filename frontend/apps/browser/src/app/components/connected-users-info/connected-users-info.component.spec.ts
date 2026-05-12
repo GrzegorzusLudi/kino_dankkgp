@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { ConnectedUsersInfoComponent } from './connected-users-info.component';
 
@@ -9,6 +10,7 @@ describe('ConnectedUsersInfoComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ConnectedUsersInfoComponent],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ConnectedUsersInfoComponent);

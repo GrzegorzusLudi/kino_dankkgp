@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { Subscription, skip, take } from 'rxjs';
 
 import { SOCKET } from '../../app.config';
@@ -17,7 +18,7 @@ describe('ApiService', () => {
     mockSocket = jasmine.createSpyObj('Socket', ['emit', 'on']);
 
     TestBed.configureTestingModule({
-      providers: [ApiService, { provide: SOCKET, useValue: mockSocket }],
+      providers: [ApiService, { provide: SOCKET, useValue: mockSocket }, provideZonelessChangeDetection()],
     });
 
     service = TestBed.inject(ApiService);

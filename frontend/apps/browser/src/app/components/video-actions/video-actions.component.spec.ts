@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { SOCKET } from '../../app.config';
 import { VideoActionsComponent } from './video-actions.component';
@@ -12,7 +13,7 @@ describe('VideoActionsComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [VideoActionsComponent],
-      providers: [{ provide: SOCKET, useValue: mockSocket }],
+      providers: [{ provide: SOCKET, useValue: mockSocket }, provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(VideoActionsComponent);

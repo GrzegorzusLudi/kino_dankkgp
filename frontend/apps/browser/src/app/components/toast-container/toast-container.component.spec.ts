@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { ToastContainerComponent } from './toast-container.component';
 
@@ -9,6 +10,7 @@ describe('ToastContainerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ToastContainerComponent],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ToastContainerComponent);

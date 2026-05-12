@@ -1,7 +1,7 @@
 import {
   ApplicationConfig,
   InjectionToken,
-  provideZoneChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { io, Socket } from 'socket.io-client';
@@ -13,7 +13,7 @@ export const SOCKET = new InjectionToken<Socket>('Socket');
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZonelessChangeDetection(),
     provideRouter(routes),
     { provide: SOCKET, useValue: io(environment.api.url) },
   ],

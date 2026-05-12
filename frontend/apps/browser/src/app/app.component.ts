@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -7,7 +6,7 @@ import {
   Signal,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   HEIGHT_OFFSET,
@@ -47,7 +46,6 @@ import { QueueComponent } from './components/queue/queue.component';
 @Component({
   selector: 'app-root',
   imports: [
-    AsyncPipe,
     BackgroundComponent,
     ChatComponent,
     ConnectedUsersInfoComponent,
@@ -69,10 +67,10 @@ export class AppComponent
   implements OnInit, AfterViewInit
 {
   title = 'Kino DANKKGP';
-  usernames: Observable<string[]>;
-  messages: Observable<Message[]>;
-  username: Observable<string>;
-  queue: Observable<Queue | undefined>;
+  usernames: Signal<string[]>;
+  messages: Signal<Message[]>;
+  username: Signal<string>;
+  queue: Signal<Queue | undefined>;
   video: Signal<Video | undefined>;
   second: Signal<number | undefined>;
 
@@ -85,10 +83,10 @@ export class AppComponent
     public dialog: MatDialog,
   ) {
     super(themeService);
-    this.messages = this.apiService.messages;
-    this.username = this.apiService.username;
-    this.usernames = this.apiService.usernames;
-    this.queue = this.apiService.queue;
+    this.messages = toSignal(this.apiService.messages, { initialValue: [] });
+    this.username = toSignal(this.apiService.username, { initialValue: '' });
+    this.usernames = toSignal(this.apiService.usernames, { initialValue: [] });
+    this.queue = toSignal(this.apiService.queue, { initialValue: undefined });
     this.video = toSignal(
       this.apiService.queue.pipe(
         map((queue) => {

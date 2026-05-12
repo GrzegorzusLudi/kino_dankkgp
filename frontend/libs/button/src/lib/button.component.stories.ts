@@ -1,5 +1,5 @@
 import { applicationConfig, type Meta, type StoryObj } from '@storybook/angular';
-import { provideZoneChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { ThemeService } from 'theme';
 
@@ -11,7 +11,7 @@ const meta: Meta<ButtonComponent> = {
   decorators: [
     applicationConfig({
       providers: [
-        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideZonelessChangeDetection(),
         ThemeService,
       ],
     }),

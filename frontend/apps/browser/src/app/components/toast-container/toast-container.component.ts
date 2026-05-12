@@ -1,54 +1,27 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ToastComponent } from '../toast/toast.component';
-import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
 import { Toast } from '../../models/toast.interface';
-import { AsyncPipe } from '@angular/common';
 import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-toast-container',
-  imports: [AsyncPipe, ToastComponent],
+  imports: [ToastComponent],
   templateUrl: './toast-container.component.html',
   styleUrl: './toast-container.component.scss',
 })
-export class ToastContainerComponent implements OnInit, OnDestroy {
-  private toastsSubject = new BehaviorSubject<Toast[]>([]);
-  private subscription = new Subscription();
+export class ToastContainerComponent {
+  readonly toasts = signal<Toast[]>([]);
 
-  constructor(private readonly toastService: ToastService) {}
-
-  ngOnInit(): void {
-    this.subscribeForToasts();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  get toasts(): Observable<Toast[]> {
-    return this.toastsSubject.asObservable();
+  constructor(toastService: ToastService) {
+    toastService.get.pipe(takeUntilDestroyed()).subscribe((toast) => {
+      this.toasts.update((current) => [...current, toast]);
+    });
   }
 
   removeToast(id: string): void {
-    this.toastsSubject.next(
-      this.toastsSubject.getValue().filter((toast) => toast.id !== id),
-    );
-  }
-
-  private subscribeForToasts(): void {
-    this.subscription.add(
-      this.toastService.get
-        .pipe(
-          tap((toast) => {
-            if (toast) {
-              this.toastsSubject.next([
-                ...this.toastsSubject.getValue(),
-                toast,
-              ]);
-            }
-          }),
-        )
-        .subscribe(),
+    this.toasts.update((current) =>
+      current.filter((toast) => toast.id !== id),
     );
   }
 }

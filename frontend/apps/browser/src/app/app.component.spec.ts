@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { SOCKET } from './app.config';
 import { AppComponent } from './app.component';
@@ -9,7 +10,7 @@ describe('AppComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [{ provide: SOCKET, useValue: mockSocket }],
+      providers: [{ provide: SOCKET, useValue: mockSocket }, provideZonelessChangeDetection()],
     }).compileComponents();
   });
 

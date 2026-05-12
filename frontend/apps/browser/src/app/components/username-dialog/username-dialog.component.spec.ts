@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { SOCKET } from '../../app.config';
@@ -17,6 +18,7 @@ describe('UsernameDialogComponent', () => {
       providers: [
         { provide: SOCKET, useValue: mockSocket },
         { provide: MatDialogRef, useValue: mockDialogRef },
+        provideZonelessChangeDetection(),
       ],
     }).compileComponents();
 

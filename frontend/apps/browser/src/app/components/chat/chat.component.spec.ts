@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { SOCKET } from '../../app.config';
 import { ChatComponent } from './chat.component';
@@ -12,7 +13,7 @@ describe('ChatComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [ChatComponent],
-      providers: [{ provide: SOCKET, useValue: mockSocket }],
+      providers: [{ provide: SOCKET, useValue: mockSocket }, provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChatComponent);

@@ -12,6 +12,9 @@ export default defineConfig({
     angular({ tsconfig: resolve(__dirname, 'tsconfig.json') }),
     nxViteTsPaths(),
   ],
+  define: {
+    STORYBOOK_ANGULAR_OPTIONS: JSON.stringify({ experimentalZoneless: true }),
+  },
   css: {
     preprocessorOptions: {
       scss: {

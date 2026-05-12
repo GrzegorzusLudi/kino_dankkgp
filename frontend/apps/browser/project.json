@@ -49,7 +49,7 @@
         "index": "apps/browser/src/index.html",
         "inlineStyleLanguage": "scss",
         "outputPath": "dist/apps/browser",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "scripts": [],
         "stylePreprocessorOptions": {
           "includePaths": ["apps/browser/src/app/styles"]
@@ -97,7 +97,7 @@
           }
         ],
         "inlineStyleLanguage": "scss",
-        "polyfills": ["zone.js", "zone.js/testing"],
+        "polyfills": [],
         "scripts": [],
         "styles": ["apps/browser/src/styles.scss"],
         "tsConfig": "apps/browser/tsconfig.spec.json"
@@ -130,7 +130,7 @@
         "index": "apps/browser/src/index.html",
         "inlineStyleLanguage": "scss",
         "outputPath": "dist/apps/browser",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "scripts": [],
         "styles": ["apps/browser/src/styles.scss"],
         "tsConfig": "apps/browser/tsconfig.app.json",
