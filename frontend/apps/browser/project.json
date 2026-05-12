@@ -1,75 +1,63 @@
 {
-  "name": "browser",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
+  "name": "browser",
   "prefix": "app",
-  "sourceRoot": "apps/browser/src",
+  "projectType": "application",
   "root": "apps/browser",
+  "sourceRoot": "apps/browser/src",
   "tags": [],
   "targets": {
     "build": {
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/browser/src/environments/environment.ts",
+              "with": "apps/browser/src/environments/environment.development.ts"
+            }
+          ],
+          "optimization": false,
+          "sourceMap": true
+        },
+        "production": {
+          "budgets": [
+            {
+              "maximumError": "2MB",
+              "maximumWarning": "1MB",
+              "type": "initial"
+            },
+            {
+              "maximumError": "8kB",
+              "maximumWarning": "4kB",
+              "type": "anyComponentStyle"
+            }
+          ],
+          "outputHashing": "all"
+        }
+      },
+      "defaultConfiguration": "production",
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/browser",
-        "index": "apps/browser/src/index.html",
-        "browser": "apps/browser/src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "apps/browser/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/browser/public"
           }
         ],
-        "styles": ["apps/browser/src/styles.scss"],
+        "browser": "apps/browser/src/main.ts",
+        "index": "apps/browser/src/index.html",
+        "inlineStyleLanguage": "scss",
+        "outputPath": "dist/apps/browser",
+        "polyfills": ["zone.js"],
+        "scripts": [],
         "stylePreprocessorOptions": {
           "includePaths": ["apps/browser/src/app/styles"]
         },
-        "scripts": []
+        "styles": ["apps/browser/src/styles.scss"],
+        "tsConfig": "apps/browser/tsconfig.app.json"
       },
-      "configurations": {
-        "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "1MB",
-              "maximumError": "2MB"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "4kB",
-              "maximumError": "8kB"
-            }
-          ],
-          "outputHashing": "all"
-        },
-        "development": {
-          "optimization": false,
-          "extractLicenses": false,
-          "sourceMap": true,
-          "fileReplacements": [
-            {
-              "replace": "apps/browser/src/environments/environment.ts",
-              "with": "apps/browser/src/environments/environment.development.ts"
-            }
-          ]
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "browser:build:production"
-        },
-        "development": {
-          "buildTarget": "browser:build:development"
-        }
-      },
-      "defaultConfiguration": "development"
+      "outputs": ["{options.outputPath}"]
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n"
@@ -77,90 +65,76 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "test": {
-      "executor": "@angular-devkit/build-angular:karma",
-      "options": {
-        "polyfills": ["zone.js", "zone.js/testing"],
-        "tsConfig": "apps/browser/tsconfig.spec.json",
-        "inlineStyleLanguage": "scss",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/browser/public"
-          }
-        ],
-        "styles": ["apps/browser/src/styles.scss"],
-        "scripts": []
-      }
-    },
-    "deploy": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "tsx scripts/build.ts"
-      },
-      "dependsOn": ["build"]
-    },
-    "format": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "sort-package-json",
-          "ng-perfectionism",
-          "prettier --w **/*.json apps/**/*.{ts,html,scss}",
-          "sort-patterns-file .gitignore .prettierignore -i node_modules"
-        ],
-        "parallel": false
-      }
-    },
-    "chores": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": ["nx lint-fix browser", "nx run browser:format"],
-        "parallel": false
-      }
-    },
     "lint-fix": {
       "executor": "@angular-eslint/builder:lint",
       "options": {
+        "fix": true,
         "lintFilePatterns": [
           "apps/browser/src/**/*.ts",
           "apps/browser/src/**/*.html"
-        ],
-        "fix": true
+        ]
       }
     },
-    "watch": {
-      "executor": "@angular-devkit/build-angular:application",
+    "serve": {
+      "configurations": {
+        "development": {
+          "buildTarget": "browser:build:development"
+        },
+        "production": {
+          "buildTarget": "browser:build:production"
+        }
+      },
+      "defaultConfiguration": "development",
+      "executor": "@angular-devkit/build-angular:dev-server"
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
       "options": {
-        "outputPath": "dist/apps/browser",
-        "index": "apps/browser/src/index.html",
-        "browser": "apps/browser/src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "apps/browser/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/browser/public"
           }
         ],
-        "styles": ["apps/browser/src/styles.scss"],
+        "inlineStyleLanguage": "scss",
+        "polyfills": ["zone.js", "zone.js/testing"],
         "scripts": [],
-        "watch": true
-      },
-      "defaultConfiguration": "development",
+        "styles": ["apps/browser/src/styles.scss"],
+        "tsConfig": "apps/browser/tsconfig.spec.json"
+      }
+    },
+    "watch": {
       "configurations": {
         "development": {
-          "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true,
           "fileReplacements": [
             {
               "replace": "apps/browser/src/environments/environment.ts",
               "with": "apps/browser/src/environments/environment.development.ts"
             }
-          ]
+          ],
+          "optimization": false,
+          "sourceMap": true
         }
+      },
+      "defaultConfiguration": "development",
+      "executor": "@angular-devkit/build-angular:application",
+      "options": {
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/browser/public"
+          }
+        ],
+        "browser": "apps/browser/src/main.ts",
+        "index": "apps/browser/src/index.html",
+        "inlineStyleLanguage": "scss",
+        "outputPath": "dist/apps/browser",
+        "polyfills": ["zone.js"],
+        "scripts": [],
+        "styles": ["apps/browser/src/styles.scss"],
+        "tsConfig": "apps/browser/tsconfig.app.json",
+        "watch": true
       }
     }
   }
