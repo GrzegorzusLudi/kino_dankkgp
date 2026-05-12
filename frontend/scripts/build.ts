@@ -1,26 +1,27 @@
 import { execSync } from 'node:child_process';
 import { existsSync, mkdirSync } from 'node:fs';
 import { normalize } from 'node:path';
-import { default as copy } from 'cpy';
+import { cwd } from 'node:process';
+
+import copy from 'cpy';
 import { deleteAsync } from 'del';
 import { replaceInFile } from 'replace-in-file';
-import { cwd } from 'node:process';
 
 async function build() {
   console.log('Executing nx build browser');
 
   execSync(`npx nx build browser`);
 
-  const FRONTEND_DIST_PATH = normalize(cwd() + '/dist/apps/browser/browser');
-  const FRONTEND_STATIC_PATH = normalize(cwd() + '/dist/apps/browser/browser/static');
-  const BACKEND_HTML_PATH = normalize(cwd() + '/../server/templates');
-  const BACKEND_STATIC_PATH = normalize(cwd() + '/../server/static');
+  const FRONTEND_DIST_PATH = normalize(`${cwd()}/dist/apps/browser/browser`);
+  const FRONTEND_STATIC_PATH = normalize(`${cwd()}/dist/apps/browser/browser/static`);
+  const BACKEND_HTML_PATH = normalize(`${cwd()}/../server/templates`);
+  const BACKEND_STATIC_PATH = normalize(`${cwd()}/../server/static`);
 
-  const HTML_FILES = [normalize(FRONTEND_DIST_PATH + '/index.html')];
+  const HTML_FILES = [normalize(`${FRONTEND_DIST_PATH}/index.html`)];
   const STATIC_FILES = [
-    normalize(FRONTEND_DIST_PATH + '/*.css'),
-    normalize(FRONTEND_DIST_PATH + '/*.js'),
-    normalize(FRONTEND_DIST_PATH + '/*.ico'),
+    normalize(`${FRONTEND_DIST_PATH}/*.css`),
+    normalize(`${FRONTEND_DIST_PATH}/*.js`),
+    normalize(`${FRONTEND_DIST_PATH}/*.ico`),
   ];
 
   if (!existsSync(FRONTEND_STATIC_PATH)) {
@@ -33,14 +34,14 @@ async function build() {
 
   console.log(`Cleaning previous HTML files in ${BACKEND_HTML_PATH}`);
 
-  await deleteAsync([normalize(BACKEND_HTML_PATH + '/*.html')], { force: true });
+  await deleteAsync([normalize(`${BACKEND_HTML_PATH}/*.html`)], { force: true });
 
   console.log(`Cleaning previous static files in ${BACKEND_STATIC_PATH}`);
 
   await deleteAsync([
-    normalize(BACKEND_STATIC_PATH + '/*.js'),
-    normalize(BACKEND_STATIC_PATH + '/*.css'),
-    normalize(BACKEND_STATIC_PATH + '/*.ico'),
+    normalize(`${BACKEND_STATIC_PATH}/*.js`),
+    normalize(`${BACKEND_STATIC_PATH}/*.css`),
+    normalize(`${BACKEND_STATIC_PATH}/*.ico`),
   ], { force: true });
 
   console.log(`Updating src and href attributes in ${HTML_FILES[0]}`);
