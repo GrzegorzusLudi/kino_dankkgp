@@ -26,10 +26,26 @@
       "!{projectRoot}/vitest.config.[jt]s",
       "!{projectRoot}/vitest.config.mts",
       "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s"
+      "!{projectRoot}/test-setup.[jt]s",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json"
     ],
     "sharedGlobals": []
   },
+  "plugins": [
+    {
+      "options": {
+        "buildDepsTargetName": "build-deps",
+        "buildStorybookTargetName": "build-storybook",
+        "serveStorybookTargetName": "storybook",
+        "staticStorybookTargetName": "static-storybook",
+        "testStorybookTargetName": "test-storybook",
+        "watchDepsTargetName": "watch-deps"
+      },
+      "plugin": "@nx/storybook/plugin"
+    }
+  ],
   "targetDefaults": {
     "@nx/jest:jest": {
       "cache": true,
