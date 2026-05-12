@@ -33,7 +33,6 @@
     "@angular/cli": "^21.2.7",
     "@angular/compiler-cli": "^21.2.8",
     "@chris.araneo/eslint-config": "0.0.128",
-    "@chris.araneo/ng-perfectionism": "0.0.10",
     "@chris.araneo/sort-patterns-file": "^0.0.9",
     "@eslint/json": "^1.2.0",
     "@nx/angular": "^22.6.5",

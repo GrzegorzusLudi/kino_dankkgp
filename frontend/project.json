@@ -1,0 +1,43 @@
+{
+  "$schema": "./node_modules/nx/schemas/project-schema.json",
+  "name": "root",
+  "root": ".",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "lint:fix": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "fix": true
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "sort-package-json",
+          "prettier --w **/*.json apps/**/*.{ts,html,scss}",
+          "sort-patterns-file .gitignore .prettierignore -i node_modules"
+        ],
+        "parallel": false
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsx scripts/build.ts"
+      },
+      "dependsOn": ["build"]
+    },
+    "chores": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run root:lint:fix", "nx run root:format"],
+        "parallel": false
+      }
+    }
+  }
+}
