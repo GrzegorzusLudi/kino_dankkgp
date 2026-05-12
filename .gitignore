@@ -1,6 +1,7 @@
 frontend/.nx
 frontend/dist
 frontend/node_modules
+frontend/**/storybook-static
 frontend/.angular/cache
 server/.venv
 server/__pycache__
