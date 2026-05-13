@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { ThemedDirective, ThemeService } from 'theme';
+import { Component, inject, Input } from '@angular/core';
+import { THEME } from 'theme';
 import { NgClass } from '@angular/common';
 import { Video } from '../../models/video.interface';
 import { Queue } from '../../models/queue.interface';
@@ -19,7 +19,9 @@ import { ButtonComponent } from 'button';
     './queue.light.component.scss',
   ],
 })
-export class QueueComponent extends ThemedDirective {
+export class QueueComponent {
+  protected readonly theme = inject(THEME);
+
   @Input() queue?: Queue;
 
   faPlay = faPlay;
@@ -27,10 +29,6 @@ export class QueueComponent extends ThemedDirective {
   faCircleUp = faCircleUp;
 
   focusedIndex: number = -1;
-
-  constructor(protected override readonly themeService: ThemeService) {
-    super(themeService);
-  }
 
   trackByFn(index: number, item: Video) {
     return index + item.videoId;

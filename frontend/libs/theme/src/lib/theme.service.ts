@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { computed, Injectable, signal, Signal } from '@angular/core';
 
 import { Theme } from './theme.enum';
 
@@ -7,13 +6,11 @@ import { Theme } from './theme.enum';
   providedIn: 'root',
 })
 export class ThemeService {
-  private readonly theme = new BehaviorSubject<Theme>(Theme.FlatDark);
+  private readonly themeSignal = signal<Theme>(Theme.FlatDark);
 
-  getTheme(): Observable<Theme> {
-    return this.theme.asObservable();
-  }
+  readonly theme: Signal<string> = computed(() => this.themeSignal());
 
   changeTheme(theme: Theme): void {
-    this.theme.next(theme);
+    this.themeSignal.set(theme);
   }
 }

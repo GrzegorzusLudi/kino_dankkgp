@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 import { ButtonComponent } from 'button';
 import { InputComponent } from '../input/input.component';
 import { VerticalSeparatorComponent } from '../vertical-separator/vertical-separator.component';
@@ -38,19 +38,15 @@ import {
     './video-actions.light.component.scss',
   ],
 })
-export class VideoActionsComponent extends ThemedDirective implements OnInit {
+export class VideoActionsComponent implements OnInit {
+  protected readonly theme = inject(THEME);
   protected form!: FormGroup;
 
   faPlus = faPlus;
   faRotate = faRotate;
   faForwardStep = faForwardStep;
 
-  constructor(
-    protected override readonly themeService: ThemeService,
-    private readonly apiService: ApiService,
-  ) {
-    super(themeService);
-  }
+  constructor(private readonly apiService: ApiService) {}
 
   ngOnInit(): void {
     this.initForm();

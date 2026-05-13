@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 
 @Component({
   selector: 'app-background',
@@ -14,8 +14,6 @@ import { ThemedDirective, ThemeService } from 'theme';
     './background.light.component.scss',
   ],
 })
-export class BackgroundComponent extends ThemedDirective {
-  constructor(protected override readonly themeService: ThemeService) {
-    super(themeService);
-  }
+export class BackgroundComponent {
+  protected readonly theme = inject(THEME);
 }

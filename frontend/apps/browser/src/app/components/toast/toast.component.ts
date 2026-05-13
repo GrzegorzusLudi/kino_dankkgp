@@ -2,12 +2,13 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 import { NgClass, NgStyle } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -30,10 +31,9 @@ import { interval, Subscription, take } from 'rxjs';
     './toast.light.component.scss',
   ],
 })
-export class ToastComponent
-  extends ThemedDirective
-  implements OnInit, AfterViewInit, OnDestroy
-{
+export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
+  protected readonly theme = inject(THEME);
+
   @Input() title: string = '';
   @Input() message: string = '';
   @Input() variant: 'info' | 'success' | 'danger' = 'danger';
@@ -49,10 +49,6 @@ export class ToastComponent
   transitionDuration = '0s';
 
   private subscription?: Subscription;
-
-  constructor(protected override readonly themeService: ThemeService) {
-    super(themeService);
-  }
 
   ngOnInit(): void {
     this.initializeCloseTimeout();

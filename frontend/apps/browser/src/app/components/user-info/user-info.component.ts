@@ -1,9 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 import { MatDialog } from '@angular/material/dialog';
 import { UsernameDialogComponent } from '../username-dialog/username-dialog.component';
 import {
@@ -25,17 +25,14 @@ import { ButtonComponent } from 'button';
     './user-info.light.component.scss',
   ],
 })
-export class UserInfoComponent extends ThemedDirective {
+export class UserInfoComponent {
+  protected readonly theme = inject(THEME);
+
   @Input() username = '';
 
   faUser = faUser;
 
-  constructor(
-    protected override readonly themeService: ThemeService,
-    public dialog: MatDialog,
-  ) {
-    super(themeService);
-  }
+  constructor(public dialog: MatDialog) {}
 
   openUsernameDialog(): void {
     this.dialog.open(UsernameDialogComponent, {

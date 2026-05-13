@@ -1,8 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { get } from 'lodash';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 
 @Component({
   selector: 'app-switch',
@@ -15,13 +15,11 @@ import { ThemedDirective, ThemeService } from 'theme';
     './switch.light.component.scss',
   ],
 })
-export class SwitchComponent extends ThemedDirective {
+export class SwitchComponent {
+  protected readonly theme = inject(THEME);
+
   // TODO Rename to toggle?
   @Output() readonly switch = new EventEmitter<boolean>();
-
-  constructor(protected override readonly themeService: ThemeService) {
-    super(themeService);
-  }
 
   emit(event: Event): void {
     this.switch.next(Boolean(get(event, 'target.checked')));

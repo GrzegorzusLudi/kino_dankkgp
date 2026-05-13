@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 
 @Component({
   selector: 'app-title',
@@ -14,8 +14,6 @@ import { ThemedDirective, ThemeService } from 'theme';
     './title.light.component.scss',
   ],
 })
-export class TitleComponent extends ThemedDirective {
-  constructor(protected override readonly themeService: ThemeService) {
-    super(themeService);
-  }
+export class TitleComponent {
+  protected readonly theme = inject(THEME);
 }

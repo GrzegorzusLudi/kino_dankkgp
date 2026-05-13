@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 import { HeaderComponent } from '../header/header.component';
 
 @Component({
@@ -15,12 +15,10 @@ import { HeaderComponent } from '../header/header.component';
     './connected-users-info.light.component.scss',
   ],
 })
-export class ConnectedUsersInfoComponent extends ThemedDirective {
-  @Input() usernames: string[] = [];
+export class ConnectedUsersInfoComponent {
+  protected readonly theme = inject(THEME);
 
-  constructor(protected override readonly themeService: ThemeService) {
-    super(themeService);
-  }
+  @Input() usernames: string[] = [];
 
   trackByFn(index: number, username: string): string {
     return `${index}:${username}`;

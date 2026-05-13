@@ -3,13 +3,14 @@ import {
   Component,
   ElementRef,
   forwardRef,
+  inject,
   Input,
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { get, isObject } from 'lodash';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 
 @Component({
   selector: 'app-input',
@@ -29,10 +30,9 @@ import { ThemedDirective, ThemeService } from 'theme';
     },
   ],
 })
-export class InputComponent
-  extends ThemedDirective
-  implements ControlValueAccessor
-{
+export class InputComponent implements ControlValueAccessor {
+  protected readonly theme = inject(THEME);
+
   @Input({ required: true }) label = '';
 
   @ViewChild('input') input?: ElementRef;
@@ -52,10 +52,6 @@ export class InputComponent
   }
 
   private _value: string | null = '';
-
-  constructor(protected override readonly themeService: ThemeService) {
-    super(themeService);
-  }
 
   onChange(event: Readonly<Event>): void {
     if (this.changed) {

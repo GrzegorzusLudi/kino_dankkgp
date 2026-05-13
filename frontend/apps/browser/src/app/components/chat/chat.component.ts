@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import {
   Component,
   DoCheck,
+  inject,
   Input,
   IterableDiffer,
   IterableDiffers,
@@ -15,7 +16,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 import { Message } from '../../models/message.interface';
 import { ApiService } from '../../services/api/api.service';
 import { ButtonComponent } from 'button';
@@ -41,7 +42,9 @@ import { ToastService } from '../../services/toast/toast.service';
     './chat.light.component.scss',
   ],
 })
-export class ChatComponent extends ThemedDirective implements OnInit, DoCheck {
+export class ChatComponent implements OnInit, DoCheck {
+  protected readonly theme = inject(THEME);
+
   @Input() username: string = '';
   @Input() messages: Message[] = [];
 
@@ -51,12 +54,10 @@ export class ChatComponent extends ThemedDirective implements OnInit, DoCheck {
   private readonly differ: IterableDiffer<Message>;
 
   constructor(
-    protected override readonly themeService: ThemeService,
     private readonly iterableDiffers: IterableDiffers,
     private readonly apiService: ApiService,
     private readonly toastService: ToastService,
   ) {
-    super(themeService);
     this.differ = this.iterableDiffers.find([]).create<Message>();
   }
 

@@ -1,9 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 import { ApiService } from '../../services/api/api.service';
 import { ButtonComponent } from 'button';
 import { HeaderComponent } from '../header/header.component';
@@ -27,16 +27,15 @@ import { InputComponent } from '../input/input.component';
     './username-dialog.light.component.scss',
   ],
 })
-export class UsernameDialogComponent extends ThemedDirective {
+export class UsernameDialogComponent {
+  protected readonly theme = inject(THEME);
+
   username = new FormControl<string>('');
 
   constructor(
-    protected override readonly themeService: ThemeService,
     private readonly apiService: ApiService,
     private readonly dialogRef: MatDialogRef<UsernameDialogComponent>,
-  ) {
-    super(themeService);
-  }
+  ) {}
 
   setUsername(): void {
     if (this.username.value) {

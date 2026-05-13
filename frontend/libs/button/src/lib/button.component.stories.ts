@@ -10,10 +10,7 @@ const meta: Meta<ButtonComponent> = {
   component: ButtonComponent,
   decorators: [
     applicationConfig({
-      providers: [
-        provideZonelessChangeDetection(),
-        ThemeService,
-      ],
+      providers: [provideZonelessChangeDetection()],
     }),
   ],
   argTypes: {

@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   HostListener,
+  inject,
   OnInit,
   Signal,
 } from '@angular/core';
@@ -32,12 +33,11 @@ import {
 import { VerticalSeparatorComponent } from './components/vertical-separator/vertical-separator.component';
 import { VideoActionsComponent } from './components/video-actions/video-actions.component';
 import { VideoContainerComponent } from './components/video-container/video-container.component';
-import { ThemedDirective } from 'theme';
+import { THEME } from 'theme';
 import { getOrZero } from './functions/get-or-zero.function';
 import { Dimensions } from './models/dimensions.interface';
 import { Message } from './models/message.interface';
 import { ApiService } from './services/api/api.service';
-import { ThemeService } from 'theme';
 import { Queue } from './models/queue.interface';
 import { Video } from './models/video.interface';
 import { ToastContainerComponent } from './components/toast-container/toast-container.component';
@@ -62,10 +62,9 @@ import { QueueComponent } from './components/queue/queue.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent
-  extends ThemedDirective
-  implements OnInit, AfterViewInit
-{
+export class AppComponent implements OnInit, AfterViewInit {
+  protected readonly theme = inject(THEME);
+
   title = 'Kino DANKKGP';
   usernames: Signal<string[]>;
   messages: Signal<Message[]>;
@@ -78,11 +77,9 @@ export class AppComponent
   protected height: number = INITIAL_VIDEO_HEIGHT;
 
   constructor(
-    protected override readonly themeService: ThemeService,
     private readonly apiService: ApiService,
     public dialog: MatDialog,
   ) {
-    super(themeService);
     this.messages = toSignal(this.apiService.messages, { initialValue: [] });
     this.username = toSignal(this.apiService.username, { initialValue: '' });
     this.usernames = toSignal(this.apiService.usernames, { initialValue: [] });

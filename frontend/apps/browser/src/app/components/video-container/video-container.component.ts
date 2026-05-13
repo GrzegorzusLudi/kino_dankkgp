@@ -1,9 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnDestroy } from '@angular/core';
 import { YoutubePlayerComponent } from 'ngx-youtube-player';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 
-import { ThemedDirective, ThemeService } from 'theme';
+import { THEME } from 'theme';
 import { HeaderComponent } from '../header/header.component';
 import {
   DEFAULT_VIDEO_HEIGHT,
@@ -22,10 +22,9 @@ import {
     './video-container.light.component.scss',
   ],
 })
-export class VideoContainerComponent
-  extends ThemedDirective
-  implements OnChanges, OnDestroy
-{
+export class VideoContainerComponent implements OnChanges, OnDestroy {
+  protected readonly theme = inject(THEME);
+
   @Input() title?: string;
   @Input() videoId?: string;
   @Input() second?: number;
@@ -38,10 +37,6 @@ export class VideoContainerComponent
     `${DEFAULT_VIDEO_HEIGHT}px`,
   ]);
   private subscription?: Subscription;
-
-  constructor(protected override readonly themeService: ThemeService) {
-    super(themeService);
-  }
 
   ngOnChanges(): void {
     this.dimensions.next([`${this.width}px`, `${this.height}px`]);

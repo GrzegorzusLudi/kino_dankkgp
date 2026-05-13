@@ -1,9 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
-import { ThemedDirective, Theme, ThemeService } from 'theme';
+import { THEME, Theme, ThemeService } from 'theme';
 import { SwitchComponent } from './switch/switch.component';
 
 @Component({
@@ -17,19 +17,14 @@ import { SwitchComponent } from './switch/switch.component';
     './mode-toggle.light.component.scss',
   ],
 })
-export class ModeToggleComponent extends ThemedDirective {
+export class ModeToggleComponent {
+  protected readonly theme = inject(THEME);
+  private readonly themeService = inject(ThemeService);
+
   faSun = faSun;
   faMoon = faMoon;
 
-  constructor(protected override readonly themeService: ThemeService) {
-    super(themeService);
-  }
-
-  switchMode(currentTheme: Theme | undefined, checked: boolean): void {
-    if (!currentTheme) {
-      return;
-    }
-
+  switchMode(currentTheme: string, checked: boolean): void {
     if (currentTheme === Theme.FlatLight || currentTheme === Theme.FlatDark) {
       this.themeService.changeTheme(checked ? Theme.FlatLight : Theme.FlatDark);
     } else {
