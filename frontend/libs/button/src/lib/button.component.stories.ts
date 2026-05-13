@@ -1,16 +1,50 @@
-import { applicationConfig, type Meta, type StoryObj } from '@storybook/angular';
-import { provideZonelessChangeDetection } from '@angular/core';
+import {
+  applicationConfig,
+  moduleMetadata,
+  type Meta,
+  type StoryObj,
+} from '@storybook/angular';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 
-import { ThemeService } from 'theme';
+import { Theme, ThemeService } from 'theme';
 
 import { ButtonComponent } from './button.component';
 
-const meta: Meta<ButtonComponent> = {
+@Component({
+  selector: 'story-theme-wrapper',
+  imports: [ButtonComponent],
+  template: `<ng-content />`,
+})
+class ThemeWrapperComponent implements OnChanges {
+  private readonly themeService = inject(ThemeService);
+  @Input() theme: string = Theme.FlatDark;
+
+  ngOnChanges(): void {
+    this.themeService.changeTheme(this.theme as Theme);
+  }
+}
+
+interface ButtonStoryArgs {
+  variant: 'primary' | 'ghost';
+  height: 'small' | 'medium';
+  theme: string;
+}
+
+const meta: Meta<ButtonStoryArgs> = {
   title: 'Button',
   component: ButtonComponent,
   decorators: [
     applicationConfig({
       providers: [provideZonelessChangeDetection()],
+    }),
+    moduleMetadata({
+      imports: [ThemeWrapperComponent],
     }),
   ],
   argTypes: {
@@ -24,25 +58,36 @@ const meta: Meta<ButtonComponent> = {
       options: ['small', 'medium'],
       description: 'Height of the button',
     },
+    theme: {
+      control: 'select',
+      options: Object.values(Theme),
+      description: 'Theme applied via THEME token',
+    },
   },
   args: {
     variant: 'primary',
     height: 'medium',
+    theme: Theme.FlatDark,
   },
   render: (args) => ({
     props: args,
-    template: `<lib-button [variant]="variant" [height]="height">Button</lib-button>`,
+    template: `
+      <story-theme-wrapper [theme]="theme">
+        <lib-button [variant]="variant" [height]="height">Button</lib-button>
+      </story-theme-wrapper>
+    `,
   }),
 };
 
 export default meta;
-type Story = StoryObj<ButtonComponent>;
+type Story = StoryObj<ButtonStoryArgs>;
 
 export const Primary: Story = {
   name: 'Primary / Medium',
   args: {
     variant: 'primary',
     height: 'medium',
+    theme: Theme.FlatDark,
   },
 };
 
@@ -51,6 +96,7 @@ export const PrimarySmall: Story = {
   args: {
     variant: 'primary',
     height: 'small',
+    theme: Theme.FlatDark,
   },
 };
 
@@ -59,6 +105,7 @@ export const Ghost: Story = {
   args: {
     variant: 'ghost',
     height: 'medium',
+    theme: Theme.FlatLight,
   },
 };
 
@@ -67,5 +114,6 @@ export const GhostSmall: Story = {
   args: {
     variant: 'ghost',
     height: 'small',
+    theme: Theme.FlatLight,
   },
 };
