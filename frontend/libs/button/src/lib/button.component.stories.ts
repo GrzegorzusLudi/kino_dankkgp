@@ -44,7 +44,7 @@ const meta: Meta<ButtonStoryArgs> = {
       providers: [provideZonelessChangeDetection()],
     }),
     moduleMetadata({
-      imports: [ThemeWrapperComponent],
+      imports: [ThemeWrapperComponent, ButtonComponent],
     }),
   ],
   argTypes: {
