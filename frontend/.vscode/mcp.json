@@ -1,8 +1,8 @@
 {
   "servers": {
     "nx": {
-      "command": "npx",
-      "args": ["-y", "nx", "mcp"]
+      "args": ["-y", "nx", "mcp"],
+      "command": "npx"
     }
   }
 }
