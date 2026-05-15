@@ -10,7 +10,10 @@ describe('AppComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [{ provide: SOCKET, useValue: mockSocket }, provideZonelessChangeDetection()],
+      providers: [
+        { provide: SOCKET, useValue: mockSocket },
+        provideZonelessChangeDetection(),
+      ],
     }).compileComponents();
   });
 

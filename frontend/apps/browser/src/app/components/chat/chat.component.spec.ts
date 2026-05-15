@@ -13,7 +13,10 @@ describe('ChatComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [ChatComponent],
-      providers: [{ provide: SOCKET, useValue: mockSocket }, provideZonelessChangeDetection()],
+      providers: [
+        { provide: SOCKET, useValue: mockSocket },
+        provideZonelessChangeDetection(),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChatComponent);

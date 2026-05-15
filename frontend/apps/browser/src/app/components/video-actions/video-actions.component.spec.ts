@@ -13,7 +13,10 @@ describe('VideoActionsComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [VideoActionsComponent],
-      providers: [{ provide: SOCKET, useValue: mockSocket }, provideZonelessChangeDetection()],
+      providers: [
+        { provide: SOCKET, useValue: mockSocket },
+        provideZonelessChangeDetection(),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(VideoActionsComponent);

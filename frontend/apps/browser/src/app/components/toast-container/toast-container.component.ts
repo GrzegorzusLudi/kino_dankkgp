@@ -20,8 +20,6 @@ export class ToastContainerComponent {
   }
 
   removeToast(id: string): void {
-    this.toasts.update((current) =>
-      current.filter((toast) => toast.id !== id),
-    );
+    this.toasts.update((current) => current.filter((toast) => toast.id !== id));
   }
 }

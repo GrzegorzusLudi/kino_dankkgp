@@ -18,7 +18,11 @@ describe('ApiService', () => {
     mockSocket = jasmine.createSpyObj('Socket', ['emit', 'on']);
 
     TestBed.configureTestingModule({
-      providers: [ApiService, { provide: SOCKET, useValue: mockSocket }, provideZonelessChangeDetection()],
+      providers: [
+        ApiService,
+        { provide: SOCKET, useValue: mockSocket },
+        provideZonelessChangeDetection(),
+      ],
     });
 
     service = TestBed.inject(ApiService);

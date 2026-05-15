@@ -13,11 +13,8 @@ div.toolbar.#{$flat-light-theme-class-name} {
   width: 100%;
   border-bottom: 1px solid $light-border-color;
   background-color: $color1;
-  background-image: radial-gradient(
-      circle at 7% 81%,
-      $color1 16%,
-      transparent 53%
-    ),
+  background-image:
+    radial-gradient(circle at 7% 81%, $color1 16%, transparent 53%),
     radial-gradient(circle at 5% 1%, $color2 7%, transparent 84%),
     radial-gradient(circle at 39% 52%, $color3 6%, transparent 68%),
     radial-gradient(circle at 11% 29%, $color4 8%, transparent 74%),
