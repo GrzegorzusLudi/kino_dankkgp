@@ -33,7 +33,7 @@ class ThemeWrapperComponent implements OnChanges {
 interface ButtonStoryArgs {
   variant: 'primary' | 'ghost';
   height: 'small' | 'medium';
-  theme: string;
+  selectedTheme: string;
 }
 
 const meta: Meta<ButtonStoryArgs> = {
@@ -58,7 +58,7 @@ const meta: Meta<ButtonStoryArgs> = {
       options: ['small', 'medium'],
       description: 'Height of the button',
     },
-    theme: {
+    selectedTheme: {
       control: 'select',
       options: Object.values(Theme),
       description: 'Theme applied via THEME token',
@@ -67,12 +67,12 @@ const meta: Meta<ButtonStoryArgs> = {
   args: {
     variant: 'primary',
     height: 'medium',
-    theme: Theme.FlatDark,
+    selectedTheme: Theme.FlatDark,
   },
   render: (args) => ({
     props: args,
     template: `
-      <story-theme-wrapper [theme]="theme">
+      <story-theme-wrapper [theme]="selectedTheme">
         <lib-button [variant]="variant" [height]="height">Button</lib-button>
       </story-theme-wrapper>
     `,
@@ -87,7 +87,7 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
     height: 'medium',
-    theme: Theme.FlatDark,
+    selectedTheme: Theme.FlatDark,
   },
 };
 
@@ -96,7 +96,7 @@ export const PrimarySmall: Story = {
   args: {
     variant: 'primary',
     height: 'small',
-    theme: Theme.FlatDark,
+    selectedTheme: Theme.FlatDark,
   },
 };
 
@@ -105,7 +105,7 @@ export const Ghost: Story = {
   args: {
     variant: 'ghost',
     height: 'medium',
-    theme: Theme.FlatLight,
+    selectedTheme: Theme.FlatLight,
   },
 };
 
@@ -114,6 +114,6 @@ export const GhostSmall: Story = {
   args: {
     variant: 'ghost',
     height: 'small',
-    theme: Theme.FlatLight,
+    selectedTheme: Theme.FlatLight,
   },
 };
