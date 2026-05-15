@@ -39,7 +39,6 @@
         "buildDepsTargetName": "build-deps",
         "buildStorybookTargetName": "build-storybook",
         "serveStorybookTargetName": "storybook",
-        "staticStorybookTargetName": "static-storybook",
         "testStorybookTargetName": "test-storybook",
         "watchDepsTargetName": "watch-deps"
       },
