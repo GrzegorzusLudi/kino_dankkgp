@@ -4,7 +4,6 @@ import { ThemedDirective } from 'theme';
 
 @Component({
   selector: 'lib-button',
-  imports: [],
   templateUrl: './button.component.html',
   styleUrls: [
     './button.aero.component.scss',
