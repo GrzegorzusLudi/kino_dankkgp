@@ -1,10 +1,13 @@
 @use '../../../scss-variables/src/index' as *;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 $small-height: 24px;
 $medium-height: 32px;
 
 .button.#{$flat-dark-theme-class-name},
 .button.#{$flat-light-theme-class-name} {
+  font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
   border: none;
   margin: 0;
