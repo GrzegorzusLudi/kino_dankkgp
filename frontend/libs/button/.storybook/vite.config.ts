@@ -15,5 +15,4 @@ export default defineConfig({
   define: {
     STORYBOOK_ANGULAR_OPTIONS: JSON.stringify({ experimentalZoneless: true }),
   },
-
 });
