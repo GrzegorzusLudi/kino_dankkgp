@@ -1,11 +1,10 @@
-import { NgClass } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 
 @Component({
   selector: 'lib-button',
-  imports: [NgClass],
+  imports: [],
   templateUrl: './button.component.html',
   styleUrls: [
     './button.aero-dark.component.scss',
@@ -14,9 +13,7 @@ import { THEME } from 'theme';
     './button.light.component.scss',
   ],
 })
-export class ButtonComponent {
-  protected readonly theme = inject(THEME);
-
+export class ButtonComponent extends ThemedDirective {
   @Input() variant: 'primary' | 'ghost' = 'primary';
   @Input() height: 'small' | 'medium' = 'medium';
 
