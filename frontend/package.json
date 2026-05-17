@@ -15,7 +15,6 @@
     "@angular/router": "^21.2.8",
     "@fortawesome/angular-fontawesome": "^4.0.0",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "bootstrap": "^5.3.3",
     "lodash": "^4.17.21",
     "ngx-youtube-player": "^18.0.0",
     "normalize.css": "^8.0.1",
