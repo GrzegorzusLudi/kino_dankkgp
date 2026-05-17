@@ -4,7 +4,7 @@ import { Component, inject } from '@angular/core';
 import { THEME } from 'theme';
 
 @Component({
-  selector: 'app-title',
+  selector: 'lib-title',
   imports: [NgClass],
   templateUrl: './title.component.html',
   styleUrls: [
