@@ -3,6 +3,7 @@
     "declaration": true,
     "declarationMap": true,
     "ignoreDeprecations": "6.0",
+    "sourceMap": true,
     "inlineSources": true,
     "outDir": "../../dist/out-tsc",
     "rootDir": "src",

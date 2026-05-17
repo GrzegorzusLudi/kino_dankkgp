@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "ignoreDeprecations": "6.0",
+    "rootDir": "../.."
   },
   "exclude": ["../src/**/*.spec.ts", "../src/test-setup.ts"],
   "extends": "../tsconfig.json",
