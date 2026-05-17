@@ -1,0 +1,7 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "scss-variables",
+  "projectType": "library",
+  "sourceRoot": "libs/scss-variables/src",
+  "tags": []
+}

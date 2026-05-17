@@ -1,9 +1,10 @@
-@use 'shared' as *;
+@use '../../../scss-variables/src/index' as *;
 
 $small-height: 24px;
 $medium-height: 32px;
 
-.button.#{$flat-dark-theme-class-name} {
+.button.#{$flat-dark-theme-class-name},
+.button.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
   border: none;
   margin: 0;
@@ -16,10 +17,21 @@ $medium-height: 32px;
   align-items: center;
   font-size: $font-size;
   line-height: $line-height;
-  color: $dark-text-color;
   box-shadow: none;
   width: 100%;
   @include border-radius;
+
+  &.small {
+    height: $small-height;
+  }
+
+  &.medium {
+    height: $medium-height;
+  }
+}
+
+.button.#{$flat-dark-theme-class-name} {
+  color: $dark-text-color;
 
   &.primary {
     background: $dark-primary-a50;
@@ -56,12 +68,44 @@ $medium-height: 32px;
       box-shadow: 0px 0px 0.5px 2px rgba($dark-link-color, 0.2);
     }
   }
+}
 
-  &.small {
-    height: $small-height;
+.button.#{$flat-light-theme-class-name} {
+  color: $light-text-color;
+
+  &.primary {
+    background: $light-primary-a60;
+    color: $dark-link-color;
+    border: 1px solid $light-primary-a60;
+
+    &:hover {
+      background: $light-primary-a40;
+    }
+
+    &.clicked {
+      background: $light-primary-a60;
+    }
+
+    &:focus {
+      box-shadow: 0px 0px 0.5px 2px $light-primary-a30;
+    }
   }
 
-  &.medium {
-    height: $medium-height;
+  &.ghost {
+    background: transparent;
+    color: $light-link-color;
+    border: 1px solid transparent;
+
+    &:hover {
+      background: rgba($dark-link-color, 0.6);
+    }
+
+    &.clicked {
+      background: rgba($dark-link-color, 0.75);
+    }
+
+    &:focus {
+      box-shadow: 0px 0px 0.5px 2px rgba($dark-link-color, 0.5);
+    }
   }
 }

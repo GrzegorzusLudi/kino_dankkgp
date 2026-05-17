@@ -7,10 +7,8 @@ import { ThemedDirective } from 'theme';
   imports: [],
   templateUrl: './button.component.html',
   styleUrls: [
-    './button.aero-dark.component.scss',
-    './button.aero-light.component.scss',
-    './button.dark.component.scss',
-    './button.light.component.scss',
+    './button.aero.component.scss',
+    './button.flat.component.scss',
   ],
 })
 export class ButtonComponent extends ThemedDirective {

@@ -15,11 +15,5 @@ export default defineConfig({
   define: {
     STORYBOOK_ANGULAR_OPTIONS: JSON.stringify({ experimentalZoneless: true }),
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        loadPaths: [resolve(__dirname, '../../../apps/browser/src/app/styles')],
-      },
-    },
-  },
+
 });
