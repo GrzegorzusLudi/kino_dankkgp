@@ -1,9 +1,17 @@
 @use '../../../scss-variables/src/index' as *;
 
+h1.#{$flat-light-theme-class-name},
 h1.#{$flat-dark-theme-class-name} {
   font-size: $title-font-size;
   line-height: $title-line-height;
-  color: $dark-text-color;
   margin: 0;
   padding: 0;
+}
+
+h1.#{$flat-dark-theme-class-name} {
+  color: $dark-text-color;
+}
+
+h1.#{$flat-light-theme-class-name} {
+  color: $light-text-color;
 }

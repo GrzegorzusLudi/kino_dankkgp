@@ -1,19 +1,16 @@
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 
 @Component({
   selector: 'lib-title',
   imports: [NgClass],
   templateUrl: './title.component.html',
   styleUrls: [
-    './title.aero-dark.component.scss',
-    './title.aero-light.component.scss',
-    './title.dark.component.scss',
-    './title.light.component.scss',
+    './title.flat.component.scss',
+    './title.aero.component.scss',
   ],
+  hostDirectives: [ThemedDirective]
 })
-export class TitleComponent {
-  protected readonly theme = inject(THEME);
-}
+export class TitleComponent {}
