@@ -52,7 +52,7 @@
         "polyfills": [],
         "scripts": [],
         "stylePreprocessorOptions": {
-          "includePaths": ["apps/browser/src/app/styles", "libs/scss-variables/src"]
+          "includePaths": ["apps/browser/src/app/styles", "libs/theme/src/lib"]
         },
         "styles": ["apps/browser/src/styles.scss"],
         "tsConfig": "apps/browser/tsconfig.app.json"
