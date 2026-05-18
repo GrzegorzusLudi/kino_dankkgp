@@ -30,7 +30,7 @@ import {
   USERNAME_DIALOG_HEIGHT,
   USERNAME_DIALOG_WIDTH,
 } from './components/username-dialog/username-dialog.consts';
-import { VerticalSeparatorComponent } from './components/vertical-separator/vertical-separator.component';
+import { VerticalSeparatorComponent } from 'vertical-separator';
 import { VideoActionsComponent } from './components/video-actions/video-actions.component';
 import { VideoContainerComponent } from './components/video-container/video-container.component';
 import { THEME } from 'theme';

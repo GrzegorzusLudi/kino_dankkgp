@@ -4,7 +4,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { THEME } from 'theme';
 import { ButtonComponent } from 'button';
 import { InputComponent } from '../input/input.component';
-import { VerticalSeparatorComponent } from '../vertical-separator/vertical-separator.component';
+import { VerticalSeparatorComponent } from 'vertical-separator';
 import {
   FormControl,
   FormGroup,

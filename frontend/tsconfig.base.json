@@ -17,7 +17,8 @@
       "button": ["libs/button/src/index.ts"],
       "header": ["libs/header/src/index.ts"],
       "theme": ["libs/theme/src/index.ts"],
-      "title": ["libs/title/src/index.ts"]
+      "title": ["libs/title/src/index.ts"],
+      "vertical-separator": ["libs/vertical-separator/src/index.ts"]
     },
     "skipLibCheck": true,
     "strict": true,

@@ -1,9 +1,0 @@
-@use '../../styles/shared.scss' as *;
-
-div.#{$flat-dark-theme-class-name} {
-  margin: 0 14px;
-  width: 1px;
-  height: 100%;
-  align-self: stretch;
-  background-color: $dark-primary-a10;
-}
