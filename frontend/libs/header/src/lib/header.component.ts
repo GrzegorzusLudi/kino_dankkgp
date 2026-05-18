@@ -4,7 +4,7 @@ import { Component, inject } from '@angular/core';
 import { THEME } from 'theme';
 
 @Component({
-  selector: 'app-header',
+  selector: 'lib-header',
   imports: [NgClass],
   templateUrl: './header.component.html',
   styleUrls: [

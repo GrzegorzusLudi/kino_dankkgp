@@ -4,7 +4,7 @@ import { YoutubePlayerComponent } from 'ngx-youtube-player';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 
 import { THEME } from 'theme';
-import { HeaderComponent } from '../header/header.component';
+import { HeaderComponent } from 'header';
 import {
   DEFAULT_VIDEO_HEIGHT,
   DEFAULT_VIDEO_WIDTH,

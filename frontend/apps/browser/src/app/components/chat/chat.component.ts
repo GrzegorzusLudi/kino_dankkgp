@@ -20,7 +20,7 @@ import { THEME } from 'theme';
 import { Message } from '../../models/message.interface';
 import { ApiService } from '../../services/api/api.service';
 import { ButtonComponent } from 'button';
-import { HeaderComponent } from '../header/header.component';
+import { HeaderComponent } from 'header';
 import { InputComponent } from '../input/input.component';
 import { ToastService } from '../../services/toast/toast.service';
 

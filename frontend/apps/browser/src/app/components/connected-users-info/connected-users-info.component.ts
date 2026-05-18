@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 
 import { THEME } from 'theme';
-import { HeaderComponent } from '../header/header.component';
+import { HeaderComponent } from 'header';
 
 @Component({
   selector: 'app-connected-users-info',

@@ -1,4 +1,4 @@
-@use '../../styles/shared.scss' as *;
+@use 'shared' as *;
 
 .header.#{$flat-dark-theme-class-name} {
   width: 100%;

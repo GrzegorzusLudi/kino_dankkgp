@@ -15,6 +15,7 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "button": ["libs/button/src/index.ts"],
+      "header": ["libs/header/src/index.ts"],
       "theme": ["libs/theme/src/index.ts"],
       "title": ["libs/title/src/index.ts"]
     },
