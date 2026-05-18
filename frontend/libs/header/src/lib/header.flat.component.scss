@@ -1,5 +1,6 @@
 @use 'shared' as *;
 
+.header.#{$flat-light-theme-class-name},
 .header.#{$flat-dark-theme-class-name} {
   width: 100%;
   height: $header-height;
@@ -9,11 +10,19 @@
   align-items: center;
   font-size: $font-size;
   line-height: $line-height;
-  color: $dark-text-color;
   font-weight: 600;
-  color: $dark-text-color;
   padding: 0 $padding;
+  @include border-top-radius;
+}
+
+.header.#{$flat-light-theme-class-name} {
+  color: $light-text-color;
+  background-color: $light-primary-a10;
+  border: 1px solid $light-border-color;
+}
+
+.header.#{$flat-dark-theme-class-name} {
+  color: $dark-text-color;
   background-color: $dark-primary-a40;
   border: 1px solid $dark-border-color;
-  @include border-top-radius;
 }
