@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 
 import { THEME } from 'theme';
 import { ButtonComponent } from 'button';
-import { InputComponent } from '../input/input.component';
+import { InputComponent } from 'input';
 import { VerticalSeparatorComponent } from 'vertical-separator';
 import {
   FormControl,

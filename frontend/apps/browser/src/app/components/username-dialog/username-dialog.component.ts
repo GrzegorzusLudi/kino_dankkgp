@@ -7,7 +7,7 @@ import { THEME } from 'theme';
 import { ApiService } from '../../services/api/api.service';
 import { ButtonComponent } from 'button';
 import { HeaderComponent } from 'header';
-import { InputComponent } from '../input/input.component';
+import { InputComponent } from 'input';
 
 @Component({
   selector: 'app-username-dialog',
