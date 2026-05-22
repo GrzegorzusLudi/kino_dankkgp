@@ -65,7 +65,7 @@ const meta: Meta<InputStoryArgs> = {
     props: args,
     template: `
       <story-theme-wrapper [theme]="selectedTheme">
-        <lib-input [label]="label"></lib-input>
+        <app-input [label]="label"></app-input>
       </story-theme-wrapper>
     `,
   }),
