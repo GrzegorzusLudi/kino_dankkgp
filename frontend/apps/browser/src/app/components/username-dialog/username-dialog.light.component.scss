@@ -20,7 +20,7 @@
     flex-direction: row;
     justify-content: space-between;
 
-    app-input {
+    lib-input {
       width: 100% !important;
       margin-right: $padding;
     }
@@ -30,3 +30,4 @@
     }
   }
 }
+

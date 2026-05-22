@@ -65,7 +65,7 @@ const meta: Meta<InputStoryArgs> = {
     props: args,
     template: `
       <story-theme-wrapper [theme]="selectedTheme">
-        <app-input [label]="label"></app-input>
+        <lib-input [label]="label"></lib-input>
       </story-theme-wrapper>
     `,
   }),
@@ -98,3 +98,4 @@ export const AeroLight: Story = {
     selectedTheme: Theme.AeroLight,
   },
 };
+

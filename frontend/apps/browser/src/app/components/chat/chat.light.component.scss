@@ -50,7 +50,7 @@
     justify-content: space-between;
     border-top: 1px solid $light-border-color;
 
-    app-input {
+    lib-input {
       width: 100% !important;
       margin-right: $padding;
     }
@@ -64,3 +64,4 @@
     }
   }
 }
+

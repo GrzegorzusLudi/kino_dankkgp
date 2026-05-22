@@ -13,7 +13,7 @@ import { get, isObject } from 'lodash';
 import { THEME } from 'theme';
 
 @Component({
-  selector: 'app-input',
+  selector: 'lib-input',
   imports: [NgClass],
   templateUrl: './input.component.html',
   styleUrls: [

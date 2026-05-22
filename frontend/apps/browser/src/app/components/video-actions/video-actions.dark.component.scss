@@ -17,7 +17,7 @@
     border-bottom: 1px solid $dark-border-color;
     overflow-y: scroll;
 
-    app-input {
+    lib-input {
       width: 100%;
       max-width: 512px;
     }
@@ -35,3 +35,4 @@
     margin-right: $padding;
   }
 }
+

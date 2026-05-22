@@ -1,6 +1,6 @@
 <div class="video-actions" [ngClass]="theme()">
   <div class="content" [formGroup]="form">
-    <app-input formControlName="url" label="Video URL" />
+    <lib-input formControlName="url" label="Video URL" />
     <lib-button class="margin-left" (click)="addVideoToQueue()"
       ><fa-icon class="margin-right" [icon]="faPlus" />Add to queue</lib-button
     >
@@ -16,3 +16,4 @@
     >
   </div>
 </div>
+

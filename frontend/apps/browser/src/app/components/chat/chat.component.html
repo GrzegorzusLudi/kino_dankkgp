@@ -11,12 +11,13 @@
     </div>
     <form class="input" [formGroup]="form">
       @if (form.get('username')?.value) {
-        <app-input label="Username" formControlName="username" />
+        <lib-input label="Username" formControlName="username" />
         <lib-button (click)="setUsername()">Set username</lib-button>
       } @else {
-        <app-input label="Message" formControlName="message" />
+        <lib-input label="Message" formControlName="message" />
         <lib-button (click)="sendMessage()">Send</lib-button>
       }
     </form>
   </div>
 </div>
+
