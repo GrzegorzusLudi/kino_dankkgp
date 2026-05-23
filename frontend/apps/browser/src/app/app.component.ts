@@ -21,7 +21,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { ConnectedUsersInfoComponent } from './components/connected-users-info/connected-users-info.component';
 import { ModeToggleComponent } from './components/mode-toggle/mode-toggle.component';
 import { TitleComponent } from 'title';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ToolbarComponent } from 'toolbar';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { UsernameDialogComponent } from './components/username-dialog/username-dialog.component';
 import {

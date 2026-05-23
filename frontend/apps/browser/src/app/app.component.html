@@ -1,12 +1,12 @@
 <app-background>
-  <app-toolbar>
+  <lib-toolbar>
     <lib-title>{{ title }}</lib-title>
     <div class="group">
       <app-mode-toggle />
       <lib-vertical-separator />
       <app-user-info [username]="username()" />
     </div>
-  </app-toolbar>
+  </lib-toolbar>
   <div class="content">
     <div class="main">
       <app-video-container

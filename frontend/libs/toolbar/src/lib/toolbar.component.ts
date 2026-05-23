@@ -4,7 +4,7 @@ import { Component, inject } from '@angular/core';
 import { THEME } from 'theme';
 
 @Component({
-  selector: 'app-toolbar',
+  selector: 'lib-toolbar',
   imports: [NgClass],
   templateUrl: './toolbar.component.html',
   styleUrls: [
