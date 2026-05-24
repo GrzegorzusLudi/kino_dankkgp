@@ -6,10 +6,8 @@ import { ThemedDirective } from 'theme';
   selector: 'lib-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: [
-    './toolbar.aero-dark.component.scss',
-    './toolbar.aero-light.component.scss',
-    './toolbar.dark.component.scss',
-    './toolbar.light.component.scss',
+    './toolbar.aero.component.scss',
+    './toolbar.flat.component.scss',
   ],
   hostDirectives: [ThemedDirective],
 })
