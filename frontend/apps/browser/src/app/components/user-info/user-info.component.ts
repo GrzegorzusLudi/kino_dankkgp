@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,7 +28,7 @@ import { ButtonComponent } from 'button';
 export class UserInfoComponent {
   protected readonly theme = inject(THEME);
 
-  @Input() username = '';
+  username = input('');
 
   faUser = faUser;
 

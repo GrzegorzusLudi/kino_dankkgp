@@ -6,9 +6,9 @@ import {
 } from '@storybook/angular';
 import {
   Component,
+  effect,
   inject,
-  Input,
-  OnChanges,
+  input,
   provideZonelessChangeDetection,
 } from '@angular/core';
 
@@ -21,12 +21,14 @@ import { VerticalSeparatorComponent } from './vertical-separator.component';
   imports: [VerticalSeparatorComponent],
   template: `<ng-content />`,
 })
-class ThemeWrapperComponent implements OnChanges {
+class ThemeWrapperComponent {
   private readonly themeService = inject(ThemeService);
-  @Input() theme: string = Theme.FlatDark;
+  theme = input<string>(Theme.FlatDark);
 
-  ngOnChanges(): void {
-    this.themeService.changeTheme(this.theme as Theme);
+  constructor() {
+    effect(() => {
+      this.themeService.changeTheme(this.theme() as Theme);
+    });
   }
 }
 

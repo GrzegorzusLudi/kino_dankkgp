@@ -1,12 +1,11 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   inject,
-  Input,
+  input,
   OnDestroy,
   OnInit,
-  Output,
+  output,
 } from '@angular/core';
 import { THEME } from 'theme';
 import { NgClass, NgStyle } from '@angular/common';
@@ -34,12 +33,12 @@ import { interval, Subscription, take } from 'rxjs';
 export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
   protected readonly theme = inject(THEME);
 
-  @Input() title: string = '';
-  @Input() message: string = '';
-  @Input() variant: 'info' | 'success' | 'danger' = 'danger';
-  @Input() timeout = 5000;
+  title = input('');
+  message = input('');
+  variant = input<'info' | 'success' | 'danger'>('danger');
+  timeout = input(5000);
 
-  @Output() close = new EventEmitter<void>();
+  close = output<void>();
 
   faCircleCheck = faCircleCheck;
   faTriangleExclamation = faTriangleExclamation;
@@ -56,7 +55,7 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.transitionDuration = `${this.timeout}ms`;
+      this.transitionDuration = `${this.timeout()}ms`;
       this.barWidth = '0%';
     }, 25);
   }
@@ -73,7 +72,7 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
 
   blur(): void {
     setTimeout(() => {
-      this.transitionDuration = `${this.timeout}ms`;
+      this.transitionDuration = `${this.timeout()}ms`;
       this.barWidth = '0%';
     }, 10);
     this.initializeCloseTimeout();
@@ -81,7 +80,7 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private initializeCloseTimeout(): void {
     this.subscription?.unsubscribe();
-    this.subscription = interval(this.timeout)
+    this.subscription = interval(this.timeout())
       .pipe(take(1))
       .subscribe(() => {
         this.close.emit();

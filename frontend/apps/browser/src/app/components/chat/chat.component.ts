@@ -3,7 +3,7 @@ import {
   Component,
   DoCheck,
   inject,
-  Input,
+  input,
   IterableDiffer,
   IterableDiffers,
   OnInit,
@@ -45,8 +45,8 @@ import { ToastService } from '../../services/toast/toast.service';
 export class ChatComponent implements OnInit, DoCheck {
   protected readonly theme = inject(THEME);
 
-  @Input() username: string = '';
-  @Input() messages: Message[] = [];
+  username = input('');
+  messages = input<Message[]>([]);
 
   protected timestamps: string[] = [];
   protected form!: FormGroup;
@@ -65,12 +65,12 @@ export class ChatComponent implements OnInit, DoCheck {
     let message: FormControl<string | null>;
     let username: FormControl<string | null>;
 
-    if (this.username) {
+    if (this.username()) {
       message = new FormControl<string | null>('', {
         nonNullable: true,
         validators: [Validators.required],
       });
-      username = new FormControl<string | null>(this.username, {
+      username = new FormControl<string | null>(this.username(), {
         nonNullable: true,
         validators: [Validators.required],
       });
@@ -89,10 +89,10 @@ export class ChatComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    const changes = this.differ.diff(this.messages);
+    const changes = this.differ.diff(this.messages());
 
     if (changes) {
-      this.timestamps = this.messages.map(
+      this.timestamps = this.messages().map(
         (message: Readonly<Message>) =>
           `${message.date.getHours()}:${message.date.getMinutes()}:${message.date.getSeconds()}`,
       );

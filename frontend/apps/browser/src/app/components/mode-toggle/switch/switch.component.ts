@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { get } from 'lodash';
 
 import { THEME } from 'theme';
@@ -18,10 +18,9 @@ import { THEME } from 'theme';
 export class SwitchComponent {
   protected readonly theme = inject(THEME);
 
-  // TODO Rename to toggle?
-  @Output() readonly switch = new EventEmitter<boolean>();
+  readonly switch = output<boolean>();
 
   emit(event: Event): void {
-    this.switch.next(Boolean(get(event, 'target.checked')));
+    this.switch.emit(Boolean(get(event, 'target.checked')));
   }
 }

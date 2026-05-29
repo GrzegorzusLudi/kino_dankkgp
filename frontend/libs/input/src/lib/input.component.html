@@ -2,7 +2,7 @@
   <input
     #input
     type="text"
-    [placeholder]="label"
+    [placeholder]="label()"
     [disabled]="isDisabled"
     (change)="onChange($event)"
     (blur)="onBlur()" />

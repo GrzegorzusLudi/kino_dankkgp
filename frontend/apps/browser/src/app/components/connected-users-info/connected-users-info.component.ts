@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 
 import { THEME } from 'theme';
 import { HeaderComponent } from 'header';
@@ -18,7 +18,7 @@ import { HeaderComponent } from 'header';
 export class ConnectedUsersInfoComponent {
   protected readonly theme = inject(THEME);
 
-  @Input() usernames: string[] = [];
+  usernames = input<string[]>([]);
 
   trackByFn(index: number, username: string): string {
     return `${index}:${username}`;
