@@ -1,0 +1,40 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "utils",
+  "projectType": "library",
+  "sourceRoot": "libs/utils/src",
+  "tags": [],
+  "targets": {
+    "chores": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run utils:lint:fix",
+          "nx run utils:format"
+        ],
+        "parallel": false
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prettier --write \"libs/utils/\""
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "lint:fix": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "fix": true
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "options": {
+        "config": "libs/utils/vite.config.mts"
+      }
+    }
+  }
+}

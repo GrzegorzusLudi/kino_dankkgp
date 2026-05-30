@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "ignoreDeprecations": "6.0",
+    "inlineSources": true,
+    "outDir": "../../dist/out-tsc",
+    "rootDir": "src",
+    "sourceMap": true,
+    "types": []
+  },
+  "exclude": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "vite.config.ts",
+    "vite.config.mts",
+    "vitest.config.ts",
+    "vitest.config.mts",
+    "src/**/*.test.js",
+    "src/**/*.spec.js",
+    "src/test-setup.ts"
+  ],
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*.ts"]
+}

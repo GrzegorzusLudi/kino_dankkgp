@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": false,
+    "isolatedModules": true,
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "strict": true,
+    "target": "es2022"
+  },
+  "extends": "../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
