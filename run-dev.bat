@@ -1,7 +1,7 @@
 @echo off
 echo Building frontend...
 cd frontend
-call npm run build
+call npx nx run browser:build --configuration=production
 if %errorlevel% neq 0 (
     echo Frontend build failed!
     exit /b %errorlevel%
