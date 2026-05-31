@@ -23,6 +23,7 @@ import { SwitchComponent } from './switch.component';
 })
 class ThemeWrapperComponent {
   private readonly themeService = inject(ThemeService);
+
   theme = input<string>(Theme.FlatDark);
 
   constructor() {

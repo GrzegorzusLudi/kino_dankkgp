@@ -1,12 +1,10 @@
-import { NgClass } from '@angular/common';
-import { Component, inject, output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { get } from 'lodash';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 
 @Component({
   selector: 'lib-switch',
-  imports: [NgClass],
   templateUrl: './switch.component.html',
   styleUrls: [
     './switch.aero-dark.component.scss',
@@ -14,10 +12,9 @@ import { THEME } from 'theme';
     './switch.dark.component.scss',
     './switch.light.component.scss',
   ],
+  hostDirectives: [ThemedDirective],
 })
 export class SwitchComponent {
-  protected readonly theme = inject(THEME);
-
   readonly switch = output<boolean>();
 
   emit(event: Event): void {
