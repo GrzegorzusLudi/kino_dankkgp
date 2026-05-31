@@ -8,10 +8,7 @@
     "chores": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx run utils:lint:fix",
-          "nx run utils:format"
-        ],
+        "commands": ["nx run utils:lint:fix", "nx run utils:format"],
         "parallel": false
       }
     },
