@@ -7,10 +7,8 @@ import { ThemedDirective } from 'theme';
   selector: 'lib-switch',
   templateUrl: './switch.component.html',
   styleUrls: [
-    './switch.aero-dark.component.scss',
-    './switch.aero-light.component.scss',
-    './switch.dark.component.scss',
-    './switch.light.component.scss',
+    './switch.aero.component.scss',
+    './switch.flat.component.scss',
   ],
   hostDirectives: [ThemedDirective],
 })
