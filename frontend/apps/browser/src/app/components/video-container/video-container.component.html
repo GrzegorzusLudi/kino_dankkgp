@@ -3,7 +3,7 @@
   <div class="content">
     @if (videoId()) {
       <youtube-player
-        [videoId]="videoId()"
+        [videoId]="videoId()!"
         [width]="width()"
         [height]="height()"
         (ready)="savePlayer($event)" />
