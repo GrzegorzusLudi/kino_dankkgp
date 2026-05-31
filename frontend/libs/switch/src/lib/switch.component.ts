@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { THEME } from 'theme';
 
 @Component({
-  selector: 'app-switch',
+  selector: 'lib-switch',
   imports: [NgClass],
   templateUrl: './switch.component.html',
   styleUrls: [

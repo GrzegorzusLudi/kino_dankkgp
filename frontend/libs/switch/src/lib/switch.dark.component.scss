@@ -1,9 +1,9 @@
-@use '../../../styles/shared.scss' as *;
+@use 'shared.scss' as *;
 
 $width: 38px;
 $height: $line-height;
 
-div.#{$flat-light-theme-class-name} {
+div.#{$flat-dark-theme-class-name} {
   .switch {
     position: relative;
     display: inline-block;
@@ -42,17 +42,17 @@ div.#{$flat-light-theme-class-name} {
   }
 
   input:checked + .slider {
-    background-color: $light-primary-a50;
-    background: $light-primary-a50;
+    background-color: $dark-primary-a50;
+    background: $dark-primary-a50;
   }
 
   input:focus + .slider {
-    box-shadow: 0 0 1px $light-primary-a30;
+    box-shadow: 0 0 1px $dark-primary-a30;
   }
 
   input:checked:hover + .slider {
-    background-color: $light-primary-a40;
-    background: $light-primary-a40;
+    background-color: $dark-primary-a40;
+    background: $dark-primary-a40;
   }
 
   input:checked + .slider:before {
