@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, effect, inject, input, OnDestroy } from '@angular/core';
 import { YoutubePlayerComponent } from 'ngx-youtube-player';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 
@@ -22,14 +22,14 @@ import {
     './video-container.light.component.scss',
   ],
 })
-export class VideoContainerComponent implements OnChanges, OnDestroy {
+export class VideoContainerComponent implements OnDestroy {
   protected readonly theme = inject(THEME);
 
-  @Input() title?: string;
-  @Input() videoId?: string;
-  @Input() second?: number;
-  @Input() width = DEFAULT_VIDEO_WIDTH;
-  @Input() height = DEFAULT_VIDEO_HEIGHT;
+  title = input<string>();
+  videoId = input<string>();
+  second = input<number>();
+  width = input(DEFAULT_VIDEO_WIDTH);
+  height = input(DEFAULT_VIDEO_HEIGHT);
 
   private player?: YT.Player;
   private readonly dimensions = new BehaviorSubject([
@@ -38,12 +38,15 @@ export class VideoContainerComponent implements OnChanges, OnDestroy {
   ]);
   private subscription?: Subscription;
 
-  ngOnChanges(): void {
-    this.dimensions.next([`${this.width}px`, `${this.height}px`]);
+  constructor() {
+    effect(() => {
+      this.dimensions.next([`${this.width()}px`, `${this.height()}px`]);
 
-    if (this.second !== undefined) {
-      this.seekTo(this.second);
-    }
+      const second = this.second();
+      if (second !== undefined) {
+        this.seekTo(second);
+      }
+    });
   }
 
   ngOnDestroy(): void {

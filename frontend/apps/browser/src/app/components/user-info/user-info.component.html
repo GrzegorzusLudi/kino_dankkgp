@@ -1,5 +1,5 @@
 <div class="user-info" [ngClass]="theme()">
   <lib-button variant="ghost" height="small" (click)="openUsernameDialog()"
-    ><fa-icon [icon]="faUser" />{{ username || 'Guest' }}</lib-button
+    ><fa-icon [icon]="faUser" />{{ username() || 'Guest' }}</lib-button
   >
 </div>

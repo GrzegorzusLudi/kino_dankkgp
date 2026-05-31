@@ -34,7 +34,7 @@ import { VerticalSeparatorComponent } from 'vertical-separator';
 import { VideoActionsComponent } from './components/video-actions/video-actions.component';
 import { VideoContainerComponent } from './components/video-container/video-container.component';
 import { THEME } from 'theme';
-import { getOrZero } from './functions/get-or-zero.function';
+import { getOrZero } from 'utils';
 import { Dimensions } from './models/dimensions.interface';
 import { Message } from './models/message.interface';
 import { ApiService } from './services/api/api.service';

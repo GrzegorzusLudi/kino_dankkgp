@@ -4,7 +4,7 @@ import {
   ElementRef,
   forwardRef,
   inject,
-  Input,
+  input,
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -33,7 +33,7 @@ import { THEME } from 'theme';
 export class InputComponent implements ControlValueAccessor {
   protected readonly theme = inject(THEME);
 
-  @Input({ required: true }) label = '';
+  label = input.required<string>();
 
   @ViewChild('input') input?: ElementRef;
 

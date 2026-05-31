@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Socket } from 'socket.io-client';
 
 import { SOCKET } from '../../app.config';
-import { getOrThrow } from '../../functions/get-or-throw.function';
+import { getOrThrow } from 'utils';
 import { Action } from '../../models/action.enum';
 import { Event } from '../../models/event.enum';
 import { Message } from '../../models/message.interface';

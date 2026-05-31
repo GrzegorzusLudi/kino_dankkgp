@@ -7,24 +7,24 @@
   (mouseover)="focus()"
   (mouseout)="blur()"
   (blur)="blur()">
-  <div class="main" [ngClass]="variant">
+  <div class="main" [ngClass]="variant()">
     <div class="icon">
-      @if (variant === 'success') {
+      @if (variant() === 'success') {
         <fa-icon [icon]="faCircleCheck" />
-      } @else if (variant === 'info') {
+      } @else if (variant() === 'info') {
         <fa-icon [icon]="faCircleInfo" />
-      } @else if (variant === 'danger') {
+      } @else if (variant() === 'danger') {
         <fa-icon [icon]="faTriangleExclamation" />
       }
     </div>
     <div class="content">
-      <div class="header">{{ title }}</div>
+      <div class="header">{{ title() }}</div>
       <div class="message">
-        {{ message }}
+        {{ message() }}
       </div>
     </div>
   </div>
-  <div class="timeout-progress" [ngClass]="variant">
+  <div class="timeout-progress" [ngClass]="variant()">
     <div
       class="bar"
       [ngStyle]="{

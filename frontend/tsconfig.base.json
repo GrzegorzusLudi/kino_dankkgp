@@ -15,9 +15,11 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "button": ["libs/button/src/index.ts"],
-      "header": ["libs/header/src/index.ts"],      "input": ["libs/input/src/index.ts"],      "theme": ["libs/theme/src/index.ts"],
+      "header": ["libs/header/src/index.ts"],      "input": ["libs/input/src/index.ts"],      "switch": ["libs/switch/src/index.ts"],
+      "theme": ["libs/theme/src/index.ts"],
       "title": ["libs/title/src/index.ts"],
       "toolbar": ["libs/toolbar/src/index.ts"],
+      "utils": ["libs/utils/src/index.ts"],
       "vertical-separator": ["libs/vertical-separator/src/index.ts"]
     },
     "skipLibCheck": true,

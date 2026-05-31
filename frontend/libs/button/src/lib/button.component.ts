@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { ThemedDirective } from 'theme';
 
@@ -9,8 +9,8 @@ import { ThemedDirective } from 'theme';
   hostDirectives: [ThemedDirective],
 })
 export class ButtonComponent {
-  @Input() variant: 'primary' | 'ghost' = 'primary';
-  @Input() height: 'small' | 'medium' = 'medium';
+  variant = input<'primary' | 'ghost'>('primary');
+  height = input<'small' | 'medium'>('medium');
 
   protected clicked = false;
 }

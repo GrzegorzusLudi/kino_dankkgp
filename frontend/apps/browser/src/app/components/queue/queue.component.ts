@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { THEME } from 'theme';
 import { NgClass } from '@angular/common';
 import { Video } from '../../models/video.interface';
@@ -22,7 +22,7 @@ import { ButtonComponent } from 'button';
 export class QueueComponent {
   protected readonly theme = inject(THEME);
 
-  @Input() queue?: Queue;
+  queue = input<Queue>();
 
   faPlay = faPlay;
   faTrash = faTrash;

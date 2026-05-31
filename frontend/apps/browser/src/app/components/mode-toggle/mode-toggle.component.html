@@ -1,5 +1,5 @@
 <div class="mode-toggle" [ngClass]="theme()">
   <fa-icon [icon]="faMoon" />
-  <app-switch (switch)="switchMode(theme(), $event)" />
+  <lib-switch (switch)="switchMode(theme(), $event)" />
   <fa-icon [icon]="faSun" />
 </div>

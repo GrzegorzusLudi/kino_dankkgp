@@ -4,7 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 import { THEME, Theme, ThemeService } from 'theme';
-import { SwitchComponent } from './switch/switch.component';
+import { SwitchComponent } from 'switch';
 
 @Component({
   selector: 'app-mode-toggle',

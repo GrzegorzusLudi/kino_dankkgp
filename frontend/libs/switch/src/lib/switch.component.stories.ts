@@ -14,15 +14,16 @@ import {
 
 import { Theme, ThemeService } from 'theme';
 
-import { ToolbarComponent } from './toolbar.component';
+import { SwitchComponent } from './switch.component';
 
 @Component({
   selector: 'story-theme-wrapper',
-  imports: [ToolbarComponent],
+  imports: [SwitchComponent],
   template: `<ng-content />`,
 })
 class ThemeWrapperComponent {
   private readonly themeService = inject(ThemeService);
+
   theme = input<string>(Theme.FlatDark);
 
   constructor() {
@@ -32,19 +33,19 @@ class ThemeWrapperComponent {
   }
 }
 
-interface ToolbarStoryArgs {
+interface SwitchStoryArgs {
   selectedTheme: string;
 }
 
-const meta: Meta<ToolbarStoryArgs> = {
-  title: 'Toolbar',
-  component: ToolbarComponent,
+const meta: Meta<SwitchStoryArgs> = {
+  title: 'Switch',
+  component: SwitchComponent,
   decorators: [
     applicationConfig({
       providers: [provideZonelessChangeDetection()],
     }),
     moduleMetadata({
-      imports: [ThemeWrapperComponent, ToolbarComponent],
+      imports: [ThemeWrapperComponent, SwitchComponent],
     }),
   ],
   argTypes: {
@@ -61,14 +62,39 @@ const meta: Meta<ToolbarStoryArgs> = {
     props: args,
     template: `
       <story-theme-wrapper [theme]="selectedTheme">
-        <lib-toolbar>Toolbar content</lib-toolbar>
+        <lib-switch />
       </story-theme-wrapper>
     `,
   }),
 };
 
 export default meta;
+type Story = StoryObj<SwitchStoryArgs>;
 
-type Story = StoryObj<ToolbarStoryArgs>;
+export const Default: Story = {
+  name: 'Default / Dark',
+  args: {
+    selectedTheme: Theme.FlatDark,
+  },
+};
 
-export const Default: Story = {};
+export const Light: Story = {
+  name: 'Default / Light',
+  args: {
+    selectedTheme: Theme.FlatLight,
+  },
+};
+
+export const AeroDark: Story = {
+  name: 'Aero / Dark',
+  args: {
+    selectedTheme: Theme.AeroDark,
+  },
+};
+
+export const AeroLight: Story = {
+  name: 'Aero / Light',
+  args: {
+    selectedTheme: Theme.AeroLight,
+  },
+};

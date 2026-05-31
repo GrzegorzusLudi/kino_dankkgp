@@ -1,11 +1,11 @@
 <div #container class="video-container" [ngClass]="theme()">
-  <lib-header>{{ title }}</lib-header>
+  <lib-header>{{ title() }}</lib-header>
   <div class="content">
-    @if (videoId) {
+    @if (videoId()) {
       <youtube-player
-        [videoId]="videoId"
-        [width]="width"
-        [height]="height"
+        [videoId]="videoId()!"
+        [width]="width()"
+        [height]="height()"
         (ready)="savePlayer($event)" />
     } @else {
       <div class="no-video">

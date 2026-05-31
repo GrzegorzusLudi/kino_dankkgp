@@ -2,7 +2,7 @@
   <lib-header>Chat</lib-header>
   <div class="content">
     <div class="messages">
-      @for (message of messages; track trackByFn($index, message)) {
+      @for (message of messages(); track trackByFn($index, message)) {
         <span
           >[{{ timestamps[$index] }}] {{ message.username }}:
           {{ message.text }}</span
