@@ -10,6 +10,22 @@
     "build": {
       "configurations": {
         "development": {
+          "command": "npx tsx scripts/build.ts --configuration=development"
+        },
+        "production": {
+          "command": "npx tsx scripts/build.ts --configuration=production"
+        }
+      },
+      "defaultConfiguration": "production",
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tsx scripts/build.ts --configuration=production",
+        "cwd": "{workspaceRoot}/frontend"
+      }
+    },
+    "build-angular": {
+      "configurations": {
+        "development": {
           "extractLicenses": false,
           "fileReplacements": [
             {
@@ -78,10 +94,10 @@
     "serve": {
       "configurations": {
         "development": {
-          "buildTarget": "browser:build:development"
+          "buildTarget": "browser:build-angular:development"
         },
         "production": {
-          "buildTarget": "browser:build:production"
+          "buildTarget": "browser:build-angular:production"
         }
       },
       "defaultConfiguration": "development",
