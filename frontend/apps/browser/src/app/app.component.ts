@@ -6,7 +6,6 @@ import {
   OnInit,
   Signal,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
@@ -23,13 +22,6 @@ import { ModeToggleComponent } from './components/mode-toggle/mode-toggle.compon
 import { TitleComponent } from 'title';
 import { ToolbarComponent } from 'toolbar';
 import { UserInfoComponent } from './components/user-info/user-info.component';
-import { UsernameDialogComponent } from './components/username-dialog/username-dialog.component';
-import {
-  USERNAME_DIALOG_ENTER_ANIMATION_DURATION,
-  USERNAME_DIALOG_EXIT_ANIMATION_DURATION,
-  USERNAME_DIALOG_HEIGHT,
-  USERNAME_DIALOG_WIDTH,
-} from './components/username-dialog/username-dialog.consts';
 import { VerticalSeparatorComponent } from 'vertical-separator';
 import { VideoActionsComponent } from './components/video-actions/video-actions.component';
 import { VideoContainerComponent } from './components/video-container/video-container.component';
@@ -76,10 +68,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   protected width: number = INITIAL_VIDEO_WIDTH;
   protected height: number = INITIAL_VIDEO_HEIGHT;
 
-  constructor(
-    private readonly apiService: ApiService,
-    public dialog: MatDialog,
-  ) {
+  constructor(private readonly apiService: ApiService) {
     this.messages = toSignal(this.apiService.messages, { initialValue: [] });
     this.username = toSignal(this.apiService.username, { initialValue: '' });
     this.usernames = toSignal(this.apiService.usernames, { initialValue: [] });
@@ -96,9 +85,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     );
   }
 
-  ngOnInit(): void {
-    this.openUsernameDialog();
-  }
+  ngOnInit(): void {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
@@ -123,12 +110,4 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.height = Math.max(MINIMUM_VIDEO_HEIGHT, Math.floor(dimensions.height));
   }
 
-  private openUsernameDialog(): void {
-    this.dialog.open(UsernameDialogComponent, {
-      width: USERNAME_DIALOG_WIDTH,
-      height: USERNAME_DIALOG_HEIGHT,
-      enterAnimationDuration: USERNAME_DIALOG_ENTER_ANIMATION_DURATION,
-      exitAnimationDuration: USERNAME_DIALOG_EXIT_ANIMATION_DURATION,
-    });
-  }
 }
