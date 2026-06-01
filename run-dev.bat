@@ -1,7 +1,7 @@
 @echo off
 echo Building frontend...
 cd frontend
-call npx nx run browser:build --configuration=development --skip-nx-cache
+call npx nx run browser:build --configuration=production --skip-nx-cache
 if %errorlevel% neq 0 (
     echo Frontend build failed!
     cd ..
