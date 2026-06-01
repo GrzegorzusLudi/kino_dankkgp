@@ -1,4 +1,11 @@
-import { Directive, effect, ElementRef, inject, Renderer2, Signal } from '@angular/core';
+import {
+  Directive,
+  effect,
+  ElementRef,
+  inject,
+  Renderer2,
+  Signal,
+} from '@angular/core';
 
 import { THEME } from './theme.token';
 
@@ -15,7 +22,7 @@ export class ThemedDirective {
     effect(() => {
       const theme = this.theme();
       const firstChild = this.elementRef.nativeElement.firstElementChild;
-      
+
       if (!firstChild) {
         return;
       }
