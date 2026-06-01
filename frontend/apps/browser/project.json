@@ -10,17 +10,17 @@
     "build": {
       "configurations": {
         "development": {
-          "command": "npx tsx scripts/build.ts --configuration=development"
+          "command": "npx ts-node scripts/build.ts --configuration=development"
         },
         "production": {
-          "command": "npx tsx scripts/build.ts --configuration=production"
+          "command": "npx ts-node scripts/build.ts --configuration=production"
         }
       },
       "defaultConfiguration": "production",
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx tsx scripts/build.ts --configuration=production",
-        "cwd": "{workspaceRoot}/frontend"
+        "command": "npx ts-node scripts/build.ts --configuration=production",
+        "cwd": "{workspaceRoot}"
       }
     },
     "build-angular": {
