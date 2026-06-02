@@ -1,10 +1,8 @@
 @use '../../../theme/src/lib/variables' as *;
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
 h1.#{$flat-light-theme-class-name},
 h1.#{$flat-dark-theme-class-name} {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: $title-font-size;
   line-height: $title-line-height;
   margin: 0;

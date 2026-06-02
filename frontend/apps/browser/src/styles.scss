@@ -1,5 +1,13 @@
 @import 'normalize.css/normalize.css';
 
+@font-face {
+  font-family: 'Open Sans';
+  src: url('fonts/open-sans/OpenSans-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 .mat-mdc-dialog-container,
 .mat-mdc-dialog-inner-container,
 .mat-mdc-dialog-surface,
