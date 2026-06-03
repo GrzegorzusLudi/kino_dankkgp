@@ -20,6 +20,7 @@ $medium-height: 32px;
   line-height: $line-height;
   box-shadow: none;
   width: 100%;
+  white-space: nowrap;
   @include border-radius;
 
   &.small {
