@@ -12,12 +12,15 @@ async function build() {
   const BACKEND_HTML_PATH = normalize(`${cwd()}/../server/templates`);
   const BACKEND_STATIC_PATH = normalize(`${cwd()}/../server/static`);
 
+  const FRONTEND_FONTS_PATH = normalize(`${cwd()}/apps/browser/public/fonts`);
+
   const HTML_FILES = [normalize(`${FRONTEND_DIST_PATH}/index.html`)];
   const STATIC_FILES = [
     normalize(`${FRONTEND_DIST_PATH}/*.css`),
     normalize(`${FRONTEND_DIST_PATH}/*.js`),
     normalize(`${FRONTEND_DIST_PATH}/*.ico`),
   ];
+  const FONT_FILES = [normalize(`${FRONTEND_FONTS_PATH}/**/*.ttf`)];
 
   if (!existsSync(FRONTEND_STATIC_PATH)) {
     mkdirSync(FRONTEND_STATIC_PATH);
@@ -26,6 +29,18 @@ async function build() {
   console.log(`Copying static files to ${FRONTEND_STATIC_PATH}`);
 
   await copy(STATIC_FILES, FRONTEND_STATIC_PATH);
+
+  console.log(`Copying font files to ${FRONTEND_STATIC_PATH}`);
+
+  await copy(FONT_FILES, FRONTEND_STATIC_PATH, { flat: true });
+
+  console.log(`Updating font paths in CSS files in ${FRONTEND_STATIC_PATH}`);
+
+  await replaceInFile({
+    files: normalize(`${FRONTEND_STATIC_PATH}/*.css`),
+    from: /\/fonts\/[^/]+\//g,
+    to: '',
+  });
 
   console.log(`Cleaning previous HTML files in ${BACKEND_HTML_PATH}`);
 
@@ -37,6 +52,7 @@ async function build() {
     normalize(`${BACKEND_STATIC_PATH}/*.js`),
     normalize(`${BACKEND_STATIC_PATH}/*.css`),
     normalize(`${BACKEND_STATIC_PATH}/*.ico`),
+    normalize(`${BACKEND_STATIC_PATH}/*.ttf`),
   ], { force: true });
 
   console.log(`Updating src and href attributes in ${HTML_FILES[0]}`);
@@ -64,6 +80,10 @@ async function build() {
   console.log(`Copying static files to ${BACKEND_STATIC_PATH}`);
 
   await copy(STATIC_FILES, BACKEND_STATIC_PATH);
+
+  console.log(`Copying font files to ${BACKEND_STATIC_PATH}`);
+
+  await copy(FONT_FILES, BACKEND_STATIC_PATH, { flat: true });
 
   console.log(`Deleting static files in ${FRONTEND_DIST_PATH}`);
 
