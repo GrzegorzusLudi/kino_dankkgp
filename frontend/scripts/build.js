@@ -34,14 +34,6 @@ async function build() {
 
   await copy(FONT_FILES, FRONTEND_STATIC_PATH, { flat: true });
 
-  console.log(`Updating font paths in CSS files in ${FRONTEND_STATIC_PATH}`);
-
-  await replaceInFile({
-    files: normalize(`${FRONTEND_STATIC_PATH}/*.css`),
-    from: /\/fonts\/[^/]+\//g,
-    to: '',
-  });
-
   console.log(`Cleaning previous HTML files in ${BACKEND_HTML_PATH}`);
 
   await deleteAsync([normalize(`${BACKEND_HTML_PATH}/*.html`)], { force: true });
@@ -80,6 +72,14 @@ async function build() {
   console.log(`Copying static files to ${BACKEND_STATIC_PATH}`);
 
   await copy(STATIC_FILES, BACKEND_STATIC_PATH);
+
+  console.log(`Updating font paths in CSS files in ${BACKEND_STATIC_PATH}`);
+
+  await replaceInFile({
+    files: `${BACKEND_STATIC_PATH.replace(/\\/g, '/')}/*.css`,
+    from: /\/fonts\/[^/]+\//g,
+    to: '',
+  });
 
   console.log(`Copying font files to ${BACKEND_STATIC_PATH}`);
 
