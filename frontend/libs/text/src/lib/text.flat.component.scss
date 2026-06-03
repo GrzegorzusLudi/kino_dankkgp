@@ -1,0 +1,16 @@
+@use '../../../theme/src/lib/variables' as *;
+
+span.#{$flat-light-theme-class-name},
+span.#{$flat-dark-theme-class-name} {
+  font-family: 'Open Sans', sans-serif;
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+span.#{$flat-dark-theme-class-name} {
+  color: $dark-text-color;
+}
+
+span.#{$flat-light-theme-class-name} {
+  color: $light-text-color;
+}
