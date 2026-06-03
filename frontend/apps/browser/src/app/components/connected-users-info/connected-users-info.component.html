@@ -2,7 +2,7 @@
   <lib-header>Connected users ({{ usernames().length }})</lib-header>
   <div class="content">
     @for (username of usernames(); track trackByFn($index, username)) {
-      <span>{{ username }}</span>
+      <lib-text>{{ username }}</lib-text>
     }
   </div>
 </div>

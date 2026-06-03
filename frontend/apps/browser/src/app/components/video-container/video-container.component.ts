@@ -5,6 +5,7 @@ import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 
 import { THEME } from 'theme';
 import { HeaderComponent } from 'header';
+import { TextComponent } from 'text';
 import {
   DEFAULT_VIDEO_HEIGHT,
   DEFAULT_VIDEO_WIDTH,
@@ -13,7 +14,7 @@ import {
 
 @Component({
   selector: 'app-video-container',
-  imports: [HeaderComponent, NgClass, YoutubePlayerComponent],
+  imports: [HeaderComponent, NgClass, TextComponent, YoutubePlayerComponent],
   templateUrl: './video-container.component.html',
   styleUrls: [
     './video-container.aero-dark.component.scss',

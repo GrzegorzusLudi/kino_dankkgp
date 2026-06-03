@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { THEME } from 'theme';
 import { NgClass, NgStyle } from '@angular/common';
+import { TextComponent } from 'text';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faCircleCheck,
@@ -21,7 +22,7 @@ import { interval, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-toast',
-  imports: [FontAwesomeModule, NgClass, NgStyle],
+  imports: [FontAwesomeModule, NgClass, NgStyle, TextComponent],
   templateUrl: './toast.component.html',
   styleUrls: [
     './toast.aero-dark.component.scss',

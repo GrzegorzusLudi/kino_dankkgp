@@ -3,9 +3,9 @@
   <div class="content">
     <div class="messages">
       @for (message of messages(); track trackByFn($index, message)) {
-        <span
+        <lib-text
           >[{{ timestamps[$index] }}] {{ message.username }}:
-          {{ message.text }}</span
+          {{ message.text }}</lib-text
         >
       }
     </div>

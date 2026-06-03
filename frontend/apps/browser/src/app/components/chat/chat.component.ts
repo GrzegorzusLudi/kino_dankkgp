@@ -22,6 +22,7 @@ import { ApiService } from '../../services/api/api.service';
 import { ButtonComponent } from 'button';
 import { HeaderComponent } from 'header';
 import { InputComponent } from 'input';
+import { TextComponent } from 'text';
 import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
@@ -33,6 +34,7 @@ import { ToastService } from '../../services/toast/toast.service';
     InputComponent,
     NgClass,
     ReactiveFormsModule,
+    TextComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrls: [

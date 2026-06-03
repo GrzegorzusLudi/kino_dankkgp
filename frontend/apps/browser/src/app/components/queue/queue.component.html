@@ -10,18 +10,20 @@
         (blur)="blur($index)">
         <div class="index">
           @if (queue()?.currentlyPlayedVideo?.videoId !== item.videoId) {
-            {{ $index + 1 }}
+            <lib-text>{{ $index + 1 }}</lib-text>
           } @else {
             <fa-icon [icon]="faPlay" />
           }
         </div>
-        <div class="title">{{ item.title }}</div>
-        <div class="added-by">added by {{ item.user.nick }}</div>
+        <div class="title"><lib-text>{{ item.title }}</lib-text></div>
+        <div class="added-by"><lib-text>added by {{ item.user.nick }}</lib-text></div>
         <div class="duration">
-          @if (queue()?.currentlyPlayedVideo?.videoId === item.videoId) {
-            {{ queue()?.currentlyPlayedSecond | duration }} /
-          }
-          {{ item.duration_in_seconds | duration }}
+          <lib-text>
+            @if (queue()?.currentlyPlayedVideo?.videoId === item.videoId) {
+              {{ queue()?.currentlyPlayedSecond | duration }} /
+            }
+            {{ item.duration_in_seconds | duration }}
+          </lib-text>
         </div>
         <div class="actions">
           @if (focusedIndex === $index) {
@@ -37,7 +39,7 @@
     }
   } @else {
     <div class="empty">
-      <span class="italic">Queue is empty.</span>
+      <lib-text class="italic">Queue is empty.</lib-text>
     </div>
   }
 </div>

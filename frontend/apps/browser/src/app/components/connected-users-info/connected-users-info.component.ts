@@ -3,10 +3,11 @@ import { Component, inject, input } from '@angular/core';
 
 import { THEME } from 'theme';
 import { HeaderComponent } from 'header';
+import { TextComponent } from 'text';
 
 @Component({
   selector: 'app-connected-users-info',
-  imports: [HeaderComponent, NgClass],
+  imports: [HeaderComponent, NgClass, TextComponent],
   templateUrl: './connected-users-info.component.html',
   styleUrls: [
     './connected-users-info.aero-dark.component.scss',

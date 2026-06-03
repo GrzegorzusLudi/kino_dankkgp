@@ -7,10 +7,11 @@ import { faTrash, faCircleUp, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DurationPipe } from '../../pipes/duration/duration.pipe';
 import { ButtonComponent } from 'button';
+import { TextComponent } from 'text';
 
 @Component({
   selector: 'app-queue',
-  imports: [ButtonComponent, DurationPipe, FontAwesomeModule, NgClass],
+  imports: [ButtonComponent, DurationPipe, FontAwesomeModule, NgClass, TextComponent],
   templateUrl: './queue.component.html',
   styleUrls: [
     './queue.aero-dark.component.scss',
