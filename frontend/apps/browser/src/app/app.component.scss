@@ -23,11 +23,13 @@
 }
 
 .main {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   padding-right: $padding * 0.5;
 }
 
 .right {
+  flex-shrink: 0;
   padding-left: $padding * 0.5;
 }
 
