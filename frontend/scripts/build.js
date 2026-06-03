@@ -1,4 +1,3 @@
-import { execSync } from 'node:child_process';
 import { existsSync, mkdirSync } from 'node:fs';
 import { normalize } from 'node:path';
 import { cwd } from 'node:process';
@@ -8,13 +7,6 @@ import { deleteAsync } from 'del';
 import { replaceInFile } from 'replace-in-file';
 
 async function build() {
-  const configArg = process.argv.find((a) => a.startsWith('--configuration='));
-  const configuration = configArg ? configArg.split('=')[1] : 'production';
-
-  console.log(`Executing nx build browser (${configuration})`);
-
-  execSync(`npx nx run browser:build-angular --configuration=${configuration}`, { stdio: 'inherit' });
-
   const FRONTEND_DIST_PATH = normalize(`${cwd()}/dist/apps/browser/browser`);
   const FRONTEND_STATIC_PATH = normalize(`${cwd()}/dist/apps/browser/browser/static`);
   const BACKEND_HTML_PATH = normalize(`${cwd()}/../server/templates`);

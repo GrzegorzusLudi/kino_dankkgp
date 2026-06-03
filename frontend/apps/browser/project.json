@@ -17,6 +17,7 @@
         }
       },
       "defaultConfiguration": "production",
+      "dependsOn": ["build-angular"],
       "executor": "nx:run-commands",
       "options": {
         "command": "node scripts/build.js --configuration=production",
