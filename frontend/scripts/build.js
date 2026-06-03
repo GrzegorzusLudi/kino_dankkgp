@@ -77,7 +77,7 @@ async function build() {
 
   await deleteAsync(STATIC_FILES);
 
-  console.log('Done!')
+  console.log('Done!');
 }
 
 build();

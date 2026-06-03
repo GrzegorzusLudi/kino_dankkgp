@@ -28,7 +28,7 @@
     "deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsx scripts/build.ts"
+        "command": "node scripts/build.js"
       },
       "dependsOn": ["build"]
     },

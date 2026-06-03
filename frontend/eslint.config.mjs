@@ -9,7 +9,7 @@ const JSONS = [
 ];
 
 const SOURCES = [
-  'scripts/build.ts',
+  'scripts/build.js',
   'eslint.config.mjs',
   'jest.config.ts',
   'jest.preset.js',
