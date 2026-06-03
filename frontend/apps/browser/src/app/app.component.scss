@@ -14,10 +14,12 @@
 
 .right,
 .main {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   padding: $padding;
   height: 100%;
+  overflow: hidden;
 }
 
 .main {
