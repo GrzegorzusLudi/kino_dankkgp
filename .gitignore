@@ -10,5 +10,6 @@ server/node_modules
 server/templates/index.html
 server/static/*.css
 server/static/*.js
-server/static/favicon.ico
+server/static/*.ico
+server/static/*.ttf
 server/.env
