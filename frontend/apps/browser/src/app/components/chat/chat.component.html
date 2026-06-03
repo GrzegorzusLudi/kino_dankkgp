@@ -10,7 +10,7 @@
       }
     </div>
     <form class="input" [formGroup]="form">
-      @if (form.get('username')?.value) {
+      @if (!username()) {
         <lib-input label="Username" formControlName="username" />
         <lib-button (click)="setUsername()">Set username</lib-button>
       } @else {
