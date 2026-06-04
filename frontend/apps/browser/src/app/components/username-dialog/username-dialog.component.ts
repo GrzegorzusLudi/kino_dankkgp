@@ -1,7 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { take } from 'rxjs';
 
 import { THEME } from 'theme';
 import { ApiService } from '../../services/api/api.service';
@@ -27,7 +28,7 @@ import { InputComponent } from 'input';
     './username-dialog.light.component.scss',
   ],
 })
-export class UsernameDialogComponent {
+export class UsernameDialogComponent implements OnInit {
   protected readonly theme = inject(THEME);
 
   username = new FormControl<string>('');
@@ -36,6 +37,12 @@ export class UsernameDialogComponent {
     private readonly apiService: ApiService,
     private readonly dialogRef: MatDialogRef<UsernameDialogComponent>,
   ) {}
+
+  ngOnInit(): void {
+    this.apiService.username.pipe(take(1)).subscribe((name) => {
+      this.username.setValue(name);
+    });
+  }
 
   setUsername(): void {
     if (this.username.value) {
