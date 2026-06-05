@@ -1,10 +1,9 @@
-import { NgClass } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { take } from 'rxjs';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 import { ApiService } from '../../services/api/api.service';
 import { ButtonComponent } from 'button';
 import { HeaderComponent } from 'header';
@@ -17,9 +16,9 @@ import { InputComponent } from 'input';
     FormsModule,
     HeaderComponent,
     InputComponent,
-    NgClass,
     ReactiveFormsModule,
   ],
+  hostDirectives: [ThemedDirective],
   templateUrl: './username-dialog.component.html',
   styleUrls: [
     './username-dialog.aero-dark.component.scss',
@@ -29,8 +28,6 @@ import { InputComponent } from 'input';
   ],
 })
 export class UsernameDialogComponent implements OnInit {
-  protected readonly theme = inject(THEME);
-
   username = new FormControl<string>('');
 
   constructor(
