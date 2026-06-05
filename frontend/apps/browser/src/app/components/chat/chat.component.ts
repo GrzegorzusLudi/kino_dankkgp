@@ -1,8 +1,6 @@
-import { NgClass } from '@angular/common';
 import {
   Component,
   DoCheck,
-  inject,
   input,
   IterableDiffer,
   IterableDiffers,
@@ -16,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 import { Message } from '../../models/message.interface';
 import { ApiService } from '../../services/api/api.service';
 import { ButtonComponent } from 'button';
@@ -32,7 +30,6 @@ import { ToastService } from '../../services/toast/toast.service';
     FormsModule,
     HeaderComponent,
     InputComponent,
-    NgClass,
     ReactiveFormsModule,
     TextComponent,
   ],
@@ -43,9 +40,9 @@ import { ToastService } from '../../services/toast/toast.service';
     './chat.dark.component.scss',
     './chat.light.component.scss',
   ],
+  hostDirectives: [ThemedDirective],
 })
 export class ChatComponent implements OnInit, DoCheck {
-  protected readonly theme = inject(THEME);
 
   username = input('');
   messages = input<Message[]>([]);
