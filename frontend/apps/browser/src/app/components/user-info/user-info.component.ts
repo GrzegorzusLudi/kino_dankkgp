@@ -1,9 +1,8 @@
-import { NgClass } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 import { MatDialog } from '@angular/material/dialog';
 import { UsernameDialogComponent } from '../username-dialog/username-dialog.component';
 import {
@@ -16,7 +15,8 @@ import { ButtonComponent } from 'button';
 
 @Component({
   selector: 'app-user-info',
-  imports: [ButtonComponent, FontAwesomeModule, NgClass],
+  imports: [ButtonComponent, FontAwesomeModule],
+  hostDirectives: [ThemedDirective],
   templateUrl: './user-info.component.html',
   styleUrls: [
     './user-info.aero-dark.component.scss',
@@ -26,8 +26,6 @@ import { ButtonComponent } from 'button';
   ],
 })
 export class UserInfoComponent {
-  protected readonly theme = inject(THEME);
-
   username = input('');
 
   faUser = faUser;
