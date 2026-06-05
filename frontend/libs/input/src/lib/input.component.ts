@@ -1,20 +1,18 @@
-import { NgClass } from '@angular/common';
 import {
   Component,
   ElementRef,
   forwardRef,
-  inject,
   input,
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { get, isObject } from 'lodash';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 
 @Component({
   selector: 'lib-input',
-  imports: [NgClass],
+  imports: [],
   templateUrl: './input.component.html',
   styleUrls: [
     './input.aero-dark.component.scss',
@@ -22,6 +20,7 @@ import { THEME } from 'theme';
     './input.dark.component.scss',
     './input.light.component.scss',
   ],
+  hostDirectives: [ThemedDirective],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -31,7 +30,6 @@ import { THEME } from 'theme';
   ],
 })
 export class InputComponent implements ControlValueAccessor {
-  protected readonly theme = inject(THEME);
 
   label = input.required<string>();
 
