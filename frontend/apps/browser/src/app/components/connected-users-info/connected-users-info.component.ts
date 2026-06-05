@@ -1,13 +1,13 @@
-import { NgClass } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 import { HeaderComponent } from 'header';
 import { TextComponent } from 'text';
 
 @Component({
   selector: 'app-connected-users-info',
-  imports: [HeaderComponent, NgClass, TextComponent],
+  imports: [HeaderComponent, TextComponent],
+  hostDirectives: [ThemedDirective],
   templateUrl: './connected-users-info.component.html',
   styleUrls: [
     './connected-users-info.aero-dark.component.scss',
@@ -17,8 +17,6 @@ import { TextComponent } from 'text';
   ],
 })
 export class ConnectedUsersInfoComponent {
-  protected readonly theme = inject(THEME);
-
   usernames = input<string[]>([]);
 
   trackByFn(index: number, username: string): string {

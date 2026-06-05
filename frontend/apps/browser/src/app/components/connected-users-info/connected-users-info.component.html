@@ -1,4 +1,4 @@
-<div class="connected-users-info" [ngClass]="theme()">
+<div class="connected-users-info">
   <lib-header>Connected users ({{ usernames().length }})</lib-header>
   <div class="content">
     @for (username of usernames(); track trackByFn($index, username)) {
