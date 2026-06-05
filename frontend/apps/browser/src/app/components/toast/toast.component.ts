@@ -1,13 +1,12 @@
 import {
   AfterViewInit,
   Component,
-  inject,
   input,
   OnDestroy,
   OnInit,
   output,
 } from '@angular/core';
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 import { NgClass, NgStyle } from '@angular/common';
 import { TextComponent } from 'text';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -23,6 +22,7 @@ import { interval, Subscription, take } from 'rxjs';
 @Component({
   selector: 'app-toast',
   imports: [FontAwesomeModule, NgClass, NgStyle, TextComponent],
+  hostDirectives: [ThemedDirective],
   templateUrl: './toast.component.html',
   styleUrls: [
     './toast.aero-dark.component.scss',
@@ -32,8 +32,6 @@ import { interval, Subscription, take } from 'rxjs';
   ],
 })
 export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
-  protected readonly theme = inject(THEME);
-
   title = input('');
   message = input('');
   variant = input<'info' | 'success' | 'danger'>('danger');
