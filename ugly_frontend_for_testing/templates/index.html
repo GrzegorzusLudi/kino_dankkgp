@@ -32,11 +32,14 @@
     <script src="/static/socket.io.min.js"></script>
     <script>
         var tag, done = false
+        let client_sid = null;
+        let socket = null
 
         function init() {
-            const socket = io();
+            socket = io();
             socket.on('message', ev => {
                 console.log(ev.data)
+                client_sid = ev.sid
                 //document.getElementById('content').innerHTML = ev.data
                 //if(ev.data != 'Connected')
                 //    player.cueVideoById((new URL(ev.data)).searchParams.get('v'))
@@ -82,6 +85,14 @@
                 var inputValue = document.getElementById('queue-add-video-input').value
                 socket.emit("queue-add-video", { data: inputValue })
                 document.getElementById('queue-add-video-input').value = ""
+            })
+
+            const form_skip_current_video = document.getElementById('queue-skip-vote-current-video')
+            form_skip_current_video.addEventListener('submit', function (e) {
+                e.preventDefault()
+                var inputValue = document.getElementById('queue-skip-vote-current-video-value').value
+
+                socket.emit("queue-skip-current-video", { data: inputValue })
             })
         }
         function onYouTubeIframeAPIReady() {
@@ -146,6 +157,7 @@ emitting event "statechange" to all [/]
         */
         function updateQueue(queueData) {
             updatePlayer(queueData)
+            updateSkipElement(queueData)
             updateQueueElement(queueData)
         }
         function updatePlayer(queueData){
@@ -169,6 +181,26 @@ emitting event "statechange" to all [/]
 
             //player.cueVideoById
         }
+        function updateSkipElement(queueData){
+            if(queueData.currentlyPlayedVideo == null){
+                document.getElementById('queue-skip-vote-current-video-info').innerHTML = '';
+                document.getElementById('queue-skip-vote-current-video-button').disabled = true
+            } else {
+                var skip_voting = queueData.currentlyPlayedVideo.skip_voting;
+                var playerSkipping = skip_voting.you_voted;
+
+                document.getElementById('queue-skip-vote-current-video-info').innerHTML = '(' + skip_voting.user_number_voted + '/' + skip_voting.user_number_to_have_majority + ')';
+                document.getElementById('queue-skip-vote-current-video-button').disabled = false
+
+                if(playerSkipping){
+                    document.getElementById('queue-skip-vote-current-video-value').value = false
+                    document.getElementById('queue-skip-vote-current-video-button').value = 'CANCEL SKIP VOTE'
+                } else {
+                    document.getElementById('queue-skip-vote-current-video-value').value = true
+                    document.getElementById('queue-skip-vote-current-video-button').value = 'VOTE TO SKIP'
+                }
+            }
+        }
         function updateQueueElement(queueData) {
             var queueElement = document.getElementById('queue')
 
@@ -178,19 +210,64 @@ emitting event "statechange" to all [/]
 
             var table = document.createElement('table')
             for (var i in videoData){
-                var videoDatum = videoData[i]
+                let videoDatum = videoData[i]
 
                 var tr = document.createElement('tr')
                 
                 var td_number = document.createElement('td')
                 td_number.innerHTML = (Number(i)+1) + '.'
+                
                 var td_name = document.createElement('td')
                 td_name.innerHTML = videoDatum.title
+                
+                var td_up_button = document.createElement('td')
+                if(i != 0){
+                    var up_button = document.createElement('input')
+                    up_button.type = 'button'
+                    if(!videoDatum.move_up_voting.you_voted)
+                        up_button.value = 'VOTE MOVE UP'
+                    else
+                        up_button.value = 'CANCEL VOTING TO MOVE UP'
+                    td_up_button.appendChild(up_button)
+                    
+                    var up_ratio = '(' + videoDatum.move_up_voting.user_number_voted + '/' + videoDatum.move_up_voting.user_number_to_have_majority + ')'
+                    td_up_button.appendChild(document.createTextNode(up_ratio))
+
+                    td_up_button.addEventListener('click', function (e) {
+                        e.preventDefault()
+
+                        socket.emit("queue-move-up-video", { data: {id: videoDatum.id, value: !videoDatum.move_up_voting.you_voted } })
+                        td_up_button.disabled = true
+                    })
+                }
+                
+                var td_remove_button = document.createElement('td')
+                var remove_button = document.createElement('input')
+                remove_button.type = 'button'
+                if(!videoDatum.skip_voting.you_voted)
+                    remove_button.value = 'VOTE REMOVE'
+                else
+                    remove_button.value = 'CANCEL VOTING TO REMOVE'
+                td_remove_button.appendChild(remove_button)
+
+                var remove_ratio = '(' + videoDatum.skip_voting.user_number_voted + '/' + videoDatum.skip_voting.user_number_to_have_majority + ')'
+                td_remove_button.appendChild(document.createTextNode(remove_ratio))
+
+                td_remove_button.addEventListener('click', function (e) {
+                    e.preventDefault()
+
+                    socket.emit("queue-skip-video", { data: {id: videoDatum.id, value: !videoDatum.skip_voting.you_voted } })
+                    td_remove_button.disabled = true
+                })
+
+
                 var td_duration = document.createElement('td')
                 td_duration.innerHTML = secondsToMinuteFormat(videoDatum.duration_in_seconds)
                 
                 tr.appendChild(td_number)
                 tr.appendChild(td_name)
+                tr.appendChild(td_up_button)
+                tr.appendChild(td_remove_button)
                 tr.appendChild(td_duration)
                 table.appendChild(tr)
             }
@@ -236,7 +313,14 @@ emitting event "statechange" to all [/]
         <div class="rightpanel">
             <div id="player"></div>
             <form id="queue-add-video-input-form">
-                Video URL:<input id="queue-add-video-input" /><input type="submit" value="ADD VIDEO TO QUEUE" />
+                Video URL:
+                <input id="queue-add-video-input" />
+                <input type="submit" value="ADD VIDEO TO QUEUE" />
+            </form>
+            <form id="queue-skip-vote-current-video">
+                <input type="submit" id="queue-skip-vote-current-video-button" value="VOTE TO SKIP" />
+                <input type="hidden" id="queue-skip-vote-current-video-value" value="true"/>
+                <span id="queue-skip-vote-current-video-info"></span>
             </form>
             <div id="queue" class="bordereddivmorewidth">
                 kolejka tu

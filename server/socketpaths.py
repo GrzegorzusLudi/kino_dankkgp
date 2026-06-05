@@ -16,7 +16,7 @@ def run_socketio_app(app):
     #connect events
     @socketio.on('connect')
     def user_connect():
-        emit('message', {'data': 'Connected'})
+        emit('message', {'data': 'Connected', 'sid': request.sid})
         application_state.addUser(request.sid)
 
 
@@ -43,6 +43,25 @@ def run_socketio_app(app):
     def queue_add_video(data):
         application_state.addVideo(request.sid,data['data'])
 
+    @socketio.on('queue-skip-current-video')
+    def skip_current_video(data):
+        skipBool = data['data'] == 'true'
+        application_state.skipCurrentVideo(request.sid,skipBool)
+
+    @socketio.on('queue-move-up-video')
+    def move_video_up(data):
+        videoId = data['data']['id']
+        skipBool = data['data']['value']
+        
+        application_state.moveVideoUp(request.sid,videoId,skipBool)
+
+    @socketio.on('queue-skip-video')
+    def skip_video(data):
+        videoId = data['data']['id']
+        skipBool = data['data']['value']
+        
+        application_state.skipVideo(request.sid,videoId,skipBool)
+
     #error handling
     @socketio.on_error()
     def chat_error_handler(e):
@@ -60,8 +79,10 @@ def update_application_state():
 
 last_state = ''
 def notify_about_state_change(socket,getall=False):
-    rendered_state = application_state.getrenderedstate(getall)
-    print(rendered_state)
-    if len(rendered_state.values()) > 0:
-        socket.emit('statechange',{'data':rendered_state})
+    users = application_state.getAllUsers()
+    for sid in users:
+        rendered_state = application_state.getrenderedstate(getall,sid)
+
+        if len(rendered_state.values()) > 0:
+            socket.emit('statechange',{'data':rendered_state},to=sid)
         

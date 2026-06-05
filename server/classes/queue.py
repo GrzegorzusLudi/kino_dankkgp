@@ -1,8 +1,8 @@
 import re
 import json
 import utils
-import apiconnection
 from utils import UserFaultException
+from classes.video import Video
 
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
@@ -14,24 +14,20 @@ class Queue:
         self.queue = []
         self.currentlyPlayedVideo = None
         self.currentlyPlayedSecond = 0
+        self.videoIdCounter = 0
 
     def addVideo(self,user,url):
-        video = Video(url,user)
+        video = Video(self.videoIdCounter,url,user)
+        self.videoIdCounter += 1
         self.queue.append(video)
         if self.currentlyPlayedVideo == None:
             self.currentlyPlayedVideo = video
-        
-    def toData(self):
-        return { 
-            'videos': [ video.toData() for video in self.queue ],
-            'currentlyPlayedVideo': self.currentlyPlayedVideo.toData() if self.currentlyPlayedVideo != None else None,
-            'currentlyPlayedSecond': self.currentlyPlayedSecond
-            }
 
-    def update(self):
+    def update(self,users):
         if self.currentlyPlayedVideo != None:
             self.currentlyPlayedSecond += 1
             self.checkNewVideo()
+            self.checkVideosVoting(users)
 
     def checkNewVideo(self):
         if self.currentlyPlayedSecond >= self.currentlyPlayedVideo.durationInSeconds:
@@ -42,53 +38,64 @@ class Queue:
                 self.currentlyPlayedVideo = None
             self.currentlyPlayedSecond = 0
 
+    def checkVideosVoting(self,users):
+        for video in self.queue:
+            video.refreshVoting(users)
 
-class Video:
-    def __init__(self,url,user):
-        self.validateVideo(url,user)
-        self.url = url
-        self.user = user
-        api_data = self.getVideoDataFromAPI()
-        self.durationInSeconds = api_data['duration']
-        self.snippetData = api_data['snippet']
+    def voteSkipCurrentVideo(self,user,voteBool):
+        if self.currentlyPlayedVideo != None:
+            self.currentlyPlayedVideo.voteSkip(user,voteBool)
 
+            self.removeSkippedVideos()
 
-    def validateVideo(self,url,user):
-        if self.validateYoutube(url):
-            self.type = 'youtube'
-        else:
-            raise UserFaultException('Invalid video url',user)
+    def voteMoveVideoUp(self,user,videoId,voteBool):
+        video = self.getVideoById(videoId)
+        if video != None:
+            video.voteMoveUp(user,voteBool)
 
-    def validateYoutube(self,url):
-        regex = r'(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=([^"&?\/\s]{11})|youtu\.be\/([^"&?\/\s]{11}))'
-        return re.match(regex,url)
-
-    #duration data from API
-    def getVideoDataFromAPI(self):
-        if self.type == 'youtube':
-            return self.getVideoDataFromYoutubeAPI()
+            if video.canBeMovedUp():
+                self.moveVideoUp(user,video)
         
-    def getVideoDataFromYoutubeAPI(self):
-        service = apiconnection.buildApiService()
+    def voteSkipVideo(self,user,videoId,voteBool):
+        video = self.getVideoById(videoId)
+        if video != None:
+            video.voteSkip(user,voteBool)
 
-        videoId = self.getYoutubeIdFromURL() 
-        self.videoId = videoId[0]
+            if video.canBeSkipped():
+                self.removeSkippedVideos()
 
-        return apiconnection.getVideoDataFromAPI(service,videoId)
 
-    def getYoutubeIdFromURL(self):
-        if 'youtu.be' in self.url:
-            return urlparse(self.url).path[1:]
-        elif 'youtube.com' in self.url:
-            return parse_qs(urlparse(self.url).query)['v']
+    def moveVideoUp(self,user,video):        
+        self.queue = [video] + list(filter(lambda x: x.id != video.id, self.queue))
+        video.clearMoveUpVoting()
 
-    def toData(self):
-        return {
-            'url': self.url,
-            'videoId': self.videoId,
-            'title': self.snippetData['title'],
-            'type': self.type,
-            'user': self.user.toData(),
-            'duration_in_seconds':self.durationInSeconds,
-        }
+        self.updateCurrentVideo()
 
+
+
+    def getVideoById(self,videoId):
+        videosFound = list(filter(lambda x: x.id == videoId, self.queue))
+
+        if len(videosFound) == 0:
+            return None
+        
+        return videosFound[0]
+
+    def removeSkippedVideos(self):
+        self.queue = list(filter(lambda x: not x.canBeSkipped(), self.queue))
+        self.updateCurrentVideo()
+
+    def updateCurrentVideo(self):
+        if len(self.queue) == 0:
+            self.currentlyPlayedVideo = None
+        else:
+            self.currentlyPlayedVideo = self.queue[0]
+        self.currentlyPlayedSecond = 0
+
+
+    def toData(self,sid):
+        return { 
+            'videos': [ video.toData(sid) for video in self.queue ],
+            'currentlyPlayedVideo': self.currentlyPlayedVideo.toData(sid) if self.currentlyPlayedVideo != None else None,
+            'currentlyPlayedSecond': self.currentlyPlayedSecond
+            }

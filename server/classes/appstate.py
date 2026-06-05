@@ -19,6 +19,9 @@ class AppState:
 
         self.MAX_MESSAGES = 200
 
+    def getAllUsers(self):
+        return self.users
+
     def getUser(self,sid):
         return self.users[sid]
 
@@ -51,15 +54,20 @@ class AppState:
         user = self.getUser(sid)
         self.queue.addVideo(user,url)
 
-    def stateObject(self):
-        return {
-            'messages':[ message.toData() for message in self.messages ],
-            'users':{ k:v.toData() for k,v in self.users.items() },
-            'queue':self.queue.toData()
-        }
+    def skipCurrentVideo(self,sid,voteBool):
+        user = self.getUser(sid)
+        self.queue.voteSkipCurrentVideo(user,voteBool)
 
-    def getrenderedstate(self,getall):
-        currentState = self.stateObject()
+    def moveVideoUp(self,sid,videoId,voteBool):
+        user = self.getUser(sid)
+        self.queue.voteMoveVideoUp(user,videoId,voteBool)
+
+    def skipVideo(self,sid,videoId,voteBool):
+        user = self.getUser(sid)
+        self.queue.voteSkipVideo(user,videoId,voteBool)
+
+    def getrenderedstate(self,getall,sid):
+        currentState = self.stateObject(sid)
         
         newstate = currentState
         statestringified = self.stringifyState(currentState)
@@ -82,5 +90,11 @@ class AppState:
         return statecode
 
     def update(self):
-        self.queue.update()
+        self.queue.update(self.users)
         
+    def stateObject(self,sid):
+        return {
+            'messages':[ message.toData() for message in self.messages ],
+            'users':{ k:v.toData() for k,v in self.users.items() },
+            'queue':self.queue.toData(sid)
+        }
