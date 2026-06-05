@@ -1,7 +1,6 @@
-import { NgClass } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 import { ButtonComponent } from 'button';
 import { InputComponent } from 'input';
 import { VerticalSeparatorComponent } from 'vertical-separator';
@@ -26,10 +25,10 @@ import {
     FontAwesomeModule,
     FormsModule,
     InputComponent,
-    NgClass,
     ReactiveFormsModule,
     VerticalSeparatorComponent,
   ],
+  hostDirectives: [ThemedDirective],
   templateUrl: './video-actions.component.html',
   styleUrls: [
     './video-actions.aero-dark.component.scss',
@@ -39,7 +38,6 @@ import {
   ],
 })
 export class VideoActionsComponent implements OnInit {
-  protected readonly theme = inject(THEME);
   protected form!: FormGroup;
 
   faPlus = faPlus;
