@@ -1,9 +1,8 @@
-import { NgClass } from '@angular/common';
-import { Component, effect, inject, input, OnDestroy } from '@angular/core';
+import { Component, effect, input, OnDestroy } from '@angular/core';
 import { YoutubePlayerComponent } from 'ngx-youtube-player';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 import { HeaderComponent } from 'header';
 import { TextComponent } from 'text';
 import {
@@ -14,7 +13,8 @@ import {
 
 @Component({
   selector: 'app-video-container',
-  imports: [HeaderComponent, NgClass, TextComponent, YoutubePlayerComponent],
+  imports: [HeaderComponent, TextComponent, YoutubePlayerComponent],
+  hostDirectives: [ThemedDirective],
   templateUrl: './video-container.component.html',
   styleUrls: [
     './video-container.aero-dark.component.scss',
@@ -24,8 +24,6 @@ import {
   ],
 })
 export class VideoContainerComponent implements OnDestroy {
-  protected readonly theme = inject(THEME);
-
   title = input<string>();
   videoId = input<string>();
   second = input<number>();
