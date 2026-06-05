@@ -1,11 +1,10 @@
-import { NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { THEME } from 'theme';
+import { ThemedDirective } from 'theme';
 
 @Component({
   selector: 'app-background',
-  imports: [NgClass],
+  imports: [],
   templateUrl: './background.component.html',
   styleUrls: [
     './background.aero-dark.component.scss',
@@ -13,7 +12,6 @@ import { THEME } from 'theme';
     './background.dark.component.scss',
     './background.light.component.scss',
   ],
+  hostDirectives: [ThemedDirective],
 })
-export class BackgroundComponent {
-  protected readonly theme = inject(THEME);
-}
+export class BackgroundComponent {}
