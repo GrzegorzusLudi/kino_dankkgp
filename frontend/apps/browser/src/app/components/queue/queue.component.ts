@@ -1,6 +1,5 @@
-import { Component, inject, input } from '@angular/core';
-import { THEME } from 'theme';
-import { NgClass } from '@angular/common';
+import { Component, input } from '@angular/core';
+import { ThemedDirective } from 'theme';
 import { Video } from '../../models/video.interface';
 import { Queue } from '../../models/queue.interface';
 import { faTrash, faCircleUp, faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +10,8 @@ import { TextComponent } from 'text';
 
 @Component({
   selector: 'app-queue',
-  imports: [ButtonComponent, DurationPipe, FontAwesomeModule, NgClass, TextComponent],
+  imports: [ButtonComponent, DurationPipe, FontAwesomeModule, TextComponent],
+  hostDirectives: [ThemedDirective],
   templateUrl: './queue.component.html',
   styleUrls: [
     './queue.aero-dark.component.scss',
@@ -21,8 +21,6 @@ import { TextComponent } from 'text';
   ],
 })
 export class QueueComponent {
-  protected readonly theme = inject(THEME);
-
   queue = input<Queue>();
 
   faPlay = faPlay;
