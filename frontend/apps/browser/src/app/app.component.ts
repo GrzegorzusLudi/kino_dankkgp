@@ -109,5 +109,4 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.width = Math.max(MINIMUM_VIDEO_HEIGHT, Math.floor(dimensions.width));
     this.height = Math.max(MINIMUM_VIDEO_HEIGHT, Math.floor(dimensions.height));
   }
-
 }

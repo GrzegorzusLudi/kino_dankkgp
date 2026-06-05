@@ -43,7 +43,6 @@ import { ToastService } from '../../services/toast/toast.service';
   hostDirectives: [ThemedDirective],
 })
 export class ChatComponent implements OnInit, DoCheck {
-
   username = input('');
   messages = input<Message[]>([]);
 
