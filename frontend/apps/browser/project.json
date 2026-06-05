@@ -79,6 +79,13 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n"
     },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prettier --w apps/browser/**/*.{ts,html,scss,json}",
+        "cwd": "{workspaceRoot}"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     },
