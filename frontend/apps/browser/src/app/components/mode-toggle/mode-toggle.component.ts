@@ -1,14 +1,14 @@
-import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
-import { THEME, Theme, ThemeService } from 'theme';
+import { THEME, Theme, ThemedDirective, ThemeService } from 'theme';
 import { SwitchComponent } from 'switch';
 
 @Component({
   selector: 'app-mode-toggle',
-  imports: [FontAwesomeModule, NgClass, SwitchComponent],
+  imports: [FontAwesomeModule, SwitchComponent],
+  hostDirectives: [ThemedDirective],
   templateUrl: './mode-toggle.component.html',
   styleUrls: [
     './mode-toggle.aero-dark.component.scss',
