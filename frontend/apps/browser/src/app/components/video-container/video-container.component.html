@@ -2,7 +2,7 @@
   <lib-header>{{ title() }}</lib-header>
   <div class="content">
     @if (videoId()) {
-      <youtube-player
+      <lib-youtube-player
         [videoId]="videoId()!"
         [width]="width()"
         [height]="height()"

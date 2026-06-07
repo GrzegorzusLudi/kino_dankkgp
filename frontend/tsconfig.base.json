@@ -21,7 +21,8 @@
       "title": ["libs/title/src/index.ts"],
       "toolbar": ["libs/toolbar/src/index.ts"],
       "utils": ["libs/utils/src/index.ts"],
-      "vertical-separator": ["libs/vertical-separator/src/index.ts"]
+      "vertical-separator": ["libs/vertical-separator/src/index.ts"],
+      "youtube-player": ["libs/youtube-player/src/index.ts"]
     },
     "skipLibCheck": true,
     "strict": true,

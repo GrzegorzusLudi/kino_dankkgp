@@ -1,10 +1,10 @@
 import { Component, effect, input, OnDestroy } from '@angular/core';
-import { YoutubePlayerComponent } from 'ngx-youtube-player';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 
 import { ThemedDirective } from 'theme';
 import { HeaderComponent } from 'header';
 import { TextComponent } from 'text';
+import { YouTubePlayer, YoutubePlayerComponent } from 'youtube-player';
 import {
   DEFAULT_VIDEO_HEIGHT,
   DEFAULT_VIDEO_WIDTH,
@@ -30,7 +30,7 @@ export class VideoContainerComponent implements OnDestroy {
   width = input(DEFAULT_VIDEO_WIDTH);
   height = input(DEFAULT_VIDEO_HEIGHT);
 
-  private player?: YT.Player;
+  private player?: YouTubePlayer;
   private readonly dimensions = new BehaviorSubject([
     `${DEFAULT_VIDEO_WIDTH}px`,
     `${DEFAULT_VIDEO_HEIGHT}px`,
@@ -52,7 +52,7 @@ export class VideoContainerComponent implements OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  savePlayer(player: Readonly<YT.Player>): void {
+  savePlayer(player: Readonly<YouTubePlayer>): void {
     this.player = player;
 
     this.subscription = this.dimensions
