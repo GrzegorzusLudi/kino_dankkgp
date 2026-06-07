@@ -12,7 +12,10 @@ import { ApiService } from './api.service';
 
 describe('ApiService', () => {
   let service: ApiService;
-  let mockSocket: { emit: ReturnType<typeof vi.fn>; on: ReturnType<typeof vi.fn> };
+  let mockSocket: {
+    emit: ReturnType<typeof vi.fn>;
+    on: ReturnType<typeof vi.fn>;
+  };
   let mockToastService: { next: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
@@ -148,16 +151,15 @@ describe('ApiService', () => {
     let errorHandler: (event: any) => void;
 
     beforeEach(() => {
-      const calls = mockSocket.on.mock.calls as [string, (...args: any[]) => void][];
-      messageHandler = calls.find(
-        (args) => args[0] === Event.Message,
-      )?.[1];
+      const calls = mockSocket.on.mock.calls as [
+        string,
+        (...args: any[]) => void,
+      ][];
+      messageHandler = calls.find((args) => args[0] === Event.Message)?.[1];
       stateChangeHandler = calls.find(
         (args) => args[0] === Event.StateChange,
       )?.[1];
-      errorHandler = calls.find(
-        (args) => args[0] === Event.Error,
-      )?.[1];
+      errorHandler = calls.find((args) => args[0] === Event.Error)?.[1];
     });
 
     describe('Message event', () => {
@@ -170,7 +172,10 @@ describe('ApiService', () => {
         const event = { data: 'Test message' };
         messageHandler(event);
         expect(mockToastService.next).toHaveBeenCalledWith(
-          expect.objectContaining({ variant: 'success', message: 'Test message' }),
+          expect.objectContaining({
+            variant: 'success',
+            message: 'Test message',
+          }),
         );
       });
 
@@ -185,8 +190,18 @@ describe('ApiService', () => {
         const event = {
           data: {
             messages: [
-              { nick: 'user1', message: 'Hello', date: '2023-01-01', time: '12:00:00' },
-              { nick: 'user2', message: 'Hi there', date: '2023-01-01', time: '12:05:00' },
+              {
+                nick: 'user1',
+                message: 'Hello',
+                date: '2023-01-01',
+                time: '12:00:00',
+              },
+              {
+                nick: 'user2',
+                message: 'Hi there',
+                date: '2023-01-01',
+                time: '12:05:00',
+              },
             ],
           },
         };
@@ -281,7 +296,11 @@ describe('ApiService', () => {
       it('should handle queue with empty videos array', async () => {
         const event = {
           data: {
-            queue: { videos: [], currentlyPlayedVideo: undefined, currentlyPlayedSecond: 0 },
+            queue: {
+              videos: [],
+              currentlyPlayedVideo: undefined,
+              currentlyPlayedSecond: 0,
+            },
           },
         };
 
@@ -312,7 +331,10 @@ describe('ApiService', () => {
 
         expect(console.error).toHaveBeenCalled();
         expect(mockToastService.next).toHaveBeenCalledWith(
-          expect.objectContaining({ variant: 'danger', message: expect.stringContaining('Failed to process state change') }),
+          expect.objectContaining({
+            variant: 'danger',
+            message: expect.stringContaining('Failed to process state change'),
+          }),
         );
       });
     });

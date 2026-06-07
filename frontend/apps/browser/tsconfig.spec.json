@@ -4,7 +4,13 @@
     "ignoreDeprecations": "6.0",
     "outDir": "../../dist/out-tsc/spec",
     "rootDir": ".",
-    "types": ["vitest/globals", "vitest/importMeta", "vite/client", "node", "vitest"]
+    "types": [
+      "vitest/globals",
+      "vitest/importMeta",
+      "vite/client",
+      "node",
+      "vitest"
+    ]
   },
   "files": ["src/test-setup.ts"],
   "include": [
