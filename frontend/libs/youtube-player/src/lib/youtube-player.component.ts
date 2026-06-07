@@ -20,7 +20,7 @@ import { loadYouTubeIframeApi } from './load-youtube-iframe-api.function';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YoutubePlayerComponent implements AfterViewInit, OnDestroy {
-  readonly videoId = input.required<string>();
+  readonly videoId = input<string>();
   readonly width = input<number | string>(640);
   readonly height = input<number | string>(390);
 
@@ -35,6 +35,7 @@ export class YoutubePlayerComponent implements AfterViewInit, OnDestroy {
   constructor() {
     effect(() => {
       const videoId = this.videoId();
+
       if (this.player && videoId) {
         this.player.loadVideoById(videoId);
       }
@@ -54,7 +55,7 @@ export class YoutubePlayerComponent implements AfterViewInit, OnDestroy {
       }
 
       this.player = new api.Player(this.host().nativeElement, {
-        videoId: this.videoId(),
+        videoId: this.videoId() ?? '',
         width: this.width(),
         height: this.height(),
         events: {
