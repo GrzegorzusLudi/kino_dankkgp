@@ -1,5 +1,6 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { noop } from 'lodash-es';
 import { firstValueFrom } from 'rxjs';
 
 import { SOCKET } from '../../app.config';
@@ -325,7 +326,7 @@ describe('ApiService', () => {
 
       it('should call console.error and notify toast on StateChange processing error', () => {
         const event = { data: { messages: [{ invalid: 'structure' }] } };
-        vi.spyOn(console, 'error').mockImplementation(() => {});
+        vi.spyOn(console, 'error').mockImplementation(noop);
 
         stateChangeHandler(event);
 
@@ -343,7 +344,7 @@ describe('ApiService', () => {
       it('should call console.error and notify toast with error message', () => {
         const errorMessage = 'Something went wrong';
         const event = { data: errorMessage };
-        vi.spyOn(console, 'error').mockImplementation(() => {});
+        vi.spyOn(console, 'error').mockImplementation(noop);
 
         errorHandler(event);
 
@@ -355,13 +356,13 @@ describe('ApiService', () => {
 
       it('should handle error event without throwing', () => {
         const event = {};
-        vi.spyOn(console, 'error').mockImplementation(() => {});
+        vi.spyOn(console, 'error').mockImplementation(noop);
         expect(() => errorHandler(event)).not.toThrow();
       });
 
       it('should handle error event with null data without throwing', () => {
         const event = { data: null };
-        vi.spyOn(console, 'error').mockImplementation(() => {});
+        vi.spyOn(console, 'error').mockImplementation(noop);
         expect(() => errorHandler(event)).not.toThrow();
       });
     });
