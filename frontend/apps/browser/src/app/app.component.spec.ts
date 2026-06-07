@@ -1,8 +1,8 @@
-import { TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 
-import { SOCKET } from './app.config';
 import { AppComponent } from './app.component';
+import { SOCKET } from './app.config';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

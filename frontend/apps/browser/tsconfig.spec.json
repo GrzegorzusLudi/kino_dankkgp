@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
     "ignoreDeprecations": "6.0",
     "outDir": "../../dist/out-tsc/spec",
@@ -12,6 +11,7 @@
       "vitest"
     ]
   },
+  "extends": "./tsconfig.json",
   "files": ["src/test-setup.ts"],
   "include": [
     "vite.config.mts",
