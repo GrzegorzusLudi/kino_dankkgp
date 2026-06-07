@@ -1,4 +1,4 @@
-import { get, isUndefined } from 'lodash';
+import { get, isUndefined } from 'lodash-es';
 
 export const getOrThrow = <T, TKey extends keyof T>(
   object: T,

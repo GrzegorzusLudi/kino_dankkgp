@@ -1,5 +1,5 @@
 import { Component, output } from '@angular/core';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 
 import { ThemedDirective } from 'theme';
 

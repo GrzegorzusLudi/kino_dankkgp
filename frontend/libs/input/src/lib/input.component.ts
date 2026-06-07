@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { get, isObject } from 'lodash';
+import { get, isObject } from 'lodash-es';
 
 import { ThemedDirective } from 'theme';
 

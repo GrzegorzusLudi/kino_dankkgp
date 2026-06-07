@@ -1,4 +1,4 @@
-import { get, isNaN } from 'lodash';
+import { get, isNaN } from 'lodash-es';
 
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { get, isArray, isObject } from 'lodash';
+import { get, isArray, isObject } from 'lodash-es';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Socket } from 'socket.io-client';
 

@@ -1,4 +1,4 @@
-import { memoize } from 'lodash';
+import { memoize } from 'lodash-es';
 
 import { IFRAME_API_SRC } from './youtube-player.consts';
 import { YouTubeApiWindow, YouTubeIframeApi } from './youtube-player.types';
