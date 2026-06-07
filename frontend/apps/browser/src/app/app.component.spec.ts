@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
-    const mockSocket = jasmine.createSpyObj('Socket', ['emit', 'on']);
+    const mockSocket = { emit: vi.fn(), on: vi.fn() };
 
     await TestBed.configureTestingModule({
       imports: [AppComponent],

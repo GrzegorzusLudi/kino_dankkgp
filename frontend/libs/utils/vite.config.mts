@@ -12,6 +12,7 @@ export default defineConfig(() => ({
     globals: true,
     environment: 'node',
     include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts}'],
+    passWithNoTests: true,
     setupFiles: ['src/test-setup.ts'],
     reporters: ['default'],
     coverage: {

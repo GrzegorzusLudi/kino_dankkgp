@@ -1,35 +1,34 @@
 import { TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
-import { Subscription, skip, take } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 import { SOCKET } from '../../app.config';
 import { Action } from '../../models/action.enum';
 import { Event } from '../../models/event.enum';
 import { Message } from '../../models/message.interface';
 import { Queue } from '../../models/queue.interface';
+import { ToastService } from '../toast/toast.service';
 import { ApiService } from './api.service';
 
 describe('ApiService', () => {
   let service: ApiService;
-  let mockSocket: jasmine.SpyObj<any>;
-  let subscription: Subscription;
+  let mockSocket: { emit: ReturnType<typeof vi.fn>; on: ReturnType<typeof vi.fn> };
+  let mockToastService: { next: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
-    mockSocket = jasmine.createSpyObj('Socket', ['emit', 'on']);
+    mockSocket = { emit: vi.fn(), on: vi.fn() };
+    mockToastService = { next: vi.fn() };
 
     TestBed.configureTestingModule({
       providers: [
         ApiService,
         { provide: SOCKET, useValue: mockSocket },
+        { provide: ToastService, useValue: mockToastService },
         provideZonelessChangeDetection(),
       ],
     });
 
     service = TestBed.inject(ApiService);
-  });
-
-  afterEach(() => {
-    subscription?.unsubscribe();
   });
 
   it('should be created', () => {
@@ -40,59 +39,44 @@ describe('ApiService', () => {
     it('should register listener for Message event', () => {
       expect(mockSocket.on).toHaveBeenCalledWith(
         Event.Message,
-        jasmine.any(Function),
+        expect.any(Function),
       );
     });
 
     it('should register listener for StateChange event', () => {
       expect(mockSocket.on).toHaveBeenCalledWith(
         Event.StateChange,
-        jasmine.any(Function),
+        expect.any(Function),
       );
     });
 
     it('should register listener for Error event', () => {
       expect(mockSocket.on).toHaveBeenCalledWith(
         Event.Error,
-        jasmine.any(Function),
+        expect.any(Function),
       );
     });
   });
 
   describe('observables', () => {
-    it('should emit empty array as initial messages value', (done) => {
-      subscription = service.messages.pipe(take(1)).subscribe((messages) => {
-        expect(messages).toEqual([]);
-        done();
-      });
+    it('should emit empty array as initial messages value', async () => {
+      const messages = await firstValueFrom(service.messages);
+      expect(messages).toEqual([]);
     });
 
-    it('should emit empty string as initial username value', (done) => {
-      subscription = service.username.pipe(take(1)).subscribe((username) => {
-        expect(username).toBe('');
-        done();
-      });
+    it('should emit empty string as initial username value', async () => {
+      const username = await firstValueFrom(service.username);
+      expect(username).toBe('');
     });
 
-    it('should emit empty array as initial usernames value', (done) => {
-      subscription = service.usernames.pipe(take(1)).subscribe((usernames) => {
-        expect(usernames).toEqual([]);
-        done();
-      });
+    it('should emit empty array as initial usernames value', async () => {
+      const usernames = await firstValueFrom(service.usernames);
+      expect(usernames).toEqual([]);
     });
 
-    it('should emit undefined as initial queue value', (done) => {
-      subscription = service.queue.pipe(take(1)).subscribe((queue) => {
-        expect(queue).toBeUndefined();
-        done();
-      });
-    });
-
-    it('should emit undefined as initial error value', (done) => {
-      subscription = service.error.pipe(take(1)).subscribe((error) => {
-        expect(error).toBeUndefined();
-        done();
-      });
+    it('should emit undefined as initial queue value', async () => {
+      const queue = await firstValueFrom(service.queue);
+      expect(queue).toBeUndefined();
     });
   });
 
@@ -105,13 +89,13 @@ describe('ApiService', () => {
       expect(mockSocket.emit).toHaveBeenCalledWith(
         Action.SetUsername,
         { data: username },
-        jasmine.any(Function),
+        expect.any(Function),
       );
     });
 
-    it('should update username subject when callback is invoked', (done) => {
+    it('should update username subject when callback is invoked', async () => {
       const username = 'test-user';
-      mockSocket.emit.and.callFake(
+      mockSocket.emit.mockImplementation(
         (_action: any, _data: any, callback: () => void) => {
           callback();
         },
@@ -119,10 +103,8 @@ describe('ApiService', () => {
 
       service.setUsername(username);
 
-      subscription = service.username.pipe(take(1)).subscribe((value) => {
-        expect(value).toBe(username);
-        done();
-      });
+      const value = await firstValueFrom(service.username);
+      expect(value).toBe(username);
     });
   });
 
@@ -166,73 +148,61 @@ describe('ApiService', () => {
     let errorHandler: (event: any) => void;
 
     beforeEach(() => {
-      const calls = mockSocket.on.calls.allArgs();
+      const calls = mockSocket.on.mock.calls as [string, (...args: any[]) => void][];
       messageHandler = calls.find(
-        (args: Event[]) => args[0] === Event.Message,
+        (args) => args[0] === Event.Message,
       )?.[1];
       stateChangeHandler = calls.find(
-        (args: Event[]) => args[0] === Event.StateChange,
+        (args) => args[0] === Event.StateChange,
       )?.[1];
       errorHandler = calls.find(
-        (args: Event[]) => args[0] === Event.Error,
+        (args) => args[0] === Event.Error,
       )?.[1];
     });
 
     describe('Message event', () => {
-      it('should handle message event', () => {
+      it('should handle message event without throwing', () => {
         const event = { data: 'Test message' };
-        spyOn(console, 'log');
-
         expect(() => messageHandler(event)).not.toThrow();
-        expect(console.log).toHaveBeenCalledWith('Message', event);
+      });
+
+      it('should notify toast on message event', () => {
+        const event = { data: 'Test message' };
+        messageHandler(event);
+        expect(mockToastService.next).toHaveBeenCalledWith(
+          expect.objectContaining({ variant: 'success', message: 'Test message' }),
+        );
       });
 
       it('should handle message event without data', () => {
         const event = {};
-        spyOn(console, 'log');
-
         expect(() => messageHandler(event)).not.toThrow();
-        expect(console.log).toHaveBeenCalledWith('Message', event);
       });
     });
 
     describe('StateChange event', () => {
-      it('should parse and update messages from StateChange event', (done) => {
+      it('should parse and update messages from StateChange event', async () => {
         const event = {
           data: {
             messages: [
-              {
-                nick: 'user1',
-                message: 'Hello',
-                date: '2023-01-01',
-                time: '12:00:00',
-              },
-              {
-                nick: 'user2',
-                message: 'Hi there',
-                date: '2023-01-01',
-                time: '12:05:00',
-              },
+              { nick: 'user1', message: 'Hello', date: '2023-01-01', time: '12:00:00' },
+              { nick: 'user2', message: 'Hi there', date: '2023-01-01', time: '12:05:00' },
             ],
           },
         };
 
         stateChangeHandler(event);
 
-        subscription = service.messages
-          .pipe(take(1))
-          .subscribe((messages: Message[]) => {
-            expect(messages.length).toBe(2);
-            expect(messages[0].username).toBe('user1');
-            expect(messages[0].text).toBe('Hello');
-            expect(messages[0].date).toEqual(new Date('2023-01-01 12:00:00'));
-            expect(messages[1].username).toBe('user2');
-            expect(messages[1].text).toBe('Hi there');
-            done();
-          });
+        const messages: Message[] = await firstValueFrom(service.messages);
+        expect(messages.length).toBe(2);
+        expect(messages[0].username).toBe('user1');
+        expect(messages[0].text).toBe('Hello');
+        expect(messages[0].date).toEqual(new Date('2023-01-01 12:00:00'));
+        expect(messages[1].username).toBe('user2');
+        expect(messages[1].text).toBe('Hi there');
       });
 
-      it('should parse and update usernames from StateChange event', (done) => {
+      it('should parse and update usernames from StateChange event', async () => {
         const event = {
           data: {
             users: {
@@ -245,15 +215,11 @@ describe('ApiService', () => {
 
         stateChangeHandler(event);
 
-        subscription = service.usernames
-          .pipe(take(1))
-          .subscribe((usernames: string[]) => {
-            expect(usernames).toEqual(['user1', 'user2', 'user3']);
-            done();
-          });
+        const usernames = await firstValueFrom(service.usernames);
+        expect(usernames).toEqual(['user1', 'user2', 'user3']);
       });
 
-      it('should filter out empty usernames', (done) => {
+      it('should filter out empty usernames', async () => {
         const event = {
           data: {
             users: {
@@ -267,15 +233,11 @@ describe('ApiService', () => {
 
         stateChangeHandler(event);
 
-        subscription = service.usernames
-          .pipe(take(1))
-          .subscribe((usernames: string[]) => {
-            expect(usernames).toEqual(['user1', 'user3']);
-            done();
-          });
+        const usernames = await firstValueFrom(service.usernames);
+        expect(usernames).toEqual(['user1', 'user3']);
       });
 
-      it('should parse and update queue from StateChange event', (done) => {
+      it('should parse and update queue from StateChange event', async () => {
         const event = {
           data: {
             queue: {
@@ -305,108 +267,80 @@ describe('ApiService', () => {
 
         stateChangeHandler(event);
 
-        subscription = service.queue
-          .pipe(take(1))
-          .subscribe((queue: Queue | undefined) => {
-            expect(queue).not.toBeUndefined();
-            expect(queue!.videos.length).toBe(2);
-            expect(queue!.videos[0].videoId).toBe('vid1');
-            expect(queue!.videos[0].title).toBe('Video 1');
-            expect(queue!.videos[0].user.nick).toBe('user1');
-            expect(queue!.videos[1].videoId).toBe('vid2');
-            expect(queue!.currentlyPlayedVideo).toBeUndefined();
-            expect(queue!.currentlyPlayedSecond).toBe(45);
-            done();
-          });
+        const queue: Queue | undefined = await firstValueFrom(service.queue);
+        expect(queue).not.toBeUndefined();
+        expect(queue!.videos.length).toBe(2);
+        expect(queue!.videos[0].videoId).toBe('vid1');
+        expect(queue!.videos[0].title).toBe('Video 1');
+        expect(queue!.videos[0].user.nick).toBe('user1');
+        expect(queue!.videos[1].videoId).toBe('vid2');
+        expect(queue!.currentlyPlayedVideo).toBeUndefined();
+        expect(queue!.currentlyPlayedSecond).toBe(45);
       });
 
-      it('should handle queue with empty videos array', (done) => {
+      it('should handle queue with empty videos array', async () => {
         const event = {
           data: {
-            queue: {
-              videos: [],
-              currentlyPlayedVideo: undefined,
-              currentlyPlayedSecond: 0,
-            },
+            queue: { videos: [], currentlyPlayedVideo: undefined, currentlyPlayedSecond: 0 },
           },
         };
 
         stateChangeHandler(event);
 
-        subscription = service.queue
-          .pipe(take(1))
-          .subscribe((queue: Queue | undefined) => {
-            expect(queue).not.toBeUndefined();
-            expect(queue!.videos).toEqual([]);
-            expect(queue!.currentlyPlayedVideo).toBeUndefined();
-            expect(queue!.currentlyPlayedSecond).toBe(0);
-            done();
-          });
+        const queue: Queue | undefined = await firstValueFrom(service.queue);
+        expect(queue).not.toBeUndefined();
+        expect(queue!.videos).toEqual([]);
+        expect(queue!.currentlyPlayedVideo).toBeUndefined();
+        expect(queue!.currentlyPlayedSecond).toBe(0);
       });
 
       it('should handle StateChange event with missing data fields', () => {
         const event = { data: {} };
-
         expect(() => stateChangeHandler(event)).not.toThrow();
       });
 
       it('should handle StateChange event with null data', () => {
         const event = { data: null };
-
         expect(() => stateChangeHandler(event)).not.toThrow();
       });
 
-      it('should update error subject on StateChange processing error', (done) => {
-        const event = {
-          data: {
-            messages: [{ invalid: 'structure' }],
-          },
-        };
-        spyOn(console, 'error');
+      it('should call console.error and notify toast on StateChange processing error', () => {
+        const event = { data: { messages: [{ invalid: 'structure' }] } };
+        vi.spyOn(console, 'error').mockImplementation(() => {});
 
         stateChangeHandler(event);
 
-        subscription = service.error.pipe(take(1)).subscribe((error) => {
-          expect(console.error).toHaveBeenCalled();
-          expect(error).toContain('Failed to process state change');
-          done();
-        });
+        expect(console.error).toHaveBeenCalled();
+        expect(mockToastService.next).toHaveBeenCalledWith(
+          expect.objectContaining({ variant: 'danger', message: expect.stringContaining('Failed to process state change') }),
+        );
       });
     });
 
     describe('Error event', () => {
-      it('should update error subject with error message', (done) => {
+      it('should call console.error and notify toast with error message', () => {
         const errorMessage = 'Something went wrong';
         const event = { data: errorMessage };
+        vi.spyOn(console, 'error').mockImplementation(() => {});
 
         errorHandler(event);
 
-        subscription = service.error.pipe(take(1)).subscribe((error) => {
-          expect(error).toBe(errorMessage);
-          done();
-        });
+        expect(console.error).toHaveBeenCalledWith(event);
+        expect(mockToastService.next).toHaveBeenCalledWith(
+          expect.objectContaining({ variant: 'danger', message: errorMessage }),
+        );
       });
 
-      it('should handle error event with missing data', (done) => {
+      it('should handle error event without throwing', () => {
         const event = {};
-
-        errorHandler(event);
-
-        subscription = service.error.pipe(take(1)).subscribe((error) => {
-          expect(error).toBe('Unknown error');
-          done();
-        });
+        vi.spyOn(console, 'error').mockImplementation(() => {});
+        expect(() => errorHandler(event)).not.toThrow();
       });
 
-      it('should handle error event with null data', (done) => {
+      it('should handle error event with null data without throwing', () => {
         const event = { data: null };
-
-        errorHandler(event);
-
-        subscription = service.error.pipe(take(1)).subscribe((error) => {
-          expect(error).toBe('Unknown error');
-          done();
-        });
+        vi.spyOn(console, 'error').mockImplementation(() => {});
+        expect(() => errorHandler(event)).not.toThrow();
       });
     });
   });

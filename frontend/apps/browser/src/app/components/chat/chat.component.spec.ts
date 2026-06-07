@@ -9,7 +9,7 @@ describe('ChatComponent', () => {
   let fixture: ComponentFixture<ChatComponent>;
 
   beforeEach(async () => {
-    const mockSocket = jasmine.createSpyObj('Socket', ['emit', 'on']);
+    const mockSocket = { emit: vi.fn(), on: vi.fn() };
 
     await TestBed.configureTestingModule({
       imports: [ChatComponent],

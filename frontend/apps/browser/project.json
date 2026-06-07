@@ -89,7 +89,7 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
-    "lint-fix": {
+    "lint:fix": {
       "executor": "@angular-eslint/builder:lint",
       "options": {
         "fix": true,
@@ -112,19 +112,9 @@
       "executor": "@angular-devkit/build-angular:dev-server"
     },
     "test": {
-      "executor": "@angular-devkit/build-angular:karma",
+      "executor": "@nx/vitest:test",
       "options": {
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/browser/public"
-          }
-        ],
-        "inlineStyleLanguage": "scss",
-        "polyfills": [],
-        "scripts": [],
-        "styles": ["apps/browser/src/styles.scss"],
-        "tsConfig": "apps/browser/tsconfig.spec.json"
+        "config": "apps/browser/vite.config.mts"
       }
     },
     "watch": {

@@ -10,8 +10,8 @@ describe('UsernameDialogComponent', () => {
   let fixture: ComponentFixture<UsernameDialogComponent>;
 
   beforeEach(async () => {
-    const mockSocket = jasmine.createSpyObj('Socket', ['emit', 'on']);
-    const mockDialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
+    const mockSocket = { emit: vi.fn(), on: vi.fn() };
+    const mockDialogRef = { close: vi.fn() };
 
     await TestBed.configureTestingModule({
       imports: [UsernameDialogComponent],
