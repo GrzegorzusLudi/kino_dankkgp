@@ -53,13 +53,13 @@
     }
 
     &.info {
-      background: $light-primary-a10;
-      border: 1px solid $light-primary-a70;
+      background: $light-primary-a80;
+      border: 1px solid $light-primary-a90;
       border-bottom: none;
 
       .icon,
       .close-btn {
-        color: $light-primary-a70;
+        color: $light-primary-a90;
       }
 
       .header,
@@ -69,13 +69,13 @@
     }
 
     &.success {
-      background: $light-success-a10;
-      border: 1px solid $light-success-a70;
+      background: $light-success-a80;
+      border: 1px solid $light-success-a90;
       border-bottom: none;
 
       .icon,
       .close-btn {
-        color: $light-success-a70;
+        color: $light-success-a90;
       }
 
       .header,
@@ -85,13 +85,13 @@
     }
 
     &.danger {
-      background: $light-danger-a10;
-      border: 1px solid $light-danger-a70;
+      background: $light-danger-a80;
+      border: 1px solid $light-danger-a90;
       border-bottom: none;
 
       .icon,
       .close-btn {
-        color: $light-danger-a70;
+        color: $light-danger-a90;
       }
 
       .header,
