@@ -156,11 +156,15 @@ describe('ApiService', () => {
         string,
         (...args: any[]) => void,
       ][];
-      messageHandler = calls.find((args) => args[0] === Event.Message)?.[1];
-      stateChangeHandler = calls.find(
-        (args) => args[0] === Event.StateChange,
-      )?.[1];
-      errorHandler = calls.find((args) => args[0] === Event.Error)?.[1];
+      [, messageHandler] = calls.find(
+        (args) => args[0] === (Event.Message as string),
+      )!;
+      [, stateChangeHandler] = calls.find(
+        (args) => args[0] === (Event.StateChange as string),
+      )!;
+      [, errorHandler] = calls.find(
+        (args) => args[0] === (Event.Error as string),
+      )!;
     });
 
     describe('Message event', () => {
@@ -264,6 +268,7 @@ describe('ApiService', () => {
                   title: 'Video 1',
                   type: 'youtube',
                   user: { nick: 'user1', num: 1 },
+                  // eslint-disable-next-line camelcase
                   duration_in_seconds: 120,
                 },
                 {
@@ -272,6 +277,7 @@ describe('ApiService', () => {
                   title: 'Video 2',
                   type: 'youtube',
                   user: { nick: 'user2', num: 2 },
+                  // eslint-disable-next-line camelcase
                   duration_in_seconds: 180,
                 },
               ],
@@ -299,7 +305,6 @@ describe('ApiService', () => {
           data: {
             queue: {
               videos: [],
-              currentlyPlayedVideo: undefined,
               currentlyPlayedSecond: 0,
             },
           },
@@ -326,11 +331,11 @@ describe('ApiService', () => {
 
       it('should call console.error and notify toast on StateChange processing error', () => {
         const event = { data: { messages: [{ invalid: 'structure' }] } };
-        vi.spyOn(console, 'error').mockImplementation(noop);
+        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(noop);
 
         stateChangeHandler(event);
 
-        expect(console.error).toHaveBeenCalled();
+        expect(consoleSpy).toHaveBeenCalled();
         expect(mockToastService.next).toHaveBeenCalledWith(
           expect.objectContaining({
             variant: 'danger',
@@ -344,11 +349,11 @@ describe('ApiService', () => {
       it('should call console.error and notify toast with error message', () => {
         const errorMessage = 'Something went wrong';
         const event = { data: errorMessage };
-        vi.spyOn(console, 'error').mockImplementation(noop);
+        const consoleSpy = vi.spyOn(console, 'error').mockImplementation(noop);
 
         errorHandler(event);
 
-        expect(console.error).toHaveBeenCalledWith(event);
+        expect(consoleSpy).toHaveBeenCalledWith(event);
         expect(mockToastService.next).toHaveBeenCalledWith(
           expect.objectContaining({ variant: 'danger', message: errorMessage }),
         );
