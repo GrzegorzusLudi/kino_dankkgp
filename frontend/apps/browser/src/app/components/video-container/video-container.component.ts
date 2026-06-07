@@ -11,6 +11,8 @@ import {
   DIMENSIONS_CHANGE_DEBOUNCE_TIME,
 } from './video-container.consts';
 
+// TODO: (change)="onStateChange($event)"
+
 @Component({
   selector: 'app-video-container',
   imports: [HeaderComponent, TextComponent, YoutubePlayerComponent],
