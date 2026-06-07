@@ -5,12 +5,39 @@ span.#{$flat-dark-theme-class-name} {
   font-family: 'Open Sans', sans-serif;
   font-size: $font-size;
   line-height: $line-height;
+  display: inline-block;
+  height: $line-height;
+  letter-spacing: 0.22px;
 }
 
 span.#{$flat-dark-theme-class-name} {
   color: $dark-text-color;
+
+  &.info {
+    color: $light-primary-a30;
+  }
+
+  &.success {
+    color: $light-success-a30;
+  }
+
+  &.danger {
+    color: $light-danger-a40;
+  }
 }
 
 span.#{$flat-light-theme-class-name} {
   color: $light-text-color;
+
+  &.info {
+    color: $light-primary-a70;
+  }
+
+  &.success {
+    color: $light-success-a70;
+  }
+
+  &.danger {
+    color: $light-danger-a70;
+  }
 }

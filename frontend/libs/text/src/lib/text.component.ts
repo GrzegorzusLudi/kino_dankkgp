@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { ThemedDirective } from 'theme';
 
@@ -11,4 +11,6 @@ import { ThemedDirective } from 'theme';
   ],
   hostDirectives: [ThemedDirective]
 })
-export class TextComponent {}
+export class TextComponent {
+  variant = input<'info' | 'success' | 'danger'>();
+}
