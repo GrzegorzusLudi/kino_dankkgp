@@ -14,6 +14,7 @@ import {
   faCircleCheck,
   faTriangleExclamation,
   faCircleInfo,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { interval, Subscription, take } from 'rxjs';
 
@@ -42,6 +43,7 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
   faCircleCheck = faCircleCheck;
   faTriangleExclamation = faTriangleExclamation;
   faCircleInfo = faCircleInfo;
+  faXmark = faXmark;
 
   barWidth = '100%';
   transitionDuration = '0s';
@@ -61,6 +63,11 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  dismiss(): void {
+    this.subscription?.unsubscribe();
+    this.close.emit();
   }
 
   focus(): void {

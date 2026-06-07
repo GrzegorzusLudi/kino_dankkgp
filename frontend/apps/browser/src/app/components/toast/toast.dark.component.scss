@@ -36,12 +36,29 @@
       line-height: $line-height;
     }
 
+    .content {
+      flex: 1;
+    }
+
+    .close-btn {
+      align-self: flex-start;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: $font-size;
+      line-height: $line-height;
+      padding: 0;
+      margin-left: $padding;
+      color: $dark-text-color;
+    }
+
     &.info {
       background: $light-primary-a10;
       border: 1px solid $light-primary-a70;
       border-bottom: none;
 
-      .icon {
+      .icon,
+      .close-btn {
         color: $light-primary-a70;
       }
 
@@ -56,7 +73,8 @@
       border: 1px solid $light-success-a70;
       border-bottom: none;
 
-      .icon {
+      .icon,
+      .close-btn {
         color: $light-success-a70;
       }
 
@@ -71,7 +89,8 @@
       border: 1px solid $light-danger-a70;
       border-bottom: none;
 
-      .icon {
+      .icon,
+      .close-btn {
         color: $light-danger-a70;
       }
 
