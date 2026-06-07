@@ -11,6 +11,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ApiService } from '../../services/api/api.service';
+import { ToastService } from '../../services/toast/toast.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faPlus,
@@ -44,7 +45,10 @@ export class VideoActionsComponent implements OnInit {
   faRotate = faRotate;
   faForwardStep = faForwardStep;
 
-  constructor(private readonly apiService: ApiService) {}
+  constructor(
+    private readonly apiService: ApiService,
+    private readonly toastService: ToastService,
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -61,7 +65,11 @@ export class VideoActionsComponent implements OnInit {
       );
       this.form.get('url')?.setValue('');
     } else {
-      alert('Invalid YouTube URL'); // TODO toast
+      this.toastService.next({
+        title: 'Invalid URL',
+        message: 'Invalid YouTube URL',
+        variant: 'danger',
+      });
     }
   }
 
