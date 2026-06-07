@@ -76,6 +76,13 @@
       },
       "outputs": ["{options.outputPath}"]
     },
+    "chores": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run browser:lint:fix", "nx run browser:format"],
+        "parallel": false
+      }
+    },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n"
     },
@@ -90,13 +97,9 @@
       "executor": "@nx/eslint:lint"
     },
     "lint:fix": {
-      "executor": "@angular-eslint/builder:lint",
+      "executor": "@nx/eslint:lint",
       "options": {
-        "fix": true,
-        "lintFilePatterns": [
-          "apps/browser/src/**/*.ts",
-          "apps/browser/src/**/*.html"
-        ]
+        "fix": true
       }
     },
     "serve": {
