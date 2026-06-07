@@ -7,7 +7,7 @@ import {
   output,
 } from '@angular/core';
 import { ThemedDirective } from 'theme';
-import { NgClass, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { TextComponent } from 'text';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -21,7 +21,7 @@ import { interval, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-toast',
-  imports: [FontAwesomeModule, NgClass, NgStyle, TextComponent],
+  imports: [FontAwesomeModule, NgStyle, TextComponent],
   hostDirectives: [ThemedDirective],
   templateUrl: './toast.component.html',
   styleUrls: [

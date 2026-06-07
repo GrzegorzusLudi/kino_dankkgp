@@ -6,7 +6,7 @@
   (mouseover)="focus()"
   (mouseout)="blur()"
   (blur)="blur()">
-  <div class="main" [ngClass]="variant()">
+  <div class="main {{ variant() }}">
     <div class="icon">
       @if (variant() === 'success') {
         <fa-icon [icon]="faCircleCheck" />
@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  <div class="timeout-progress" [ngClass]="variant()">
+  <div class="timeout-progress {{ variant() }}">
     <div
       class="bar"
       [ngStyle]="{
