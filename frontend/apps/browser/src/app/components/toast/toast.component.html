@@ -12,17 +12,19 @@
     [class.info]="variant() === 'info'"
     [class.danger]="variant() === 'danger'">
     <div class="icon">
-      @if (variant() === 'success') {
-        <fa-icon [icon]="faCircleCheck" />
-      } @else if (variant() === 'info') {
-        <fa-icon [icon]="faCircleInfo" />
-      } @else if (variant() === 'danger') {
-        <fa-icon [icon]="faTriangleExclamation" />
-      }
+      <lib-text [variant]="variant()">
+        @if (variant() === 'success') {
+          <fa-icon [icon]="faCircleCheck" />
+        } @else if (variant() === 'info') {
+          <fa-icon [icon]="faCircleInfo" />
+        } @else if (variant() === 'danger') {
+          <fa-icon [icon]="faTriangleExclamation" />
+        }
+      </lib-text>
     </div>
     <div class="content">
       <div class="header">
-        <lib-text>{{ title() }}</lib-text>
+        <lib-text [variant]="variant()">{{ title() }}</lib-text>
       </div>
       <div class="message">
         <lib-text>{{ message() }}</lib-text>
