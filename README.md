@@ -59,30 +59,50 @@ flask --app server run
 
 # Frontend
 
-## Prerequistes
+## Prerequisites
 
-- Node.js
-- npm
+- Node.js - recommended v24.10.0
+- npm - recommended v11.6.1
 
 ## Installing dependencies
 
 ```bash
 cd frontend
-npm i --force
+npm install
 ```
 
-## Building
+## Tasks
 
-Following command will build production version of the UI and then copy files to directories in the `server` directory:
+All frontend tasks are run via [Nx](https://nx.dev) from the `frontend` directory.
+
+### Build
+
+Builds the production bundle and copies the output files into the `server` directory:
 
 ```bash
-npm run build
+npx nx run browser:build
 ```
 
-## Development
+### Serve
 
-If you want to develop UI, run:
+Starts the Angular development server with live reload:
 
 ```bash
-npm run start
+npx nx run browser:serve
+```
+
+### Test
+
+Runs unit tests with Vitest:
+
+```bash
+npx nx run browser:test
+```
+
+### Lint
+
+Lints the source files:
+
+```bash
+npx nx run browser:lint
 ```
