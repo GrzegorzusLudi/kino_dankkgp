@@ -7,7 +7,7 @@ span.#{$flat-dark-theme-class-name} {
   line-height: $line-height;
   display: inline-block;
   height: $line-height;
-  letter-spacing: 0.22px;
+  letter-spacing: $letter-spacing;
 }
 
 span.#{$flat-dark-theme-class-name} {

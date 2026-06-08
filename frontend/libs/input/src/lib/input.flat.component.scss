@@ -11,6 +11,7 @@ $input-height: 32px;
     font-family: 'Open Sans', sans-serif;
     font-size: $font-size;
     line-height: $line-height;
+    letter-spacing: $letter-spacing;
     padding: calc(0.5 * ($input-height - $line-height - 2px)) 6px;
     @include border-radius;
   }
