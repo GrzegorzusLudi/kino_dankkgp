@@ -15,10 +15,8 @@ import { ThemedDirective } from 'theme';
   imports: [],
   templateUrl: './input.component.html',
   styleUrls: [
-    './input.aero-dark.component.scss',
-    './input.aero-light.component.scss',
-    './input.dark.component.scss',
-    './input.light.component.scss',
+    './input.aero.component.scss',
+    './input.flat.component.scss',
   ],
   hostDirectives: [ThemedDirective],
   providers: [

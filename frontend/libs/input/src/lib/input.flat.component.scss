@@ -1,0 +1,60 @@
+@use 'shared' as *;
+
+$input-height: 32px;
+
+.input.#{$flat-light-theme-class-name},
+.input.#{$flat-dark-theme-class-name} {
+  input {
+    box-sizing: border-box;
+    max-height: $input-height;
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: $font-size;
+    line-height: $line-height;
+    padding: calc(0.5 * ($input-height - $line-height - 2px)) 6px;
+    @include border-radius;
+  }
+
+  input:focus {
+    border: 1px solid $light-input-border-color;
+    box-shadow: 0px 0px 0.5px 2px $light-primary-a20;
+  }
+
+  input:hover {
+    background: $light-primary-a0;
+  }
+}
+
+.input.#{$flat-light-theme-class-name} {
+  input {
+    color: $light-text-color;
+    border: 1px solid $light-input-border-color;
+    background-color: $light-primary-a0;
+  }
+
+  input:focus {
+    border: 1px solid $light-input-border-color;
+    box-shadow: 0px 0px 0.5px 2px $light-primary-a20;
+  }
+
+  input:hover {
+    background: $light-primary-a0;
+  }
+}
+
+.input.#{$flat-dark-theme-class-name} {
+  input {
+    color: $light-text-color;
+    border: 1px solid $dark-input-border-color;
+    background-color: $dark-primary-a0;
+  }
+
+  input:focus {
+    border: 1px solid $dark-input-border-color;
+    box-shadow: 0px 0px 0.5px 2px $dark-primary-a20;
+  }
+
+  input:hover {
+    background: $dark-primary-a0;
+  }
+}
