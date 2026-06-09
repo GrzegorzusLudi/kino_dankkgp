@@ -16,6 +16,7 @@ $row-height: 36px;
   margin-bottom: $padding;
 
   .item {
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -29,6 +30,7 @@ $row-height: 36px;
     }
 
     > div {
+      box-sizing: border-box;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -76,6 +78,7 @@ $row-height: 36px;
   }
 
   .empty {
+    box-sizing: border-box;
     font-size: $font-size;
     line-height: $line-height;
     color: $dark-text-color;

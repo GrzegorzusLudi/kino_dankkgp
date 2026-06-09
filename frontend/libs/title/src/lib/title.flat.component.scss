@@ -2,6 +2,7 @@
 
 h1.#{$flat-light-theme-class-name},
 h1.#{$flat-dark-theme-class-name} {
+  box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
   font-size: $title-font-size;
   line-height: $title-line-height;

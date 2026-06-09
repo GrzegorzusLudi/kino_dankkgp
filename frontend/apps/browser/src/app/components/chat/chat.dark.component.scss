@@ -14,6 +14,7 @@
   flex-direction: column;
 
   .content {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -29,6 +30,7 @@
   }
 
   .messages {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     padding: $padding;

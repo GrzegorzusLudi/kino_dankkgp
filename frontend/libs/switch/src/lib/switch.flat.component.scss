@@ -5,6 +5,8 @@ $height: $line-height;
 
 div.#{$flat-light-theme-class-name},
 div.#{$flat-dark-theme-class-name} {
+  box-sizing: border-box;
+
   .switch {
     position: relative;
     display: inline-block;

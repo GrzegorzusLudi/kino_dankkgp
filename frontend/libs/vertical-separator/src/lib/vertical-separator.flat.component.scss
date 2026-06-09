@@ -3,6 +3,7 @@
 
 .vertical-separator.#{$flat-dark-theme-class-name},
 .vertical-separator.#{$flat-light-theme-class-name} {
+  box-sizing: border-box;
   margin: 0 14px;
   width: 1px;
   height: 100%;

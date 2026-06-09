@@ -1,6 +1,7 @@
 @use '../../styles/shared.scss' as *;
 
 div.#{$flat-light-theme-class-name} {
+  box-sizing: border-box;
   background-color: $light-primary-a10;
   width: 100%;
   height: 100vh;

@@ -1,6 +1,7 @@
 @use '../../styles/shared.scss' as *;
 
 .toast-container {
+  box-sizing: border-box;
   position: absolute;
   bottom: $padding;
   right: $padding;

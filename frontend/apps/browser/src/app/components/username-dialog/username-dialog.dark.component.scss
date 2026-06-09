@@ -1,6 +1,7 @@
 @use '../../styles/shared.scss' as *;
 
 .username-dialog.#{$flat-dark-theme-class-name} {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   background-color: $dark-primary-a40;
@@ -8,6 +9,7 @@
   @include border-radius;
 
   .content {
+    box-sizing: border-box;
     background-color: $dark-primary-a10;
     padding: $padding;
     height: 64px;

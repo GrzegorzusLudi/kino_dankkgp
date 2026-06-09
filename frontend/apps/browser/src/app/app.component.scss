@@ -1,12 +1,14 @@
 @use './styles/shared.scss' as *;
 
 .group {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: stretch;
 }
 
 .content {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   height: calc(100vh - $toolbar-height);
@@ -38,6 +40,7 @@ app-connected-users-info {
 }
 
 .toast-container {
+  box-sizing: border-box;
   position: fixed;
   bottom: $padding;
   right: $padding;
