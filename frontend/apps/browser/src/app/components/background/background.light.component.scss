@@ -4,7 +4,7 @@ div.#{$flat-light-theme-class-name} {
   box-sizing: border-box;
   background-color: $light-primary-a10;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   padding: 0;
   margin: 0;
 }
