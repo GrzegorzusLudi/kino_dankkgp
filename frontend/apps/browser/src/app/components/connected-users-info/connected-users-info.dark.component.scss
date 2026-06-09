@@ -15,7 +15,6 @@
     border-left: 1px solid $dark-border-color;
     border-right: 1px solid $dark-border-color;
     border-bottom: 1px solid $dark-border-color;
-    overflow-y: scroll;
     @include border-bottom-radius;
 
     span {
