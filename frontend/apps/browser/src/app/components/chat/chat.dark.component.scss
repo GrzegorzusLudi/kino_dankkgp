@@ -36,7 +36,7 @@
     padding: $padding;
     flex-grow: 1;
     min-height: 0;
-    overflow-y: auto;
+    overflow-y: scroll;
 
     span {
       font-size: $font-size;
