@@ -7,10 +7,8 @@ import { ThemedDirective } from 'theme';
   imports: [],
   templateUrl: './background.component.html',
   styleUrls: [
-    './background.aero-dark.component.scss',
-    './background.aero-light.component.scss',
-    './background.dark.component.scss',
-    './background.light.component.scss',
+    './background.aero.component.scss',
+    './background.flat.component.scss',
   ],
   hostDirectives: [ThemedDirective],
 })

@@ -1,0 +1,18 @@
+@use '../../styles/shared.scss' as *;
+
+div.#{$flat-light-theme-class-name},
+div.#{$flat-dark-theme-class-name} {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+div.#{$flat-light-theme-class-name} {
+  background-color: $light-primary-a10;
+}
+
+div.#{$flat-dark-theme-class-name} {
+  background-color: $dark-primary-a50;
+}
