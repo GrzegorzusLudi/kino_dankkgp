@@ -35,10 +35,8 @@ import { ToastService } from '../../services/toast/toast.service';
   ],
   templateUrl: './chat.component.html',
   styleUrls: [
-    './chat.aero-dark.component.scss',
-    './chat.aero-light.component.scss',
-    './chat.dark.component.scss',
-    './chat.light.component.scss',
+    './chat.aero.component.scss',
+    './chat.flat.component.scss',
   ],
   hostDirectives: [ThemedDirective],
 })

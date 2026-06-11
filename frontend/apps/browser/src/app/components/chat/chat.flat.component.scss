@@ -4,12 +4,12 @@
   flex-grow: 1;
 }
 
+.chat.#{$flat-light-theme-class-name},
 .chat.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
   width: 320px;
   height: 100%;
   align-self: stretch;
-  color: $dark-text-color;
   display: flex;
   flex-direction: column;
 
@@ -21,10 +21,6 @@
     padding: 0;
     flex-grow: 1;
     min-height: 0;
-    background-color: $dark-primary-a30;
-    border-left: 1px solid $dark-border-color;
-    border-right: 1px solid $dark-border-color;
-    border: 1px solid $dark-border-color;
     border-top: none;
     @include border-bottom-radius;
   }
@@ -41,7 +37,6 @@
     span {
       font-size: $font-size;
       line-height: $line-height;
-      color: $dark-text-color;
     }
   }
 
@@ -52,7 +47,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-top: 1px solid $dark-border-color;
 
     lib-input {
       width: 100% !important;
@@ -66,5 +60,48 @@
         width: 96px;
       }
     }
+  }
+}
+
+.chat.#{$flat-light-theme-class-name} {
+  color: $light-text-color;
+  box-shadow: $light-box-shadow;
+
+  .content {
+    background-color: $light-primary-a0;
+    border-left: 1px solid $light-border-color;
+    border-right: 1px solid $light-border-color;
+    border: 1px solid $light-border-color;
+  }
+
+  .messages {
+    span {
+      color: $light-text-color;
+    }
+  }
+
+  .input {
+    border-top: 1px solid $light-border-color;
+  }
+}
+
+.chat.#{$flat-dark-theme-class-name} {
+  color: $dark-text-color;
+
+  .content {
+    background-color: $dark-primary-a30;
+    border-left: 1px solid $dark-border-color;
+    border-right: 1px solid $dark-border-color;
+    border: 1px solid $dark-border-color;
+  }
+
+  .messages {
+    span {
+      color: $dark-text-color;
+    }
+  }
+
+  .input {
+    border-top: 1px solid $dark-border-color;
   }
 }
