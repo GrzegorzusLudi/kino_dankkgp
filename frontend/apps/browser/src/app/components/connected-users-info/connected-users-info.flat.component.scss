@@ -1,0 +1,52 @@
+@use '../../styles/shared.scss' as *;
+
+.connected-users-info.#{$flat-light-theme-class-name},
+.connected-users-info.#{$flat-dark-theme-class-name} {
+  box-sizing: border-box;
+  width: 320px;
+
+  .content {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: $padding;
+    max-height: 256px - 64px;
+    @include border-bottom-radius;
+
+    span {
+      font-size: $font-size;
+      line-height: $line-height;
+    }
+  }
+}
+
+.connected-users-info.#{$flat-light-theme-class-name} {
+  color: $light-text-color;
+  box-shadow: $light-box-shadow;
+
+  .content {
+    background-color: $light-primary-a0;
+    border-left: 1px solid $light-border-color;
+    border-right: 1px solid $light-border-color;
+    border-bottom: 1px solid $light-border-color;
+
+    span {
+      color: $light-text-color;
+    }
+  }
+}
+
+.connected-users-info.#{$flat-dark-theme-class-name} {
+  color: $dark-text-color;
+
+  .content {
+    background-color: $dark-primary-a30;
+    border-left: 1px solid $dark-border-color;
+    border-right: 1px solid $dark-border-color;
+    border-bottom: 1px solid $dark-border-color;
+
+    span {
+      color: $dark-text-color;
+    }
+  }
+}

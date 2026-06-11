@@ -10,10 +10,8 @@ import { TextComponent } from 'text';
   hostDirectives: [ThemedDirective],
   templateUrl: './connected-users-info.component.html',
   styleUrls: [
-    './connected-users-info.aero-dark.component.scss',
-    './connected-users-info.aero-light.component.scss',
-    './connected-users-info.dark.component.scss',
-    './connected-users-info.light.component.scss',
+    './connected-users-info.aero.component.scss',
+    './connected-users-info.flat.component.scss',
   ],
 })
 export class ConnectedUsersInfoComponent {
