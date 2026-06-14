@@ -13,12 +13,7 @@ import { TextComponent } from 'text';
   imports: [ButtonComponent, DurationPipe, FontAwesomeModule, TextComponent],
   hostDirectives: [ThemedDirective],
   templateUrl: './queue.component.html',
-  styleUrls: [
-    './queue.aero-dark.component.scss',
-    './queue.aero-light.component.scss',
-    './queue.dark.component.scss',
-    './queue.light.component.scss',
-  ],
+  styleUrls: ['./queue.aero.component.scss', './queue.flat.component.scss'],
 })
 export class QueueComponent {
   queue = input<Queue>();

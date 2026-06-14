@@ -2,15 +2,12 @@
 
 $row-height: 36px;
 
-.queue.#{$flat-light-theme-class-name} {
+.queue.#{$flat-light-theme-class-name},
+.queue.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
   width: 100%;
-  box-shadow: $light-box-shadow;
   display: flex;
   flex-direction: column;
-  background-color: $light-primary-a0;
-  border-left: 1px solid $light-border-color;
-  border-right: 1px solid $light-border-color;
   border-top: none;
   border-bottom: none;
   margin-bottom: $padding;
@@ -21,13 +18,7 @@ $row-height: 36px;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: $light-primary-a0;
     height: $row-height;
-    border-bottom: 1px solid $light-border-color;
-
-    &.playing {
-      color: $light-primary-a50 !important;
-    }
 
     > div {
       box-sizing: border-box;
@@ -37,7 +28,6 @@ $row-height: 36px;
       align-items: center;
       font-size: $font-size;
       line-height: $line-height;
-      color: $light-text-color;
       width: 100%;
       max-width: 128px;
       padding-left: $padding;
@@ -71,17 +61,12 @@ $row-height: 36px;
         }
       }
     }
-
-    &:hover {
-      background-color: $light-primary-a10;
-    }
   }
 
   .empty {
     box-sizing: border-box;
     font-size: $font-size;
     line-height: $line-height;
-    color: $light-text-color;
     padding: $padding;
   }
 
@@ -91,5 +76,61 @@ $row-height: 36px;
 
   .margin-right {
     margin-right: $padding;
+  }
+}
+
+.queue.#{$flat-light-theme-class-name} {
+  box-shadow: $light-box-shadow;
+  background-color: $light-primary-a0;
+  border-left: 1px solid $light-border-color;
+  border-right: 1px solid $light-border-color;
+
+  .item {
+    background-color: $light-primary-a0;
+    border-bottom: 1px solid $light-border-color;
+
+    &.playing {
+      color: $light-primary-a50 !important;
+    }
+
+    > div {
+      color: $light-text-color;
+    }
+
+    &:hover {
+      background-color: $light-primary-a10;
+    }
+  }
+
+  .empty {
+    color: $light-text-color;
+  }
+}
+
+.queue.#{$flat-dark-theme-class-name} {
+  box-shadow: $dark-box-shadow;
+  background-color: $dark-primary-a30;
+  border-left: 1px solid $dark-border-color;
+  border-right: 1px solid $dark-border-color;
+
+  .item {
+    background-color: $dark-primary-a30;
+    border-bottom: 1px solid $dark-border-color;
+
+    &.playing {
+      color: $dark-primary-a0 !important;
+    }
+
+    > div {
+      color: $dark-text-color;
+    }
+
+    &:hover {
+      background-color: $dark-primary-a20;
+    }
+  }
+
+  .empty {
+    color: $dark-text-color;
   }
 }
