@@ -34,10 +34,7 @@ import { ToastService } from '../../services/toast/toast.service';
     TextComponent,
   ],
   templateUrl: './chat.component.html',
-  styleUrls: [
-    './chat.aero.component.scss',
-    './chat.flat.component.scss',
-  ],
+  styleUrls: ['./chat.aero.component.scss', './chat.flat.component.scss'],
   hostDirectives: [ThemedDirective],
 })
 export class ChatComponent implements OnInit, DoCheck {
