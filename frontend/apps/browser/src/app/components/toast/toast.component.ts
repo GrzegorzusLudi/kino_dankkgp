@@ -26,10 +26,8 @@ import { interval, Subscription, take } from 'rxjs';
   hostDirectives: [ThemedDirective],
   templateUrl: './toast.component.html',
   styleUrls: [
-    './toast.aero-dark.component.scss',
-    './toast.aero-light.component.scss',
-    './toast.dark.component.scss',
-    './toast.light.component.scss',
+    './toast.aero.component.scss',
+    './toast.flat.component.scss',
   ],
 })
 export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
