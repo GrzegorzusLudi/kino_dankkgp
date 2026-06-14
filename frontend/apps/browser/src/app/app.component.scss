@@ -47,7 +47,9 @@ lib-toolbar {
   width: 100%;
   padding-right: $padding * 0.5;
 
-  app-video-container, app-video-actions, app-queue {
+  app-video-container,
+  app-video-actions,
+  app-queue {
     width: calc(100% - 320px);
   }
 }
