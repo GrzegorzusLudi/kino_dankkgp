@@ -1,4 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject, Signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,7 +9,7 @@ import { SwitchComponent } from 'switch';
 
 @Component({
   selector: 'app-mode-toggle',
-  imports: [FontAwesomeModule, SwitchComponent],
+  imports: [FontAwesomeModule, SwitchComponent, ReactiveFormsModule],
   hostDirectives: [ThemedDirective],
   templateUrl: './mode-toggle.component.html',
   styleUrls: [
@@ -16,17 +18,39 @@ import { SwitchComponent } from 'switch';
   ],
 })
 export class ModeToggleComponent {
-  protected readonly theme = inject(THEME);
+  private readonly theme: Signal<string> = inject(THEME);
   private readonly themeService: ThemeService = inject(ThemeService);
 
-  faSun = faSun;
-  faMoon = faMoon;
+  readonly faSun = faSun;
+  readonly faMoon = faMoon;
 
-  switchMode(currentTheme: string, checked: boolean): void {
-    if (currentTheme === Theme.FlatLight || currentTheme === Theme.FlatDark) {
-      this.themeService.changeTheme(checked ? Theme.FlatLight : Theme.FlatDark);
-    } else {
-      this.themeService.changeTheme(checked ? Theme.AeroLight : Theme.AeroDark);
-    }
+  readonly isLight = computed(
+    () => this.theme() === Theme.FlatLight || this.theme() === Theme.AeroLight,
+  );
+  readonly formControl = new FormControl<boolean>(this.isLight(), {
+    nonNullable: true,
+  });
+
+  constructor() {
+    effect(() => {
+      this.formControl.setValue(this.isLight(), { emitEvent: false });
+    });
+
+    this.formControl.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe((checked: boolean) => {
+        const theme = this.theme();
+        const isFlat = theme === Theme.FlatLight || theme === Theme.FlatDark;
+
+        this.themeService.changeTheme(
+          checked
+            ? isFlat
+              ? Theme.FlatLight
+              : Theme.AeroLight
+            : isFlat
+              ? Theme.FlatDark
+              : Theme.AeroDark,
+        );
+      });
   }
 }
