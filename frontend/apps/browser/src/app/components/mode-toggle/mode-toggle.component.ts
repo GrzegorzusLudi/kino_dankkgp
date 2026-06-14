@@ -11,15 +11,13 @@ import { SwitchComponent } from 'switch';
   hostDirectives: [ThemedDirective],
   templateUrl: './mode-toggle.component.html',
   styleUrls: [
-    './mode-toggle.aero-dark.component.scss',
-    './mode-toggle.aero-light.component.scss',
-    './mode-toggle.dark.component.scss',
-    './mode-toggle.light.component.scss',
+    './mode-toggle.aero.component.scss',
+    './mode-toggle.flat.component.scss',
   ],
 })
 export class ModeToggleComponent {
   protected readonly theme = inject(THEME);
-  private readonly themeService = inject(ThemeService);
+  private readonly themeService: ThemeService = inject(ThemeService);
 
   faSun = faSun;
   faMoon = faMoon;

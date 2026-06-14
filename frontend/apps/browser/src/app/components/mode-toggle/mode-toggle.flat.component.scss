@@ -5,6 +5,7 @@
   align-items: center;
 }
 
+.mode-toggle.#{$flat-light-theme-class-name},
 .mode-toggle.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
   display: flex;
@@ -12,11 +13,8 @@
   align-items: center;
   font-size: $font-size;
   line-height: $line-height;
-  color: $dark-text-color;
 
   fa-icon {
-    color: $dark-text-color;
-
     &:first-of-type {
       margin-right: $padding;
     }
@@ -24,5 +22,21 @@
     &:last-of-type {
       margin-left: $padding;
     }
+  }
+}
+
+.mode-toggle.#{$flat-light-theme-class-name} {
+  color: $light-text-color;
+
+  fa-icon {
+    color: $light-text-color;
+  }
+}
+
+.mode-toggle.#{$flat-dark-theme-class-name} {
+  color: $dark-text-color;
+
+  fa-icon {
+    color: $dark-text-color;
   }
 }
