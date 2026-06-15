@@ -33,11 +33,13 @@
         </div>
         <div class="actions">
           @if (focusedIndex === $index) {
-            <lib-button class="margin-right"
-              ><fa-icon [icon]="faCircleUp" />Vote to move up (0)</lib-button
+            <lib-button class="margin-right" [variant]="'ghost'"
+              ><fa-icon [icon]="faCircleUp" class="margin-right" />Vote to move
+              up (0)</lib-button
             >
-            <lib-button
-              ><fa-icon [icon]="faTrash" />Vote to remove (0)</lib-button
+            <lib-button [variant]="'ghost'"
+              ><fa-icon [icon]="faTrash" class="margin-right" />Vote to remove
+              (0)</lib-button
             >
           }
         </div>
