@@ -33,13 +33,16 @@
         </div>
         <div class="actions">
           @if (focusedIndex === $index) {
-            <lib-button class="margin-right" [variant]="'ghost'"
+            <lib-button
+              class="margin-right"
+              [variant]="item.move_up_voting?.you_voted ? 'primary' : 'ghost'"
+              (click)="voteToMoveUp(item)"
               ><fa-icon [icon]="faCircleUp" class="margin-right" />Vote to move
-              up (0)</lib-button
+              up ({{ item.move_up_voting?.user_number_voted ?? 0 }})</lib-button
             >
             <lib-button [variant]="'ghost'"
               ><fa-icon [icon]="faTrash" class="margin-right" />Vote to remove
-              (0)</lib-button
+              ({{ item.skip_voting?.user_number_voted ?? 0 }})</lib-button
             >
           }
         </div>

@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DurationPipe } from '../../pipes/duration/duration.pipe';
 import { ButtonComponent } from 'button';
 import { TextComponent } from 'text';
+import { ApiService } from '../../services/api/api.service';
 
 @Component({
   selector: 'app-queue',
@@ -24,6 +25,8 @@ export class QueueComponent {
 
   focusedIndex: number = -1;
 
+  constructor(private readonly apiService: ApiService) {}
+
   trackByFn(index: number, item: Video) {
     return index + item.videoId;
   }
@@ -36,5 +39,9 @@ export class QueueComponent {
     if (this.focusedIndex === index) {
       this.focusedIndex = -1;
     }
+  }
+
+  voteToMoveUp(item: Video): void {
+    this.apiService.voteToMoveVideoUp(item.id, !item.move_up_voting.you_voted);
   }
 }
