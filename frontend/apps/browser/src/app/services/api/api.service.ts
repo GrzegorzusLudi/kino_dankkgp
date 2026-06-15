@@ -99,6 +99,10 @@ export class ApiService {
     this.socket.emit(Action.MoveVideoUp, { data: { id, value } });
   }
 
+  voteToSkipVideo(id: number, value: boolean): void {
+    this.socket.emit(Action.SkipVideo, { data: { id, value } });
+  }
+
   private parseVotingData(raw: unknown): VotingData {
     if (isObject(raw)) {
       const record = raw as Record<string, unknown>;
