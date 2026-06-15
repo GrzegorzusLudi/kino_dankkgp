@@ -40,7 +40,9 @@
               ><fa-icon [icon]="faCircleUp" class="margin-right" />Vote to move
               up ({{ item.move_up_voting?.user_number_voted ?? 0 }})</lib-button
             >
-            <lib-button [variant]="'ghost'"
+            <lib-button
+              [variant]="item.skip_voting?.you_voted ? 'primary' : 'ghost'"
+              (click)="voteToRemove(item)"
               ><fa-icon [icon]="faTrash" class="margin-right" />Vote to remove
               ({{ item.skip_voting?.user_number_voted ?? 0 }})</lib-button
             >

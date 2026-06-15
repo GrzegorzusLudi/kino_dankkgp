@@ -44,4 +44,8 @@ export class QueueComponent {
   voteToMoveUp(item: Video): void {
     this.apiService.voteToMoveVideoUp(item.id, !item.move_up_voting.you_voted);
   }
+
+  voteToRemove(item: Video): void {
+    this.apiService.voteToSkipVideo(item.id, !item.skip_voting.you_voted);
+  }
 }
