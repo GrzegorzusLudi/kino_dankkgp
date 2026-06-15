@@ -11,6 +11,7 @@ import { Message } from '../../models/message.interface';
 import { StateChangeData } from '../../models/state-change-data.interface';
 import { Queue } from '../../models/queue.interface';
 import { Video } from '../../models/video.interface';
+import { VotingData } from '../../models/voting-data.interface';
 import { ToastService } from '../toast/toast.service';
 
 @Injectable({
@@ -94,6 +95,30 @@ export class ApiService {
     this.socket.emit(Action.AddVideo, { data: id });
   }
 
+  voteToMoveVideoUp(id: number, value: boolean): void {
+    this.socket.emit(Action.MoveVideoUp, { data: { id, value } });
+  }
+
+  private parseVotingData(raw: unknown): VotingData {
+    if (isObject(raw)) {
+      const record = raw as Record<string, unknown>;
+
+      return {
+        you_voted: Boolean(get(record, 'you_voted', false)),
+        user_number_voted: Number(get(record, 'user_number_voted', 0)),
+        user_number_to_have_majority: Number(
+          get(record, 'user_number_to_have_majority', 0),
+        ),
+      };
+    }
+
+    return {
+      you_voted: false,
+      user_number_voted: 0,
+      user_number_to_have_majority: 0,
+    };
+  }
+
   private handleMessageEvent(event: { data?: string }): void {
     this.toastService.next({
       title: 'Success',
@@ -132,6 +157,7 @@ export class ApiService {
     if (isObject(queue)) {
       const videos: Video[] = isArray(queue.videos)
         ? get(queue, 'videos').map((item) => ({
+            id: getOrThrow(item, 'id'),
             url: getOrThrow(item, 'url'),
             videoId: getOrThrow(item, 'videoId'),
             title: getOrThrow(item, 'title'),
@@ -141,6 +167,8 @@ export class ApiService {
               num: getOrThrow(item.user, 'num'),
             },
             duration_in_seconds: getOrThrow(item, 'duration_in_seconds'),
+            move_up_voting: this.parseVotingData(item.move_up_voting),
+            skip_voting: this.parseVotingData(item.skip_voting),
           }))
         : [];
 
