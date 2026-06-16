@@ -28,7 +28,6 @@ import { ThemedDirective } from 'theme';
   ],
 })
 export class InputComponent implements ControlValueAccessor {
-
   label = input.required<string>();
 
   @ViewChild('input') input?: ElementRef;
