@@ -100,4 +100,3 @@ export const AeroLight: Story = {
     selectedTheme: Theme.AeroLight,
   },
 };
-

@@ -14,10 +14,7 @@ import { ThemedDirective } from 'theme';
   selector: 'lib-input',
   imports: [],
   templateUrl: './input.component.html',
-  styleUrls: [
-    './input.aero.component.scss',
-    './input.flat.component.scss',
-  ],
+  styleUrls: ['./input.aero.component.scss', './input.flat.component.scss'],
   hostDirectives: [ThemedDirective],
   providers: [
     {
