@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
 
@@ -8,7 +8,8 @@ import { HeaderComponent } from './header.component';
   template: '<lib-header>Projected Text</lib-header>',
   imports: [HeaderComponent],
 })
-class HostComponent {}
+class HostComponent {
+}
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
