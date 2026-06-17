@@ -5,5 +5,5 @@ description: Find and add Nx plugins. USE WHEN user wants to discover available 
 
 ## Finding and Installing new plugins
 
-- List plugins: `pnpm nx list`
-- Install plugins `pnpm nx add <plugin>`. Example: `pnpm nx add @nx/react`.
+- List plugins: `npm nx list`
+- Install plugins `npm nx add <plugin>`. Example: `npm nx add @nx/react`.
