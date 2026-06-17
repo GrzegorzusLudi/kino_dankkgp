@@ -62,8 +62,12 @@ export class TooltipDirective implements OnDestroy {
       return;
     }
 
-    const hostRect: DOMRect =
-      this.elementRef.nativeElement.getBoundingClientRect();
+    const nativeEl = this.elementRef.nativeElement as HTMLElement;
+    const isCustomElement = nativeEl.tagName.includes('-');
+    const hostEl = isCustomElement
+      ? ((nativeEl.firstElementChild ?? nativeEl) as HTMLElement)
+      : nativeEl;
+    const hostRect: DOMRect = hostEl.getBoundingClientRect();
     const tooltipRect: DOMRect = this.tooltipElement.getBoundingClientRect();
     const gap = 8;
 
@@ -72,36 +76,24 @@ export class TooltipDirective implements OnDestroy {
 
     switch (this.position()) {
       case 'top':
-        top = hostRect.top - tooltipRect.height - gap + window.scrollY;
-        left =
-          hostRect.left +
-          (hostRect.width - tooltipRect.width) / 2 +
-          window.scrollX;
+        top = hostRect.top - tooltipRect.height - gap;
+        left = hostRect.left + (hostRect.width - tooltipRect.width) / 2;
         break;
       case 'bottom':
-        top = hostRect.bottom + gap + window.scrollY;
-        left =
-          hostRect.left +
-          (hostRect.width - tooltipRect.width) / 2 +
-          window.scrollX;
+        top = hostRect.bottom + gap;
+        left = hostRect.left + (hostRect.width - tooltipRect.width) / 2;
         break;
       case 'left':
-        top =
-          hostRect.top +
-          (hostRect.height - tooltipRect.height) / 2 +
-          window.scrollY;
-        left = hostRect.left - tooltipRect.width - gap + window.scrollX;
+        top = hostRect.top + (hostRect.height - tooltipRect.height) / 2;
+        left = hostRect.left - tooltipRect.width - gap;
         break;
       case 'right':
-        top =
-          hostRect.top +
-          (hostRect.height - tooltipRect.height) / 2 +
-          window.scrollY;
-        left = hostRect.right + gap + window.scrollX;
+        top = hostRect.top + (hostRect.height - tooltipRect.height) / 2;
+        left = hostRect.right + gap;
         break;
     }
 
-    this.renderer.setStyle(this.tooltipElement, 'position', 'absolute');
+    this.renderer.setStyle(this.tooltipElement, 'position', 'fixed');
     this.renderer.setStyle(this.tooltipElement, 'z-index', '9999');
     this.renderer.setStyle(this.tooltipElement, 'top', `${top}px`);
     this.renderer.setStyle(this.tooltipElement, 'left', `${left}px`);
