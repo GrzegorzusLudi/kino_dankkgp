@@ -24,7 +24,7 @@ describe('ButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('inputs', () => {
+  describe('default inputs', () => {
     it('should default variant to primary', () => {
       expect(component.variant()).toBe('primary');
     });
@@ -60,7 +60,7 @@ describe('ButtonComponent', () => {
     });
   });
 
-  describe('click interaction', () => {
+  describe('user interactions', () => {
     it('should add clicked class on click', () => {
       button.click();
       fixture.detectChanges();

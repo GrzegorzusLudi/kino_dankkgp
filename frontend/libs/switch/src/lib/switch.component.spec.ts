@@ -38,7 +38,7 @@ describe('SwitchComponent', () => {
     });
   });
 
-  describe('disabled state', () => {
+  describe('reactive forms', () => {
     it('should not be disabled by default', () => {
       expect(checkbox.disabled).toBe(false);
     });
@@ -56,9 +56,7 @@ describe('SwitchComponent', () => {
       fixture.detectChanges();
       expect(checkbox.disabled).toBe(false);
     });
-  });
 
-  describe('value', () => {
     it('should be unchecked by default', () => {
       expect(checkbox.checked).toBe(false);
     });
@@ -76,9 +74,7 @@ describe('SwitchComponent', () => {
       fixture.detectChanges();
       expect(checkbox.checked).toBe(false);
     });
-  });
 
-  describe('ControlValueAccessor', () => {
     it('should call the registered onChange callback with true when the checkbox is checked', () => {
       const changedSpy = vi.fn();
       component.registerOnChange(changedSpy);

@@ -47,7 +47,7 @@ describe('InputComponent', () => {
     });
   });
 
-  describe('disabled state', () => {
+  describe('reactive forms', () => {
     it('should not be disabled by default', () => {
       expect(nativeInput.disabled).toBe(false);
     });
@@ -65,9 +65,7 @@ describe('InputComponent', () => {
       fixture.detectChanges();
       expect(nativeInput.disabled).toBe(false);
     });
-  });
 
-  describe('value', () => {
     it('should update the native input value via writeValue', () => {
       component.writeValue('hello');
       expect(nativeInput.value).toBe('hello');
@@ -82,9 +80,7 @@ describe('InputComponent', () => {
       component.value = null;
       expect(component.value).toBe('null');
     });
-  });
 
-  describe('ControlValueAccessor', () => {
     it('should call the registered onChange callback with the input value on change', () => {
       const changedSpy = vi.fn();
       component.registerOnChange(changedSpy);
