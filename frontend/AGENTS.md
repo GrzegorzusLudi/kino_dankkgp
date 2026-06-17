@@ -47,13 +47,18 @@ Follow the established pattern (see `libs/button/src/lib/button.component.spec.t
    - Creates the fixture, assigns `component`, sets any **required inputs** via `fixture.componentRef.setInput('name', value)` **before** the first `fixture.detectChanges()`.
    - Calls `fixture.detectChanges()` once.
    - Captures DOM-element references with `fixture.nativeElement.querySelector(...)` after the first change-detection cycle.
-4. Group related assertions in nested `describe` blocks per feature area — observed names include:
-   - `structure`
-   - `default inputs`
-   - `[input name]`
-   - `content projection`
-   - `reactive forms`
-   - `user interactions`
+4. Group related assertions in nested `describe` blocks per feature area.
+
+## Nested `describe` blocks
+
+Group related assertions in nested `describe` blocks per feature area — observed names include:
+
+- `structure`
+- `default inputs`
+- `[input name]`
+- `content projection`
+- `reactive forms`
+- `user interactions`
 
 ## Inputs, DOM, and interactions
 
