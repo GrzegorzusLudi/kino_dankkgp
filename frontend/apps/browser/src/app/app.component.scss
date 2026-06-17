@@ -50,7 +50,7 @@ lib-toolbar {
   app-video-container,
   app-video-actions,
   app-queue {
-    width: calc(100% - 320px);
+    width: calc(100% - $panel-width - $padding * 1.5);
   }
 }
 
@@ -61,7 +61,9 @@ lib-toolbar {
   right: 0;
   top: $toolbar-height;
   height: calc(100vh - $toolbar-height);
-  width: 320px;
+  width: $panel-width + ($padding * 1.5);
+  min-width: $panel-width + ($padding * 1.5);
+  max-width: $panel-width + ($padding * 1.5);
 }
 
 app-connected-users-info {

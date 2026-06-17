@@ -7,7 +7,7 @@
 .chat.#{$flat-light-theme-class-name},
 .chat.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
-  width: 320px;
+  width: $panel-width;
   height: 100%;
   align-self: stretch;
   display: flex;
