@@ -49,8 +49,8 @@ Follow the established pattern (see `libs/button/src/lib/button.component.spec.t
    - Captures DOM-element references with `fixture.nativeElement.querySelector(...)` after the first change-detection cycle.
 4. Group related assertions in nested `describe` blocks per feature area — observed names include:
    - `structure`
-   - `inputs`
-   - `variant`
+   - `default inputs`
+   - `[input name]`
    - `content projection`
    - `reactive forms`
    - `user interactions`
