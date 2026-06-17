@@ -7,11 +7,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DurationPipe } from '../../pipes/duration/duration.pipe';
 import { ButtonComponent } from 'button';
 import { TextComponent } from 'text';
+import { TooltipDirective } from 'tooltip';
 import { ApiService } from '../../services/api/api.service';
 
 @Component({
   selector: 'app-queue',
-  imports: [ButtonComponent, DurationPipe, FontAwesomeModule, TextComponent],
+  imports: [ButtonComponent, DurationPipe, FontAwesomeModule, TextComponent, TooltipDirective],
   hostDirectives: [ThemedDirective],
   templateUrl: './queue.component.html',
   styleUrls: ['./queue.aero.component.scss', './queue.flat.component.scss'],

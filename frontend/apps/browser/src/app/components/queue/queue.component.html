@@ -36,12 +36,14 @@
             <lib-button
               class="margin-right"
               [variant]="item.move_up_voting?.you_voted ? 'primary' : 'ghost'"
+              libTooltip="Vote to move this video up in the queue"
               (click)="voteToMoveUp(item)"
               ><fa-icon [icon]="faCircleUp" class="margin-right" />Vote to move
               up ({{ item.move_up_voting?.user_number_voted ?? 0 }})</lib-button
             >
             <lib-button
               [variant]="item.skip_voting?.you_voted ? 'primary' : 'ghost'"
+              libTooltip="Vote to remove this video from the queue"
               (click)="voteToRemove(item)"
               ><fa-icon [icon]="faTrash" class="margin-right" />Vote to remove
               ({{ item.skip_voting?.user_number_voted ?? 0 }})</lib-button
