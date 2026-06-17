@@ -1,0 +1,38 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "tooltip",
+  "prefix": "lib",
+  "projectType": "library",
+  "sourceRoot": "libs/tooltip/src",
+  "tags": [],
+  "targets": {
+    "chores": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx run tooltip:lint:fix", "nx run tooltip:format"],
+        "parallel": false
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prettier --write \"libs/tooltip/\""
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "lint:fix": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "fix": true
+      }
+    },
+    "test": {
+      "executor": "@nx/vitest:test",
+      "options": {
+        "config": "libs/tooltip/vite.config.mts"
+      }
+    }
+  }
+}

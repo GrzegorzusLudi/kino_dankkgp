@@ -1,0 +1,30 @@
+@use '../../../theme/src/lib/variables' as *;
+
+$tooltip-padding-v: 4px;
+$tooltip-padding-h: $padding;
+
+.tooltip.#{$flat-dark-theme-class-name} {
+  background: $dark-primary-a50;
+  color: $dark-link-color;
+  font-family: 'Open Sans', sans-serif;
+  font-size: $font-size;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  padding: $tooltip-padding-v $tooltip-padding-h;
+  white-space: nowrap;
+  pointer-events: none;
+  @include border-radius;
+}
+
+.tooltip.#{$flat-light-theme-class-name} {
+  background: $light-primary-a60;
+  color: $dark-link-color;
+  font-family: 'Open Sans', sans-serif;
+  font-size: $font-size;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  padding: $tooltip-padding-v $tooltip-padding-h;
+  white-space: nowrap;
+  pointer-events: none;
+  @include border-radius;
+}

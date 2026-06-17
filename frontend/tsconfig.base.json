@@ -20,6 +20,7 @@
       "theme": ["libs/theme/src/index.ts"],
       "title": ["libs/title/src/index.ts"],
       "toolbar": ["libs/toolbar/src/index.ts"],
+      "tooltip": ["libs/tooltip/src/index.ts"],
       "utils": ["libs/utils/src/index.ts"],
       "vertical-separator": ["libs/vertical-separator/src/index.ts"],
       "youtube-player": ["libs/youtube-player/src/index.ts"]
