@@ -25,10 +25,7 @@ import { interval, Subscription, take } from 'rxjs';
   imports: [FontAwesomeModule, NgStyle, TextComponent],
   hostDirectives: [ThemedDirective],
   templateUrl: './toast.component.html',
-  styleUrls: [
-    './toast.aero.component.scss',
-    './toast.flat.component.scss',
-  ],
+  styleUrls: ['./toast.aero.component.scss', './toast.flat.component.scss'],
 })
 export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
   title = input('');
