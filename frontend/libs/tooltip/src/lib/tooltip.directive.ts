@@ -62,6 +62,13 @@ export class TooltipDirective implements OnDestroy {
       return;
     }
 
+    this.renderer.setStyle(this.tooltipElement, 'position', 'fixed');
+    this.renderer.setStyle(this.tooltipElement, 'top', '0');
+    this.renderer.setStyle(this.tooltipElement, 'left', '0');
+    this.renderer.setStyle(this.tooltipElement, 'white-space', 'nowrap');
+    this.renderer.setStyle(this.tooltipElement, 'pointer-events', 'none');
+    this.renderer.setStyle(this.tooltipElement, 'z-index', '9999');
+
     const nativeEl = this.elementRef.nativeElement as HTMLElement;
     const isCustomElement = nativeEl.tagName.includes('-');
     const hostEl = isCustomElement
@@ -93,8 +100,12 @@ export class TooltipDirective implements OnDestroy {
         break;
     }
 
-    this.renderer.setStyle(this.tooltipElement, 'position', 'fixed');
-    this.renderer.setStyle(this.tooltipElement, 'z-index', '9999');
+    const margin = 4;
+    const maxLeft = window.innerWidth - tooltipRect.width - margin;
+    const maxTop = window.innerHeight - tooltipRect.height - margin;
+    left = Math.max(margin, Math.min(left, maxLeft));
+    top = Math.max(margin, Math.min(top, maxTop));
+
     this.renderer.setStyle(this.tooltipElement, 'top', `${top}px`);
     this.renderer.setStyle(this.tooltipElement, 'left', `${left}px`);
   }
