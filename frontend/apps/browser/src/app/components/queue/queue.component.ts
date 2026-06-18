@@ -12,7 +12,13 @@ import { ApiService } from '../../services/api/api.service';
 
 @Component({
   selector: 'app-queue',
-  imports: [ButtonComponent, DurationPipe, FontAwesomeModule, TextComponent, TooltipDirective],
+  imports: [
+    ButtonComponent,
+    DurationPipe,
+    FontAwesomeModule,
+    TextComponent,
+    TooltipDirective,
+  ],
   hostDirectives: [ThemedDirective],
   templateUrl: './queue.component.html',
   styleUrls: ['./queue.aero.component.scss', './queue.flat.component.scss'],
