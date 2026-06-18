@@ -21,10 +21,7 @@ import { TooltipDirective } from './tooltip.directive';
   selector: 'story-theme-wrapper',
   imports: [TooltipDirective],
   encapsulation: ViewEncapsulation.None,
-  styleUrls: [
-    './tooltip.flat.directive.scss',
-    './tooltip.aero.directive.scss',
-  ],
+  styleUrls: ['./tooltip.flat.directive.scss', './tooltip.aero.directive.scss'],
   styles: [
     `
       story-theme-wrapper {
