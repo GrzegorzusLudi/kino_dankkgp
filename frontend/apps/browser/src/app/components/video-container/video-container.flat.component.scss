@@ -1,6 +1,6 @@
 @use '../../styles/shared.scss' as *;
 
-.video-container.#{$flat-dark-theme-class-name},
+.video-container.#{$flat-light-theme-class-name},
 .video-container.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
   width: 100%;
