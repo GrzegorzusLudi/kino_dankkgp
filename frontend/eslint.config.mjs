@@ -31,7 +31,7 @@ const IGNORED = [
   'package-lock.json',
 ];
 
-export default configBuilder()
+const BASE_CONFIGS = configBuilder()
   .addJsonConfig({ jsons: JSONS })
   .addTypeScriptConfig({ sources: SOURCES, tsconfigRootDir: import.meta.dirname })
   .addIgnored({ ignored: IGNORED })
@@ -53,3 +53,25 @@ export default configBuilder()
     }
     return config;
   });
+
+export default [
+  ...BASE_CONFIGS,
+  {
+    files: ['scripts/build.js'],
+    rules: {
+      'func-style': 'off',
+      'max-lines-per-function': 'off',
+      'max-statements': 'off',
+      'no-console': 'off',
+      '@typescript-eslint/naming-convention': 'off',
+      '@typescript-eslint/no-magic-numbers': 'off',
+    },
+  },
+  {
+    files: ['jest.config.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+    },
+  },
+];
