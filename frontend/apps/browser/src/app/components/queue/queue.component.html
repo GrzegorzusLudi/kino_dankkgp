@@ -33,15 +33,17 @@
         </div>
         <div class="actions">
           @if (focusedIndex === $index) {
-            <lib-button
-              class="margin-right"
-              libTooltip="Vote to move this video up in the queue"
-              [variant]="item.move_up_voting?.you_voted ? 'primary' : 'ghost'"
-              (click)="voteToMoveUp(item)"
-              ><fa-icon class="margin-right" [icon]="faCircleUp" />{{
-                item.move_up_voting?.user_number_voted ?? 0
-              }}</lib-button
-            >
+            @if (!$first) {
+              <lib-button
+                class="margin-right"
+                libTooltip="Vote to move this video up in the queue"
+                [variant]="item.move_up_voting?.you_voted ? 'primary' : 'ghost'"
+                (click)="voteToMoveUp(item)"
+                ><fa-icon class="margin-right" [icon]="faCircleUp" />{{
+                  item.move_up_voting?.user_number_voted ?? 0
+                }}</lib-button
+              >
+            }
             <lib-button
               libTooltip="Vote to remove this video from the queue"
               size="sm"
