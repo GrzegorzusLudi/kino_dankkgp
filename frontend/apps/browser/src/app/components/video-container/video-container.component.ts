@@ -2,7 +2,6 @@ import { Component, effect, input, OnDestroy } from '@angular/core';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 
 import { ThemedDirective } from 'theme';
-import { HeaderComponent } from 'header';
 import { TextComponent } from 'text';
 import { YouTubePlayer, YoutubePlayerComponent } from 'youtube-player';
 import {
@@ -15,14 +14,12 @@ import {
 
 @Component({
   selector: 'app-video-container',
-  imports: [HeaderComponent, TextComponent, YoutubePlayerComponent],
+  imports: [TextComponent, YoutubePlayerComponent],
   hostDirectives: [ThemedDirective],
   templateUrl: './video-container.component.html',
   styleUrls: [
-    './video-container.aero-dark.component.scss',
-    './video-container.aero-light.component.scss',
-    './video-container.dark.component.scss',
-    './video-container.light.component.scss',
+    './video-container.aero.component.scss',
+    './video-container.flat.component.scss',
   ],
 })
 export class VideoContainerComponent implements OnDestroy {
