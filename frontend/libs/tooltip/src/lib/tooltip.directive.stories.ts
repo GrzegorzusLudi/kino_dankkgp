@@ -46,7 +46,7 @@ class ThemeWrapperComponent {
 }
 
 interface TooltipStoryArgs {
-  libTooltip: string;
+  libTooltip: string | string[];
   position: 'top' | 'bottom' | 'left' | 'right';
   selectedTheme: string;
 }
@@ -134,5 +134,14 @@ export const FlatLight: Story = {
   args: {
     position: 'top',
     selectedTheme: Theme.FlatLight,
+  },
+};
+
+export const MultiLine: Story = {
+  name: 'Multi Line',
+  args: {
+    libTooltip: ['First line', 'Second line', 'Third line'],
+    position: 'top',
+    selectedTheme: Theme.FlatDark,
   },
 };

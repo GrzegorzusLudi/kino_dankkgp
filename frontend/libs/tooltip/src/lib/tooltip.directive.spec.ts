@@ -9,7 +9,7 @@ import { TooltipDirective } from './tooltip.directive';
   imports: [TooltipDirective],
 })
 class HostComponent {
-  text = 'Tooltip text';
+  text: string | string[] = 'Tooltip text';
   position: 'top' | 'bottom' | 'left' | 'right' = 'top';
 }
 
@@ -75,6 +75,36 @@ describe('TooltipDirective', () => {
       expect(document.querySelector('.tooltip')?.textContent).toBe(
         'Updated text',
       );
+    });
+
+    it('should render each line in its own element when given an array', () => {
+      fixture.componentInstance.text = ['Line 1', 'Line 2'];
+      fixture.detectChanges();
+      host.dispatchEvent(new Event('mouseenter'));
+      fixture.detectChanges();
+      const lines = document.querySelectorAll('.tooltip div');
+      expect(lines.length).toBe(2);
+      expect(lines[0].textContent).toBe('Line 1');
+      expect(lines[1].textContent).toBe('Line 2');
+    });
+
+    it('should not show a tooltip when given an empty array', () => {
+      fixture.componentInstance.text = [];
+      fixture.detectChanges();
+      host.dispatchEvent(new Event('mouseenter'));
+      fixture.detectChanges();
+      expect(document.querySelector('.tooltip')).toBeNull();
+    });
+
+    it('should filter out empty strings from the array', () => {
+      fixture.componentInstance.text = ['Line 1', '', 'Line 3'];
+      fixture.detectChanges();
+      host.dispatchEvent(new Event('mouseenter'));
+      fixture.detectChanges();
+      const lines = document.querySelectorAll('.tooltip div');
+      expect(lines.length).toBe(2);
+      expect(lines[0].textContent).toBe('Line 1');
+      expect(lines[1].textContent).toBe('Line 3');
     });
   });
 

@@ -14,7 +14,7 @@ import { ThemeService } from 'theme';
   selector: '[libTooltip]',
 })
 export class TooltipDirective implements OnDestroy {
-  readonly libTooltip = input<string>('');
+  readonly libTooltip = input<string | string[]>('');
   readonly position = input<'top' | 'bottom' | 'left' | 'right'>('top');
 
   private tooltipElement: HTMLElement | null = null;
@@ -25,11 +25,13 @@ export class TooltipDirective implements OnDestroy {
 
   @HostListener('mouseenter')
   show(): void {
-    if (!this.libTooltip()) {
+    const lines = this.normalizeLines();
+
+    if (!lines.length) {
       return;
     }
 
-    this.createTooltip();
+    this.createTooltip(lines);
   }
 
   @HostListener('mouseleave')
@@ -41,7 +43,12 @@ export class TooltipDirective implements OnDestroy {
     this.destroyTooltip();
   }
 
-  private createTooltip(): void {
+  private normalizeLines(): string[] {
+    const tooltip = this.libTooltip();
+    return (Array.isArray(tooltip) ? tooltip : [tooltip]).filter(Boolean);
+  }
+
+  private createTooltip(lines: string[]): void {
     this.destroyTooltip();
 
     this.tooltipElement = this.renderer.createElement('div');
@@ -49,9 +56,12 @@ export class TooltipDirective implements OnDestroy {
     this.renderer.addClass(this.tooltipElement, this.position());
     this.renderer.addClass(this.tooltipElement, this.themeService.theme());
 
-    const text = this.renderer.createText(this.libTooltip());
+    for (const line of lines) {
+      const lineEl: HTMLElement = this.renderer.createElement('div');
+      this.renderer.appendChild(lineEl, this.renderer.createText(line));
+      this.renderer.appendChild(this.tooltipElement, lineEl);
+    }
 
-    this.renderer.appendChild(this.tooltipElement, text);
     this.renderer.appendChild(document.body, this.tooltipElement);
 
     this.positionTooltip();
