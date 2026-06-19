@@ -76,8 +76,8 @@ async function build() {
   console.log(`Updating font paths in CSS files in ${BACKEND_STATIC_PATH}`);
 
   await replaceInFile({
-    files: `${BACKEND_STATIC_PATH.replace(/\\/g, '/')}/*.css`,
-    from: /\/fonts\/[^/]+\//g,
+    files: `${BACKEND_STATIC_PATH.replaceAll('\\', '/')}/*.css`,
+    from: /\/fonts\/[^/]+\//gu,
     to: '',
   });
 
@@ -92,4 +92,4 @@ async function build() {
   console.log('Done!');
 }
 
-build();
+await build();
