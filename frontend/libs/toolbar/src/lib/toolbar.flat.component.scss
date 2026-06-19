@@ -30,7 +30,6 @@ div.toolbar.#{$flat-light-theme-class-name} {
     radial-gradient(circle at 11% 29%, $color-light-4 8%, transparent 74%),
     radial-gradient(circle at 90% 50%, $color-light-5 2%, transparent 85%);
   background-blend-mode: normal, normal, normal, normal, normal;
-  box-shadow: $light-box-shadow;
 }
 
 $color-dark-1: $dark-primary-a40;
@@ -49,5 +48,4 @@ div.toolbar.#{$flat-dark-theme-class-name} {
     radial-gradient(circle at 11% 29%, $color-dark-4 8%, transparent 74%),
     radial-gradient(circle at 90% 50%, $color-dark-5 2%, transparent 85%);
   background-blend-mode: normal, normal, normal, normal, normal;
-  box-shadow: $dark-box-shadow;
 }

@@ -71,10 +71,6 @@ div.#{$flat-light-theme-class-name} {
     background: $light-primary-a50;
   }
 
-  input:focus + .slider {
-    box-shadow: 0 0 1px $light-primary-a30;
-  }
-
   input:checked:hover + .slider {
     background-color: $light-primary-a40;
     background: $light-primary-a40;
@@ -93,10 +89,6 @@ div.#{$flat-dark-theme-class-name} {
   input:checked + .slider {
     background-color: $dark-primary-a50;
     background: $dark-primary-a50;
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px $dark-primary-a30;
   }
 
   input:checked:hover + .slider {

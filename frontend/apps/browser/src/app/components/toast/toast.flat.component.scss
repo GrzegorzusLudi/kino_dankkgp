@@ -98,7 +98,6 @@
 
 .toast.#{$flat-light-theme-class-name} {
   background-color: transparent;
-  box-shadow: $light-box-shadow;
 
   .main {
     .icon {
@@ -191,7 +190,6 @@
 }
 
 .toast.#{$flat-dark-theme-class-name} {
-  box-shadow: $dark-box-shadow;
 
   .main {
     .icon {

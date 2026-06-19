@@ -80,7 +80,6 @@ $row-height: 36px;
 }
 
 .queue.#{$flat-light-theme-class-name} {
-  box-shadow: $light-box-shadow;
   background-color: $light-primary-a0;
   border-left: 1px solid $light-border-color;
   border-right: 1px solid $light-border-color;
@@ -108,7 +107,6 @@ $row-height: 36px;
 }
 
 .queue.#{$flat-dark-theme-class-name} {
-  box-shadow: $dark-box-shadow;
   background-color: $dark-primary-a30;
   border-left: 1px solid $dark-border-color;
   border-right: 1px solid $dark-border-color;
