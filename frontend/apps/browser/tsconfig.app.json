@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    "noEmit": true,
     "outDir": "../../dist/out-tsc/app",
     "types": []
   },
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts", "src/test-setup.ts"],
   "extends": "./tsconfig.json",
   "files": ["src/main.ts"],
-  "include": ["src/**/*.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts"]
 }
