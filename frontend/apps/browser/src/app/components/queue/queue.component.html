@@ -36,6 +36,7 @@
             @if (!$first) {
               <lib-button
                 class="margin-right"
+                height="small"
                 [libTooltip]="[
                   'Vote to move this video up in the queue.',
                   `Number of votes to have majority is ${item.move_up_voting.user_number_to_have_majority}.`,
@@ -48,6 +49,7 @@
               >
             }
             <lib-button
+              height="small"
               [libTooltip]="[
                 'Vote to remove this video from the queue.',
                 `Number of votes to have majority is ${item.skip_voting.user_number_to_have_majority}.`,
