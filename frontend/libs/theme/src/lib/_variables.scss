@@ -74,15 +74,7 @@ $header-height: 32px;
 $panel-width: 320px;
 
 @mixin border-radius {
-  border-radius: 4px !important;
+  border-radius: 12px !important;
 }
 
-@mixin border-top-radius {
-  border-top-left-radius: 4px !important;
-  border-top-right-radius: 4px !important;
-}
 
-@mixin border-bottom-radius {
-  border-bottom-left-radius: 4px !important;
-  border-bottom-right-radius: 4px !important;
-}

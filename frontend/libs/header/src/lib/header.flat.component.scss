@@ -14,7 +14,6 @@
   letter-spacing: $letter-spacing;
   font-weight: 600;
   padding: 0 $padding;
-  @include border-top-radius;
 }
 
 .header.#{$flat-light-theme-class-name} {

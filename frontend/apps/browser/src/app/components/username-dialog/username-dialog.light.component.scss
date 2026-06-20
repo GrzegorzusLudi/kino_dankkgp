@@ -6,7 +6,6 @@
   flex-direction: column;
   background-color: $light-primary-a40;
   border: none;
-  @include border-radius;
 
   .content {
     box-sizing: border-box;

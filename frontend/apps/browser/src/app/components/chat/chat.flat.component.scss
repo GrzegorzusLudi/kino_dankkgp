@@ -22,7 +22,6 @@
     flex-grow: 1;
     min-height: 0;
     border-top: none;
-    @include border-bottom-radius;
   }
 
   .messages {

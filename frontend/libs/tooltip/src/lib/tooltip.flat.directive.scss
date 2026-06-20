@@ -13,7 +13,6 @@ $tooltip-padding-h: $padding;
   padding: $tooltip-padding-v $tooltip-padding-h;
   white-space: nowrap;
   pointer-events: none;
-  @include border-radius;
 }
 
 .tooltip.#{$flat-light-theme-class-name} {
@@ -26,5 +25,4 @@ $tooltip-padding-h: $padding;
   padding: $tooltip-padding-v $tooltip-padding-h;
   white-space: nowrap;
   pointer-events: none;
-  @include border-radius;
 }
