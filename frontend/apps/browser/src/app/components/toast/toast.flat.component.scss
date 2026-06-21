@@ -130,7 +130,6 @@
 
     &.success {
       background: $light-success-a10;
-      border: 1px solid $light-success-a70;
 
       .icon,
       .close-btn {
@@ -145,7 +144,6 @@
 
     &.danger {
       background: $light-danger-a10;
-      border: 1px solid $light-danger-a70;
 
       .icon,
       .close-btn {
@@ -162,7 +160,6 @@
   .timeout-progress {
     &.info {
       background-color: $light-primary-a10;
-      border: 1px solid $light-primary-a70;
 
       .bar {
         background-color: $light-primary-a70;
@@ -171,7 +168,6 @@
 
     &.success {
       background-color: $light-success-a10;
-      border: 1px solid $light-success-a70;
 
       .bar {
         background-color: $light-success-a70;
@@ -180,7 +176,6 @@
 
     &.danger {
       background-color: $light-danger-a10;
-      border: 1px solid $light-danger-a70;
 
       .bar {
         background-color: $light-danger-a70;
@@ -206,7 +201,6 @@
 
     &.info {
       background: $light-primary-a90;
-      border: 1px solid $light-primary-a90;
 
       .icon,
       .close-btn {
@@ -221,7 +215,6 @@
 
     &.success {
       background: $light-success-a90;
-      border: 1px solid $light-success-a90;
 
       .icon,
       .close-btn {
@@ -236,7 +229,6 @@
 
     &.danger {
       background: $light-danger-a90;
-      border: 1px solid $light-danger-a90;
 
       .icon,
       .close-btn {
@@ -253,7 +245,6 @@
   .timeout-progress {
     &.info {
       background-color: $light-primary-a10;
-      border: 1px solid $light-primary-a70;
 
       .bar {
         background-color: $light-primary-a70;
@@ -262,7 +253,6 @@
 
     &.success {
       background-color: $light-success-a10;
-      border: 1px solid $light-success-a70;
 
       .bar {
         background-color: $light-success-a70;
@@ -271,7 +261,6 @@
 
     &.danger {
       background-color: $light-danger-a10;
-      border: 1px solid $light-danger-a70;
 
       .bar {
         background-color: $light-danger-a70;

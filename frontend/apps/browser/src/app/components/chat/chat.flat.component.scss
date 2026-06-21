@@ -21,7 +21,6 @@
     padding: 0;
     flex-grow: 1;
     min-height: 0;
-    border-top: none;
   }
 
   .messages {
@@ -67,9 +66,6 @@
 
   .content {
     background-color: $light-primary-a0;
-    border-left: 1px solid $light-border-color;
-    border-right: 1px solid $light-border-color;
-    border: 1px solid $light-border-color;
   }
 
   .messages {
@@ -88,9 +84,6 @@
 
   .content {
     background-color: $dark-primary-a30;
-    border-left: 1px solid $dark-border-color;
-    border-right: 1px solid $dark-border-color;
-    border: 1px solid $dark-border-color;
   }
 
   .messages {

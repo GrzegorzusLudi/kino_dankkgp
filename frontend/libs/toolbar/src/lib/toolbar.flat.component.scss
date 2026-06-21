@@ -21,7 +21,6 @@ div.toolbar.#{$flat-dark-theme-class-name} {
 }
 
 div.toolbar.#{$flat-light-theme-class-name} {
-  border-bottom: 1px solid $light-border-color;
   background-color: $color-light-1;
   background-image:
     radial-gradient(circle at 7% 81%, $color-light-1 16%, transparent 53%),
@@ -39,7 +38,6 @@ $color-dark-4: color.adjust($color-dark-1, $lightness: -0.2%);
 $color-dark-5: color.adjust($color-dark-1, $lightness: -1%);
 
 div.toolbar.#{$flat-dark-theme-class-name} {
-  border-bottom: 1px solid $dark-border-color;
   background-color: $color-dark-1;
   background-image:
     radial-gradient(circle at 7% 81%, $color-dark-1 16%, transparent 53%),
