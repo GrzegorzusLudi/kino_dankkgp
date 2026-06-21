@@ -48,6 +48,13 @@ div.#{$flat-dark-theme-class-name} {
     transform: translateX($width - ($height));
   }
 
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
 }
 
 div.#{$flat-light-theme-class-name} {

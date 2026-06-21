@@ -18,6 +18,10 @@ $input-height: 32px;
     @include border-radius;
   }
 
+  input:focus {
+    border: 1px solid $light-input-border-color;
+  }
+
   input:hover {
     background: $light-primary-a0;
   }
@@ -26,7 +30,12 @@ $input-height: 32px;
 .input.#{$flat-light-theme-class-name} {
   input {
     color: $light-text-color;
+    border: 1px solid $light-input-border-color;
     background-color: $light-primary-a0;
+  }
+
+  input:focus {
+    border: 1px solid $light-input-border-color;
   }
 
   input:hover {
@@ -37,7 +46,12 @@ $input-height: 32px;
 .input.#{$flat-dark-theme-class-name} {
   input {
     color: $light-text-color;
+    border: 1px solid $dark-input-border-color;
     background-color: $dark-primary-a0;
+  }
+
+  input:focus {
+    border: 1px solid $dark-input-border-color;
   }
 
   input:hover {
