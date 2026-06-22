@@ -12,6 +12,7 @@
   align-self: stretch;
   display: flex;
   flex-direction: column;
+  @include border-radius;
 
   .content {
     box-sizing: border-box;
@@ -62,13 +63,13 @@
 }
 
 .chat.#{$flat-light-theme-class-name} {
+  background-color: $light-primary-a0;
   color: $light-text-color;
-
-  .content {
-    background-color: $light-primary-a0;
-  }
+  border: 1px solid $light-border-color;
 
   .messages {
+    border-top: 1px solid $light-border-color;
+
     span {
       color: $light-text-color;
     }
@@ -80,13 +81,13 @@
 }
 
 .chat.#{$flat-dark-theme-class-name} {
+  background-color: $dark-primary-a30;
   color: $dark-text-color;
-
-  .content {
-    background-color: $dark-primary-a30;
-  }
+  border: 1px solid $dark-border-color;
 
   .messages {
+    border-top: 1px solid $dark-border-color;
+
     span {
       color: $dark-text-color;
     }
