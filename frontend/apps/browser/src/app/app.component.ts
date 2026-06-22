@@ -12,7 +12,7 @@ import {
   HEIGHT_OFFSET,
   INITIAL_VIDEO_HEIGHT,
   INITIAL_VIDEO_WIDTH,
-  MINIMUM_VIDEO_HEIGHT,
+  MINIMUM_VIDEO_WIDTH,
   WIDTH_OFFSET,
 } from './app.consts';
 import { BackgroundComponent } from './components/background/background.component';
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private resizeVideoContainer(dimensions: Dimensions): void {
-    this.width = Math.max(MINIMUM_VIDEO_HEIGHT, Math.floor(dimensions.width));
-    this.height = Math.max(MINIMUM_VIDEO_HEIGHT, Math.floor(dimensions.height));
+    this.width = Math.max(MINIMUM_VIDEO_WIDTH, Math.floor(dimensions.width));
+    this.height = Math.floor(this.width * (9 / 16));
   }
 }
