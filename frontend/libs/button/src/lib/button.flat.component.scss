@@ -21,7 +21,7 @@ $medium-height: 32px;
   letter-spacing: $letter-spacing;
   width: 100%;
   white-space: nowrap;
-  @include border-radius;
+  border-radius: 3px;
 
   &.small {
     height: $small-height;
