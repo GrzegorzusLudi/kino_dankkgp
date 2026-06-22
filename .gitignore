@@ -12,4 +12,5 @@ server/static/*.css
 server/static/*.js
 server/static/*.ico
 server/static/*.ttf
+server/static/*.jpg
 server/.env
