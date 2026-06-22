@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from 'node:fs';
 import { normalize } from 'node:path';
 import { cwd } from 'node:process';
 
@@ -13,6 +13,7 @@ async function build() {
   const BACKEND_STATIC_PATH = normalize(`${cwd()}/../server/static`);
 
   const FRONTEND_FONTS_PATH = normalize(`${cwd()}/apps/browser/public/fonts`);
+  const FRONTEND_IMAGES_PATH = normalize(`${cwd()}/apps/browser/public/images`);
 
   const HTML_FILES = [normalize(`${FRONTEND_DIST_PATH}/index.html`)];
   const STATIC_FILES = [
@@ -45,6 +46,7 @@ async function build() {
     normalize(`${BACKEND_STATIC_PATH}/*.css`),
     normalize(`${BACKEND_STATIC_PATH}/*.ico`),
     normalize(`${BACKEND_STATIC_PATH}/*.ttf`),
+    normalize(`${BACKEND_STATIC_PATH}/*.jpg`),
   ], { force: true });
 
   console.log(`Updating src and href attributes in ${HTML_FILES[0]}`);
@@ -84,6 +86,38 @@ async function build() {
   console.log(`Copying font files to ${BACKEND_STATIC_PATH}`);
 
   await copy(FONT_FILES, BACKEND_STATIC_PATH, { flat: true });
+
+  console.log(`Scanning compiled code for jpg references in ${BACKEND_STATIC_PATH}`);
+
+  const jpgReferences = new Map();
+  const jpgPattern = /(?<base>[a-zA-Z0-9_-]+)-(?<hash>[A-Z0-9]+)\.jpg/gu;
+  const jsFiles = readdirSync(BACKEND_STATIC_PATH).filter((name) => name.endsWith('.js'));
+
+  for (const name of jsFiles) {
+    const content = readFileSync(normalize(`${BACKEND_STATIC_PATH}/${name}`), 'utf-8');
+
+    for (const match of content.matchAll(jpgPattern)) {
+      const { base, hash } = match.groups;
+      jpgReferences.set(`${base}.jpg`, `${base}-${hash}.jpg`);
+    }
+  }
+
+  console.log(`Copying ${jpgReferences.size} jpg file(s) to ${BACKEND_STATIC_PATH}`);
+
+  for (const [sourceName, hashedName] of jpgReferences) {
+    copyFileSync(
+      normalize(`${FRONTEND_IMAGES_PATH}/${sourceName}`),
+      normalize(`${BACKEND_STATIC_PATH}/${hashedName}`),
+    );
+  }
+
+  console.log(`Updating media paths in compiled code files in ${BACKEND_STATIC_PATH}`);
+
+  await replaceInFile({
+    files: `${BACKEND_STATIC_PATH.replaceAll('\\', '/')}/*.js`,
+    from: /\.\/media\//gu,
+    to: 'static/',
+  });
 
   console.log(`Deleting static files in ${FRONTEND_DIST_PATH}`);
 
