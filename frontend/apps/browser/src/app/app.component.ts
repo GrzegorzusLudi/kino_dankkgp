@@ -34,6 +34,7 @@ import { Queue } from './models/queue.interface';
 import { Video } from './models/video.interface';
 import { ToastContainerComponent } from './components/toast-container/toast-container.component';
 import { QueueComponent } from './components/queue/queue.component';
+import { TextComponent } from 'text';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +51,7 @@ import { QueueComponent } from './components/queue/queue.component';
     VerticalSeparatorComponent,
     VideoActionsComponent,
     VideoContainerComponent,
+    TextComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
