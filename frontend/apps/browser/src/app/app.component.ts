@@ -17,7 +17,7 @@ import {
 } from './app.consts';
 import { BackgroundComponent } from './components/background/background.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { ConnectedUsersInfoComponent } from './components/connected-users-info/connected-users-info.component';
+import { ConnectedUsersComponent } from './components/connected-users/connected-users.component';
 import { ModeToggleComponent } from './components/mode-toggle/mode-toggle.component';
 import { TitleComponent } from 'title';
 import { ToolbarComponent } from 'toolbar';
@@ -40,7 +40,7 @@ import { QueueComponent } from './components/queue/queue.component';
   imports: [
     BackgroundComponent,
     ChatComponent,
-    ConnectedUsersInfoComponent,
+    ConnectedUsersComponent,
     ModeToggleComponent,
     QueueComponent,
     TitleComponent,

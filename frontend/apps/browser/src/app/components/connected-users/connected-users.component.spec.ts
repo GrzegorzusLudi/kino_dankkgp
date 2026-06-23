@@ -1,19 +1,19 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConnectedUsersInfoComponent } from './connected-users-info.component';
+import { ConnectedUsersComponent } from './connected-users.component';
 
-describe('ConnectedUsersInfoComponent', () => {
-  let component: ConnectedUsersInfoComponent;
-  let fixture: ComponentFixture<ConnectedUsersInfoComponent>;
+describe('ConnectedUsersComponent', () => {
+  let component: ConnectedUsersComponent;
+  let fixture: ComponentFixture<ConnectedUsersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConnectedUsersInfoComponent],
+      imports: [ConnectedUsersComponent],
       providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ConnectedUsersInfoComponent);
+    fixture = TestBed.createComponent(ConnectedUsersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

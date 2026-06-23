@@ -5,16 +5,16 @@ import { HeaderComponent } from 'header';
 import { TextComponent } from 'text';
 
 @Component({
-  selector: 'app-connected-users-info',
+  selector: 'app-connected-users',
   imports: [HeaderComponent, TextComponent],
   hostDirectives: [ThemedDirective],
-  templateUrl: './connected-users-info.component.html',
+  templateUrl: './connected-users.component.html',
   styleUrls: [
-    './connected-users-info.aero.component.scss',
-    './connected-users-info.flat.component.scss',
+    './connected-users.aero.component.scss',
+    './connected-users.flat.component.scss',
   ],
 })
-export class ConnectedUsersInfoComponent {
+export class ConnectedUsersComponent {
   usernames = input<string[]>([]);
 
   trackByFn(index: number, username: string): string {

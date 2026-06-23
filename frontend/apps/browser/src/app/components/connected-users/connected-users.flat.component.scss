@@ -1,7 +1,7 @@
 @use '../../styles/shared.scss' as *;
 
-.connected-users-info.#{$flat-light-theme-class-name},
-.connected-users-info.#{$flat-dark-theme-class-name} {
+.connected-users.#{$flat-light-theme-class-name},
+.connected-users.#{$flat-dark-theme-class-name} {
   box-sizing: border-box;
   width: 320px;
   border-radius: 8px;
@@ -21,7 +21,7 @@
   }
 }
 
-.connected-users-info.#{$flat-light-theme-class-name} {
+.connected-users.#{$flat-light-theme-class-name} {
   color: $light-text-color;
   background-color: $light-primary-a0;
   border: 1px solid $light-border-color;
@@ -35,7 +35,7 @@
   }
 }
 
-.connected-users-info.#{$flat-dark-theme-class-name} {
+.connected-users.#{$flat-dark-theme-class-name} {
   color: $dark-text-color;
   background-color: $dark-primary-a30;
   border: 1px solid $dark-border-color;
