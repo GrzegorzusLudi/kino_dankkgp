@@ -35,9 +35,11 @@
   border: 1px solid $light-border-color;
 
   .no-video {
-    background-image: url('../../../../public/images/cinema-light.jpg');
-    background-size: cover;
+    background-color: white;
+    background-image: url('../../../../public/images/vecteezy_drawing-of-a-theater-with-chairs-and-a-screen_light.jpg');
+    background-size: auto;
     background-position: center;
+    background-repeat: no-repeat;
   }
 }
 
@@ -46,8 +48,10 @@
   border: 1px solid $dark-border-color;
 
   .no-video {
-    background-image: url('../../../../public/images/cinema-dark.jpg');
-    background-size: cover;
+    background-color: black;
+    background-image: url('../../../../public/images/vecteezy_drawing-of-a-theater-with-chairs-and-a-screen_dark.jpg');
+    background-size: auto;
     background-position: center;
+    background-repeat: no-repeat;
   }
 }
