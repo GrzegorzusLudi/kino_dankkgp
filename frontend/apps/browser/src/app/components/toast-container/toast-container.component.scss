@@ -2,7 +2,7 @@
 
 .toast-container {
   box-sizing: border-box;
-  position: absolute;
+  position: fixed;
   bottom: $padding;
   right: $padding;
   z-index: 1000;
