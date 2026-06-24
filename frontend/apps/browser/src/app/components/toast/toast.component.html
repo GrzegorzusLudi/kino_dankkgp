@@ -29,9 +29,9 @@
         <lib-text>{{ message() }}</lib-text>
       </div>
     </div>
-    <button class="close-btn" type="button" (click)="dismiss()">
+    <lib-button class="close-button" variant="ghost" height="small" (click)="dismiss()">
       <fa-icon [icon]="faXmark" />
-    </button>
+    </lib-button>
   </div>
   <div
     class="timeout-progress"

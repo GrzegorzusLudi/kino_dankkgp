@@ -6,15 +6,18 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  border: none;
   background-color: transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   width: 256px;
+  overflow: hidden;
+  @include border-radius;
 
   .main {
     box-sizing: border-box;
     position: relative;
     display: flex;
     padding: $padding;
+    background: $gray-a0;
 
     .icon {
       font-size: $font-size;
@@ -40,14 +43,8 @@
       flex: 1;
     }
 
-    .close-btn {
+    .close-button {
       align-self: flex-start;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: $font-size;
-      line-height: $line-height;
-      padding: 0;
       margin-left: $padding;
     }
 
@@ -98,6 +95,7 @@
 
 .toast.#{$flat-light-theme-class-name} {
   background-color: transparent;
+  border: 1px solid $light-border-color;
 
   .main {
     .icon {
@@ -109,16 +107,8 @@
       color: $light-text-color;
     }
 
-    .close-btn {
-      color: $light-text-color;
-    }
-
     &.info {
-      background: $light-primary-a10;
-      border: 1px solid $light-primary-a70;
-
-      .icon,
-      .close-btn {
+      .icon {
         color: $light-primary-a70;
       }
 
@@ -129,10 +119,7 @@
     }
 
     &.success {
-      background: $light-success-a10;
-
-      .icon,
-      .close-btn {
+      .icon {
         color: $light-success-a70;
       }
 
@@ -143,10 +130,7 @@
     }
 
     &.danger {
-      background: $light-danger-a10;
-
-      .icon,
-      .close-btn {
+      .icon {
         color: $light-danger-a70;
       }
 
@@ -185,6 +169,8 @@
 }
 
 .toast.#{$flat-dark-theme-class-name} {
+  border: 1px solid $dark-border-color;
+
   .main {
     .icon {
       color: $dark-text-color;
@@ -195,15 +181,8 @@
       color: $dark-text-color;
     }
 
-    .close-btn {
-      color: $dark-text-color;
-    }
-
     &.info {
-      background: $light-primary-a90;
-
-      .icon,
-      .close-btn {
+      .icon {
         color: $light-primary-a90;
       }
 
@@ -214,10 +193,7 @@
     }
 
     &.success {
-      background: $light-success-a90;
-
-      .icon,
-      .close-btn {
+      .icon {
         color: $light-success-a90;
       }
 
@@ -228,10 +204,7 @@
     }
 
     &.danger {
-      background: $light-danger-a90;
-
-      .icon,
-      .close-btn {
+      .icon {
         color: $light-danger-a90;
       }
 
