@@ -108,6 +108,8 @@
     }
 
     &.info {
+      background: $light-primary-a10;
+
       .icon {
         color: $light-primary-a70;
       }
@@ -119,6 +121,8 @@
     }
 
     &.success {
+      background: $light-success-a10;
+
       .icon {
         color: $light-success-a70;
       }
@@ -130,6 +134,8 @@
     }
 
     &.danger {
+      background: $light-danger-a10;
+
       .icon {
         color: $light-danger-a70;
       }
@@ -182,6 +188,8 @@
     }
 
     &.info {
+      background: $light-primary-a90;
+
       .icon {
         color: $light-primary-a90;
       }
@@ -193,6 +201,8 @@
     }
 
     &.success {
+      background: $light-success-a90;
+
       .icon {
         color: $light-success-a90;
       }
@@ -204,6 +214,8 @@
     }
 
     &.danger {
+      background: $light-danger-a90;
+
       .icon {
         color: $light-danger-a90;
       }
