@@ -84,3 +84,20 @@ app-connected-users {
   display: flex;
   justify-content: flex-end;
 }
+
+a {
+  color: $light-primary-a30;
+  text-decoration: underline;
+
+  &:visited {
+    color: $light-primary-a40;
+  }
+
+  &:hover {
+    color: $light-primary-a20;
+  }
+
+  &:active {
+    color: $light-primary-a10;
+  }
+}
