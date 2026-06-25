@@ -1,99 +1,94 @@
-@use '../../../theme/src/lib/variables' as *;
-
-$small-height: 24px;
-$medium-height: 32px;
-
-.button.#{$flat-dark-theme-class-name},
-.button.#{$flat-light-theme-class-name} {
+.button.flat-dark,
+.button.flat-light {
   font-family: 'Open Sans', sans-serif;
   box-sizing: border-box;
   border: none;
   margin: 0;
-  padding-left: $padding;
-  padding-right: $padding;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
   text-align: center;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: $font-size;
-  line-height: $line-height;
-  letter-spacing: $letter-spacing;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
   width: 100%;
   white-space: nowrap;
   border-radius: 3px;
 
   &.small {
-    height: $small-height;
+    height: 24px;
   }
 
   &.medium {
-    height: $medium-height;
+    height: 32px;
   }
 }
 
-.button.#{$flat-dark-theme-class-name} {
-  color: $dark-text-color;
+.button.flat-dark {
+  color: var(--dark-text-color);
 
   &.primary {
-    background: $dark-primary-a50;
-    color: $dark-link-color;
-    border: 1px solid $dark-primary-a50;
+    background: var(--dark-primary-a50);
+    color: var(--dark-link-color);
+    border: 1px solid var(--dark-primary-a50);
 
     &:hover {
-      background: $dark-primary-a40;
+      background: var(--dark-primary-a40);
     }
 
     &.clicked {
-      background: $dark-primary-a60;
+      background: var(--dark-primary-a60);
     }
 
   }
 
   &.ghost {
     background: transparent;
-    color: $dark-link-color;
+    color: var(--dark-link-color);
     border: 1px solid transparent;
 
     &:hover {
-      background: rgba($dark-link-color, 0.35);
+      background: rgba(255, 255, 255, 0.35);
     }
 
     &.clicked {
-      background: rgba($dark-link-color, 0.5);
+      background: rgba(255, 255, 255, 0.5);
     }
   }
 }
 
-.button.#{$flat-light-theme-class-name} {
-  color: $light-text-color;
+.button.flat-light {
+  color: var(--light-text-color);
 
   &.primary {
-    background: $light-primary-a60;
-    color: $dark-link-color;
-    border: 1px solid $light-primary-a60;
+    background: var(--light-primary-a60);
+    color: var(--dark-link-color);
+    border: 1px solid var(--light-primary-a60);
 
     &:hover {
-      background: $light-primary-a40;
+      background: var(--light-primary-a40);
     }
 
     &.clicked {
-      background: $light-primary-a60;
+      background: var(--light-primary-a60);
     }
 
   }
 
   &.ghost {
     background: transparent;
-    color: $light-link-color;
+    color: var(--light-link-color);
     border: 1px solid transparent;
 
     &:hover {
-      background: rgba($dark-link-color, 0.6);
+      background: rgba(255, 255, 255, 0.6);
     }
 
     &.clicked {
-      background: rgba($dark-link-color, 0.75);
+      background: rgba(255, 255, 255, 0.75);
     }
   }
 }
