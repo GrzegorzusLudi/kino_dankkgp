@@ -1,51 +1,36 @@
-@use 'shared' as *;
-@use 'sass:color';
-
-$color-light-1: #e5edff;
-$color-light-2: #e5fff5;
-$color-light-3: $light-primary-a10;
-$color-light-4: #ede5ff;
-$color-light-5: #e5fbff;
-
-div.toolbar.#{$flat-light-theme-class-name},
-div.toolbar.#{$flat-dark-theme-class-name} {
+div.toolbar.flat-light,
+div.toolbar.flat-dark {
   box-sizing: border-box;
-  height: $toolbar-height;
+  height: var(--toolbar-height);
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: $padding;
-  padding-right: $padding;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
 }
 
-div.toolbar.#{$flat-light-theme-class-name} {
-  background-color: $color-light-1;
+div.toolbar.flat-light {
+  background-color: #e5edff;
   background-image:
-    radial-gradient(circle at 7% 81%, $color-light-1 16%, transparent 53%),
-    radial-gradient(circle at 5% 1%, $color-light-2 7%, transparent 84%),
-    radial-gradient(circle at 39% 52%, $color-light-3 6%, transparent 68%),
-    radial-gradient(circle at 11% 29%, $color-light-4 8%, transparent 74%),
-    radial-gradient(circle at 90% 50%, $color-light-5 2%, transparent 85%);
+    radial-gradient(circle at 7% 81%, #e5edff 16%, transparent 53%),
+    radial-gradient(circle at 5% 1%, #e5fff5 7%, transparent 84%),
+    radial-gradient(circle at 39% 52%, var(--light-primary-a10) 6%, transparent 68%),
+    radial-gradient(circle at 11% 29%, #ede5ff 8%, transparent 74%),
+    radial-gradient(circle at 90% 50%, #e5fbff 2%, transparent 85%);
   background-blend-mode: normal, normal, normal, normal, normal;
-  border-bottom: 1px solid $light-border-color;
+  border-bottom: 1px solid var(--light-border-color);
 }
 
-$color-dark-1: $dark-primary-a50;
-$color-dark-2: $dark-primary-a50;
-$color-dark-3: $dark-primary-a50;
-$color-dark-4: $dark-primary-a50;
-$color-dark-5: $dark-primary-a50;
-
-div.toolbar.#{$flat-dark-theme-class-name} {
-  background-color: $color-dark-1;
+div.toolbar.flat-dark {
+  background-color: var(--dark-primary-a50);
   background-image:
-    radial-gradient(circle at 7% 81%, $color-dark-1 16%, transparent 53%),
-    radial-gradient(circle at 5% 1%, $color-dark-2 7%, transparent 84%),
-    radial-gradient(circle at 39% 52%, $color-dark-3 6%, transparent 68%),
-    radial-gradient(circle at 11% 29%, $color-dark-4 8%, transparent 74%),
-    radial-gradient(circle at 90% 50%, $color-dark-5 2%, transparent 85%);
+    radial-gradient(circle at 7% 81%, var(--dark-primary-a50) 16%, transparent 53%),
+    radial-gradient(circle at 5% 1%, var(--dark-primary-a50) 7%, transparent 84%),
+    radial-gradient(circle at 39% 52%, var(--dark-primary-a50) 6%, transparent 68%),
+    radial-gradient(circle at 11% 29%, var(--dark-primary-a50) 8%, transparent 74%),
+    radial-gradient(circle at 90% 50%, var(--dark-primary-a50) 2%, transparent 85%);
   background-blend-mode: normal, normal, normal, normal, normal;
-  border-bottom: 1px solid $dark-border-color;
+  border-bottom: 1px solid var(--dark-border-color);
 }
