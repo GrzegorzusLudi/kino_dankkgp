@@ -1,42 +1,40 @@
-@use '../../styles/shared.scss' as *;
-
 :host {
   display: flex;
   align-items: center;
 }
 
-.mode-toggle.#{$flat-light-theme-class-name},
-.mode-toggle.#{$flat-dark-theme-class-name} {
+.mode-toggle.flat-light,
+.mode-toggle.flat-dark {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: $font-size;
-  line-height: $line-height;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
 
   fa-icon {
     &:first-of-type {
-      margin-right: $padding;
+      margin-right: var(--padding);
     }
 
     &:last-of-type {
-      margin-left: $padding;
+      margin-left: var(--padding);
     }
   }
 }
 
-.mode-toggle.#{$flat-light-theme-class-name} {
-  color: $light-text-color;
+.mode-toggle.flat-light {
+  color: var(--light-text-color);
 
   fa-icon {
-    color: $light-text-color;
+    color: var(--light-text-color);
   }
 }
 
-.mode-toggle.#{$flat-dark-theme-class-name} {
-  color: $dark-text-color;
+.mode-toggle.flat-dark {
+  color: var(--dark-text-color);
 
   fa-icon {
-    color: $dark-text-color;
+    color: var(--dark-text-color);
   }
 }
