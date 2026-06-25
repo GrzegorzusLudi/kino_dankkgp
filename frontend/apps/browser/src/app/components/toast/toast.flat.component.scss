@@ -1,7 +1,5 @@
-@use '../../styles/shared.scss' as *;
-
-.toast.#{$flat-light-theme-class-name},
-.toast.#{$flat-dark-theme-class-name} {
+.toast.flat-light,
+.toast.flat-dark {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -10,25 +8,25 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   width: 256px;
   overflow: hidden;
-  @include border-radius;
+  border-radius: var(--border-radius) !important;
 
   .main {
     box-sizing: border-box;
     position: relative;
     display: flex;
-    padding: $padding;
-    background: $gray-a0;
+    padding: var(--padding);
+    background: var(--gray-a0);
 
     .icon {
-      font-size: $font-size;
-      margin-right: $padding;
-      line-height: $line-height;
+      font-size: var(--font-size);
+      margin-right: var(--padding);
+      line-height: var(--line-height);
     }
 
     .header,
     .message {
-      font-size: $font-size;
-      line-height: $line-height;
+      font-size: var(--font-size);
+      line-height: var(--line-height);
       margin: 0;
       padding: 0;
       text-align: left;
@@ -36,7 +34,7 @@
 
     .header {
       font-weight: 600;
-      line-height: $line-height;
+      line-height: var(--line-height);
     }
 
     .content {
@@ -45,7 +43,7 @@
 
     .close-button {
       align-self: flex-start;
-      margin-left: $padding;
+      margin-left: var(--padding);
     }
 
     &.info {
@@ -93,162 +91,162 @@
   }
 }
 
-.toast.#{$flat-light-theme-class-name} {
+.toast.flat-light {
   background-color: transparent;
-  border: 1px solid $light-border-color;
+  border: 1px solid var(--light-border-color);
 
   .main {
     .icon {
-      color: $light-text-color;
+      color: var(--light-text-color);
     }
 
     .header,
     .message {
-      color: $light-text-color;
+      color: var(--light-text-color);
     }
 
     &.info {
-      background: $light-primary-a10;
+      background: var(--light-primary-a10);
 
       .icon {
-        color: $light-primary-a70;
+        color: var(--light-primary-a70);
       }
 
       .header,
       .message {
-        color: $light-primary-a70;
+        color: var(--light-primary-a70);
       }
     }
 
     &.success {
-      background: $light-success-a10;
+      background: var(--light-success-a10);
 
       .icon {
-        color: $light-success-a70;
+        color: var(--light-success-a70);
       }
 
       .header,
       .message {
-        color: $light-success-a70;
+        color: var(--light-success-a70);
       }
     }
 
     &.danger {
-      background: $light-danger-a10;
+      background: var(--light-danger-a10);
 
       .icon {
-        color: $light-danger-a70;
+        color: var(--light-danger-a70);
       }
 
       .header,
       .message {
-        color: $light-danger-a70;
+        color: var(--light-danger-a70);
       }
     }
   }
 
   .timeout-progress {
     &.info {
-      background-color: $light-primary-a10;
+      background-color: var(--light-primary-a10);
 
       .bar {
-        background-color: $light-primary-a70;
+        background-color: var(--light-primary-a70);
       }
     }
 
     &.success {
-      background-color: $light-success-a10;
+      background-color: var(--light-success-a10);
 
       .bar {
-        background-color: $light-success-a70;
+        background-color: var(--light-success-a70);
       }
     }
 
     &.danger {
-      background-color: $light-danger-a10;
+      background-color: var(--light-danger-a10);
 
       .bar {
-        background-color: $light-danger-a70;
+        background-color: var(--light-danger-a70);
       }
     }
   }
 }
 
-.toast.#{$flat-dark-theme-class-name} {
-  border: 1px solid $dark-border-color;
+.toast.flat-dark {
+  border: 1px solid var(--dark-border-color);
 
   .main {
     .icon {
-      color: $dark-text-color;
+      color: var(--dark-text-color);
     }
 
     .header,
     .message {
-      color: $dark-text-color;
+      color: var(--dark-text-color);
     }
 
     &.info {
-      background: $light-primary-a90;
+      background: var(--light-primary-a90);
 
       .icon {
-        color: $light-primary-a90;
+        color: var(--light-primary-a90);
       }
 
       .header,
       .message {
-        color: $light-primary-a70;
+        color: var(--light-primary-a70);
       }
     }
 
     &.success {
-      background: $light-success-a90;
+      background: var(--light-success-a90);
 
       .icon {
-        color: $light-success-a90;
+        color: var(--light-success-a90);
       }
 
       .header,
       .message {
-        color: $light-success-a70;
+        color: var(--light-success-a70);
       }
     }
 
     &.danger {
-      background: $light-danger-a90;
+      background: var(--light-danger-a90);
 
       .icon {
-        color: $light-danger-a90;
+        color: var(--light-danger-a90);
       }
 
       .header,
       .message {
-        color: $light-danger-a70;
+        color: var(--light-danger-a70);
       }
     }
   }
 
   .timeout-progress {
     &.info {
-      background-color: $light-primary-a10;
+      background-color: var(--light-primary-a10);
 
       .bar {
-        background-color: $light-primary-a70;
+        background-color: var(--light-primary-a70);
       }
     }
 
     &.success {
-      background-color: $light-success-a10;
+      background-color: var(--light-success-a10);
 
       .bar {
-        background-color: $light-success-a70;
+        background-color: var(--light-success-a70);
       }
     }
 
     &.danger {
-      background-color: $light-danger-a10;
+      background-color: var(--light-danger-a10);
 
       .bar {
-        background-color: $light-danger-a70;
+        background-color: var(--light-danger-a70);
       }
     }
   }
