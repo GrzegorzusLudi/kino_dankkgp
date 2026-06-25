@@ -1,10 +1,8 @@
-@use '../../styles/shared.scss' as *;
-
-.video-container.#{$flat-light-theme-class-name},
-.video-container.#{$flat-dark-theme-class-name} {
+.video-container.flat-light,
+.video-container.flat-dark {
   box-sizing: border-box;
   width: 100%;
-  @include border-radius;
+  border-radius: var(--border-radius) !important;
 
   .content {
     box-sizing: border-box;
@@ -22,7 +20,7 @@
     width: 100%;
     aspect-ratio: 16 / 9;
     text-align: center;
-    @include border-radius;
+    border-radius: var(--border-radius) !important;
   }
 
   .italic {
@@ -30,9 +28,9 @@
   }
 }
 
-.video-container.#{$flat-light-theme-class-name} {
-  background-color: $gray-a20;
-  border: 1px solid $light-border-color;
+.video-container.flat-light {
+  background-color: var(--gray-a20);
+  border: 1px solid var(--light-border-color);
 
   .no-video {
     background-color: white;
@@ -43,9 +41,9 @@
   }
 }
 
-.video-container.#{$flat-dark-theme-class-name} {
-  background-color: $gray-a100;
-  border: 1px solid $dark-border-color;
+.video-container.flat-dark {
+  background-color: var(--gray-a100);
+  border: 1px solid var(--dark-border-color);
 
   .no-video {
     background-color: black;
