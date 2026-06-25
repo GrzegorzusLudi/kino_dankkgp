@@ -1,60 +1,56 @@
-@use 'shared' as *;
-
-$input-height: 32px;
-
-.input.#{$flat-light-theme-class-name},
-.input.#{$flat-dark-theme-class-name} {
+.input.flat-light,
+.input.flat-dark {
   box-sizing: border-box;
 
   input {
     box-sizing: border-box;
-    max-height: $input-height;
+    max-height: 32px;
     width: 100%;
     font-family: 'Open Sans', sans-serif;
-    font-size: $font-size;
-    line-height: $line-height;
-    letter-spacing: $letter-spacing;
-    padding: calc(0.5 * ($input-height - $line-height - 2px)) 6px;
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    letter-spacing: var(--letter-spacing);
+    padding: calc(0.5 * (32px - 21px - 2px)) 6px;
     border-radius: 3px;
   }
 
   input:focus {
-    border: 1px solid $light-input-border-color;
+    border: 1px solid var(--light-input-border-color);
   }
 
   input:hover {
-    background: $light-primary-a0;
+    background: var(--light-primary-a0);
   }
 }
 
-.input.#{$flat-light-theme-class-name} {
+.input.flat-light {
   input {
-    color: $light-text-color;
-    border: 1px solid $light-input-border-color;
-    background-color: $light-primary-a0;
+    color: var(--light-text-color);
+    border: 1px solid var(--light-input-border-color);
+    background-color: var(--light-primary-a0);
   }
 
   input:focus {
-    border: 1px solid $light-input-border-color;
+    border: 1px solid var(--light-input-border-color);
   }
 
   input:hover {
-    background: $light-primary-a0;
+    background: var(--light-primary-a0);
   }
 }
 
-.input.#{$flat-dark-theme-class-name} {
+.input.flat-dark {
   input {
-    color: $light-text-color;
-    border: 1px solid $dark-input-border-color;
-    background-color: $dark-primary-a0;
+    color: var(--light-text-color);
+    border: 1px solid var(--dark-input-border-color);
+    background-color: var(--dark-primary-a0);
   }
 
   input:focus {
-    border: 1px solid $dark-input-border-color;
+    border: 1px solid var(--dark-input-border-color);
   }
 
   input:hover {
-    background: $dark-primary-a0;
+    background: var(--dark-primary-a0);
   }
 }
