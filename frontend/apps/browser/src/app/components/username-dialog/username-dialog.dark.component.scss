@@ -1,16 +1,14 @@
-@use '../../styles/shared.scss' as *;
-
-.username-dialog.#{$flat-dark-theme-class-name} {
+.username-dialog.flat-dark {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background-color: $dark-primary-a40;
+  background-color: var(--dark-primary-a40);
   border: none;
 
   .content {
     box-sizing: border-box;
-    background-color: $dark-primary-a10;
-    padding: $padding;
+    background-color: var(--dark-primary-a10);
+    padding: var(--padding);
     height: 64px;
   }
 
@@ -23,7 +21,7 @@
 
     lib-input {
       width: 100% !important;
-      margin-right: $padding;
+      margin-right: var(--padding);
     }
 
     app-button {
