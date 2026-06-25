@@ -1,20 +1,18 @@
-@use '../../styles/shared.scss' as *;
-
 :host {
   display: flex;
   align-items: center;
 }
 
-.user-info.#{$flat-dark-theme-class-name} {
+.user-info.flat-dark {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: $font-size;
-  line-height: $line-height;
-  color: $dark-text-color;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  color: var(--dark-text-color);
 
   fa-icon {
-    margin-right: $padding;
+    margin-right: var(--padding);
   }
 }
