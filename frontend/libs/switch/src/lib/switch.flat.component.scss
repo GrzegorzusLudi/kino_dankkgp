@@ -1,17 +1,12 @@
-@use 'shared.scss' as *;
-
-$width: 38px;
-$height: $line-height;
-
-div.#{$flat-light-theme-class-name},
-div.#{$flat-dark-theme-class-name} {
+div.flat-light,
+div.flat-dark {
   box-sizing: border-box;
 
   .switch {
     position: relative;
     display: inline-block;
-    width: $width;
-    height: $height;
+    width: 38px;
+    height: var(--line-height);
   }
 
   .switch input {
@@ -34,8 +29,8 @@ div.#{$flat-dark-theme-class-name} {
   .slider:before {
     position: absolute;
     content: '';
-    height: $height - 8px;
-    width: $height - 8px;
+    height: calc(var(--line-height) - 8px);
+    width: calc(var(--line-height) - 8px);
     left: 4px;
     bottom: 4px;
     -webkit-transition: 0.4s;
@@ -43,9 +38,9 @@ div.#{$flat-dark-theme-class-name} {
   }
 
   input:checked + .slider:before {
-    -webkit-transform: translateX($width - ($height));
-    -ms-transform: translateX($width - ($height));
-    transform: translateX($width - ($height));
+    -webkit-transform: translateX(calc(38px - var(--line-height)));
+    -ms-transform: translateX(calc(38px - var(--line-height)));
+    transform: translateX(calc(38px - var(--line-height)));
   }
 
   .slider.round {
@@ -57,9 +52,9 @@ div.#{$flat-dark-theme-class-name} {
   }
 }
 
-div.#{$flat-light-theme-class-name} {
+div.flat-light {
   .slider {
-    background: #ccc; // TODO Move to shared
+    background: #ccc;
   }
 
   .slider:before {
@@ -67,19 +62,19 @@ div.#{$flat-light-theme-class-name} {
   }
 
   input:checked + .slider {
-    background-color: $light-primary-a50;
-    background: $light-primary-a50;
+    background-color: var(--light-primary-a50);
+    background: var(--light-primary-a50);
   }
 
   input:checked:hover + .slider {
-    background-color: $light-primary-a40;
-    background: $light-primary-a40;
+    background-color: var(--light-primary-a40);
+    background: var(--light-primary-a40);
   }
 }
 
-div.#{$flat-dark-theme-class-name} {
+div.flat-dark {
   .slider {
-    background: #ccc; // TODO Move to shared
+    background: #ccc;
   }
 
   .slider:before {
@@ -87,12 +82,12 @@ div.#{$flat-dark-theme-class-name} {
   }
 
   input:checked + .slider {
-    background-color: $dark-primary-a50;
-    background: $dark-primary-a50;
+    background-color: var(--dark-primary-a50);
+    background: var(--dark-primary-a50);
   }
 
   input:checked:hover + .slider {
-    background-color: $dark-primary-a40;
-    background: $dark-primary-a40;
+    background-color: var(--dark-primary-a40);
+    background: var(--dark-primary-a40);
   }
 }
