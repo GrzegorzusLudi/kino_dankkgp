@@ -1,20 +1,18 @@
-@use '../../../theme/src/lib/variables' as *;
-
-h1.#{$flat-light-theme-class-name},
-h1.#{$flat-dark-theme-class-name} {
+h1.flat-light,
+h1.flat-dark {
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
-  font-size: $title-font-size;
-  line-height: $title-line-height;
-  letter-spacing: $letter-spacing;
+  font-size: var(--title-font-size);
+  line-height: var(--title-line-height);
+  letter-spacing: var(--letter-spacing);
   margin: 0;
   padding: 0;
 }
 
-h1.#{$flat-dark-theme-class-name} {
-  color: $dark-text-color;
+h1.flat-dark {
+  color: var(--dark-text-color);
 }
 
-h1.#{$flat-light-theme-class-name} {
-  color: $light-text-color;
+h1.flat-light {
+  color: var(--light-text-color);
 }
