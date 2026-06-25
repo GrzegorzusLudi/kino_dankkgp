@@ -1,7 +1,5 @@
-@use '../../styles/shared.scss' as *;
-
-div.#{$flat-light-theme-class-name},
-div.#{$flat-dark-theme-class-name} {
+div.flat-light,
+div.flat-dark {
   box-sizing: border-box;
   width: 100%;
   min-height: 100vh;
@@ -9,10 +7,10 @@ div.#{$flat-dark-theme-class-name} {
   margin: 0;
 }
 
-div.#{$flat-light-theme-class-name} {
-  background-color: $gray-a10;
+div.flat-light {
+  background-color: var(--gray-a10);
 }
 
-div.#{$flat-dark-theme-class-name} {
-  background-color: $gray-a90;
+div.flat-dark {
+  background-color: var(--gray-a90);
 }
