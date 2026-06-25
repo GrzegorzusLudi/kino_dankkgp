@@ -1,5 +1,3 @@
-@use './styles/shared.scss' as *;
-
 :host {
   box-sizing: border-box;
   display: block;
@@ -26,7 +24,7 @@ lib-toolbar {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  min-height: calc(100vh - $toolbar-height);
+  min-height: calc(100vh - var(--toolbar-height));
   height: auto;
 }
 
@@ -35,50 +33,50 @@ lib-toolbar {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: $padding;
+  padding: var(--padding);
   height: auto;
 }
 
 .main {
   position: initial;
-  margin-top: $toolbar-height;
+  margin-top: var(--toolbar-height);
   flex: 1;
   min-width: 0;
   width: 100%;
-  padding-right: $padding * 0.5;
+  padding-right: calc(var(--padding) * 0.5);
 
   app-video-container,
   app-video-actions,
   app-queue {
-    width: calc(100% - $panel-width - $padding * 1.5);
+    width: calc(100% - var(--panel-width) - var(--padding) * 1.5);
   }
 
   app-video-container {
-    margin-bottom: $padding;
+    margin-bottom: var(--padding);
   }
 }
 
 .right {
   flex-shrink: 0;
-  padding-left: $padding * 0.5;
+  padding-left: calc(var(--padding) * 0.5);
   position: fixed;
   right: 0;
-  top: $toolbar-height;
-  height: calc(100vh - $toolbar-height);
-  width: $panel-width + ($padding * 1.5);
-  min-width: $panel-width + ($padding * 1.5);
-  max-width: $panel-width + ($padding * 1.5);
+  top: var(--toolbar-height);
+  height: calc(100vh - var(--toolbar-height));
+  width: calc(var(--panel-width) + var(--padding) * 1.5);
+  min-width: calc(var(--panel-width) + var(--padding) * 1.5);
+  max-width: calc(var(--panel-width) + var(--padding) * 1.5);
 }
 
 app-connected-users {
-  margin-bottom: $padding;
+  margin-bottom: var(--padding);
 }
 
 .toast-container {
   box-sizing: border-box;
   position: fixed;
-  bottom: $padding;
-  right: $padding;
+  bottom: var(--padding);
+  right: var(--padding);
   z-index: 1000;
   // width: 300px;
   display: flex;
@@ -86,18 +84,18 @@ app-connected-users {
 }
 
 a {
-  color: $light-primary-a30;
+  color: var(--light-primary-a30);
   text-decoration: underline;
 
   &:visited {
-    color: $light-primary-a40;
+    color: var(--light-primary-a40);
   }
 
   &:hover {
-    color: $light-primary-a20;
+    color: var(--light-primary-a20);
   }
 
   &:active {
-    color: $light-primary-a10;
+    color: var(--light-primary-a10);
   }
 }
