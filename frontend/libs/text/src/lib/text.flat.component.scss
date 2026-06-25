@@ -1,44 +1,42 @@
-@use '../../../theme/src/lib/variables' as *;
-
-span.#{$flat-light-theme-class-name},
-span.#{$flat-dark-theme-class-name} {
+span.flat-light,
+span.flat-dark {
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
-  font-size: $font-size;
-  line-height: $line-height;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
   display: inline-block;
-  height: $line-height;
-  letter-spacing: $letter-spacing;
+  height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
 }
 
-span.#{$flat-dark-theme-class-name} {
-  color: $dark-text-color;
+span.flat-dark {
+  color: var(--dark-text-color);
 
   &.info {
-    color: $light-primary-a30;
+    color: var(--light-primary-a30);
   }
 
   &.success {
-    color: $light-success-a30;
+    color: var(--light-success-a30);
   }
 
   &.danger {
-    color: $light-danger-a40;
+    color: var(--light-danger-a40);
   }
 }
 
-span.#{$flat-light-theme-class-name} {
-  color: $light-text-color;
+span.flat-light {
+  color: var(--light-text-color);
 
   &.info {
-    color: $light-primary-a70;
+    color: var(--light-primary-a70);
   }
 
   &.success {
-    color: $light-success-a70;
+    color: var(--light-success-a70);
   }
 
   &.danger {
-    color: $light-danger-a70;
+    color: var(--light-danger-a70);
   }
 }
