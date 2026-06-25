@@ -1,17 +1,15 @@
-@use '../../styles/shared.scss' as *;
-
-.video-actions.#{$flat-dark-theme-class-name} {
+.video-actions.flat-dark {
   box-sizing: border-box;
   width: 100%;
-  color: $dark-text-color;
+  color: var(--dark-text-color);
 
   & > .content {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    padding: $padding;
+    padding: var(--padding);
     max-height: 100%;
-    background-color: $dark-primary-a30;
+    background-color: var(--dark-primary-a30);
 
     lib-input {
       width: 100%;
@@ -24,10 +22,10 @@
   }
 
   .margin-left {
-    margin-left: $padding;
+    margin-left: var(--padding);
   }
 
   .margin-right {
-    margin-right: $padding;
+    margin-right: var(--padding);
   }
 }
