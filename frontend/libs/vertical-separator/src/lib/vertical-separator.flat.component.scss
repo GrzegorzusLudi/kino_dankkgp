@@ -1,8 +1,5 @@
-@use 'shared' as *;
-@use 'sass:color';
-
-.vertical-separator.#{$flat-dark-theme-class-name},
-.vertical-separator.#{$flat-light-theme-class-name} {
+.vertical-separator.flat-dark,
+.vertical-separator.flat-light {
   box-sizing: border-box;
   margin: 0 14px;
   width: 1px;
@@ -10,10 +7,10 @@
   align-self: stretch;
 }
 
-.vertical-separator.#{$flat-dark-theme-class-name} {
-  background-color: $dark-primary-a10;
+.vertical-separator.flat-dark {
+  background-color: var(--dark-primary-a10);
 }
 
-.vertical-separator.#{$flat-light-theme-class-name} {
-  background-color: color.adjust($dark-primary-a0, $lightness: -20%);
+.vertical-separator.flat-light {
+  background-color: #bbbbbb;
 }
