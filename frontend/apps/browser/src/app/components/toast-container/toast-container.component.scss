@@ -1,13 +1,11 @@
-@use '../../styles/shared.scss' as *;
-
 .toast-container {
   box-sizing: border-box;
   position: fixed;
-  bottom: $padding;
-  right: $padding;
+  bottom: var(--padding);
+  right: var(--padding);
   z-index: 1000;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  gap: $padding;
+  gap: var(--padding);
 }
