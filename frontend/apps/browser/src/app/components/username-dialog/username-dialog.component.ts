@@ -21,10 +21,8 @@ import { InputComponent } from 'input';
   hostDirectives: [ThemedDirective],
   templateUrl: './username-dialog.component.html',
   styleUrls: [
-    './username-dialog.aero-dark.component.scss',
-    './username-dialog.aero-light.component.scss',
-    './username-dialog.dark.component.scss',
-    './username-dialog.light.component.scss',
+    './username-dialog.aero.component.scss',
+    './username-dialog.flat.component.scss',
   ],
 })
 export class UsernameDialogComponent implements OnInit {

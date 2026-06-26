@@ -1,13 +1,12 @@
-.username-dialog.flat-light {
+.username-dialog.flat-light,
+.username-dialog.flat-dark {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background-color: var(--light-primary-a40);
   border: none;
 
   .content {
     box-sizing: border-box;
-    background-color: var(--light-primary-a0);
     padding: var(--padding);
     height: 64px;
   }
@@ -27,5 +26,21 @@
     app-button {
       width: 192px;
     }
+  }
+}
+
+.username-dialog.flat-light {
+  background-color: var(--light-primary-a40);
+
+  .content {
+    background-color: var(--light-primary-a0);
+  }
+}
+
+.username-dialog.flat-dark {
+  background-color: var(--dark-primary-a40);
+
+  .content {
+    background-color: var(--dark-primary-a10);
   }
 }
