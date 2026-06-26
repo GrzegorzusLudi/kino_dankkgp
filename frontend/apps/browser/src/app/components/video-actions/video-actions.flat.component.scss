@@ -2,6 +2,8 @@
 .video-actions.flat-dark {
   box-sizing: border-box;
   width: 100%;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 
   & > .content {
     box-sizing: border-box;
@@ -30,18 +32,20 @@
 
 .video-actions.flat-light {
   color: var(--light-text-color);
+  border: 1px solid var(--light-border-color);
+  background-color: var(--light-primary-a0);
 
   & > .content {
     max-height: 192px;
-    background-color: var(--light-primary-a0);
   }
 }
 
 .video-actions.flat-dark {
   color: var(--dark-text-color);
+  border: 1px solid var(--dark-border-color);
+  background-color: var(--dark-primary-a30);
 
   & > .content {
     max-height: 100%;
-    background-color: var(--dark-primary-a30);
   }
 }
