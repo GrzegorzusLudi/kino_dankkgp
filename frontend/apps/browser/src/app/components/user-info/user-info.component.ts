@@ -19,10 +19,8 @@ import { ButtonComponent } from 'button';
   hostDirectives: [ThemedDirective],
   templateUrl: './user-info.component.html',
   styleUrls: [
-    './user-info.aero-dark.component.scss',
-    './user-info.aero-light.component.scss',
-    './user-info.dark.component.scss',
-    './user-info.light.component.scss',
+    './user-info.aero.component.scss',
+    './user-info.flat.component.scss',
   ],
 })
 export class UserInfoComponent {

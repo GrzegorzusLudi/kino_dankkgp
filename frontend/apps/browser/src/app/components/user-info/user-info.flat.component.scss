@@ -3,6 +3,7 @@
   align-items: center;
 }
 
+.user-info.flat-light,
 .user-info.flat-dark {
   box-sizing: border-box;
   display: flex;
@@ -10,9 +11,16 @@
   align-items: center;
   font-size: var(--font-size);
   line-height: var(--line-height);
-  color: var(--dark-text-color);
 
   fa-icon {
     margin-right: var(--padding);
   }
+}
+
+.user-info.flat-light {
+  color: var(--light-text-color);
+}
+
+.user-info.flat-dark {
+  color: var(--dark-text-color);
 }
