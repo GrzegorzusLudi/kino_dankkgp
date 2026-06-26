@@ -1,15 +1,13 @@
-.video-actions.flat-light {
+.video-actions.flat-light,
+.video-actions.flat-dark {
   box-sizing: border-box;
   width: 100%;
-  color: var(--light-text-color);
 
   & > .content {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     padding: var(--padding);
-    max-height: 192px;
-    background-color: var(--light-primary-a0);
 
     lib-input {
       width: 100%;
@@ -27,5 +25,23 @@
 
   .margin-right {
     margin-right: var(--padding);
+  }
+}
+
+.video-actions.flat-light {
+  color: var(--light-text-color);
+
+  & > .content {
+    max-height: 192px;
+    background-color: var(--light-primary-a0);
+  }
+}
+
+.video-actions.flat-dark {
+  color: var(--dark-text-color);
+
+  & > .content {
+    max-height: 100%;
+    background-color: var(--dark-primary-a30);
   }
 }

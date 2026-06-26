@@ -32,10 +32,8 @@ import {
   hostDirectives: [ThemedDirective],
   templateUrl: './video-actions.component.html',
   styleUrls: [
-    './video-actions.aero-dark.component.scss',
-    './video-actions.aero-light.component.scss',
-    './video-actions.dark.component.scss',
-    './video-actions.light.component.scss',
+    './video-actions.aero.component.scss',
+    './video-actions.flat.component.scss',
   ],
 })
 export class VideoActionsComponent implements OnInit {
