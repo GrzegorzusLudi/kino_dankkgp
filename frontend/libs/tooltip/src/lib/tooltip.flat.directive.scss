@@ -1,23 +1,49 @@
-.tooltip.flat-dark {
-  background: var(--dark-primary-a50);
-  color: var(--dark-link-color);
-  font-family: 'Open Sans', sans-serif;
-  font-size: var(--font-size);
-  line-height: var(--line-height);
-  letter-spacing: var(--letter-spacing);
-  padding: 4px var(--padding);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
+.tooltip.flat-dark,
 .tooltip.flat-light {
-  background: var(--light-primary-a60);
-  color: var(--dark-link-color);
+  --tooltip-bg: var(--dark-primary-a80);
+
+  background: var(--tooltip-bg);
+  color: #ffffff;
   font-family: 'Open Sans', sans-serif;
   font-size: var(--font-size);
   line-height: var(--line-height);
   letter-spacing: var(--letter-spacing);
   padding: 4px var(--padding);
+  border-radius: 4px;
   white-space: nowrap;
   pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    border: 6px solid transparent;
+  }
+
+  &.top::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--tooltip-bg);
+  }
+
+  &.bottom::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--tooltip-bg);
+  }
+
+  &.left::after {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--tooltip-bg);
+  }
+
+  &.right::after {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--tooltip-bg);
+  }
 }
