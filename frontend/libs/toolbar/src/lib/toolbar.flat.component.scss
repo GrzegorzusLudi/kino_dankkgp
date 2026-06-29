@@ -12,25 +12,25 @@ div.toolbar.flat-dark {
 }
 
 div.toolbar.flat-light {
-  background-color: #e5edff;
+  background-color: var(--light-primary-a10);
   background-image:
-    radial-gradient(circle at 7% 81%, #e5edff 16%, transparent 53%),
-    radial-gradient(circle at 5% 1%, #e5fff5 7%, transparent 84%),
+    radial-gradient(circle at 7% 81%, var(--light-primary-a10) 16%, transparent 53%),
+    radial-gradient(circle at 5% 1%, var(--light-primary-a10) 7%, transparent 84%),
     radial-gradient(circle at 39% 52%, var(--light-primary-a10) 6%, transparent 68%),
-    radial-gradient(circle at 11% 29%, #ede5ff 8%, transparent 74%),
-    radial-gradient(circle at 90% 50%, #e5fbff 2%, transparent 85%);
+    radial-gradient(circle at 11% 29%, var(--light-primary-a10) 8%, transparent 74%),
+    radial-gradient(circle at 90% 50%, var(--light-primary-a10) 2%, transparent 85%);
   background-blend-mode: normal, normal, normal, normal, normal;
   border-bottom: 1px solid var(--light-border-color);
 }
 
 div.toolbar.flat-dark {
-  background-color: var(--dark-primary-a50);
+  background-color: var(--dark-primary-a90);
   background-image:
-    radial-gradient(circle at 7% 81%, var(--dark-primary-a50) 16%, transparent 53%),
-    radial-gradient(circle at 5% 1%, var(--dark-primary-a50) 7%, transparent 84%),
-    radial-gradient(circle at 39% 52%, var(--dark-primary-a50) 6%, transparent 68%),
-    radial-gradient(circle at 11% 29%, var(--dark-primary-a50) 8%, transparent 74%),
-    radial-gradient(circle at 90% 50%, var(--dark-primary-a50) 2%, transparent 85%);
+    radial-gradient(circle at 7% 81%, var(--dark-primary-a90) 16%, transparent 53%),
+    radial-gradient(circle at 5% 1%, var(--dark-primary-a90) 7%, transparent 84%),
+    radial-gradient(circle at 39% 52%, var(--dark-primary-a90) 6%, transparent 68%),
+    radial-gradient(circle at 11% 29%, var(--dark-primary-a90) 8%, transparent 74%),
+    radial-gradient(circle at 90% 50%, var(--dark-primary-a90) 2%, transparent 85%);
   background-blend-mode: normal, normal, normal, normal, normal;
   border-bottom: 1px solid var(--dark-border-color);
 }
