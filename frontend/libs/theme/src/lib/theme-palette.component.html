@@ -1,0 +1,18 @@
+<div class="palette">
+  @for (group of groups; track group.name) {
+    <div class="group">
+      <span class="group-name">{{ group.name }}</span>
+      <div class="swatches">
+        @for (swatch of group.swatches; track swatch.variable) {
+          <div class="swatch">
+            <div
+              class="color"
+              [style.background]="'var(' + swatch.variable + ')'">
+            </div>
+            <span class="label">{{ swatch.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
