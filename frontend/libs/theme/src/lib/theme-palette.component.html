@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/no-inline-styles -->
 <div class="palette">
   @for (group of groups; track group.name) {
     <div class="group">
@@ -7,9 +8,10 @@
           <div class="swatch">
             <div
               class="color"
-              [style.background]="'var(' + swatch.variable + ')'">
+              [style.background]="`var(${swatch.variable})`">
             </div>
-            <span class="label">{{ swatch.label }}</span>
+            <span class="label">{{ swatch.variable }}</span>
+            <span class="hex">{{ swatch.hex }}</span>
           </div>
         }
       </div>

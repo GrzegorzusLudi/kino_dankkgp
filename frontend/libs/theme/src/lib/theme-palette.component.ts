@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import { ThemeService } from './theme.service';
 
 interface ColorSwatch {
   variable: string;
-  label: string;
+  hex: string;
 }
 
 interface ColorGroup {
@@ -21,7 +22,8 @@ const STEPS = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80,
   styleUrl: './theme-palette.component.scss',
 })
 export class ThemePaletteComponent {
-  readonly _themeService = inject(ThemeService);
+  private readonly _themeService = inject(ThemeService);
+  private readonly document = inject(DOCUMENT);
 
   readonly groups: ColorGroup[] = [
     { name: 'Light Primary', swatches: this.swatches('light-primary') },
@@ -32,9 +34,14 @@ export class ThemePaletteComponent {
   ];
 
   private swatches(prefix: string): ColorSwatch[] {
-  return STEPS.map((step) => ({
-    variable: `--${prefix}-a${step}`,
-    label: `a${step}`,
-  }));
-}
+    const style = this.document.documentElement.style;
+
+    return STEPS.map((step) => {
+      const variable = `--${prefix}-a${step}`;
+      return {
+        variable,
+        hex: style.getPropertyValue(variable).trim(),
+      };
+    });
+  }
 }
