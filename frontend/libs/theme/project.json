@@ -6,11 +6,25 @@
   "sourceRoot": "libs/theme/src",
   "tags": [],
   "targets": {
+    "build-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "storybook build -o ../../dist/storybook/theme",
+        "cwd": "libs/theme"
+      }
+    },
     "chores": {
       "executor": "nx:run-commands",
       "options": {
         "commands": ["nx run theme:lint:fix", "nx run theme:format"],
         "parallel": false
+      }
+    },
+    "storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "storybook dev -p 4400",
+        "cwd": "libs/theme"
       }
     },
     "format": {
