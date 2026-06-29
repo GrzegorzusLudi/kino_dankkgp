@@ -8,6 +8,7 @@ import { THEME_STORAGE_KEY } from './theme.consts';
 const DEFAULT_PRIMARY = '#0033ff';
 const DEFAULT_SUCCESS = '#00ff5e';
 const DEFAULT_DANGER = '#ff0000';
+const DEFAULT_GRAY = '#848484';
 
 @Injectable({
   providedIn: 'root',
@@ -46,7 +47,7 @@ export class ThemeService {
       0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90,
       95, 100,
     ];
-    const darkPrimary = chroma.mix(DEFAULT_PRIMARY, '#000000', 35 * 0.75).hex();
+    const darkPrimary = chroma.mix(DEFAULT_PRIMARY, '#000000', 0.5).hex();
 
     this.setColorProperties('--light-primary', primary, steps);
     this.setColorProperties('--dark-primary', darkPrimary, steps);
@@ -60,7 +61,7 @@ export class ThemeService {
       danger,
       steps,
     );
-    this.setColorProperties('--gray', '#848484', steps);
+    this.setColorProperties('--gray', DEFAULT_GRAY, steps);
 
     const fixed: Record<string, string> = {
       '--font-size': '14px',
@@ -73,14 +74,14 @@ export class ThemeService {
       '--header-height': '32px',
       '--panel-width': '320px',
       '--border-radius': '10px',
-      '--dark-text-color': '#cccccc',
-      '--dark-link-color': '#ffffff',
-      '--dark-border-color': '#303030',
-      '--dark-input-border-color': '#1d1d1d',
-      '--light-text-color': '#343434',
-      '--light-link-color': '#000000',
-      '--light-border-color': 'hsl(0, 0%, 85%)',
-      '--light-input-border-color': '#999999',
+      '--dark-text-color': 'var(--gray-a20)',
+      '--dark-link-color': 'var(--gray-a0)',
+      '--dark-border-color': 'var(--gray-a85)',
+      '--dark-input-border-color': 'var(--gray-a75)',
+      '--light-text-color': 'var(--gray-a80)',
+      '--light-link-color': 'var(--gray-a100)',
+      '--light-border-color': 'var(--gray-a15)',
+      '--light-input-border-color': 'var(--gray-a25)',
     };
 
     for (const [name, value] of Object.entries(fixed)) {
