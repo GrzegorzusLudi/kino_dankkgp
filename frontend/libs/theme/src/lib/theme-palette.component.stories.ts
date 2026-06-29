@@ -19,6 +19,10 @@ const meta: Meta<ThemePaletteComponent> = {
       imports: [ThemePaletteComponent],
     }),
   ],
+  render: () => ({
+    props: {},
+    template: '<lib-theme-palette />',
+  }),
 };
 
 export default meta;
