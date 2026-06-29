@@ -27,44 +27,11 @@
   }
 }
 
-.button.flat-dark {
-  color: var(--dark-text-color);
-
-  &.primary {
-    background: var(--dark-primary-a50);
-    color: var(--dark-link-color);
-    border: 1px solid var(--dark-primary-a50);
-
-    &:hover {
-      background: var(--dark-primary-a40);
-    }
-
-    &.clicked {
-      background: var(--dark-primary-a60);
-    }
-
-  }
-
-  &.ghost {
-    background: transparent;
-    color: var(--dark-link-color);
-    border: 1px solid transparent;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.35);
-    }
-
-    &.clicked {
-      background: rgba(255, 255, 255, 0.5);
-    }
-  }
-}
-
 .button.flat-light {
   color: var(--light-text-color);
 
   &.primary {
-    background: var(--light-primary-a60);
+    background: var(--light-primary-a50);
     color: var(--dark-link-color);
     border: 1px solid var(--light-primary-a60);
 
@@ -73,7 +40,7 @@
     }
 
     &.clicked {
-      background: var(--light-primary-a60);
+      background: var(--light-primary-a45);
     }
 
   }
@@ -89,6 +56,39 @@
 
     &.clicked {
       background: rgba(255, 255, 255, 0.75);
+    }
+  }
+}
+
+.button.flat-dark {
+  color: var(--dark-text-color);
+
+  &.primary {
+    background: var(--dark-primary-a50);
+    color: var(--dark-link-color);
+    border: 1px solid var(--dark-primary-a50);
+
+    &:hover {
+      background: var(--dark-primary-a40);
+    }
+
+    &.clicked {
+      background: var(--dark-primary-a45);
+    }
+
+  }
+
+  &.ghost {
+    background: transparent;
+    color: var(--dark-link-color);
+    border: 1px solid transparent;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    &.clicked {
+      background: rgba(255, 255, 255, 0.5);
     }
   }
 }
