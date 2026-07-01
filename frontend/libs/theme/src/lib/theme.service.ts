@@ -51,16 +51,8 @@ export class ThemeService {
 
     this.setColorProperties('--light-primary', primary, steps);
     this.setColorProperties('--dark-primary', darkPrimary, steps);
-    this.setColorProperties(
-      '--light-success',
-      success,
-      steps,
-    );
-    this.setColorProperties( 
-      '--light-danger',
-      danger,
-      steps,
-    );
+    this.setColorProperties('--light-success', success, steps);
+    this.setColorProperties('--light-danger', danger, steps);
     this.setColorProperties('--gray', DEFAULT_GRAY, steps);
 
     const fixed: Record<string, string> = {
@@ -95,7 +87,7 @@ export class ThemeService {
     steps: number[],
   ): void {
     for (const step of steps) {
-      this.setStyleProperty(`${prefix}-a${step}`, this.shade(base, step));
+      this.setStyleProperty(`${prefix}-a${step}`, this.shadeColor(base, step));
     }
   }
 
@@ -103,11 +95,9 @@ export class ThemeService {
     this.document.documentElement.style.setProperty(name, value);
   }
 
-  private shade(base: string, step: number): string {
-    if (step >= 50) {
-      return chroma.mix(base, '#000000', (step - 50) * 0.02).hex();
-    } else {
-      return chroma.mix(base, '#ffffff', (50 - step) * 0.02).hex();
-    }
+  private shadeColor(base: string, step: number): string {
+    return step >= 50
+      ? chroma.mix(base, '#000000', (step - 50) * 0.02).hex()
+      : chroma.mix(base, '#ffffff', (50 - step) * 0.02).hex();
   }
 }
