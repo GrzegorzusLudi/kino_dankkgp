@@ -8,6 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { map } from 'rxjs';
+import { chain } from 'lodash-es';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   HEIGHT_OFFSET,
@@ -107,12 +108,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private resizeVideoContainer(dimensions: Dimensions): void {
-    const width = Math.max(
-      MINIMUM_VIDEO_WIDTH,
-      Math.floor(dimensions.width),
-    );
+    const { width, height } = chain(dimensions.width)
+      .thru(Math.floor)
+      .thru((value) => Math.max(MINIMUM_VIDEO_WIDTH, value))
+      .thru((width) => ({ width, height: Math.floor(width * (9 / 16)) }))
+      .value();
 
     this.width.set(width);
-    this.height.set(Math.floor(width * (9 / 16)));
+    this.height.set(height);
   }
 }
