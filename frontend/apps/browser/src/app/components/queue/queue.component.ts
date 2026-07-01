@@ -4,6 +4,8 @@ import { Video } from '../../models/video.interface';
 import { Queue } from '../../models/queue.interface';
 import { faTrash, faCircleUp, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { match } from 'ts-pattern';
+import { noop } from 'lodash-es';
 import { DurationPipe } from '../../pipes/duration/duration.pipe';
 import { ButtonComponent } from 'button';
 import { TextComponent } from 'text';
@@ -43,9 +45,9 @@ export class QueueComponent {
   }
 
   blur(index: number) {
-    if (this.focusedIndex() === index) {
-      this.focusedIndex.set(-1);
-    }
+    match(this.focusedIndex() === index)
+      .with(true, () => this.focusedIndex.set(-1))
+      .otherwise(noop);
   }
 
   voteToMoveUp(item: Video): void {
