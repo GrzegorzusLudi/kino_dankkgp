@@ -29,7 +29,7 @@ const { nullish } = P;
   ],
 })
 export class InputComponent implements ControlValueAccessor {
-  label = input.required<string>();
+  readonly label = input.required<string>();
 
   private readonly input = viewChild<ElementRef>('input');
 

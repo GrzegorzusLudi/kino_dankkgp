@@ -9,8 +9,8 @@ import { ThemedDirective } from 'theme';
   hostDirectives: [ThemedDirective],
 })
 export class ButtonComponent {
-  variant = input<'primary' | 'ghost'>('primary');
-  height = input<'small' | 'medium'>('medium');
+  readonly variant = input<'primary' | 'ghost'>('primary');
+  readonly height = input<'small' | 'medium'>('medium');
 
   protected readonly clicked = signal(false);
 }
