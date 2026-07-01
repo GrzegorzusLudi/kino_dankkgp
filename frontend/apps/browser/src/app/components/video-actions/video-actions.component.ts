@@ -11,6 +11,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { match, P } from 'ts-pattern';
+import { attempt, isError } from 'lodash-es';
 import { ApiService } from '../../services/api/api.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -19,6 +20,8 @@ import {
   faRotate,
   faForwardStep,
 } from '@fortawesome/free-solid-svg-icons';
+
+const { when, string } = P;
 
 @Component({
   selector: 'app-video-actions',
@@ -78,17 +81,17 @@ export class VideoActionsComponent implements OnInit {
   }
 
   private extractYouTubeVideoId(url: string | undefined): string | null {
-    try {
-      const urlObj = new URL(url ?? '');
-
-      return match(urlObj)
-        .with({ hostname: P.string.includes('youtube.com') }, (value) =>
-          value.searchParams.get('v'),
-        )
-        .with({ hostname: 'youtu.be' }, (value) => value.pathname.substring(1))
-        .otherwise(() => null);
-    } catch {
-      return null;
-    }
+    return match(attempt(() => new URL(url ?? '')))
+      .with(when(isError), () => null)
+      .otherwise((urlObj) =>
+        match(urlObj)
+          .with({ hostname: string.includes('youtube.com') }, (value) =>
+            value.searchParams.get('v'),
+          )
+          .with({ hostname: 'youtu.be' }, (value) =>
+            value.pathname.substring(1),
+          )
+          .otherwise(() => null),
+      );
   }
 }
