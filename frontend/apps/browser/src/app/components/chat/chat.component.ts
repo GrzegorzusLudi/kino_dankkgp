@@ -15,6 +15,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { match, P } from 'ts-pattern';
+import { noop } from 'lodash-es';
 
 import { ThemedDirective } from 'theme';
 import { Message } from '../../models/message.interface';
@@ -24,6 +26,8 @@ import { HeaderComponent } from 'header';
 import { InputComponent } from 'input';
 import { TextComponent } from 'text';
 import { ToastService } from '../../services/toast/toast.service';
+
+const { nullish } = P;
 
 @Component({
   selector: 'app-chat',
@@ -61,9 +65,9 @@ export class ChatComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     const changes = this.differ.diff(this.messages());
 
-    if (changes) {
-      this.timestamps.set(this.mapMessageTimestamps(this.messages()));
-    }
+    match(changes)
+      .with(nullish, noop)
+      .otherwise(() => this.timestamps.set(this.mapMessageTimestamps(this.messages())));
   }
 
   trackByFn(index: number, message: Readonly<Message>): string {
@@ -71,58 +75,58 @@ export class ChatComponent implements OnInit, DoCheck {
   }
 
   setUsername(): void {
-    if (this.form.invalid) {
-      this.toastService.next({
-        title: 'Invalid username',
-        message: 'Username cannot be empty.',
-        variant: 'danger',
+    match(this.form.invalid)
+      .with(true, () =>
+        this.toastService.next({
+          title: 'Invalid username',
+          message: 'Username cannot be empty.',
+          variant: 'danger',
+        }),
+      )
+      .otherwise(() => {
+        this.apiService.setUsername(this.form.get('username')?.value ?? '');
+        this.form.get('message')?.setValidators([Validators.required]);
+        this.form.updateValueAndValidity();
       });
-
-      return;
-    }
-
-    this.apiService.setUsername(this.form.get('username')?.value ?? '');
-    this.form.get('message')?.setValidators([Validators.required]);
-    this.form.updateValueAndValidity();
   }
 
   sendMessage(): void {
-    if (this.form.invalid) {
-      this.toastService.next({
-        title: 'Invalid message',
-        message: 'Message cannot be empty.',
-        variant: 'danger',
+    match(this.form.invalid)
+      .with(true, () =>
+        this.toastService.next({
+          title: 'Invalid message',
+          message: 'Message cannot be empty.',
+          variant: 'danger',
+        }),
+      )
+      .otherwise(() => {
+        this.apiService.sendMessage(this.form.get('message')?.value ?? '');
+        this.form.get('message')?.setValue('');
+        this.form.updateValueAndValidity();
       });
-
-      return;
-    }
-
-    this.apiService.sendMessage(this.form.get('message')?.value ?? '');
-    this.form.get('message')?.setValue('');
-    this.form.updateValueAndValidity();
   }
 
   private createChatForm(username: string): FormGroup {
     return username
       ? new FormGroup({
-          message: new FormControl<string | null>('', {
-            nonNullable: true,
-            validators: [Validators.required],
-          }),
-          username: new FormControl<string | null>(username, {
-            nonNullable: true,
-            validators: [Validators.required],
-          }),
-        })
+        message: new FormControl<string | null>('', {
+          nonNullable: true,
+          validators: [Validators.required],
+        }),
+        username: new FormControl<string | null>(username, {
+          nonNullable: true,
+          validators: [Validators.required],
+        }),
+      })
       : new FormGroup({
-          message: new FormControl<string | null>(null, {
-            nonNullable: false,
-          }),
-          username: new FormControl<string | null>('', {
-            nonNullable: true,
-            validators: [Validators.required],
-          }),
-        });
+        message: new FormControl<string | null>(null, {
+          nonNullable: false,
+        }),
+        username: new FormControl<string | null>('', {
+          nonNullable: true,
+          validators: [Validators.required],
+        }),
+      });
   }
 
   private mapMessageTimestamps(messages: Message[]): string[] {
