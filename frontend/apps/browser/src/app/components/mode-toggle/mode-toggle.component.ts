@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { match } from 'ts-pattern';
 
 import { THEME, Theme, ThemedDirective, ThemeService } from 'theme';
 import { SwitchComponent } from 'switch';
@@ -39,18 +40,20 @@ export class ModeToggleComponent {
     this.formControl.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe((checked: boolean) => {
-        const theme = this.theme();
-        const isFlat = theme === Theme.FlatLight || theme === Theme.FlatDark;
-
-        this.themeService.changeTheme(
-          checked
-            ? isFlat
-              ? Theme.FlatLight
-              : Theme.AeroLight
-            : isFlat
-              ? Theme.FlatDark
-              : Theme.AeroDark,
-        );
+        this.themeService.changeTheme(this.resolveTheme(checked));
       });
+  }
+
+  private resolveTheme(checked: boolean): Theme {
+    const currentTheme = this.theme();
+    const isFlat =
+      currentTheme === Theme.FlatLight || currentTheme === Theme.FlatDark;
+
+    return match({ checked, isFlat })
+      .with({ checked: true, isFlat: true }, () => Theme.FlatLight)
+      .with({ checked: true, isFlat: false }, () => Theme.AeroLight)
+      .with({ checked: false, isFlat: true }, () => Theme.FlatDark)
+      .with({ checked: false, isFlat: false }, () => Theme.AeroDark)
+      .exhaustive();
   }
 }
