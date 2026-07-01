@@ -7,6 +7,7 @@ import {
   OnDestroy,
   Renderer2,
 } from '@angular/core';
+import { match } from 'ts-pattern';
 
 import { ThemeService } from 'theme';
 
@@ -87,37 +88,58 @@ export class TooltipDirective implements OnDestroy {
     const hostRect: DOMRect = hostEl.getBoundingClientRect();
     const tooltipRect: DOMRect = this.tooltipElement.getBoundingClientRect();
     const gap = 8;
-
-    let top = 0;
-    let left = 0;
-
-    switch (this.position()) {
-      case 'top':
-        top = hostRect.top - tooltipRect.height - gap;
-        left = hostRect.left + (hostRect.width - tooltipRect.width) / 2;
-        break;
-      case 'bottom':
-        top = hostRect.bottom + gap;
-        left = hostRect.left + (hostRect.width - tooltipRect.width) / 2;
-        break;
-      case 'left':
-        top = hostRect.top + (hostRect.height - tooltipRect.height) / 2;
-        left = hostRect.left - tooltipRect.width - gap;
-        break;
-      case 'right':
-        top = hostRect.top + (hostRect.height - tooltipRect.height) / 2;
-        left = hostRect.right + gap;
-        break;
-    }
-
     const margin = 4;
-    const maxLeft = window.innerWidth - tooltipRect.width - margin;
-    const maxTop = window.innerHeight - tooltipRect.height - margin;
-    left = Math.max(margin, Math.min(left, maxLeft));
-    top = Math.max(margin, Math.min(top, maxTop));
+
+    const { top, left } = this.clampTooltipCoordinates(
+      this.calculateTooltipCoordinates(this.position(), hostRect, tooltipRect, gap),
+      tooltipRect,
+      { width: window.innerWidth, height: window.innerHeight },
+      margin,
+    );
 
     this.renderer.setStyle(this.tooltipElement, 'top', `${top}px`);
     this.renderer.setStyle(this.tooltipElement, 'left', `${left}px`);
+  }
+
+  private calculateTooltipCoordinates(
+    position: 'top' | 'bottom' | 'left' | 'right',
+    hostRect: DOMRect,
+    tooltipRect: DOMRect,
+    gap: number,
+  ): { top: number; left: number } {
+    return match(position)
+      .with('top', () => ({
+        top: hostRect.top - tooltipRect.height - gap,
+        left: hostRect.left + (hostRect.width - tooltipRect.width) / 2,
+      }))
+      .with('bottom', () => ({
+        top: hostRect.bottom + gap,
+        left: hostRect.left + (hostRect.width - tooltipRect.width) / 2,
+      }))
+      .with('left', () => ({
+        top: hostRect.top + (hostRect.height - tooltipRect.height) / 2,
+        left: hostRect.left - tooltipRect.width - gap,
+      }))
+      .with('right', () => ({
+        top: hostRect.top + (hostRect.height - tooltipRect.height) / 2,
+        left: hostRect.right + gap,
+      }))
+      .exhaustive();
+  }
+
+  private clampTooltipCoordinates(
+    coordinates: { top: number; left: number },
+    tooltipSize: { width: number; height: number },
+    viewport: { width: number; height: number },
+    margin: number,
+  ): { top: number; left: number } {
+    const maxLeft = viewport.width - tooltipSize.width - margin;
+    const maxTop = viewport.height - tooltipSize.height - margin;
+
+    return {
+      left: Math.max(margin, Math.min(coordinates.left, maxLeft)),
+      top: Math.max(margin, Math.min(coordinates.top, maxTop)),
+    };
   }
 
   private destroyTooltip(): void {
