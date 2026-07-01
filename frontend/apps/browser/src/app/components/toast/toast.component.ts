@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   output,
+  signal,
 } from '@angular/core';
 import { ThemedDirective } from 'theme';
 import { NgStyle } from '@angular/common';
@@ -41,8 +42,8 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
   faCircleInfo = faCircleInfo;
   faXmark = faXmark;
 
-  barWidth = '100%';
-  transitionDuration = '0s';
+  protected readonly barWidth = signal('100%');
+  protected readonly transitionDuration = signal('0s');
 
   private subscription?: Subscription;
 
@@ -52,8 +53,8 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.transitionDuration = `${this.timeout()}ms`;
-      this.barWidth = '0%';
+      this.transitionDuration.set(`${this.timeout()}ms`);
+      this.barWidth.set('0%');
     }, 25);
   }
 
@@ -68,14 +69,14 @@ export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
 
   focus(): void {
     this.subscription?.unsubscribe();
-    this.transitionDuration = '0s';
-    this.barWidth = '100%';
+    this.transitionDuration.set('0s');
+    this.barWidth.set('100%');
   }
 
   blur(): void {
     setTimeout(() => {
-      this.transitionDuration = `${this.timeout()}ms`;
-      this.barWidth = '0%';
+      this.transitionDuration.set(`${this.timeout()}ms`);
+      this.barWidth.set('0%');
     }, 10);
     this.initializeCloseTimeout();
   }
