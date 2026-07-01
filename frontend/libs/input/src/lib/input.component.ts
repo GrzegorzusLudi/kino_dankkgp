@@ -3,7 +3,8 @@ import {
   ElementRef,
   forwardRef,
   input,
-  ViewChild,
+  signal,
+  viewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { get, isObject } from 'lodash-es';
@@ -27,23 +28,23 @@ import { ThemedDirective } from 'theme';
 export class InputComponent implements ControlValueAccessor {
   label = input.required<string>();
 
-  @ViewChild('input') input?: ElementRef;
+  private readonly input = viewChild<ElementRef>('input');
 
-  isDisabled = false;
+  protected readonly isDisabled = signal(false);
 
   changed?: (value: string) => void;
   touched?: () => void;
 
   get value(): string | null {
-    return this._value;
+    return this.valueSignal();
   }
 
   set value(value: string | null) {
-    this._value = isObject(value) ? JSON.stringify(value) : `${value}`;
+    this.valueSignal.set(isObject(value) ? JSON.stringify(value) : `${value}`);
     this.updateNativeInputValue();
   }
 
-  private _value: string | null = '';
+  private readonly valueSignal = signal<string | null>('');
 
   onChange(event: Readonly<Event>): void {
     if (this.changed) {
@@ -72,13 +73,15 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
+    this.isDisabled.set(isDisabled);
   }
 
   private updateNativeInputValue(): void {
-    if (this.input) {
+    const input = this.input();
+
+    if (input) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      this.input.nativeElement.value = this.value;
+      input.nativeElement.value = this.value;
     }
   }
 }
