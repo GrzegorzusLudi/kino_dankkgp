@@ -68,14 +68,21 @@ export class VideoContainerComponent implements OnDestroy {
     }
 
     const currentRoundedSeconds = Math.round(this.player.getCurrentTime());
-    const precision = 0.5;
 
-    if (
-      currentRoundedSeconds <= seconds - precision ||
-      currentRoundedSeconds >= seconds + precision
-    ) {
+    if (this.shouldSeekTo(currentRoundedSeconds, seconds)) {
       this.player.seekTo(seconds, allowSeekAhead);
     }
+  }
+
+  private shouldSeekTo(
+    currentSeconds: number,
+    targetSeconds: number,
+    precision = 0.5,
+  ): boolean {
+    return (
+      currentSeconds <= targetSeconds - precision ||
+      currentSeconds >= targetSeconds + precision
+    );
   }
 
   private updateIframeDimensions(): void {
