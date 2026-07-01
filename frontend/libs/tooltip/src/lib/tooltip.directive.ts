@@ -7,9 +7,12 @@ import {
   OnDestroy,
   Renderer2,
 } from '@angular/core';
-import { match } from 'ts-pattern';
+import { match, P } from 'ts-pattern';
+import { noop } from 'lodash-es';
 
 import { ThemeService } from 'theme';
+
+const { nullish } = P;
 
 @Directive({
   selector: '[libTooltip]',
@@ -28,11 +31,9 @@ export class TooltipDirective implements OnDestroy {
   show(): void {
     const lines = this.normalizeLines();
 
-    if (!lines.length) {
-      return;
-    }
-
-    this.createTooltip(lines);
+    match(lines.length > 0)
+      .with(true, () => this.createTooltip(lines))
+      .otherwise(noop);
   }
 
   @HostListener('mouseleave')
@@ -57,11 +58,11 @@ export class TooltipDirective implements OnDestroy {
     this.renderer.addClass(this.tooltipElement, this.position());
     this.renderer.addClass(this.tooltipElement, this.themeService.theme());
 
-    for (const line of lines) {
+    lines.forEach((line) => {
       const lineEl: HTMLElement = this.renderer.createElement('div');
       this.renderer.appendChild(lineEl, this.renderer.createText(line));
       this.renderer.appendChild(this.tooltipElement, lineEl);
-    }
+    });
 
     this.renderer.appendChild(document.body, this.tooltipElement);
 
@@ -69,36 +70,41 @@ export class TooltipDirective implements OnDestroy {
   }
 
   private positionTooltip(): void {
-    if (!this.tooltipElement) {
-      return;
-    }
+    match(this.tooltipElement)
+      .with(nullish, noop)
+      .otherwise((tooltipElement) => {
+        this.renderer.setStyle(tooltipElement, 'position', 'fixed');
+        this.renderer.setStyle(tooltipElement, 'top', '0');
+        this.renderer.setStyle(tooltipElement, 'left', '0');
+        this.renderer.setStyle(tooltipElement, 'white-space', 'nowrap');
+        this.renderer.setStyle(tooltipElement, 'pointer-events', 'none');
+        this.renderer.setStyle(tooltipElement, 'z-index', '9999');
 
-    this.renderer.setStyle(this.tooltipElement, 'position', 'fixed');
-    this.renderer.setStyle(this.tooltipElement, 'top', '0');
-    this.renderer.setStyle(this.tooltipElement, 'left', '0');
-    this.renderer.setStyle(this.tooltipElement, 'white-space', 'nowrap');
-    this.renderer.setStyle(this.tooltipElement, 'pointer-events', 'none');
-    this.renderer.setStyle(this.tooltipElement, 'z-index', '9999');
+        const nativeEl = this.elementRef.nativeElement as HTMLElement;
+        const isCustomElement = nativeEl.tagName.includes('-');
+        const hostEl = isCustomElement
+          ? ((nativeEl.firstElementChild ?? nativeEl) as HTMLElement)
+          : nativeEl;
+        const hostRect: DOMRect = hostEl.getBoundingClientRect();
+        const tooltipRect: DOMRect = tooltipElement.getBoundingClientRect();
+        const gap = 8;
+        const margin = 4;
 
-    const nativeEl = this.elementRef.nativeElement as HTMLElement;
-    const isCustomElement = nativeEl.tagName.includes('-');
-    const hostEl = isCustomElement
-      ? ((nativeEl.firstElementChild ?? nativeEl) as HTMLElement)
-      : nativeEl;
-    const hostRect: DOMRect = hostEl.getBoundingClientRect();
-    const tooltipRect: DOMRect = this.tooltipElement.getBoundingClientRect();
-    const gap = 8;
-    const margin = 4;
+        const { top, left } = this.clampTooltipCoordinates(
+          this.calculateTooltipCoordinates(
+            this.position(),
+            hostRect,
+            tooltipRect,
+            gap,
+          ),
+          tooltipRect,
+          { width: window.innerWidth, height: window.innerHeight },
+          margin,
+        );
 
-    const { top, left } = this.clampTooltipCoordinates(
-      this.calculateTooltipCoordinates(this.position(), hostRect, tooltipRect, gap),
-      tooltipRect,
-      { width: window.innerWidth, height: window.innerHeight },
-      margin,
-    );
-
-    this.renderer.setStyle(this.tooltipElement, 'top', `${top}px`);
-    this.renderer.setStyle(this.tooltipElement, 'left', `${left}px`);
+        this.renderer.setStyle(tooltipElement, 'top', `${top}px`);
+        this.renderer.setStyle(tooltipElement, 'left', `${left}px`);
+      });
   }
 
   private calculateTooltipCoordinates(
@@ -143,9 +149,11 @@ export class TooltipDirective implements OnDestroy {
   }
 
   private destroyTooltip(): void {
-    if (this.tooltipElement) {
-      this.renderer.removeChild(document.body, this.tooltipElement);
-      this.tooltipElement = null;
-    }
+    match(this.tooltipElement)
+      .with(nullish, noop)
+      .otherwise((tooltipElement) => {
+        this.renderer.removeChild(document.body, tooltipElement);
+        this.tooltipElement = null;
+      });
   }
 }
