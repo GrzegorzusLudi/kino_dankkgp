@@ -5,6 +5,7 @@ import {
   inject,
   OnInit,
   Signal,
+  signal,
 } from '@angular/core';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -59,33 +60,31 @@ import { TextComponent } from 'text';
 export class AppComponent implements OnInit, AfterViewInit {
   protected readonly theme = inject(THEME);
 
+  private readonly apiService = inject(ApiService);
+
   title = 'Kino DANKKGP';
-  usernames: Signal<string[]>;
-  messages: Signal<Message[]>;
-  username: Signal<string>;
-  queue: Signal<Queue | undefined>;
-  video: Signal<Video | undefined>;
-  second: Signal<number | undefined>;
 
-  protected width: number = INITIAL_VIDEO_WIDTH;
-  protected height: number = INITIAL_VIDEO_HEIGHT;
+  usernames: Signal<string[]> = toSignal(this.apiService.usernames, {
+    initialValue: [],
+  });
+  messages: Signal<Message[]> = toSignal(this.apiService.messages, {
+    initialValue: [],
+  });
+  username: Signal<string> = toSignal(this.apiService.username, {
+    initialValue: '',
+  });
+  queue: Signal<Queue | undefined> = toSignal(this.apiService.queue, {
+    initialValue: undefined,
+  });
+  video: Signal<Video | undefined> = toSignal(
+    this.apiService.queue.pipe(map((queue) => queue?.currentlyPlayedVideo)),
+  );
+  second: Signal<number | undefined> = toSignal(
+    this.apiService.queue.pipe(map((queue) => queue?.currentlyPlayedSecond)),
+  );
 
-  constructor(private readonly apiService: ApiService) {
-    this.messages = toSignal(this.apiService.messages, { initialValue: [] });
-    this.username = toSignal(this.apiService.username, { initialValue: '' });
-    this.usernames = toSignal(this.apiService.usernames, { initialValue: [] });
-    this.queue = toSignal(this.apiService.queue, { initialValue: undefined });
-    this.video = toSignal(
-      this.apiService.queue.pipe(
-        map((queue) => {
-          return queue?.currentlyPlayedVideo;
-        }),
-      ),
-    );
-    this.second = toSignal(
-      this.apiService.queue.pipe(map((queue) => queue?.currentlyPlayedSecond)),
-    );
-  }
+  protected readonly width = signal(INITIAL_VIDEO_WIDTH);
+  protected readonly height = signal(INITIAL_VIDEO_HEIGHT);
 
   ngOnInit(): void {}
 
@@ -108,7 +107,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private resizeVideoContainer(dimensions: Dimensions): void {
-    this.width = Math.max(MINIMUM_VIDEO_WIDTH, Math.floor(dimensions.width));
-    this.height = Math.floor(this.width * (9 / 16));
+    const width = Math.max(
+      MINIMUM_VIDEO_WIDTH,
+      Math.floor(dimensions.width),
+    );
+
+    this.width.set(width);
+    this.height.set(Math.floor(width * (9 / 16)));
   }
 }
