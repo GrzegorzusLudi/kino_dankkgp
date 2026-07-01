@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { take } from 'rxjs';
@@ -28,10 +28,8 @@ import { InputComponent } from 'input';
 export class UsernameDialogComponent implements OnInit {
   username = new FormControl<string>('');
 
-  constructor(
-    private readonly apiService: ApiService,
-    private readonly dialogRef: MatDialogRef<UsernameDialogComponent>,
-  ) {}
+  private readonly apiService = inject(ApiService);
+  private readonly dialogRef = inject(MatDialogRef<UsernameDialogComponent>);
 
   ngOnInit(): void {
     this.apiService.username.pipe(take(1)).subscribe((name) => {
