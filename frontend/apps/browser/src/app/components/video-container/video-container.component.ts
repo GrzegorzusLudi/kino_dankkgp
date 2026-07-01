@@ -1,5 +1,7 @@
 import { Component, effect, input, OnDestroy } from '@angular/core';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
+import { match, P } from 'ts-pattern';
+import { noop } from 'lodash-es';
 
 import { ThemedDirective } from 'theme';
 import { TextComponent } from 'text';
@@ -9,6 +11,8 @@ import {
   DEFAULT_VIDEO_WIDTH,
   DIMENSIONS_CHANGE_DEBOUNCE_TIME,
 } from './video-container.consts';
+
+const { nullish } = P;
 
 // TODO: (change)="onStateChange($event)"
 
@@ -40,10 +44,9 @@ export class VideoContainerComponent implements OnDestroy {
     effect(() => {
       this.dimensions.next([`${this.width()}px`, `${this.height()}px`]);
 
-      const second = this.second();
-      if (second !== undefined) {
-        this.seekTo(second);
-      }
+      match(this.second())
+        .with(nullish, noop)
+        .otherwise((second) => this.seekTo(second));
     });
   }
 
@@ -63,15 +66,17 @@ export class VideoContainerComponent implements OnDestroy {
   }
 
   seekTo(seconds: number, allowSeekAhead = true): void {
-    if (!this.player) {
-      throw new Error('Player is not initialized');
-    }
+    match(this.player)
+      .with(P.nullish, () => {
+        throw new Error('Player is not initialized');
+      })
+      .otherwise((player) => {
+        const currentRoundedSeconds = Math.round(player.getCurrentTime());
 
-    const currentRoundedSeconds = Math.round(this.player.getCurrentTime());
-
-    if (this.shouldSeekTo(currentRoundedSeconds, seconds)) {
-      this.player.seekTo(seconds, allowSeekAhead);
-    }
+        match(this.shouldSeekTo(currentRoundedSeconds, seconds))
+          .with(true, () => player.seekTo(seconds, allowSeekAhead))
+          .otherwise(noop);
+      });
   }
 
   private shouldSeekTo(
@@ -86,14 +91,14 @@ export class VideoContainerComponent implements OnDestroy {
   }
 
   private updateIframeDimensions(): void {
-    const iframe = this.player?.getIframe();
-
-    if (!iframe) {
-      throw new Error('Video iframe is undefined');
-    }
-
-    const [width, height] = this.dimensions.getValue();
-    iframe.width = width;
-    iframe.height = height + 4;
+    match(this.player?.getIframe())
+      .with(P.nullish, () => {
+        throw new Error('Video iframe is undefined');
+      })
+      .otherwise((iframe) => {
+        const [width, height] = this.dimensions.getValue();
+        iframe.width = width;
+        iframe.height = height + 4;
+      });
   }
 }
