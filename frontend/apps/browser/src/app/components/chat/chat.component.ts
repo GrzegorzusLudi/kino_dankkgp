@@ -1,10 +1,12 @@
 import {
   Component,
   DoCheck,
+  inject,
   input,
   IterableDiffer,
   IterableDiffers,
   OnInit,
+  signal,
 } from '@angular/core';
 import {
   FormControl,
@@ -41,54 +43,26 @@ export class ChatComponent implements OnInit, DoCheck {
   username = input('');
   messages = input<Message[]>([]);
 
-  protected timestamps: string[] = [];
+  protected readonly timestamps = signal<string[]>([]);
   protected form!: FormGroup;
 
-  private readonly differ: IterableDiffer<Message>;
+  private readonly iterableDiffers = inject(IterableDiffers);
+  private readonly apiService = inject(ApiService);
+  private readonly toastService = inject(ToastService);
 
-  constructor(
-    private readonly iterableDiffers: IterableDiffers,
-    private readonly apiService: ApiService,
-    private readonly toastService: ToastService,
-  ) {
-    this.differ = this.iterableDiffers.find([]).create<Message>();
-  }
+  private readonly differ: IterableDiffer<Message> = this.iterableDiffers
+    .find([])
+    .create<Message>();
 
   ngOnInit(): void {
-    let message: FormControl<string | null>;
-    let username: FormControl<string | null>;
-
-    if (this.username()) {
-      message = new FormControl<string | null>('', {
-        nonNullable: true,
-        validators: [Validators.required],
-      });
-      username = new FormControl<string | null>(this.username(), {
-        nonNullable: true,
-        validators: [Validators.required],
-      });
-    } else {
-      message = new FormControl<string | null>(null, { nonNullable: false });
-      username = new FormControl<string | null>('', {
-        nonNullable: true,
-        validators: [Validators.required],
-      });
-    }
-
-    this.form = new FormGroup({
-      message,
-      username,
-    });
+    this.form = this.createChatForm(this.username());
   }
 
   ngDoCheck(): void {
     const changes = this.differ.diff(this.messages());
 
     if (changes) {
-      this.timestamps = this.messages().map(
-        (message: Readonly<Message>) =>
-          `${message.date.getHours()}:${message.date.getMinutes()}:${message.date.getSeconds()}`,
-      );
+      this.timestamps.set(this.mapMessageTimestamps(this.messages()));
     }
   }
 
@@ -126,5 +100,35 @@ export class ChatComponent implements OnInit, DoCheck {
     this.apiService.sendMessage(this.form.get('message')?.value ?? '');
     this.form.get('message')?.setValue('');
     this.form.updateValueAndValidity();
+  }
+
+  private createChatForm(username: string): FormGroup {
+    return username
+      ? new FormGroup({
+          message: new FormControl<string | null>('', {
+            nonNullable: true,
+            validators: [Validators.required],
+          }),
+          username: new FormControl<string | null>(username, {
+            nonNullable: true,
+            validators: [Validators.required],
+          }),
+        })
+      : new FormGroup({
+          message: new FormControl<string | null>(null, {
+            nonNullable: false,
+          }),
+          username: new FormControl<string | null>('', {
+            nonNullable: true,
+            validators: [Validators.required],
+          }),
+        });
+  }
+
+  private mapMessageTimestamps(messages: Message[]): string[] {
+    return messages.map(
+      (message) =>
+        `${message.date.getHours()}:${message.date.getMinutes()}:${message.date.getSeconds()}`,
+    );
   }
 }
