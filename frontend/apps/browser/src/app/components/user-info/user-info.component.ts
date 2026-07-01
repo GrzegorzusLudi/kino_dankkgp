@@ -1,16 +1,11 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { ThemedDirective } from 'theme';
 import { MatDialog } from '@angular/material/dialog';
 import { UsernameDialogComponent } from '../username-dialog/username-dialog.component';
-import {
-  USERNAME_DIALOG_ENTER_ANIMATION_DURATION,
-  USERNAME_DIALOG_EXIT_ANIMATION_DURATION,
-  USERNAME_DIALOG_HEIGHT,
-  USERNAME_DIALOG_WIDTH,
-} from '../username-dialog/username-dialog.consts';
+import { USERNAME_DIALOG_CONFIG } from '../username-dialog/username-dialog.config';
 import { ButtonComponent } from 'button';
 
 @Component({
@@ -28,14 +23,9 @@ export class UserInfoComponent {
 
   faUser = faUser;
 
-  constructor(public dialog: MatDialog) {}
+  private readonly dialog = inject(MatDialog);
 
   openUsernameDialog(): void {
-    this.dialog.open(UsernameDialogComponent, {
-      width: USERNAME_DIALOG_WIDTH,
-      height: USERNAME_DIALOG_HEIGHT,
-      enterAnimationDuration: USERNAME_DIALOG_ENTER_ANIMATION_DURATION,
-      exitAnimationDuration: USERNAME_DIALOG_EXIT_ANIMATION_DURATION,
-    });
+    this.dialog.open(UsernameDialogComponent, USERNAME_DIALOG_CONFIG);
   }
 }
