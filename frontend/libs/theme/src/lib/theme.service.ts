@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, signal, Signal } from '@angular/core';
 import chroma from 'chroma-js';
 import { DOCUMENT } from '@angular/common';
+import { match } from 'ts-pattern';
 
 import { Theme } from './theme.enum';
 import { THEME_STORAGE_KEY } from './theme.consts';
@@ -30,16 +31,15 @@ export class ThemeService {
 
   private resolveInitialTheme(): Theme {
     const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-
-    if (stored && Object.values(Theme).includes(stored)) {
-      return stored;
-    }
-
+    const isValidStored = Boolean(stored) && Object.values(Theme).includes(stored as Theme);
     const prefersDark = window.matchMedia(
       '(prefers-color-scheme: dark)',
     ).matches;
 
-    return prefersDark ? Theme.FlatDark : Theme.FlatLight;
+    return match({ isValidStored, stored, prefersDark })
+      .with({ isValidStored: true }, ({ stored }) => stored as Theme)
+      .with({ prefersDark: true }, () => Theme.FlatDark)
+      .otherwise(() => Theme.FlatLight);
   }
 
   private generate(primary: string, success: string, danger: string): void {
@@ -76,9 +76,9 @@ export class ThemeService {
       '--light-input-border-color': 'var(--gray-a25)',
     };
 
-    for (const [name, value] of Object.entries(fixed)) {
-      this.setStyleProperty(name, value);
-    }
+    Object.entries(fixed).forEach(([name, value]) =>
+      this.setStyleProperty(name, value),
+    );
   }
 
   private setColorProperties(
@@ -86,9 +86,9 @@ export class ThemeService {
     base: string,
     steps: number[],
   ): void {
-    for (const step of steps) {
-      this.setStyleProperty(`${prefix}-a${step}`, this.shadeColor(base, step));
-    }
+    steps.forEach((step) =>
+      this.setStyleProperty(`${prefix}-a${step}`, this.shadeColor(base, step)),
+    );
   }
 
   private setStyleProperty(name: string, value: string): void {
