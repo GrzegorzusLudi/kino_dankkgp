@@ -67,7 +67,9 @@ export class ChatComponent implements OnInit, DoCheck {
 
     match(changes)
       .with(nullish, noop)
-      .otherwise(() => this.timestamps.set(this.mapMessageTimestamps(this.messages())));
+      .otherwise(() =>
+        this.timestamps.set(this.mapMessageTimestamps(this.messages())),
+      );
   }
 
   trackByFn(index: number, message: Readonly<Message>): string {
@@ -109,24 +111,24 @@ export class ChatComponent implements OnInit, DoCheck {
   private createChatForm(username: string): FormGroup {
     return username
       ? new FormGroup({
-        message: new FormControl<string | null>('', {
-          nonNullable: true,
-          validators: [Validators.required],
-        }),
-        username: new FormControl<string | null>(username, {
-          nonNullable: true,
-          validators: [Validators.required],
-        }),
-      })
+          message: new FormControl<string | null>('', {
+            nonNullable: true,
+            validators: [Validators.required],
+          }),
+          username: new FormControl<string | null>(username, {
+            nonNullable: true,
+            validators: [Validators.required],
+          }),
+        })
       : new FormGroup({
-        message: new FormControl<string | null>(null, {
-          nonNullable: false,
-        }),
-        username: new FormControl<string | null>('', {
-          nonNullable: true,
-          validators: [Validators.required],
-        }),
-      });
+          message: new FormControl<string | null>(null, {
+            nonNullable: false,
+          }),
+          username: new FormControl<string | null>('', {
+            nonNullable: true,
+            validators: [Validators.required],
+          }),
+        });
   }
 
   private mapMessageTimestamps(messages: Message[]): string[] {

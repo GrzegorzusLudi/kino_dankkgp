@@ -155,8 +155,7 @@ export class ApiService {
     return isObject(queue)
       ? {
           videos: this.mapQueueVideos(queue.videos),
-          currentlyPlayedVideo:
-            get(queue, 'currentlyPlayedVideo') || undefined,
+          currentlyPlayedVideo: get(queue, 'currentlyPlayedVideo') || undefined,
           currentlyPlayedSecond: get(queue, 'currentlyPlayedSecond', 0),
         }
       : undefined;
