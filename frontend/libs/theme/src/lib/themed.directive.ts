@@ -6,8 +6,12 @@ import {
   Renderer2,
   Signal,
 } from '@angular/core';
+import { match, P } from 'ts-pattern';
+import { noop } from 'lodash-es';
 
 import { THEME } from './theme.token';
+
+const { nullish } = P;
 
 @Directive()
 export class ThemedDirective {
@@ -21,18 +25,21 @@ export class ThemedDirective {
   constructor() {
     effect(() => {
       const theme = this.theme();
-      const firstChild = this.elementRef.nativeElement.firstElementChild;
 
-      if (!firstChild) {
-        return;
-      }
+      match(
+        this.elementRef.nativeElement.firstElementChild as Element | null,
+      )
+        .with(nullish, noop)
+        .otherwise((firstChild) => {
+          match(this.previousTheme)
+            .with(nullish, noop)
+            .otherwise((previousTheme) =>
+              this.renderer.removeClass(firstChild, previousTheme),
+            );
 
-      if (this.previousTheme) {
-        this.renderer.removeClass(firstChild, this.previousTheme);
-      }
-
-      this.renderer.addClass(firstChild, theme);
-      this.previousTheme = theme;
+          this.renderer.addClass(firstChild, theme);
+          this.previousTheme = theme;
+        });
     });
   }
 }
