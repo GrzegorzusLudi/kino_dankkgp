@@ -1,12 +1,12 @@
 <button
   type="button"
   class="button"
-  [class.clicked]="clicked"
+  [class.clicked]="clicked()"
   [class.small]="height() === 'small'"
   [class.medium]="height() === 'medium'"
   [class.primary]="variant() === 'primary'"
   [class.ghost]="variant() === 'ghost'"
-  (click)="clicked = true"
-  (blur)="clicked = false">
+  (click)="clicked.set(true)"
+  (blur)="clicked.set(false)">
   <ng-content />
 </button>
