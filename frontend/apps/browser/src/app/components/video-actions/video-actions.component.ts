@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 import { ThemedDirective } from 'theme';
 import { ButtonComponent } from 'button';
@@ -10,6 +10,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { match, P } from 'ts-pattern';
 import { ApiService } from '../../services/api/api.service';
 import { ToastService } from '../../services/toast/toast.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -43,53 +44,49 @@ export class VideoActionsComponent implements OnInit {
   faRotate = faRotate;
   faForwardStep = faForwardStep;
 
-  constructor(
-    private readonly apiService: ApiService,
-    private readonly toastService: ToastService,
-  ) {}
+  private readonly apiService = inject(ApiService);
+  private readonly toastService = inject(ToastService);
 
   ngOnInit(): void {
-    this.initForm();
+    this.form = this.createVideoActionsForm();
   }
 
   addVideoToQueue(): void {
     const url = this.form.value.url?.trim();
-
     const videoId = this.extractYouTubeVideoId(url);
 
-    if (videoId) {
-      this.apiService.addVideoToQueue(
-        `https://www.youtube.com/watch?v=${videoId}`,
-      );
-      this.form.get('url')?.setValue('');
-    } else {
-      this.toastService.next({
-        title: 'Invalid URL',
-        message: 'Invalid YouTube URL',
-        variant: 'danger',
+    match(videoId)
+      .with(P.string, (id) => {
+        this.apiService.addVideoToQueue(
+          `https://www.youtube.com/watch?v=${id}`,
+        );
+        this.form.get('url')?.setValue('');
+      })
+      .otherwise(() => {
+        this.toastService.next({
+          title: 'Invalid URL',
+          message: 'Invalid YouTube URL',
+          variant: 'danger',
+        });
       });
-    }
   }
 
-  private initForm(): void {
-    this.form = new FormGroup({
+  private createVideoActionsForm(): FormGroup {
+    return new FormGroup({
       url: new FormControl(''),
     });
   }
 
-  private extractYouTubeVideoId(url: string): string | null {
+  private extractYouTubeVideoId(url: string | undefined): string | null {
     try {
-      const urlObj = new URL(url);
+      const urlObj = new URL(url ?? '');
 
-      if (urlObj.hostname.includes('youtube.com')) {
-        return urlObj.searchParams.get('v');
-      }
-
-      if (urlObj.hostname === 'youtu.be') {
-        return urlObj.pathname.substring(1);
-      }
-
-      return null;
+      return match(urlObj)
+        .with({ hostname: P.string.includes('youtube.com') }, (value) =>
+          value.searchParams.get('v'),
+        )
+        .with({ hostname: 'youtu.be' }, (value) => value.pathname.substring(1))
+        .otherwise(() => null);
     } catch {
       return null;
     }
