@@ -9,6 +9,10 @@ import {
   output,
   viewChild,
 } from '@angular/core';
+import { match, P } from 'ts-pattern';
+import { noop } from 'lodash-es';
+
+const { nullish } = P;
 
 import { YouTubePlayer, YouTubePlayerStateEvent } from './youtube-player.types';
 
@@ -34,11 +38,13 @@ export class YoutubePlayerComponent implements AfterViewInit, OnDestroy {
 
   constructor() {
     effect(() => {
-      const videoId = this.videoId();
-
-      if (this.player && videoId) {
-        this.player.loadVideoById(videoId);
-      }
+      match(this.videoId())
+        .with(nullish, noop)
+        .otherwise((videoId) =>
+          match(this.player)
+            .with(nullish, noop)
+            .otherwise((player) => player.loadVideoById(videoId)),
+        );
     });
 
     effect(() => {
@@ -50,21 +56,21 @@ export class YoutubePlayerComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     loadYouTubeIframeApi().then((api) => {
-      if (this.destroyed) {
-        return;
-      }
-
-      this.player = new api.Player(this.host().nativeElement, {
-        videoId: this.videoId() ?? '',
-        width: this.width(),
-        height: this.height(),
-        events: {
-          onReady: (event: YouTubePlayerStateEvent) =>
-            this.ready.emit(event.target),
-          onStateChange: (event: YouTubePlayerStateEvent) =>
-            this.change.emit(event),
-        },
-      });
+      match(this.destroyed)
+        .with(true, noop)
+        .otherwise(() => {
+          this.player = new api.Player(this.host().nativeElement, {
+            videoId: this.videoId() ?? '',
+            width: this.width(),
+            height: this.height(),
+            events: {
+              onReady: (event: YouTubePlayerStateEvent) =>
+                this.ready.emit(event.target),
+              onStateChange: (event: YouTubePlayerStateEvent) =>
+                this.change.emit(event),
+            },
+          });
+        });
     });
   }
 
