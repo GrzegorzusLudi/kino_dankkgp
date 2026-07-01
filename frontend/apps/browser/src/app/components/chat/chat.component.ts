@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,6 +16,7 @@ import { ButtonComponent } from 'button';
 import { HeaderComponent } from 'header';
 import { InputComponent } from 'input';
 import { TextComponent } from 'text';
+import { TimestampPipe } from '../../pipes/timestamp/timestamp.pipe';
 import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
@@ -27,6 +28,7 @@ import { ToastService } from '../../services/toast/toast.service';
     InputComponent,
     ReactiveFormsModule,
     TextComponent,
+    TimestampPipe,
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.aero.component.scss', './chat.flat.component.scss'],
@@ -36,7 +38,6 @@ export class ChatComponent {
   readonly username = input('');
   readonly messages = input<Message[]>([]);
 
-  protected readonly timestamps = signal<string[]>([]);
   protected form!: FormGroup;
 
   private readonly apiService = inject(ApiService);
@@ -45,10 +46,6 @@ export class ChatComponent {
   constructor() {
     effect(() => {
       this.form = this.createFormGroup(this.username());
-    });
-
-    effect(() => {
-      this.timestamps.set(this.mapMessageTimestamps(this.messages()));
     });
   }
 
@@ -128,12 +125,5 @@ export class ChatComponent {
         validators: [Validators.required],
       }),
     };
-  }
-
-  private mapMessageTimestamps(messages: Message[]): string[] {
-    return messages.map(
-      (message) =>
-        `${message.date.getHours()}:${message.date.getMinutes()}:${message.date.getSeconds()}`,
-    );
   }
 }

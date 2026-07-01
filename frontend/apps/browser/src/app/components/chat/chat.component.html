@@ -4,7 +4,7 @@
     <div class="messages">
       @for (message of messages(); track trackByFn($index, message)) {
         <lib-text
-          >[{{ timestamps()[$index] }}] {{ message.username }}:
+          >[{{ message.date | timestamp }}] {{ message.username }}:
           {{ message.text }}</lib-text
         >
       }
