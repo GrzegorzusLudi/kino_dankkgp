@@ -1,7 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { get, isArray, isObject } from 'lodash-es';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Socket } from 'socket.io-client';
 
 import { SOCKET } from '../../app.config';
 import { getOrThrow } from 'utils';
@@ -25,10 +24,10 @@ export class ApiService {
     undefined,
   );
 
-  constructor(
-    @Inject(SOCKET) private readonly socket: Socket,
-    private readonly toastService: ToastService,
-  ) {
+  private readonly socket = inject(SOCKET);
+  private readonly toastService = inject(ToastService);
+
+  constructor() {
     this.socket.on(Event.Message, (event: { data?: string }) => {
       try {
         this.handleMessageEvent(event);
@@ -103,26 +102,6 @@ export class ApiService {
     this.socket.emit(Action.SkipVideo, { data: { id, value } });
   }
 
-  private parseVotingData(raw: unknown): VotingData {
-    if (isObject(raw)) {
-      const record = raw as Record<string, unknown>;
-
-      return {
-        you_voted: Boolean(get(record, 'you_voted', false)),
-        user_number_voted: Number(get(record, 'user_number_voted', 0)),
-        user_number_to_have_majority: Number(
-          get(record, 'user_number_to_have_majority', 0),
-        ),
-      };
-    }
-
-    return {
-      you_voted: false,
-      user_number_voted: 0,
-      user_number_to_have_majority: 0,
-    };
-  }
-
   private handleMessageEvent(event: { data?: string }): void {
     this.toastService.next({
       title: 'Success',
@@ -132,55 +111,92 @@ export class ApiService {
   }
 
   private handleStateChangeEvent(event: { data?: StateChangeData }): void {
-    const messages = event.data?.messages;
+    const messages = this.mapMessages(event.data?.messages);
 
-    if (isArray(messages)) {
-      this.messagesSubject.next(
-        messages.map((item) => ({
+    if (messages) {
+      this.messagesSubject.next(messages);
+    }
+
+    const usernames = this.extractUsernames(event.data?.users);
+
+    if (usernames) {
+      this.usernamesSubject.next(usernames);
+    }
+
+    const queue = this.toQueue(event.data?.queue);
+
+    if (queue) {
+      this.queueSubject.next(queue);
+    }
+  }
+
+  private mapMessages(
+    messages: StateChangeData['messages'],
+  ): Message[] | undefined {
+    return isArray(messages)
+      ? messages.map((item) => ({
           username: getOrThrow(item, 'nick') ?? '',
           text: getOrThrow(item, 'message') ?? '',
           date: new Date(
             `${getOrThrow(item, 'date') ?? ''} ${getOrThrow(item, 'time') ?? ''}`,
           ),
-        })),
-      );
-    }
+        }))
+      : undefined;
+  }
 
-    const usernames = event.data?.users;
-
-    if (isObject(usernames)) {
-      this.usernamesSubject.next(
-        Object.values(usernames)
+  private extractUsernames(
+    users: StateChangeData['users'],
+  ): string[] | undefined {
+    return isObject(users)
+      ? Object.values(users)
           .map((value) => value.nick ?? '')
-          .filter(Boolean),
-      );
-    }
+          .filter(Boolean)
+      : undefined;
+  }
 
-    const queue = event.data?.queue;
+  private toQueue(queue: Queue | undefined): Queue | undefined {
+    return isObject(queue)
+      ? {
+          videos: this.mapQueueVideos(queue.videos),
+          currentlyPlayedVideo:
+            get(queue, 'currentlyPlayedVideo') || undefined,
+          currentlyPlayedSecond: get(queue, 'currentlyPlayedSecond', 0),
+        }
+      : undefined;
+  }
 
-    if (isObject(queue)) {
-      const videos: Video[] = isArray(queue.videos)
-        ? get(queue, 'videos').map((item) => ({
-            id: getOrThrow(item, 'id'),
-            url: getOrThrow(item, 'url'),
-            videoId: getOrThrow(item, 'videoId'),
-            title: getOrThrow(item, 'title'),
-            type: getOrThrow(item, 'type'),
-            user: {
-              nick: getOrThrow(item.user, 'nick'),
-              num: getOrThrow(item.user, 'num'),
-            },
-            duration_in_seconds: getOrThrow(item, 'duration_in_seconds'),
-            move_up_voting: this.parseVotingData(item.move_up_voting),
-            skip_voting: this.parseVotingData(item.skip_voting),
-          }))
-        : [];
+  private mapQueueVideos(videos: Video[] | undefined): Video[] {
+    return isArray(videos)
+      ? videos.map((item) => ({
+          id: getOrThrow(item, 'id'),
+          url: getOrThrow(item, 'url'),
+          videoId: getOrThrow(item, 'videoId'),
+          title: getOrThrow(item, 'title'),
+          type: getOrThrow(item, 'type'),
+          user: {
+            nick: getOrThrow(item.user, 'nick'),
+            num: getOrThrow(item.user, 'num'),
+          },
+          duration_in_seconds: getOrThrow(item, 'duration_in_seconds'),
+          move_up_voting: this.parseVotingData(item.move_up_voting),
+          skip_voting: this.parseVotingData(item.skip_voting),
+        }))
+      : [];
+  }
 
-      this.queueSubject.next({
-        videos,
-        currentlyPlayedVideo: get(queue, 'currentlyPlayedVideo') || undefined,
-        currentlyPlayedSecond: get(queue, 'currentlyPlayedSecond', 0),
-      });
-    }
+  private parseVotingData(raw: unknown): VotingData {
+    return isObject(raw)
+      ? {
+          you_voted: Boolean(get(raw, 'you_voted', false)),
+          user_number_voted: Number(get(raw, 'user_number_voted', 0)),
+          user_number_to_have_majority: Number(
+            get(raw, 'user_number_to_have_majority', 0),
+          ),
+        }
+      : {
+          you_voted: false,
+          user_number_voted: 0,
+          user_number_to_have_majority: 0,
+        };
   }
 }
