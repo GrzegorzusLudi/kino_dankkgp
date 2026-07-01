@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { get, isArray, isObject } from 'lodash-es';
+import { attempt, get, isArray, isError, isObject, noop } from 'lodash-es';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { match, P } from 'ts-pattern';
 
 import { SOCKET } from '../../app.config';
 import { getOrThrow } from 'utils';
@@ -12,6 +13,8 @@ import { Queue } from '../../models/queue.interface';
 import { Video } from '../../models/video.interface';
 import { VotingData } from '../../models/voting-data.interface';
 import { ToastService } from '../toast/toast.service';
+
+const { nullish, when } = P;
 
 @Injectable({
   providedIn: 'root',
@@ -29,29 +32,29 @@ export class ApiService {
 
   constructor() {
     this.socket.on(Event.Message, (event: { data?: string }) => {
-      try {
-        this.handleMessageEvent(event);
-      } catch (error: unknown) {
-        console.error(error);
-        this.toastService.next({
-          title: 'Error',
-          message: `Failed to process message event: ${String(error)}`,
-          variant: 'danger',
-        });
-      }
+      match(attempt(() => this.handleMessageEvent(event)))
+        .with(when(isError), (error) => {
+          console.error(error);
+          this.toastService.next({
+            title: 'Error',
+            message: `Failed to process message event: ${String(error)}`,
+            variant: 'danger',
+          });
+        })
+        .otherwise(noop);
     });
 
     this.socket.on(Event.StateChange, (event: { data?: StateChangeData }) => {
-      try {
-        this.handleStateChangeEvent(event);
-      } catch (error: unknown) {
-        console.error(error);
-        this.toastService.next({
-          title: 'Error',
-          message: `Failed to process state change: ${String(error)}`,
-          variant: 'danger',
-        });
-      }
+      match(attempt(() => this.handleStateChangeEvent(event)))
+        .with(when(isError), (error) => {
+          console.error(error);
+          this.toastService.next({
+            title: 'Error',
+            message: `Failed to process state change: ${String(error)}`,
+            variant: 'danger',
+          });
+        })
+        .otherwise(noop);
     });
 
     this.socket.on(Event.Error, (event: { data?: string }) => {
@@ -111,23 +114,17 @@ export class ApiService {
   }
 
   private handleStateChangeEvent(event: { data?: StateChangeData }): void {
-    const messages = this.mapMessages(event.data?.messages);
+    match(this.mapMessages(event.data?.messages))
+      .with(nullish, noop)
+      .otherwise((messages) => this.messagesSubject.next(messages));
 
-    if (messages) {
-      this.messagesSubject.next(messages);
-    }
+    match(this.extractUsernames(event.data?.users))
+      .with(nullish, noop)
+      .otherwise((usernames) => this.usernamesSubject.next(usernames));
 
-    const usernames = this.extractUsernames(event.data?.users);
-
-    if (usernames) {
-      this.usernamesSubject.next(usernames);
-    }
-
-    const queue = this.toQueue(event.data?.queue);
-
-    if (queue) {
-      this.queueSubject.next(queue);
-    }
+    match(this.toQueue(event.data?.queue))
+      .with(nullish, noop)
+      .otherwise((queue) => this.queueSubject.next(queue));
   }
 
   private mapMessages(
