@@ -7,9 +7,12 @@ import {
   viewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { get, isObject } from 'lodash-es';
+import { get, isObject, noop } from 'lodash-es';
+import { match, P } from 'ts-pattern';
 
 import { ThemedDirective } from 'theme';
+
+const { nullish } = P;
 
 @Component({
   selector: 'lib-input',
@@ -47,16 +50,15 @@ export class InputComponent implements ControlValueAccessor {
   private readonly valueSignal = signal<string | null>('');
 
   onChange(event: Readonly<Event>): void {
-    if (this.changed) {
-      const value = get(event, 'target.value', '');
-      this.changed(value);
-    }
+    match(this.changed)
+      .with(nullish, noop)
+      .otherwise((changed) => changed(get(event, 'target.value', '')));
   }
 
   onBlur(): void {
-    if (this.touched) {
-      this.touched();
-    }
+    match(this.touched)
+      .with(nullish, noop)
+      .otherwise((touched) => touched());
   }
 
   writeValue(value: string | null): void {
@@ -77,11 +79,11 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   private updateNativeInputValue(): void {
-    const input = this.input();
-
-    if (input) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      input.nativeElement.value = this.value;
-    }
+    match(this.input())
+      .with(nullish, noop)
+      .otherwise((input) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        input.nativeElement.value = this.value;
+      });
   }
 }
