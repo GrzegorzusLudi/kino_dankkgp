@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { ThemedDirective } from 'theme';
 import { Video } from '../../models/video.interface';
 import { Queue } from '../../models/queue.interface';
@@ -30,21 +30,21 @@ export class QueueComponent {
   faTrash = faTrash;
   faCircleUp = faCircleUp;
 
-  focusedIndex: number = -1;
+  protected readonly focusedIndex = signal(-1);
 
-  constructor(private readonly apiService: ApiService) {}
+  private readonly apiService = inject(ApiService);
 
   trackByFn(index: number, item: Video) {
     return index + item.videoId;
   }
 
   focus(index: number) {
-    this.focusedIndex = index;
+    this.focusedIndex.set(index);
   }
 
   blur(index: number) {
-    if (this.focusedIndex === index) {
-      this.focusedIndex = -1;
+    if (this.focusedIndex() === index) {
+      this.focusedIndex.set(-1);
     }
   }
 
