@@ -1,13 +1,4 @@
-import {
-  Component,
-  DoCheck,
-  inject,
-  input,
-  IterableDiffer,
-  IterableDiffers,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -15,8 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { match, P } from 'ts-pattern';
-import { noop } from 'lodash-es';
+import { match } from 'ts-pattern';
+import { chain } from 'lodash-es';
 
 import { ThemedDirective } from 'theme';
 import { Message } from '../../models/message.interface';
@@ -26,8 +17,6 @@ import { HeaderComponent } from 'header';
 import { InputComponent } from 'input';
 import { TextComponent } from 'text';
 import { ToastService } from '../../services/toast/toast.service';
-
-const { nullish } = P;
 
 @Component({
   selector: 'app-chat',
@@ -43,33 +32,24 @@ const { nullish } = P;
   styleUrls: ['./chat.aero.component.scss', './chat.flat.component.scss'],
   hostDirectives: [ThemedDirective],
 })
-export class ChatComponent implements OnInit, DoCheck {
-  username = input('');
-  messages = input<Message[]>([]);
+export class ChatComponent {
+  readonly username = input('');
+  readonly messages = input<Message[]>([]);
 
   protected readonly timestamps = signal<string[]>([]);
   protected form!: FormGroup;
 
-  private readonly iterableDiffers = inject(IterableDiffers);
   private readonly apiService = inject(ApiService);
   private readonly toastService = inject(ToastService);
 
-  private readonly differ: IterableDiffer<Message> = this.iterableDiffers
-    .find([])
-    .create<Message>();
+  constructor() {
+    effect(() => {
+      this.form = this.createFormGroup(this.username());
+    });
 
-  ngOnInit(): void {
-    this.form = this.createChatForm(this.username());
-  }
-
-  ngDoCheck(): void {
-    const changes = this.differ.diff(this.messages());
-
-    match(changes)
-      .with(nullish, noop)
-      .otherwise(() =>
-        this.timestamps.set(this.mapMessageTimestamps(this.messages())),
-      );
+    effect(() => {
+      this.timestamps.set(this.mapMessageTimestamps(this.messages()));
+    });
   }
 
   trackByFn(index: number, message: Readonly<Message>): string {
@@ -108,27 +88,46 @@ export class ChatComponent implements OnInit, DoCheck {
       });
   }
 
-  private createChatForm(username: string): FormGroup {
-    return username
-      ? new FormGroup({
-          message: new FormControl<string | null>('', {
-            nonNullable: true,
-            validators: [Validators.required],
-          }),
-          username: new FormControl<string | null>(username, {
-            nonNullable: true,
-            validators: [Validators.required],
-          }),
-        })
-      : new FormGroup({
-          message: new FormControl<string | null>(null, {
-            nonNullable: false,
-          }),
-          username: new FormControl<string | null>('', {
-            nonNullable: true,
-            validators: [Validators.required],
-          }),
-        });
+  private createFormGroup(username: string): FormGroup {
+    return chain(username)
+      .thru((username) => (
+        match(username)
+          .with('', () => this.createEmptyUsernameFormControls())
+          .otherwise((username) => this.createNonEmptyUsernameFormControls(username))
+      ))
+      .thru((controls) => new FormGroup(controls))
+      .value();
+  }
+
+  private createEmptyUsernameFormControls(): {
+    message: FormControl<string | null>;
+    username: FormControl<string | null>;
+  } {
+    return {
+      message: new FormControl<string | null>(null, {
+        nonNullable: false,
+      }),
+      username: new FormControl<string | null>('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+    };
+  }
+
+  private createNonEmptyUsernameFormControls(username: string): {
+    message: FormControl<string | null>;
+    username: FormControl<string | null>;
+  } {
+    return {
+      message: new FormControl<string | null>('', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      username: new FormControl<string | null>(username, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+    };
   }
 
   private mapMessageTimestamps(messages: Message[]): string[] {
