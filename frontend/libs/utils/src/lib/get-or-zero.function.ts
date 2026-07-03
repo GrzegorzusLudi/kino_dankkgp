@@ -1,13 +1,11 @@
 import { get, isNaN } from 'lodash-es';
+import { match, P } from 'ts-pattern';
 
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 
-export const getOrZero = (object: object | null, path: string): number => {
-  const result = Number(get(object, path));
+const { when } = P;
 
-  if (isNaN(result)) {
-    return 0;
-  }
-
-  return result;
-};
+export const getOrZero = (object: object | null, path: string): number =>
+  match(Number(get(object, path)))
+    .with(when(isNaN), () => 0)
+    .otherwise(Number);

@@ -1,10 +1,13 @@
 import { computed, inject, Injectable, signal, Signal } from '@angular/core';
 import chroma from 'chroma-js';
 import { DOCUMENT } from '@angular/common';
-import { match } from 'ts-pattern';
+import { match, P } from 'ts-pattern';
 
 import { Theme } from './theme.enum';
 import { THEME_STORAGE_KEY } from './theme.consts';
+
+const { number } = P;
+const { gte } = number;
 
 const DEFAULT_PRIMARY = '#0033ff';
 const DEFAULT_SUCCESS = '#00ff5e';
@@ -96,8 +99,10 @@ export class ThemeService {
   }
 
   private shadeColor(base: string, step: number): string {
-    return step >= 50
-      ? chroma.mix(base, '#000000', (step - 50) * 0.02).hex()
-      : chroma.mix(base, '#ffffff', (50 - step) * 0.02).hex();
+    return match(step)
+      .with(gte(50), (value) =>
+        chroma.mix(base, '#000000', (value - 50) * 0.02).hex(),
+      )
+      .otherwise((value) => chroma.mix(base, '#ffffff', (50 - value) * 0.02).hex());
   }
 }

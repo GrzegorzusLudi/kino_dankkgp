@@ -4,7 +4,9 @@ import { cwd } from 'node:process';
 
 import copy from 'cpy';
 import { deleteAsync } from 'del';
+import { noop } from 'lodash-es';
 import { replaceInFile } from 'replace-in-file';
+import { match } from 'ts-pattern';
 
 async function build() {
   const FRONTEND_DIST_PATH = normalize(`${cwd()}/dist/apps/browser/browser`);
@@ -23,9 +25,9 @@ async function build() {
   ];
   const FONT_FILES = [normalize(`${FRONTEND_FONTS_PATH}/**/*.ttf`)];
 
-  if (!existsSync(FRONTEND_STATIC_PATH)) {
-    mkdirSync(FRONTEND_STATIC_PATH);
-  }
+  match(existsSync(FRONTEND_STATIC_PATH))
+    .with(false, () => mkdirSync(FRONTEND_STATIC_PATH))
+    .otherwise(noop);
 
   console.log(`Copying static files to ${FRONTEND_STATIC_PATH}`);
 
@@ -89,27 +91,28 @@ async function build() {
 
   console.log(`Scanning compiled code for jpg references in ${BACKEND_STATIC_PATH}`);
 
-  const jpgReferences = new Map();
   const jpgPattern = /(?<base>[a-zA-Z0-9_-]+)-(?<hash>[A-Z0-9]+)\.jpg/gu;
   const jsFiles = readdirSync(BACKEND_STATIC_PATH).filter((name) => name.endsWith('.js'));
 
-  for (const name of jsFiles) {
-    const content = readFileSync(normalize(`${BACKEND_STATIC_PATH}/${name}`), 'utf-8');
+  const jpgReferences = new Map(
+    jsFiles.flatMap((name) => {
+      const content = readFileSync(normalize(`${BACKEND_STATIC_PATH}/${name}`), 'utf-8');
 
-    for (const match of content.matchAll(jpgPattern)) {
-      const { base, hash } = match.groups;
-      jpgReferences.set(`${base}.jpg`, `${base}-${hash}.jpg`);
-    }
-  }
+      return [...content.matchAll(jpgPattern)].map(({ groups }) => [
+        `${groups.base}.jpg`,
+        `${groups.base}-${groups.hash}.jpg`,
+      ]);
+    }),
+  );
 
   console.log(`Copying ${jpgReferences.size} jpg file(s) to ${BACKEND_STATIC_PATH}`);
 
-  for (const [sourceName, hashedName] of jpgReferences) {
+  [...jpgReferences].forEach(([sourceName, hashedName]) =>
     copyFileSync(
       normalize(`${FRONTEND_IMAGES_PATH}/${sourceName}`),
       normalize(`${BACKEND_STATIC_PATH}/${hashedName}`),
-    );
-  }
+    ),
+  );
 
   console.log(`Updating media paths in compiled code files in ${BACKEND_STATIC_PATH}`);
 

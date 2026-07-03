@@ -1,4 +1,5 @@
-import { memoize } from 'lodash-es';
+import { memoize, noop } from 'lodash-es';
+import { match, P } from 'ts-pattern';
 
 import { IFRAME_API_SRC } from './youtube-player.consts';
 import { YouTubeApiWindow, YouTubeIframeApi } from './youtube-player.types';
@@ -27,9 +28,9 @@ const registerApiReadyCallback = (
 
   apiWindow.onYouTubeIframeAPIReady = () => {
     previousCallback?.();
-    if (apiWindow.YT) {
-      resolve(apiWindow.YT);
-    }
+    match(apiWindow.YT)
+      .with(P.nonNullable, (yt) => resolve(yt))
+      .otherwise(noop);
   };
 };
 
@@ -37,24 +38,21 @@ const requestApi = memoize(
   (): Promise<YouTubeIframeApi> =>
     new Promise<YouTubeIframeApi>((resolve) => {
       registerApiReadyCallback(resolve);
-      if (!isApiScriptInDom()) {
-        injectApiScript();
-      }
+      match(isApiScriptInDom())
+        .with(false, injectApiScript)
+        .otherwise(noop);
     }),
 );
 
-export const loadYouTubeIframeApi = (): Promise<YouTubeIframeApi> => {
-  if (!isBrowserEnvironment()) {
-    return Promise.reject(
-      new Error('YouTube IFrame API requires a browser environment'),
+export const loadYouTubeIframeApi = (): Promise<YouTubeIframeApi> =>
+  match(isBrowserEnvironment())
+    .with(false, () =>
+      Promise.reject<YouTubeIframeApi>(
+        new Error('YouTube IFrame API requires a browser environment'),
+      ),
+    )
+    .otherwise(() =>
+      match(getApiWindow().YT)
+        .with({ Player: P.nonNullable }, (yt) => Promise.resolve(yt))
+        .otherwise(() => requestApi()),
     );
-  }
-
-  const apiWindow = getApiWindow();
-
-  if (apiWindow.YT?.Player) {
-    return Promise.resolve(apiWindow.YT);
-  }
-
-  return requestApi();
-};
