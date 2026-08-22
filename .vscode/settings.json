@@ -1,3 +1,6 @@
 {
-    "nxConsole.nxWorkspacePath": "frontend"
+    "nxConsole.nxWorkspacePath": "frontend",
+    "files.watcherExclude": {
+        "**/target/**": true
+    }
 }

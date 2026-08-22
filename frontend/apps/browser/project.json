@@ -79,7 +79,11 @@
     "chores": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["nx run browser:lint:fix", "nx run browser:format"],
+        "commands": [
+          "nx run browser:lint:fix",
+          "nx run browser:lint:styles:fix",
+          "nx run browser:format"
+        ],
         "parallel": false
       }
     },
@@ -97,6 +101,18 @@
       "executor": "@nx/eslint:lint",
       "options": {
         "fix": true
+      }
+    },
+    "lint:styles": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint \"apps/browser/**/*.scss\" --allow-empty-input"
+      }
+    },
+    "lint:styles:fix": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint \"apps/browser/**/*.scss\" --allow-empty-input --fix"
       }
     },
     "serve": {

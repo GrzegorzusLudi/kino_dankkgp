@@ -9,7 +9,11 @@
     "chores": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["nx run button:lint:fix", "nx run button:format"],
+        "commands": [
+          "nx run button:lint:fix",
+          "nx run button:lint:styles:fix",
+          "nx run button:format"
+        ],
         "parallel": false
       }
     },
@@ -26,6 +30,18 @@
       "executor": "@nx/eslint:lint",
       "options": {
         "fix": true
+      }
+    },
+    "lint:styles": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint \"libs/button/**/*.scss\" --allow-empty-input"
+      }
+    },
+    "lint:styles:fix": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint \"libs/button/**/*.scss\" --allow-empty-input --fix"
       }
     },
     "test": {

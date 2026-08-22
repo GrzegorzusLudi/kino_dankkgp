@@ -107,8 +107,7 @@ async function build() {
 
   console.log(`Copying ${jpgReferences.size} jpg file(s) to ${BACKEND_STATIC_PATH}`);
 
-  [...jpgReferences].forEach(([sourceName, hashedName]) =>
-    copyFileSync(
+  [...jpgReferences].forEach(([sourceName, hashedName]) => copyFileSync(
       normalize(`${FRONTEND_IMAGES_PATH}/${sourceName}`),
       normalize(`${BACKEND_STATIC_PATH}/${hashedName}`),
     ),

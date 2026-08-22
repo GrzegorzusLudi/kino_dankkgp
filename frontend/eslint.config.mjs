@@ -3,6 +3,7 @@ import { configBuilder } from '@chris.araneo/eslint-config';
 const JSONS = [
   '.vscode/*.json',
   '.prettierrc.json',
+  '.stylelintrc.json',
   'nx.json',
   'tsconfig.base.json',
   'tsconfig.json',

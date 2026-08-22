@@ -18,28 +18,21 @@ div.flat-dark {
   .slider {
     position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    -webkit-transition: 0.4s;
+    inset: 0;
     transition: 0.4s;
   }
 
-  .slider:before {
+  .slider::before {
     position: absolute;
     content: '';
     height: calc(var(--line-height) - 8px);
     width: calc(var(--line-height) - 8px);
     left: 4px;
     bottom: 4px;
-    -webkit-transition: 0.4s;
     transition: 0.4s;
   }
 
-  input:checked + .slider:before {
-    -webkit-transform: translateX(calc(38px - var(--line-height)));
-    -ms-transform: translateX(calc(38px - var(--line-height)));
+  input:checked + .slider::before {
     transform: translateX(calc(38px - var(--line-height)));
   }
 
@@ -47,7 +40,7 @@ div.flat-dark {
     border-radius: 34px;
   }
 
-  .slider.round:before {
+  .slider.round::before {
     border-radius: 50%;
   }
 }
@@ -57,18 +50,16 @@ div.flat-light {
     background: #ccc;
   }
 
-  .slider:before {
+  .slider::before {
     background-color: white;
   }
 
   input:checked + .slider {
     background-color: var(--light-primary-a50);
-    background: var(--light-primary-a50);
   }
 
   input:checked:hover + .slider {
     background-color: var(--light-primary-a40);
-    background: var(--light-primary-a40);
   }
 }
 
@@ -77,17 +68,15 @@ div.flat-dark {
     background: #ccc;
   }
 
-  .slider:before {
+  .slider::before {
     background-color: white;
   }
 
   input:checked + .slider {
     background-color: var(--dark-primary-a50);
-    background: var(--dark-primary-a50);
   }
 
   input:checked:hover + .slider {
     background-color: var(--dark-primary-a40);
-    background: var(--dark-primary-a40);
   }
 }

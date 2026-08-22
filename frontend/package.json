@@ -69,6 +69,8 @@
     "replace-in-file": "^8.4.0",
     "sort-package-json": "^4.0.0",
     "storybook": "^10.4.2",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard-scss": "^17.0.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.60.1",
     "vite": "^7.3.2",
