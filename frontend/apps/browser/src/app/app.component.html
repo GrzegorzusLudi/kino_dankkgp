@@ -17,17 +17,17 @@
         [height]="height()" />
       <app-video-actions />
       <app-queue [queue]="queue()" />
+      <lib-footer>
+        <a
+          href="https://www.vecteezy.com/vector-art/70051095-a-drawing-of-a-theater-with-chairs-and-a-screen"
+          >Drawing of a theater with chairs and a screen by Vecteezy</a
+        >
+      </lib-footer>
     </div>
     <div class="right">
       <app-connected-users [usernames]="usernames()" />
       <app-chat [username]="username()" [messages]="messages()" />
     </div>
   </div>
-  <lib-footer>
-    <a
-      href="https://www.vecteezy.com/vector-art/70051095-a-drawing-of-a-theater-with-chairs-and-a-screen"
-      >Drawing of a theater with chairs and a screen by Vecteezy</a
-    >
-  </lib-footer>
   <app-toast-container />
 </app-background>

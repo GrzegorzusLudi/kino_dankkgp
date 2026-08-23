@@ -24,7 +24,8 @@ lib-toolbar {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  min-height: calc(100vh - var(--toolbar-height));
+  padding-top: var(--toolbar-height);
+  min-height: 100vh;
   height: auto;
 }
 
@@ -39,7 +40,6 @@ lib-toolbar {
 
 .main {
   position: initial;
-  margin-top: var(--toolbar-height);
   flex: 1;
   min-width: 0;
   width: 100%;
@@ -48,21 +48,24 @@ lib-toolbar {
   app-video-container,
   app-video-actions,
   app-queue {
-    width: calc(100% - var(--panel-width) - var(--padding) * 1.5);
+    width: 100%;
   }
 
   app-video-container {
     margin-bottom: var(--padding);
+  }
+
+  lib-footer {
+    margin-top: auto;
   }
 }
 
 .right {
   flex-shrink: 0;
   padding-left: calc(var(--padding) * 0.5);
-  position: fixed;
-  right: 0;
+  position: sticky;
   top: var(--toolbar-height);
-  height: calc(100vh - var(--toolbar-height));
+  max-height: calc(100vh - var(--toolbar-height));
   width: calc(var(--panel-width) + var(--padding) * 1.5);
   min-width: calc(var(--panel-width) + var(--padding) * 1.5);
   max-width: calc(var(--panel-width) + var(--padding) * 1.5);
@@ -85,18 +88,12 @@ app-connected-users {
 }
 
 a {
-  color: var(--light-primary-a30);
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+  display: inline-block;
+  color: inherit;
   text-decoration: underline;
-
-  &:visited {
-    color: var(--light-primary-a40);
-  }
-
-  &:hover {
-    color: var(--light-primary-a20);
-  }
-
-  &:active {
-    color: var(--light-primary-a10);
-  }
 }
