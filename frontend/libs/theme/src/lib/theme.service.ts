@@ -68,6 +68,7 @@ export class ThemeService {
       '--padding': '8px',
       '--toolbar-height': '36px',
       '--header-height': '32px',
+      '--footer-height': '32px',
       '--panel-width': '320px',
       '--border-radius': '10px',
       '--dark-text-color': 'var(--gray-a20)',
