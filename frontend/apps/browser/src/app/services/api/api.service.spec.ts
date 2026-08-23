@@ -154,16 +154,16 @@ describe('ApiService', () => {
     beforeEach(() => {
       const calls = mockSocket.on.mock.calls as [
         string,
-        (...args: any[]) => void,
+        (...arguments_: any[]) => void,
       ][];
       [, messageHandler] = calls.find(
-        (args) => args[0] === (Event.Message as string),
+        (arguments_) => arguments_[0] === (Event.Message as string),
       )!;
       [, stateChangeHandler] = calls.find(
-        (args) => args[0] === (Event.StateChange as string),
+        (arguments_) => arguments_[0] === (Event.StateChange as string),
       )!;
       [, errorHandler] = calls.find(
-        (args) => args[0] === (Event.Error as string),
+        (arguments_) => arguments_[0] === (Event.Error as string),
       )!;
     });
 

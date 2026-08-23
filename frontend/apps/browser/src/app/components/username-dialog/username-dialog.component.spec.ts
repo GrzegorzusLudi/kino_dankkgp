@@ -11,13 +11,13 @@ describe('UsernameDialogComponent', () => {
 
   beforeEach(async () => {
     const mockSocket = { emit: vi.fn(), on: vi.fn() };
-    const mockDialogRef = { close: vi.fn() };
+    const mockDialogReference = { close: vi.fn() };
 
     await TestBed.configureTestingModule({
       imports: [UsernameDialogComponent],
       providers: [
         { provide: SOCKET, useValue: mockSocket },
-        { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: MatDialogRef, useValue: mockDialogReference },
         provideZonelessChangeDetection(),
       ],
     }).compileComponents();
