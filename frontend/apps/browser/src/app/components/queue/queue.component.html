@@ -41,10 +41,10 @@
                   'Vote to move this video up in the queue.',
                   `Number of votes to have majority is ${item.move_up_voting.user_number_to_have_majority}.`,
                 ]"
-                [variant]="item.move_up_voting?.you_voted ? 'primary' : 'ghost'"
+                [variant]="item.move_up_voting.you_voted ? 'primary' : 'ghost'"
                 (click)="voteToMoveUp(item)"
                 ><fa-icon class="margin-right" [icon]="faCircleUp" />{{
-                  item.move_up_voting?.user_number_voted ?? 0
+                  item.move_up_voting.user_number_voted
                 }}</lib-button
               >
             }
@@ -54,10 +54,10 @@
                 'Vote to remove this video from the queue.',
                 `Number of votes to have majority is ${item.skip_voting.user_number_to_have_majority}.`,
               ]"
-              [variant]="item.skip_voting?.you_voted ? 'primary' : 'ghost'"
+              [variant]="item.skip_voting.you_voted ? 'primary' : 'ghost'"
               (click)="voteToRemove(item)"
               ><fa-icon class="margin-right" [icon]="faTrash" />{{
-                item.skip_voting?.user_number_voted ?? 0
+                item.skip_voting.user_number_voted
               }}</lib-button
             >
           }

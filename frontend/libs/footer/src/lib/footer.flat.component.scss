@@ -1,0 +1,14 @@
+div.footer.flat-light,
+div.footer.flat-dark {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+}
+
+div.footer.flat-light {
+  color: var(--light-text-color);
+}
+
+div.footer.flat-dark {
+  color: var(--dark-text-color);
+}

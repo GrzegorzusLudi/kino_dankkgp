@@ -20,6 +20,7 @@ import {
 import { BackgroundComponent } from './components/background/background.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { ConnectedUsersComponent } from './components/connected-users/connected-users.component';
+import { FooterComponent } from 'footer';
 import { ModeToggleComponent } from './components/mode-toggle/mode-toggle.component';
 import { TitleComponent } from 'title';
 import { ToolbarComponent } from 'toolbar';
@@ -43,6 +44,7 @@ import { QueueComponent } from './components/queue/queue.component';
     BackgroundComponent,
     ChatComponent,
     ConnectedUsersComponent,
+    FooterComponent,
     ModeToggleComponent,
     QueueComponent,
     TitleComponent,
