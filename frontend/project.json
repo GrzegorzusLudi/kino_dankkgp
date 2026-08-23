@@ -14,6 +14,18 @@
         "fix": true
       }
     },
+    "lint:styles": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint \"**/*.scss\" --allow-empty-input"
+      }
+    },
+    "lint:styles:fix": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "stylelint \"**/*.scss\" --allow-empty-input --fix"
+      }
+    },
     "format": {
       "executor": "nx:run-commands",
       "options": {
@@ -35,7 +47,11 @@
     "chores": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["nx run root:lint:fix", "nx run root:format"],
+        "commands": [
+          "nx run root:lint:fix",
+          "nx run root:lint:styles:fix",
+          "nx run root:format"
+        ],
         "parallel": false
       }
     }
