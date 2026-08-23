@@ -8,8 +8,7 @@ import { HeaderComponent } from './header.component';
   template: '<lib-header>Projected Text</lib-header>',
   imports: [HeaderComponent],
 })
-class HostComponent {
-}
+class HostComponent {}
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -51,7 +50,7 @@ describe('HeaderComponent', () => {
     });
 
     it('should project content into the header span', () => {
-      const span: HTMLElement = hostFixture.nativeElement.querySelector('.header span');
+      const span: HTMLElement = hostFixture.nativeElement.querySelector(':scope .header span');
       expect(span.textContent).toContain('Projected Text');
     });
   });
