@@ -24,13 +24,6 @@
         "parallel": false
       }
     },
-    "storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "storybook dev -p 4400",
-        "cwd": "libs/theme"
-      }
-    },
     "format": {
       "executor": "nx:run-commands",
       "options": {
@@ -56,6 +49,13 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "stylelint \"libs/theme/**/*.scss\" --allow-empty-input --fix"
+      }
+    },
+    "storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "storybook dev -p 4400",
+        "cwd": "libs/theme"
       }
     },
     "test": {

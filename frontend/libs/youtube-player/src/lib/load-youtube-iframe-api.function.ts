@@ -38,9 +38,7 @@ const requestApi = memoize(
   (): Promise<YouTubeIframeApi> =>
     new Promise<YouTubeIframeApi>((resolve) => {
       registerApiReadyCallback(resolve);
-      match(isApiScriptInDom())
-        .with(false, injectApiScript)
-        .otherwise(noop);
+      match(isApiScriptInDom()).with(false, injectApiScript).otherwise(noop);
     }),
 );
 

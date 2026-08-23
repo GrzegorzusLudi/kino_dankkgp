@@ -29,7 +29,9 @@ describe('TooltipDirective', () => {
   });
 
   afterEach(() => {
-    document.querySelectorAll('.tooltip').forEach((el) => el.remove());
+    document
+      .querySelectorAll('.tooltip')
+      .forEach((element) => element.remove());
   });
 
   it('should create', () => {

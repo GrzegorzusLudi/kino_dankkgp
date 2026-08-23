@@ -34,7 +34,8 @@ export class ThemeService {
 
   private resolveInitialTheme(): Theme {
     const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-    const isValidStored = Boolean(stored) && Object.values(Theme).includes(stored as Theme);
+    const isValidStored =
+      Boolean(stored) && Object.values(Theme).includes(stored as Theme);
     const prefersDark = window.matchMedia(
       '(prefers-color-scheme: dark)',
     ).matches;
@@ -103,6 +104,8 @@ export class ThemeService {
       .with(gte(50), (value) =>
         chroma.mix(base, '#000000', (value - 50) * 0.02).hex(),
       )
-      .otherwise((value) => chroma.mix(base, '#ffffff', (50 - value) * 0.02).hex());
+      .otherwise((value) =>
+        chroma.mix(base, '#ffffff', (50 - value) * 0.02).hex(),
+      );
   }
 }

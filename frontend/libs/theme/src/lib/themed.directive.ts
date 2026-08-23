@@ -26,9 +26,7 @@ export class ThemedDirective {
     effect(() => {
       const theme = this.theme();
 
-      match(
-        this.elementRef.nativeElement.firstElementChild as Element | null,
-      )
+      match(this.elementRef.nativeElement.firstElementChild as Element | null)
         .with(nullish, noop)
         .otherwise((firstChild) => {
           match(this.previousTheme)
