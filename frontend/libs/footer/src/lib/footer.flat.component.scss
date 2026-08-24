@@ -17,12 +17,17 @@ div.footer.flat-dark {
   line-height: var(--line-height);
   letter-spacing: var(--letter-spacing);
   padding: 0 var(--padding);
+  border-radius: var(--border-radius);
 }
 
 div.footer.flat-light {
   color: var(--light-text-color);
+  background-color: var(--light-primary-a0);
+  border: 1px solid var(--light-border-color);
 }
 
 div.footer.flat-dark {
   color: var(--dark-text-color);
+  background-color: var(--gray-a90);
+  border: 1px solid var(--dark-border-color);
 }
