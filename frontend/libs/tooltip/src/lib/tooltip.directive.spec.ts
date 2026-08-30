@@ -3,6 +3,7 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TooltipDirective } from './tooltip.directive';
+import { TooltipPosition } from './tooltip-position.type';
 
 @Component({
   template: `<button [libTooltip]="text" [position]="position">Hover</button>`,
@@ -10,7 +11,7 @@ import { TooltipDirective } from './tooltip.directive';
 })
 class HostComponent {
   text: string | string[] = 'Tooltip text';
-  position: 'top' | 'bottom' | 'left' | 'right' = 'top';
+  position: TooltipPosition = 'top';
 }
 
 describe('TooltipDirective', () => {

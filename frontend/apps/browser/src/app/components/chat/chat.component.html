@@ -9,7 +9,7 @@
         >
       }
     </div>
-    <form class="input" [formGroup]="form">
+    <form class="input" [formGroup]="form()">
       @if (!username()) {
         <lib-input label="Username" formControlName="username" />
         <lib-button (click)="setUsername()">Set username</lib-button>

@@ -1,34 +1,49 @@
 import {
+  DestroyRef,
   Directive,
   ElementRef,
-  HostListener,
   inject,
   input,
-  OnDestroy,
   Renderer2,
 } from '@angular/core';
+import { castArray, noop } from 'lodash-es';
 import { match, P } from 'ts-pattern';
-import { noop } from 'lodash-es';
 
 import { ThemeService } from 'theme';
+import {
+  TOOLTIP_CLASS,
+  TOOLTIP_GAP,
+  TOOLTIP_VIEWPORT_MARGIN,
+  TOOLTIP_Z_INDEX,
+} from './tooltip.consts';
+import { TooltipCoordinates } from './tooltip-coordinates.interface';
+import { TooltipPosition } from './tooltip-position.type';
 
 const { nullish } = P;
 
 @Directive({
   selector: '[libTooltip]',
+  host: {
+    '(mouseenter)': 'show()',
+    '(mouseleave)': 'hide()',
+  },
 })
-export class TooltipDirective implements OnDestroy {
+export class TooltipDirective {
   readonly libTooltip = input<string | string[]>('');
-  readonly position = input<'top' | 'bottom' | 'left' | 'right'>('top');
+  readonly position = input<TooltipPosition>('top');
 
   private tooltipElement: HTMLElement | null = null;
 
   private readonly elementRef = inject(ElementRef);
   private readonly renderer = inject(Renderer2);
   private readonly themeService = inject(ThemeService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  @HostListener('mouseenter')
-  show(): void {
+  constructor() {
+    this.destroyRef.onDestroy(() => this.destroyTooltip());
+  }
+
+  protected show(): void {
     const lines = this.normalizeLines();
 
     match(lines.length > 0)
@@ -36,32 +51,26 @@ export class TooltipDirective implements OnDestroy {
       .otherwise(noop);
   }
 
-  @HostListener('mouseleave')
-  hide(): void {
-    this.destroyTooltip();
-  }
-
-  ngOnDestroy(): void {
+  protected hide(): void {
     this.destroyTooltip();
   }
 
   private normalizeLines(): string[] {
-    const tooltip = this.libTooltip();
-    return (Array.isArray(tooltip) ? tooltip : [tooltip]).filter(Boolean);
+    return castArray(this.libTooltip()).filter(Boolean);
   }
 
-  private createTooltip(lines: string[]): void {
+  private createTooltip(lines: readonly string[]): void {
     this.destroyTooltip();
 
     this.tooltipElement = this.renderer.createElement('div');
-    this.renderer.addClass(this.tooltipElement, 'tooltip');
+    this.renderer.addClass(this.tooltipElement, TOOLTIP_CLASS);
     this.renderer.addClass(this.tooltipElement, this.position());
     this.renderer.addClass(this.tooltipElement, this.themeService.theme());
 
     lines.forEach((line) => {
-      const lineEl: HTMLElement = this.renderer.createElement('div');
-      this.renderer.appendChild(lineEl, this.renderer.createText(line));
-      this.renderer.appendChild(this.tooltipElement, lineEl);
+      const lineElement: HTMLElement = this.renderer.createElement('div');
+      this.renderer.appendChild(lineElement, this.renderer.createText(line));
+      this.renderer.appendChild(this.tooltipElement, lineElement);
     });
 
     this.renderer.appendChild(document.body, this.tooltipElement);
@@ -78,28 +87,19 @@ export class TooltipDirective implements OnDestroy {
         this.renderer.setStyle(tooltipElement, 'left', '0');
         this.renderer.setStyle(tooltipElement, 'white-space', 'nowrap');
         this.renderer.setStyle(tooltipElement, 'pointer-events', 'none');
-        this.renderer.setStyle(tooltipElement, 'z-index', '9999');
+        this.renderer.setStyle(tooltipElement, 'z-index', TOOLTIP_Z_INDEX);
 
-        const nativeEl = this.elementRef.nativeElement as HTMLElement;
-        const isCustomElement = nativeEl.tagName.includes('-');
-        const hostEl = isCustomElement
-          ? ((nativeEl.firstElementChild ?? nativeEl) as HTMLElement)
-          : nativeEl;
-        const hostRect: DOMRect = hostEl.getBoundingClientRect();
-        const tooltipRect: DOMRect = tooltipElement.getBoundingClientRect();
-        const gap = 8;
-        const margin = 4;
+        const hostRect = this.resolveHostElement().getBoundingClientRect();
+        const tooltipRect = tooltipElement.getBoundingClientRect();
 
         const { top, left } = this.clampTooltipCoordinates(
           this.calculateTooltipCoordinates(
             this.position(),
             hostRect,
             tooltipRect,
-            gap,
           ),
           tooltipRect,
           { width: window.innerWidth, height: window.innerHeight },
-          margin,
         );
 
         this.renderer.setStyle(tooltipElement, 'top', `${top}px`);
@@ -107,44 +107,63 @@ export class TooltipDirective implements OnDestroy {
       });
   }
 
+  private resolveHostElement(): HTMLElement {
+    const nativeElement = this.elementRef.nativeElement as HTMLElement;
+
+    return match(nativeElement.tagName.includes('-'))
+      .with(
+        true,
+        () => (nativeElement.firstElementChild ?? nativeElement) as HTMLElement,
+      )
+      .otherwise(() => nativeElement);
+  }
+
   private calculateTooltipCoordinates(
-    position: 'top' | 'bottom' | 'left' | 'right',
-    hostRect: DOMRect,
-    tooltipRect: DOMRect,
-    gap: number,
-  ): { top: number; left: number } {
+    position: TooltipPosition,
+    hostRect: Readonly<DOMRect>,
+    tooltipRect: Readonly<DOMRect>,
+  ): TooltipCoordinates {
+    const centeredLeft =
+      hostRect.left + (hostRect.width - tooltipRect.width) / 2;
+    const centeredTop =
+      hostRect.top + (hostRect.height - tooltipRect.height) / 2;
+
     return match(position)
       .with('top', () => ({
-        top: hostRect.top - tooltipRect.height - gap,
-        left: hostRect.left + (hostRect.width - tooltipRect.width) / 2,
+        top: hostRect.top - tooltipRect.height - TOOLTIP_GAP,
+        left: centeredLeft,
       }))
       .with('bottom', () => ({
-        top: hostRect.bottom + gap,
-        left: hostRect.left + (hostRect.width - tooltipRect.width) / 2,
+        top: hostRect.bottom + TOOLTIP_GAP,
+        left: centeredLeft,
       }))
       .with('left', () => ({
-        top: hostRect.top + (hostRect.height - tooltipRect.height) / 2,
-        left: hostRect.left - tooltipRect.width - gap,
+        top: centeredTop,
+        left: hostRect.left - tooltipRect.width - TOOLTIP_GAP,
       }))
       .with('right', () => ({
-        top: hostRect.top + (hostRect.height - tooltipRect.height) / 2,
-        left: hostRect.right + gap,
+        top: centeredTop,
+        left: hostRect.right + TOOLTIP_GAP,
       }))
       .exhaustive();
   }
 
   private clampTooltipCoordinates(
-    coordinates: { top: number; left: number },
-    tooltipSize: { width: number; height: number },
-    viewport: { width: number; height: number },
-    margin: number,
-  ): { top: number; left: number } {
-    const maxLeft = viewport.width - tooltipSize.width - margin;
-    const maxTop = viewport.height - tooltipSize.height - margin;
+    coordinates: Readonly<TooltipCoordinates>,
+    tooltipSize: { readonly width: number; readonly height: number },
+    viewport: { readonly width: number; readonly height: number },
+  ): TooltipCoordinates {
+    const maxLeft =
+      viewport.width - tooltipSize.width - TOOLTIP_VIEWPORT_MARGIN;
+    const maxTop =
+      viewport.height - tooltipSize.height - TOOLTIP_VIEWPORT_MARGIN;
 
     return {
-      left: Math.max(margin, Math.min(coordinates.left, maxLeft)),
-      top: Math.max(margin, Math.min(coordinates.top, maxTop)),
+      left: Math.max(
+        TOOLTIP_VIEWPORT_MARGIN,
+        Math.min(coordinates.left, maxLeft),
+      ),
+      top: Math.max(TOOLTIP_VIEWPORT_MARGIN, Math.min(coordinates.top, maxTop)),
     };
   }
 

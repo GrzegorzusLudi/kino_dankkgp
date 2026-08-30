@@ -1,4 +1,9 @@
-import { Component, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  signal,
+} from '@angular/core';
 
 import { ThemedDirective } from 'theme';
 
@@ -7,6 +12,7 @@ import { ThemedDirective } from 'theme';
   templateUrl: './button.component.html',
   styleUrls: ['./button.aero.component.scss', './button.flat.component.scss'],
   hostDirectives: [ThemedDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
   readonly variant = input<'primary' | 'ghost'>('primary');

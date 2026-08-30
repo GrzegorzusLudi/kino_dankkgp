@@ -1,15 +1,13 @@
 import {
   ApplicationConfig,
-  InjectionToken,
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { io, Socket } from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 import { environment } from '../environments/environment';
 import { routes } from './app.routes';
-
-export const SOCKET = new InjectionToken<Socket>('Socket');
+import { SOCKET } from './socket.token';
 
 export const appConfig: ApplicationConfig = {
   providers: [

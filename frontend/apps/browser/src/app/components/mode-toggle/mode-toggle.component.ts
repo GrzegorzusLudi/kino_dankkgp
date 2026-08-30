@@ -1,12 +1,18 @@
-import { Component, computed, effect, inject, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { match } from 'ts-pattern';
 
-import { THEME, Theme, ThemedDirective, ThemeService } from 'theme';
 import { SwitchComponent } from 'switch';
+import { THEME, Theme, ThemedDirective, ThemeService } from 'theme';
 
 @Component({
   selector: 'app-mode-toggle',
@@ -17,20 +23,22 @@ import { SwitchComponent } from 'switch';
     './mode-toggle.aero.component.scss',
     './mode-toggle.flat.component.scss',
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModeToggleComponent {
-  private readonly theme: Signal<string> = inject(THEME);
-  private readonly themeService: ThemeService = inject(ThemeService);
+  protected readonly faSun = faSun;
+  protected readonly faMoon = faMoon;
 
-  readonly faSun = faSun;
-  readonly faMoon = faMoon;
-
-  readonly isLight = computed(
-    () => this.theme() === Theme.FlatLight || this.theme() === Theme.AeroLight,
-  );
-  readonly formControl = new FormControl<boolean>(this.isLight(), {
+  protected readonly formControl = new FormControl<boolean>(false, {
     nonNullable: true,
   });
+
+  private readonly theme = inject(THEME);
+  private readonly themeService = inject(ThemeService);
+
+  private readonly isLight = computed(
+    () => this.theme() === Theme.FlatLight || this.theme() === Theme.AeroLight,
+  );
 
   constructor() {
     effect(() => {

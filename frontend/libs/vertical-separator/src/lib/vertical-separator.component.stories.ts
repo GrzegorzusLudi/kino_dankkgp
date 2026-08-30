@@ -5,6 +5,7 @@ import {
   type StoryObj,
 } from '@storybook/angular';
 import {
+  ChangeDetectionStrategy,
   Component,
   effect,
   inject,
@@ -20,10 +21,12 @@ import { VerticalSeparatorComponent } from './vertical-separator.component';
   selector: 'story-theme-wrapper',
   imports: [VerticalSeparatorComponent],
   template: `<ng-content />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ThemeWrapperComponent {
+  readonly theme = input<string>(Theme.FlatDark);
+
   private readonly themeService = inject(ThemeService);
-  theme = input<string>(Theme.FlatDark);
 
   constructor() {
     effect(() => {

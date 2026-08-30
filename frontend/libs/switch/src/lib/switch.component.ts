@@ -1,4 +1,9 @@
-import { Component, forwardRef, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  signal,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { get } from 'lodash-es';
 
@@ -16,6 +21,7 @@ import { ThemedDirective } from 'theme';
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchComponent implements ControlValueAccessor {
   protected readonly value = signal(false);
@@ -23,16 +29,6 @@ export class SwitchComponent implements ControlValueAccessor {
 
   private changed?: (value: boolean) => void;
   private touched?: () => void;
-
-  onChange(event: Event): void {
-    const checked = Boolean(get(event, 'target.checked'));
-    this.value.set(checked);
-    this.changed?.(checked);
-  }
-
-  onBlur(): void {
-    this.touched?.();
-  }
 
   writeValue(value: boolean): void {
     this.value.set(value);
@@ -48,5 +44,16 @@ export class SwitchComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.isDisabled.set(isDisabled);
+  }
+
+  protected onChange(event: Readonly<Event>): void {
+    const checked = Boolean(get(event, 'target.checked'));
+
+    this.value.set(checked);
+    this.changed?.(checked);
+  }
+
+  protected onBlur(): void {
+    this.touched?.();
   }
 }

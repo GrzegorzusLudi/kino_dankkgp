@@ -5,6 +5,7 @@ import {
   type StoryObj,
 } from '@storybook/angular';
 import {
+  ChangeDetectionStrategy,
   Component,
   effect,
   inject,
@@ -16,6 +17,7 @@ import {
 import { Theme, ThemeService } from 'theme';
 
 import { TooltipDirective } from './tooltip.directive';
+import { TooltipPosition } from './tooltip-position.type';
 
 @Component({
   selector: 'story-theme-wrapper',
@@ -33,10 +35,12 @@ import { TooltipDirective } from './tooltip.directive';
     `,
   ],
   template: `<ng-content />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ThemeWrapperComponent {
+  readonly theme = input<string>(Theme.FlatDark);
+
   private readonly themeService = inject(ThemeService);
-  theme = input<string>(Theme.FlatDark);
 
   constructor() {
     effect(() => {
@@ -47,7 +51,7 @@ class ThemeWrapperComponent {
 
 interface TooltipStoryArgs {
   libTooltip: string | string[];
-  position: 'top' | 'bottom' | 'left' | 'right';
+  position: TooltipPosition;
   selectedTheme: string;
 }
 

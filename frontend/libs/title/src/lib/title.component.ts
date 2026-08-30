@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ThemedDirective } from 'theme';
 
@@ -7,5 +7,6 @@ import { ThemedDirective } from 'theme';
   templateUrl: './title.component.html',
   styleUrls: ['./title.flat.component.scss', './title.aero.component.scss'],
   hostDirectives: [ThemedDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleComponent {}

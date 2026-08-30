@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ThemedDirective } from 'theme';
 
@@ -7,5 +7,6 @@ import { ThemedDirective } from 'theme';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.aero.component.scss', './toolbar.flat.component.scss'],
   hostDirectives: [ThemedDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarComponent {}

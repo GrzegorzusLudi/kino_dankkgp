@@ -2,7 +2,7 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { SOCKET } from '../../app.config';
+import { SOCKET } from '../../socket.token';
 import { UsernameDialogComponent } from './username-dialog.component';
 
 describe('UsernameDialogComponent', () => {

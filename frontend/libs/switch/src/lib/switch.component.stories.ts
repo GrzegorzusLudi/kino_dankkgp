@@ -5,6 +5,7 @@ import {
   type StoryObj,
 } from '@storybook/angular';
 import {
+  ChangeDetectionStrategy,
   Component,
   effect,
   inject,
@@ -20,11 +21,12 @@ import { SwitchComponent } from './switch.component';
   selector: 'story-theme-wrapper',
   imports: [SwitchComponent],
   template: `<ng-content />`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ThemeWrapperComponent {
-  private readonly themeService = inject(ThemeService);
+  readonly theme = input<string>(Theme.FlatDark);
 
-  theme = input<string>(Theme.FlatDark);
+  private readonly themeService = inject(ThemeService);
 
   constructor() {
     effect(() => {

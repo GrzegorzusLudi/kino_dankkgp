@@ -1,16 +1,28 @@
-import { Component, effect, input, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  effect,
+  inject,
+  input,
+} from '@angular/core';
+import { noop } from 'lodash-es';
 import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 import { match, P } from 'ts-pattern';
-import { noop } from 'lodash-es';
 
-import { ThemedDirective } from 'theme';
 import { TextComponent } from 'text';
+import { ThemedDirective } from 'theme';
 import { YouTubePlayer, YoutubePlayerComponent } from 'youtube-player';
 import {
   DEFAULT_VIDEO_HEIGHT,
   DEFAULT_VIDEO_WIDTH,
   DIMENSIONS_CHANGE_DEBOUNCE_TIME,
+  IFRAME_HEIGHT_OFFSET,
+  IFRAME_UNDEFINED_ERROR,
+  PLAYER_NOT_INITIALIZED_ERROR,
+  SEEK_PRECISION_IN_SECONDS,
 } from './video-container.consts';
+import { Dimensions } from '../../models/dimensions.interface';
 
 const { nullish } = P;
 
@@ -25,36 +37,38 @@ const { nullish } = P;
     './video-container.aero.component.scss',
     './video-container.flat.component.scss',
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideoContainerComponent implements OnDestroy {
-  title = input<string>();
-  videoId = input<string>();
-  second = input<number>();
-  width = input(DEFAULT_VIDEO_WIDTH);
-  height = input(DEFAULT_VIDEO_HEIGHT);
+export class VideoContainerComponent {
+  readonly title = input<string>();
+  readonly videoId = input<string>();
+  readonly second = input<number>();
+  readonly width = input(DEFAULT_VIDEO_WIDTH);
+  readonly height = input(DEFAULT_VIDEO_HEIGHT);
 
   private player?: YouTubePlayer;
-  private readonly dimensions = new BehaviorSubject([
-    `${DEFAULT_VIDEO_WIDTH}px`,
-    `${DEFAULT_VIDEO_HEIGHT}px`,
-  ]);
   private subscription?: Subscription;
+
+  private readonly dimensions = new BehaviorSubject<Dimensions>({
+    width: DEFAULT_VIDEO_WIDTH,
+    height: DEFAULT_VIDEO_HEIGHT,
+  });
+
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
     effect(() => {
-      this.dimensions.next([`${this.width()}px`, `${this.height()}px`]);
+      this.dimensions.next({ width: this.width(), height: this.height() });
 
       match(this.second())
         .with(nullish, noop)
         .otherwise((second) => this.seekTo(second));
     });
+
+    this.destroyRef.onDestroy(() => this.subscription?.unsubscribe());
   }
 
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
-
-  savePlayer(player: Readonly<YouTubePlayer>): void {
+  protected savePlayer(player: Readonly<YouTubePlayer>): void {
     this.player = player;
 
     this.subscription = this.dimensions
@@ -65,10 +79,10 @@ export class VideoContainerComponent implements OnDestroy {
       });
   }
 
-  seekTo(seconds: number, allowSeekAhead = true): void {
+  private seekTo(seconds: number, allowSeekAhead = true): void {
     match(this.player)
-      .with(P.nullish, () => {
-        throw new Error('Player is not initialized');
+      .with(nullish, () => {
+        throw new Error(PLAYER_NOT_INITIALIZED_ERROR);
       })
       .otherwise((player) => {
         const currentRoundedSeconds = Math.round(player.getCurrentTime());
@@ -82,7 +96,7 @@ export class VideoContainerComponent implements OnDestroy {
   private shouldSeekTo(
     currentSeconds: number,
     targetSeconds: number,
-    precision = 0.5,
+    precision = SEEK_PRECISION_IN_SECONDS,
   ): boolean {
     return (
       currentSeconds <= targetSeconds - precision ||
@@ -92,13 +106,14 @@ export class VideoContainerComponent implements OnDestroy {
 
   private updateIframeDimensions(): void {
     match(this.player?.getIframe())
-      .with(P.nullish, () => {
-        throw new Error('Video iframe is undefined');
+      .with(nullish, () => {
+        throw new Error(IFRAME_UNDEFINED_ERROR);
       })
       .otherwise((iframe) => {
-        const [width, height] = this.dimensions.getValue();
-        iframe.width = width;
-        iframe.height = height + 4;
+        const { width, height } = this.dimensions.getValue();
+
+        iframe.width = `${width}px`;
+        iframe.height = `${height + IFRAME_HEIGHT_OFFSET}px`;
       });
   }
 }

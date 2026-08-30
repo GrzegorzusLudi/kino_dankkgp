@@ -1,7 +1,7 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SOCKET } from '../../app.config';
+import { SOCKET } from '../../socket.token';
 import { ChatComponent } from './chat.component';
 
 describe('ChatComponent', () => {

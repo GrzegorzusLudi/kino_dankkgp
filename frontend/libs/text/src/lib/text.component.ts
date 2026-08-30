@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { ThemedDirective } from 'theme';
 
@@ -7,7 +7,8 @@ import { ThemedDirective } from 'theme';
   templateUrl: './text.component.html',
   styleUrls: ['./text.flat.component.scss', './text.aero.component.scss'],
   hostDirectives: [ThemedDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextComponent {
-  variant = input<'info' | 'success' | 'danger'>();
+  readonly variant = input<'info' | 'success' | 'danger'>();
 }

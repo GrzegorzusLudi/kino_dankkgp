@@ -1,12 +1,19 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
+import { ButtonComponent } from 'button';
 import { ThemedDirective } from 'theme';
-import { MatDialog } from '@angular/material/dialog';
+import { GUEST_USERNAME } from './user-info.consts';
 import { UsernameDialogComponent } from '../username-dialog/username-dialog.component';
 import { USERNAME_DIALOG_CONFIG } from '../username-dialog/username-dialog.config';
-import { ButtonComponent } from 'button';
 
 @Component({
   selector: 'app-user-info',
@@ -17,15 +24,20 @@ import { ButtonComponent } from 'button';
     './user-info.aero.component.scss',
     './user-info.flat.component.scss',
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserInfoComponent {
-  username = input('');
+  readonly username = input('');
 
-  faUser = faUser;
+  protected readonly faUser = faUser;
+
+  protected readonly displayedUsername = computed(
+    () => this.username() || GUEST_USERNAME,
+  );
 
   private readonly dialog = inject(MatDialog);
 
-  openUsernameDialog(): void {
+  protected openUsernameDialog(): void {
     this.dialog.open(UsernameDialogComponent, USERNAME_DIALOG_CONFIG);
   }
 }

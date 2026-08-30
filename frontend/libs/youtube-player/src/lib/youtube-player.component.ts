@@ -1,40 +1,45 @@
 import {
-  AfterViewInit,
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
+  DestroyRef,
   effect,
+  ElementRef,
+  inject,
   input,
-  OnDestroy,
   output,
   viewChild,
 } from '@angular/core';
-import { match, P } from 'ts-pattern';
 import { noop } from 'lodash-es';
-
-const { nullish } = P;
-
-import { YouTubePlayer, YouTubePlayerStateEvent } from './youtube-player.types';
+import { match, P } from 'ts-pattern';
 
 import { loadYouTubeIframeApi } from './load-youtube-iframe-api.function';
+import {
+  DEFAULT_PLAYER_HEIGHT,
+  DEFAULT_PLAYER_WIDTH,
+} from './youtube-player.consts';
+import { YouTubePlayer, YouTubePlayerStateEvent } from './youtube-player.types';
+
+const { nullish } = P;
 
 @Component({
   selector: 'lib-youtube-player',
   template: '<div #host></div>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class YoutubePlayerComponent implements AfterViewInit, OnDestroy {
+export class YoutubePlayerComponent {
   readonly videoId = input<string>();
-  readonly width = input<number | string>(640);
-  readonly height = input<number | string>(390);
+  readonly width = input<number | string>(DEFAULT_PLAYER_WIDTH);
+  readonly height = input<number | string>(DEFAULT_PLAYER_HEIGHT);
 
   readonly ready = output<YouTubePlayer>();
   readonly change = output<YouTubePlayerStateEvent>();
 
-  private readonly host = viewChild.required<ElementRef<HTMLElement>>('host');
-
   private player?: YouTubePlayer;
   private destroyed = false;
+
+  private readonly host = viewChild.required<ElementRef<HTMLElement>>('host');
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor() {
     effect(() => {
@@ -48,14 +53,20 @@ export class YoutubePlayerComponent implements AfterViewInit, OnDestroy {
     });
 
     effect(() => {
-      const width = this.width();
-      const height = this.height();
-      this.player?.setSize(width, height);
+      this.player?.setSize(this.width(), this.height());
+    });
+
+    afterNextRender(() => this.createPlayer());
+
+    this.destroyRef.onDestroy(() => {
+      this.destroyed = true;
+      this.player?.destroy();
+      this.player = undefined;
     });
   }
 
-  ngAfterViewInit(): void {
-    loadYouTubeIframeApi().then((api) => {
+  private createPlayer(): void {
+    void loadYouTubeIframeApi().then((api) =>
       match(this.destroyed)
         .with(true, noop)
         .otherwise(() => {
@@ -70,13 +81,7 @@ export class YoutubePlayerComponent implements AfterViewInit, OnDestroy {
                 this.change.emit(event),
             },
           });
-        });
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.destroyed = true;
-    this.player?.destroy();
-    this.player = undefined;
+        }),
+    );
   }
 }

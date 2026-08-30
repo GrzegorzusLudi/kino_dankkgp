@@ -1,6 +1,6 @@
 <!-- eslint-disable @angular-eslint/template/no-inline-styles -->
 <div class="palette">
-  @for (group of groups; track group.name) {
+  @for (group of groups(); track group.name) {
     <div class="group">
       <span class="group-name">{{ group.name }}</span>
       <div class="swatches">

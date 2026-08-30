@@ -1,8 +1,8 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-import { ThemedDirective } from 'theme';
 import { HeaderComponent } from 'header';
 import { TextComponent } from 'text';
+import { ThemedDirective } from 'theme';
 
 @Component({
   selector: 'app-connected-users',
@@ -13,11 +13,12 @@ import { TextComponent } from 'text';
     './connected-users.aero.component.scss',
     './connected-users.flat.component.scss',
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConnectedUsersComponent {
-  usernames = input<string[]>([]);
+  readonly usernames = input<string[]>([]);
 
-  trackByFn(index: number, username: string): string {
+  protected trackByFn(index: number, username: string): string {
     return `${index}:${username}`;
   }
 }

@@ -2,7 +2,7 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import { SOCKET } from './app.config';
+import { SOCKET } from './socket.token';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

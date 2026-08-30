@@ -1,26 +1,35 @@
 import {
-  AfterViewInit,
+  afterNextRender,
+  ChangeDetectionStrategy,
   Component,
+  DestroyRef,
+  inject,
   input,
-  OnDestroy,
-  OnInit,
   output,
   signal,
 } from '@angular/core';
-import { ThemedDirective } from 'theme';
 import { NgStyle } from '@angular/common';
-import { ButtonComponent } from 'button';
-import { TextComponent } from 'text';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faCircleCheck,
-  faTriangleExclamation,
   faCircleInfo,
+  faTriangleExclamation,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import { interval, Subscription, take } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 
-// TODO Remove timeouts, use observables
+import { ButtonComponent } from 'button';
+import { TextComponent } from 'text';
+import { ThemedDirective } from 'theme';
+import {
+  BAR_ANIMATION_RESTART_DELAY,
+  BAR_ANIMATION_START_DELAY,
+  DEFAULT_TOAST_TIMEOUT,
+  EMPTY_BAR_WIDTH,
+  FULL_BAR_WIDTH,
+  NO_TRANSITION_DURATION,
+} from './toast.consts';
+import { ToastVariant } from '../../models/toast-variant.type';
 
 @Component({
   selector: 'app-toast',
@@ -28,65 +37,70 @@ import { interval, Subscription, take } from 'rxjs';
   hostDirectives: [ThemedDirective],
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.aero.component.scss', './toast.flat.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToastComponent implements OnInit, AfterViewInit, OnDestroy {
-  title = input('');
-  message = input('');
-  variant = input<'info' | 'success' | 'danger'>('danger');
-  timeout = input(5000);
+export class ToastComponent {
+  readonly title = input('');
+  readonly message = input('');
+  readonly variant = input<ToastVariant>('danger');
+  readonly timeout = input(DEFAULT_TOAST_TIMEOUT);
 
-  close = output<void>();
+  readonly close = output<void>();
 
-  faCircleCheck = faCircleCheck;
-  faTriangleExclamation = faTriangleExclamation;
-  faCircleInfo = faCircleInfo;
-  faXmark = faXmark;
+  protected readonly faCircleCheck = faCircleCheck;
+  protected readonly faTriangleExclamation = faTriangleExclamation;
+  protected readonly faCircleInfo = faCircleInfo;
+  protected readonly faXmark = faXmark;
 
-  protected readonly barWidth = signal('100%');
-  protected readonly transitionDuration = signal('0s');
+  protected readonly barWidth = signal(FULL_BAR_WIDTH);
+  protected readonly transitionDuration = signal(NO_TRANSITION_DURATION);
 
-  private subscription?: Subscription;
+  private closeSubscription?: Subscription;
+  private barSubscription?: Subscription;
 
-  ngOnInit(): void {
-    this.initializeCloseTimeout();
+  private readonly destroyRef = inject(DestroyRef);
+
+  constructor() {
+    afterNextRender(() => {
+      this.scheduleClose();
+      this.emptyBarAfter(BAR_ANIMATION_START_DELAY);
+    });
+
+    this.destroyRef.onDestroy(() => {
+      this.closeSubscription?.unsubscribe();
+      this.barSubscription?.unsubscribe();
+    });
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.transitionDuration.set(`${this.timeout()}ms`);
-      this.barWidth.set('0%');
-    }, 25);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
-
-  dismiss(): void {
-    this.subscription?.unsubscribe();
+  protected dismiss(): void {
+    this.closeSubscription?.unsubscribe();
     this.close.emit();
   }
 
-  focus(): void {
-    this.subscription?.unsubscribe();
-    this.transitionDuration.set('0s');
-    this.barWidth.set('100%');
+  protected focus(): void {
+    this.closeSubscription?.unsubscribe();
+    this.barSubscription?.unsubscribe();
+    this.transitionDuration.set(NO_TRANSITION_DURATION);
+    this.barWidth.set(FULL_BAR_WIDTH);
   }
 
-  blur(): void {
-    setTimeout(() => {
+  protected blur(): void {
+    this.emptyBarAfter(BAR_ANIMATION_RESTART_DELAY);
+    this.scheduleClose();
+  }
+
+  private scheduleClose(): void {
+    this.closeSubscription?.unsubscribe();
+    this.closeSubscription = timer(this.timeout()).subscribe(() =>
+      this.close.emit(),
+    );
+  }
+
+  private emptyBarAfter(delay: number): void {
+    this.barSubscription?.unsubscribe();
+    this.barSubscription = timer(delay).subscribe(() => {
       this.transitionDuration.set(`${this.timeout()}ms`);
-      this.barWidth.set('0%');
-    }, 10);
-    this.initializeCloseTimeout();
-  }
-
-  private initializeCloseTimeout(): void {
-    this.subscription?.unsubscribe();
-    this.subscription = interval(this.timeout())
-      .pipe(take(1))
-      .subscribe(() => {
-        this.close.emit();
-      });
+      this.barWidth.set(EMPTY_BAR_WIDTH);
+    });
   }
 }

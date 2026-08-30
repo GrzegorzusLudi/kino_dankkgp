@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { ThemedDirective } from 'theme';
 
@@ -10,5 +10,6 @@ import { ThemedDirective } from 'theme';
     './vertical-separator.aero.component.scss',
   ],
   hostDirectives: [ThemedDirective],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerticalSeparatorComponent {}

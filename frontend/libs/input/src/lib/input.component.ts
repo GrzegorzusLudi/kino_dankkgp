@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   forwardRef,
@@ -27,16 +28,18 @@ const { nullish } = P;
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent implements ControlValueAccessor {
   readonly label = input.required<string>();
 
-  private readonly input = viewChild<ElementRef>('input');
-
   protected readonly isDisabled = signal(false);
 
-  changed?: (value: string) => void;
-  touched?: () => void;
+  private readonly valueSignal = signal<string | null>('');
+  private readonly input = viewChild<ElementRef>('input');
+
+  private changed?: (value: string) => void;
+  private touched?: () => void;
 
   get value(): string | null {
     return this.valueSignal();
@@ -47,26 +50,12 @@ export class InputComponent implements ControlValueAccessor {
     this.updateNativeInputValue();
   }
 
-  private readonly valueSignal = signal<string | null>('');
-
-  onChange(event: Readonly<Event>): void {
-    match(this.changed)
-      .with(nullish, noop)
-      .otherwise((changed) => changed(get(event, 'target.value', '')));
-  }
-
-  onBlur(): void {
-    match(this.touched)
-      .with(nullish, noop)
-      .otherwise((touched) => touched());
-  }
-
   writeValue(value: string | null): void {
     this.value = value;
     this.updateNativeInputValue();
   }
 
-  registerOnChange(fn: () => void): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.changed = fn;
   }
 
@@ -76,6 +65,18 @@ export class InputComponent implements ControlValueAccessor {
 
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled.set(isDisabled);
+  }
+
+  protected onChange(event: Readonly<Event>): void {
+    match(this.changed)
+      .with(nullish, noop)
+      .otherwise((changed) => changed(get(event, 'target.value', '')));
+  }
+
+  protected onBlur(): void {
+    match(this.touched)
+      .with(nullish, noop)
+      .otherwise((touched) => touched());
   }
 
   private updateNativeInputValue(): void {

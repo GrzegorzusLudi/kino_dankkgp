@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { noop } from 'lodash-es';
 import { firstValueFrom } from 'rxjs';
 
-import { SOCKET } from '../../app.config';
+import { SOCKET } from '../../socket.token';
 import { Action } from '../../models/action.enum';
 import { Event } from '../../models/event.enum';
 import { Message } from '../../models/message.interface';
